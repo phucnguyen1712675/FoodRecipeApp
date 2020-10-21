@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Configuration;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 using MahApps.Metro.Controls;
 
@@ -10,7 +13,7 @@ namespace FoodRecipeApp.GUI
 	/// </summary>
 	public partial class SplashScreen : MetroWindow
 	{
-		private DispatcherTimer _timer;
+		//private DispatcherTimer _timer;
 		public SplashScreen()
 		{
 			InitializeComponent();
@@ -19,9 +22,15 @@ namespace FoodRecipeApp.GUI
 			ThemeManager.Current.SyncTheme();*/
 		}
 
+		public double Progress
+		{
+			get => ProgressBar.Value;
+			set => ProgressBar.Value = value;
+		}
+
 		private void LaunchGitHubSite(object sender, RoutedEventArgs e)
 		{
-			// Launch the GitHub site...
+			System.Diagnostics.Process.Start("https://github.com/phucnguyen1712675/FoodRecipeApp");
 		}
 
 		private void DeployCupCakes(object sender, RoutedEventArgs e)
@@ -31,20 +40,15 @@ namespace FoodRecipeApp.GUI
 
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			_timer = new DispatcherTimer(TimeSpan.FromMilliseconds(200),
+			/*_timer = new DispatcherTimer(TimeSpan.FromMilliseconds(200),
 				DispatcherPriority.Normal,
 				(o, args) =>
 				{
-					/*TheProgressBar.Value = DateTime.Now.Millisecond;
-					TheOtherProgressBar.Value = DateTime.Now.Millisecond;*/
+					*//*TheProgressBar.Value = DateTime.Now.Millisecond;
+					TheOtherProgressBar.Value = DateTime.Now.Millisecond;*//*
 				},
 				Dispatcher);
-			_timer.Start();
-		}
-
-		private void MainWindow_OnUnloaded(object sender, RoutedEventArgs e)
-		{
-			_timer?.Stop();
+			_timer.Start();*/
 		}
 
 		private MetroWindow _accentThemeTestWindow;
@@ -65,6 +69,14 @@ namespace FoodRecipeApp.GUI
 			_accentThemeTestWindow.Left = this.Left + this.ActualWidth / 2.0;
 			_accentThemeTestWindow.Top = this.Top + this.ActualHeight / 2.0;
 			_accentThemeTestWindow.Show();
+		}
+
+		private void DoNotShowPlashScreenCheckBox_OnChecked(object sender, RoutedEventArgs e)
+		{
+			var config = ConfigurationManager.OpenExeConfiguration(
+				ConfigurationUserLevel.None);
+			config.AppSettings.Settings["ShowSplashScreen"].Value = "false";
+			config.Save(ConfigurationSaveMode.Minimal);
 		}
 	}
 }

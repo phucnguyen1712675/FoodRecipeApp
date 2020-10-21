@@ -1,0 +1,48 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FoodRecipeApp.GUI;
+using FoodRecipeApp.Mvvm;
+using MahApps.Metro.IconPacks;
+
+namespace FoodRecipeApp.ViewModels
+{
+    public class ShellViewModel : BindableBase
+    {
+        private static readonly ObservableCollection<MenuItem> AppMenu = new ObservableCollection<MenuItem>();
+        private static readonly ObservableCollection<MenuItem> AppOptionsMenu = new ObservableCollection<MenuItem>();
+
+        public ObservableCollection<MenuItem> Menu => AppMenu;
+
+        public ObservableCollection<MenuItem> OptionsMenu => AppOptionsMenu;
+
+        public ShellViewModel()
+        {
+            // Build the menus
+            this.Menu.Add(new MenuItem()
+            {
+                Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
+                Label = "Search Screen",
+                NavigationType = typeof(SearchScreen),
+                NavigationDestination = new Uri("GUI/SearchScreen.xaml", UriKind.RelativeOrAbsolute)
+            });
+            this.Menu.Add(new MenuItem()
+            {
+                Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.UserSolid },
+                Label = "Detail Screen",
+                NavigationType = typeof(DetailScreen),
+                NavigationDestination = new Uri("GUI/DetailScreen.xaml", UriKind.RelativeOrAbsolute)
+            });
+            this.Menu.Add(new MenuItem()
+            {
+                Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.CoffeeSolid },
+                Label = "Add Recipe",
+                NavigationType = typeof(AddRecipe),
+                NavigationDestination = new Uri("GUI/AddRecipe.xaml", UriKind.RelativeOrAbsolute)
+            });
+        }
+    }
+}

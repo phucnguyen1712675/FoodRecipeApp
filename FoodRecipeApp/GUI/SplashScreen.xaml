@@ -5,35 +5,108 @@
                  xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
                  xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:li="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
+                 xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:local="clr-namespace:FoodRecipeApp"
-                 xmlns:wpf="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
                  Title="FOOD RECIPE APP" 
-                 Height="450" 
+                 Height="600" 
                  Width="800"
                  GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
                  ResizeMode="CanResizeWithGrip"
                  WindowStartupLocation="CenterScreen"
-				 WindowState="Maximized"
-				 Icon="/Resources/recipe-book.ico"
+                 Icon="/Resources/recipe-book.ico"
                  BorderThickness="1"
-				 Loaded="MainWindow_OnLoaded"
-				 Unloaded="MainWindow_OnUnloaded"
+                 AllowsTransparency="True"
+                 Loaded="MainWindow_OnLoaded"
                  mc:Ignorable="d">
+	
+	<!--Background-->
+	<Window.Background>
+		<ImageBrush ImageSource="/Resources/coffee.png" Stretch="UniformToFill"/>
+	</Window.Background>
 
+	<!--Full Screen-->
 	<Grid>
-		<li:LoadingIndicator Grid.Column="0" Grid.Row="0" SpeedRatio="{Binding SpeedRatio}" IsActive="{Binding IsArcsActive}" Style="{DynamicResource LoadingIndicatorArcsRingStyleKey}" Foreground="DeepPink" />
-		<!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-			<TextBlock FontSize="32"
-			           FontWeight="Light"
-			           Text="Welcome to the MahApps.Metro World..." />
-			<Border Height="5" Background="{DynamicResource MahApps.Brushes.Accent}" />
+		<Grid.RowDefinitions>
+			<RowDefinition Height="12*">
+				
+			</RowDefinition>
+			<RowDefinition Height="6.5*">
 
-			--><!--<mah:MetroProgressBar x:Name="TheProgressBar" Minimum="0" Maximum="1000" Value="300" Height="25" Margin="0 10" />
-			<ProgressBar x:Name="TheOtherProgressBar" Minimum="0" Maximum="1000" Value="600" Height="25" Margin="0 5" />--><!--
-		</StackPanel>-->
+			</RowDefinition>
+			<RowDefinition Height="0.5*">
+
+			</RowDefinition>
+		</Grid.RowDefinitions>
+		<!--Row 0-->
+		<Grid Grid.Row="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="12*">
+
+				</ColumnDefinition>
+				<ColumnDefinition Width="7*">
+
+				</ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<!--Column 0-->
+			<DockPanel Name="FirstDockPanel" Grid.Column="0">
+				<TextBlock Margin="10, 120, 0, 0" DockPanel.Dock="Top"
+				           FontSize="44"
+				           FontWeight="Light"
+				           FontFamily="Arial"
+				           Text="Welcome to"
+				           Foreground="#302226"/>
+				<TextBlock Name="SecondTittleTextBlock" Margin="10, 0, 0, 0" DockPanel.Dock="Top" 
+				           FontSize="54"
+				           FontWeight="Light"
+				           FontFamily="Arial"
+				           Text="Food Recipe App"
+				           Foreground="#302226"/>
+			</DockPanel>
+		</Grid>
+		<!--Row 1-->
+		<Grid Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="12*">
+
+				</ColumnDefinition>
+				<ColumnDefinition Width="7*">
+
+				</ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<!--Column 0-->
+			<DockPanel Name="TipDockPanel" Grid.Column="0">
+				<TextBlock DockPanel.Dock="Top" Height="90"></TextBlock>
+				<TextBlock Margin="10, 0, 110, 5" DockPanel.Dock="Top"
+				           FontSize="18"
+				           FontWeight="Light"
+				           FontFamily="Arial"
+				           Foreground="#302226">
+					I love Ngô Nha Trang I love Ngô Nha Trang <LineBreak/>
+					I love Ngô Nha Trang I love Ngô Nha Trang <LineBreak/>
+					I love Ngô Nha Trang I love Ngô Nha Trang <LineBreak/>
+					I love Ngô Nha Trang I love Ngô Nha Trang
+				</TextBlock>
+			</DockPanel>
+			<!--Column 1-->
+			<DockPanel Grid.Column="1">
+				<CheckBox DockPanel.Dock="Bottom"
+				          VerticalAlignment="Bottom" 
+				          HorizontalAlignment="Right"
+				          Name="DoNotShowPlashScreenCheckBox"
+				          Checked="DoNotShowPlashScreenCheckBox_OnChecked" Margin="0,0,20,10"
+				>
+					<CheckBox.LayoutTransform>
+						<ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+					</CheckBox.LayoutTransform>
+					<TextBlock FontWeight="Light" FontFamily="Arial"
+					           Foreground="#302226" Text="Don't show again"/>
+				</CheckBox>
+			</DockPanel>
+		</Grid>
+		<controls:MetroProgressBar Grid.Row="2" Name="ProgressBar" Foreground="Blue"/>
 	</Grid>
 
+	<!--Others-->
 	<mah:MetroWindow.Resources>
 		<Style x:Key="CustomLightMinButtonStyle"
                BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Light}"
@@ -175,5 +248,5 @@
 		</mah:WindowCommands>
 	</mah:MetroWindow.RightWindowCommands>
 
-	
+
 </mah:MetroWindow>

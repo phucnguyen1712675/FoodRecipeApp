@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FoodRecipeApp.GUI;
 using FoodRecipeApp.Mvvm;
+using FoodRecipeApp.Views;
 using MahApps.Metro.IconPacks;
 
 namespace FoodRecipeApp.ViewModels
@@ -21,28 +22,49 @@ namespace FoodRecipeApp.ViewModels
 
         public ShellViewModel()
         {
-            // Build the menus
-            this.Menu.Add(new MenuItem()
-            {
-                Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
-                Label = "Search Screen",
-                NavigationType = typeof(SearchScreen),
-                NavigationDestination = new Uri("GUI/SearchScreen.xaml", UriKind.RelativeOrAbsolute)
-            });
-            this.Menu.Add(new MenuItem()
-            {
-                Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.UserSolid },
-                Label = "Detail Screen",
-                NavigationType = typeof(DetailScreen),
-                NavigationDestination = new Uri("GUI/DetailScreen.xaml", UriKind.RelativeOrAbsolute)
-            });
-            this.Menu.Add(new MenuItem()
-            {
-                Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.CoffeeSolid },
-                Label = "Add Recipe",
-                NavigationType = typeof(AddRecipe),
-                NavigationDestination = new Uri("GUI/AddRecipe.xaml", UriKind.RelativeOrAbsolute)
-            });
+	        // Build the menus
+	        this.Menu.Add(new MenuItem()
+	        {
+		        Icon = new PackIconFontAwesome() {Kind = PackIconFontAwesomeKind.BugSolid},
+		        Label = "Home Screen",
+		        NavigationType = typeof(MainPage),
+		        NavigationDestination = new Uri("GUI/MainPage.xaml", UriKind.RelativeOrAbsolute)
+	        });
+	        this.Menu.Add(new MenuItem()
+	        {
+		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
+		        Label = "Search Screen",
+		        NavigationType = typeof(MainPage),
+		        NavigationDestination = new Uri("GUI/SearchScreen.xaml", UriKind.RelativeOrAbsolute)
+	        });
+	        this.Menu.Add(new MenuItem()
+	        {
+		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
+		        Label = "Detail Screen",
+		        NavigationType = typeof(MainPage),
+		        NavigationDestination = new Uri("GUI/DetailScreen.xaml", UriKind.RelativeOrAbsolute)
+	        });
+	        this.Menu.Add(new MenuItem()
+	        {
+		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
+		        Label = "Add Recipe",
+		        NavigationType = typeof(MainPage),
+		        NavigationDestination = new Uri("GUI/AddRecipe.xaml", UriKind.RelativeOrAbsolute)
+	        });
+			this.OptionsMenu.Add(new MenuItem()
+	        {
+		        Icon = new PackIconFontAwesome() {Kind = PackIconFontAwesomeKind.CogsSolid},
+		        Label = "Settings",
+		        NavigationType = typeof(SettingsPage),
+		        NavigationDestination = new Uri("GUI/SettingsPage.xaml", UriKind.RelativeOrAbsolute)
+	        });
+	        this.OptionsMenu.Add(new MenuItem()
+	        {
+		        Icon = new PackIconFontAwesome() {Kind = PackIconFontAwesomeKind.InfoCircleSolid },
+		        Label = "About us",
+		        NavigationType = typeof(SettingsPage),
+		        NavigationDestination = new Uri("GUI/AboutPage.xaml", UriKind.RelativeOrAbsolute)
+	        });
         }
     }
 }

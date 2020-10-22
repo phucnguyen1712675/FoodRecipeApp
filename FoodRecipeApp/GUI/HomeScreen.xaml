@@ -12,7 +12,7 @@
                  Height="540" 
                  Width="1140"
                  GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-                 ResizeMode="CanResizeWithGrip"
+                 ResizeMode="NoResize"
                  WindowStartupLocation="CenterScreen"
 				 WindowState="Maximized"
                  Icon="/Resources/recipe-book.ico"
@@ -23,101 +23,69 @@
 		<ImageBrush ImageSource="/Resources/HomeSrceen_Background.png" Stretch="UniformToFill"/>
 	</Window.Background>
 
+	<controls:MetroWindow.DataContext>
+		<viewModels:ShellViewModel />
+	</controls:MetroWindow.DataContext>
+
 	<mah:MetroWindow.Resources>
-		<Style x:Key="LargeTileStyle" TargetType="mah:Tile">
-			<Setter Property="Width" Value="300" />
-			<Setter Property="Height" Value="125" />
-			<Setter Property="TitleFontSize" Value="10" />
-		</Style>
+		<!--New-->
+		<DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type viewModels:MenuItem}">
+			<Grid Height="48">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type mah:HamburgerMenu}}, Path=CompactPaneLength, Mode=OneWay}" />
+					<ColumnDefinition />
+				</Grid.ColumnDefinitions>
+				<ContentControl Grid.Column="0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="{Binding Icon}"
+                                Focusable="False" />
+				<TextBlock Grid.Column="1"
+                           VerticalAlignment="Center"
+                           FontSize="16"
+                           Text="{Binding Label}" />
+			</Grid>
+		</DataTemplate>
 
-		<Style x:Key="SmallTileStyle" TargetType="mah:Tile">
-			<Setter Property="Width" Value="147" />
-			<Setter Property="Height" Value="125" />
-			<Setter Property="TitleFontSize" Value="10" />
-		</Style>
-		<Style x:Key="CustomLightMinButtonStyle"
-		       BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Light}"
-		       TargetType="{x:Type Button}">
-			<Setter Property="Background" Value="{StaticResource MahApps.Brushes.Accent}" />
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="DarkGreen" />
-					<Setter Property="Foreground" Value="White" />
-				</Trigger>
-				<Trigger Property="IsPressed" Value="True">
-					<Setter Property="Background" Value="Green" />
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-		<Style x:Key="CustomDarkMinButtonStyle"
-               BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Dark}"
-               TargetType="{x:Type Button}">
-			<Setter Property="Background" Value="{StaticResource MahApps.Brushes.Accent}" />
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="DarkGreen" />
-					<Setter Property="Foreground" Value="White" />
-				</Trigger>
-				<Trigger Property="IsPressed" Value="True">
-					<Setter Property="Background" Value="Green" />
-				</Trigger>
-			</Style.Triggers>
-		</Style>
+		<Style BasedOn="{StaticResource {x:Type Frame}}" TargetType="{x:Type Frame}">
+			<Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent4}" />
+			<Setter Property="ClipToBounds" Value="True" />
+			<Setter Property="ContentTemplate">
+				<Setter.Value>
+					<DataTemplate>
+						<mah:TransitioningContentControl Content="{Binding}"
+                                                              RestartTransitionOnContentChange="True"
+                                                              Transition="Custom">
+							<mah:TransitioningContentControl.CustomVisualStates>
+								<VisualState x:Name="CustomTransition">
+									<Storyboard>
+										<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="CurrentContentPresentationSite"
+                                                                       Storyboard.TargetProperty="(UIElement.Opacity)">
+											<SplineDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+											<SplineDoubleKeyFrame KeyTime="00:00:00.150" Value="1" />
+										</DoubleAnimationUsingKeyFrames>
+										<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="CurrentContentPresentationSite"
+                                                                       Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
+											<SplineDoubleKeyFrame KeyTime="00:00:00" Value="200" />
+											<SplineDoubleKeyFrame KeySpline="0.1, 0.9, 0.2, 1"
+                                                                  KeyTime="00:00:00.300"
+                                                                  Value="0" />
+										</DoubleAnimationUsingKeyFrames>
 
-		<Style x:Key="CustomLightMaxButtonStyle"
-               BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Light}"
-               TargetType="{x:Type Button}">
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="DarkGoldenrod" />
-					<Setter Property="Foreground" Value="White" />
-				</Trigger>
-				<Trigger Property="IsPressed" Value="True">
-					<Setter Property="Background" Value="Yellow" />
-					<Setter Property="Foreground" Value="Black" />
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-		<Style x:Key="CustomDarkMaxButtonStyle"
-               BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Dark}"
-               TargetType="{x:Type Button}">
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="DarkGoldenrod" />
-					<Setter Property="Foreground" Value="White" />
-				</Trigger>
-				<Trigger Property="IsPressed" Value="True">
-					<Setter Property="Background" Value="Yellow" />
-					<Setter Property="Foreground" Value="Black" />
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-
-		<Style x:Key="CustomLightCloseButtonStyle"
-               BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Close.Light.Win10}"
-               TargetType="{x:Type Button}">
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="DarkRed" />
-					<Setter Property="Foreground" Value="White" />
-				</Trigger>
-				<Trigger Property="IsPressed" Value="True">
-					<Setter Property="Background" Value="Red" />
-				</Trigger>
-			</Style.Triggers>
-		</Style>
-		<Style x:Key="CustomDarkCloseButtonStyle"
-               BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Close.Dark.Win10}"
-               TargetType="{x:Type Button}">
-			<Style.Triggers>
-				<Trigger Property="IsMouseOver" Value="True">
-					<Setter Property="Background" Value="DarkRed" />
-					<Setter Property="Foreground" Value="White" />
-				</Trigger>
-				<Trigger Property="IsPressed" Value="True">
-					<Setter Property="Background" Value="Red" />
-				</Trigger>
-			</Style.Triggers>
+										<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+                                                                       Storyboard.TargetName="PreviousContentPresentationSite"
+                                                                       Storyboard.TargetProperty="(UIElement.Opacity)">
+											<SplineDoubleKeyFrame KeyTime="00:00:00" Value="0" />
+										</DoubleAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+							</mah:TransitioningContentControl.CustomVisualStates>
+						</mah:TransitioningContentControl>
+					</DataTemplate>
+				</Setter.Value>
+			</Setter>
 		</Style>
 
 	</mah:MetroWindow.Resources>
@@ -136,34 +104,18 @@
 	</mah:MetroWindow.WindowButtonCommands>
 
 	<mah:MetroWindow.LeftWindowCommands>
-		<mah:WindowCommands>
-			<Button Click="LaunchGitHubSite" ToolTip="Open up the GitHub site">
-				<iconPacks:PackIconModern Width="22"
-				                          Height="22"
-				                          Kind="SocialGithubOctocat" />
+		<controls:WindowCommands ShowSeparators="False">
+			<Button x:Name="GoBackButton"
+			        Width="{Binding ElementName=HamburgerMenuControl, Path=CompactPaneLength}"
+			        AutomationProperties.Name="Go back"
+			        Click="GoBackButton_OnClick">
+				<controls:FontIcon AutomationProperties.Name="Go back icon"
+				                   FontSize="14"
+				                   Glyph="&#xE72B;" />
 			</Button>
-		</mah:WindowCommands>
+		</controls:WindowCommands>
 	</mah:MetroWindow.LeftWindowCommands>
 
-	<!--<mah:MetroWindow.RightWindowCommands>
-		<mah:WindowCommands>
-			<Button Click="DeployCupCakes" Content="Deploy CupCakes">
-				<Button.ContentTemplate>
-					<DataTemplate>
-						<StackPanel Orientation="Horizontal">
-							<iconPacks:PackIconModern Width="22"
-							                          Height="22"
-							                          VerticalAlignment="Center"
-							                          Kind="FoodCupcake" />
-							<TextBlock Margin="4 0 0 0"
-							           VerticalAlignment="Center"
-							           Text="{Binding}" />
-						</StackPanel>
-					</DataTemplate>
-				</Button.ContentTemplate>
-			</Button>
-		</mah:WindowCommands>
-	</mah:MetroWindow.RightWindowCommands>-->
 	<mah:MetroWindow.RightWindowCommands>
 		<mah:WindowCommands>
 			<Button Click="ChangeAppStyleButtonClick">
@@ -174,68 +126,16 @@
 			</Button>
 		</mah:WindowCommands>
 	</mah:MetroWindow.RightWindowCommands>
+
+	<controls:HamburgerMenu x:Name="HamburgerMenuControl"
+	                        DisplayMode="CompactInline"
+	                        IsPaneOpen="False"
+	                        ItemInvoked="HamburgerMenuControl_OnItemInvoked"
+	                        ItemTemplate="{StaticResource MenuItemTemplate}"
+	                        ItemsSource="{Binding Menu}"
+	                        OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+	                        OptionsItemsSource="{Binding OptionsMenu}" />
 	
-	<!--Content-->
-	<Grid>
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="87*"/>
-			<ColumnDefinition Width="430*"/>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="83*"/>
-			<RowDefinition Height="259*"/>
-		</Grid.RowDefinitions>
-
-		<TextBlock Grid.Column="1"
-                   VerticalAlignment="Center"
-                   Text="Food Recipe App"
-                   FontWeight="Light"
-                   Foreground="White"
-                   FontSize="30"
-                   FontFamily="Segoe UI" 
-                   Margin="10,0,0,0"/>
-
-		<WrapPanel Grid.Row="1" Grid.Column="1" Width="940" Height="382" HorizontalAlignment="Left" VerticalAlignment="Top">
-			<mah:Tile Title="Mail" Style="{StaticResource LargeTileStyle}" Background="Teal" Margin="3" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email"/>
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource LargeTileStyle}" Background="DarkSalmon" Margin="3" HorizontalTitleAlignment="Right">
-				<!--<mah:Tile.Background>
-					<ImageBrush ImageSource="/Resources/recipe-book.ico"/>
-				</mah:Tile.Background>-->
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource LargeTileStyle}" Background="Green" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource LargeTileStyle}" Background="#D2691E" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource LargeTileStyle}" Background="#1E90FF" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource SmallTileStyle}" Background="DarkKhaki" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource SmallTileStyle}" Background="DarkGoldenrod" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-		</WrapPanel>
-	</Grid>
 	<!--<mah:Tile Title="Mail"
 	               Margin="3"
 	               mah:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"

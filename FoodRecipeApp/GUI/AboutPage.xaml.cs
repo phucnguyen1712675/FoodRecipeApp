@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace FoodRecipeApp.GUI
 {
 	/// <summary>
-	/// Interaction logic for AddRecipe.xaml
+	/// Interaction logic for AboutPage.xaml
 	/// </summary>
-	public partial class AddRecipe : Page
+	public partial class AboutPage : Page
 	{
-		public AddRecipe()
+		public AboutPage()
 		{
 			InitializeComponent();
 		}

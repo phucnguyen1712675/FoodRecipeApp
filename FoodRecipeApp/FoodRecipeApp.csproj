@@ -176,11 +176,29 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GUI\AddRecipe.xaml.cs">
+      <DependentUpon>AddRecipe.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\DetailScreen.xaml.cs">
+      <DependentUpon>DetailScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SearchScreen.xaml.cs">
+      <DependentUpon>SearchScreen.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="Navigation\NavigationServiceEx.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="GUI\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
     <Page Include="AccentStyleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -228,22 +246,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GUI\AddRecipe.xaml.cs">
-      <DependentUpon>AddRecipe.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\DetailScreen.xaml.cs">
-      <DependentUpon>DetailScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\HomeScreen.xaml.cs">
       <DependentUpon>HomeScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\SearchScreen.xaml.cs">
-      <DependentUpon>SearchScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="GUI\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -275,7 +296,6 @@
   <ItemGroup>
     <Folder Include="DAO\" />
     <Folder Include="DTO\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\recipe-book.ico" />

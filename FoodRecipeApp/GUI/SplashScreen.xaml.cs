@@ -28,7 +28,7 @@ namespace FoodRecipeApp.GUI
 			set => ProgressBar.Value = value;
 		}
 
-		private void LaunchGitHubSite(object sender, RoutedEventArgs e)
+/*		private void LaunchGitHubSite(object sender, RoutedEventArgs e)
 		{
 			System.Diagnostics.Process.Start("https://github.com/phucnguyen1712675/FoodRecipeApp");
 		}
@@ -36,16 +36,17 @@ namespace FoodRecipeApp.GUI
 		private void DeployCupCakes(object sender, RoutedEventArgs e)
 		{
 			// deploy some CupCakes...
-		}
+		}*/
 
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
+			//AdviceLabel.Content = "I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang";
 			/*_timer = new DispatcherTimer(TimeSpan.FromMilliseconds(200),
 				DispatcherPriority.Normal,
 				(o, args) =>
 				{
-					*//*TheProgressBar.Value = DateTime.Now.Millisecond;
-					TheOtherProgressBar.Value = DateTime.Now.Millisecond;*//*
+					*/ /*TheProgressBar.Value = DateTime.Now.Millisecond;
+					TheOtherProgressBar.Value = DateTime.Now.Millisecond;*/ /*
 				},
 				Dispatcher);
 			_timer.Start();*/

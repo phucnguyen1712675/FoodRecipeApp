@@ -40,7 +40,8 @@ namespace FoodRecipeApp.GUI
 
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			//AdviceLabel.Content = "I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang";
+			AdviceTextBlock.Text =
+				"I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang";
 			/*_timer = new DispatcherTimer(TimeSpan.FromMilliseconds(200),
 				DispatcherPriority.Normal,
 				(o, args) =>

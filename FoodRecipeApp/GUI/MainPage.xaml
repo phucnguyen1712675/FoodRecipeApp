@@ -5,11 +5,13 @@
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:foodRecipeApp="clr-namespace:FoodRecipeApp"
       Title="Home Screen"
       d:DesignHeight="485"
       d:DesignWidth="1110"
       Style="{DynamicResource PageStyle}"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+      Loaded="MainPage_OnLoaded">
 
 	<!--<StackPanel HorizontalAlignment="Center"
 	            VerticalAlignment="Top"
@@ -47,42 +49,33 @@
 		           FontFamily="Segoe UI Light" 
 		           Margin="10,0,0,0"/>
 
-		<WrapPanel Grid.Row="1" Grid.Column="1" Width="920" Height="382" HorizontalAlignment="Left" VerticalAlignment="Top">
-			<mah:Tile Title="Mail" Style="{StaticResource LargeTileStyle}" Background="Teal" Margin="3" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email"/>
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource LargeTileStyle}" Background="Green" Margin="3" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource LargeTileStyle}" Background="DarkSalmon" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource LargeTileStyle}" Background="#D2691E" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource LargeTileStyle}" Background="#1E90FF" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource SmallTileStyle}" Background="DarkKhaki" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-			<mah:Tile Title="Desktop" Style="{StaticResource SmallTileStyle}" Background="DarkGoldenrod" HorizontalTitleAlignment="Right">
-				<iconPacks:PackIconModern Width="40"
-				                          Height="40"
-				                          Kind="Email" />
-			</mah:Tile>
-		</WrapPanel>
+		<ListView Grid.Row="1" Grid.Column="1" Name="DataListView" 
+		          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+			<ListView.ItemsPanel>
+				<ItemsPanelTemplate>
+					<!--<foodRecipeApp:VirtualizingWrapPanel Orientation="Horizontal"/>-->
+					<WrapPanel />
+				</ItemsPanelTemplate>
+			</ListView.ItemsPanel>
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<mah:Tile Title="{Binding Tittle}" 
+					          Style="{StaticResource LargeTileStyle}" 
+					          Margin="3" 
+							  TitleFontSize="20"
+							  
+					          HorizontalTitleAlignment="Left"
+					          mah:ControlsHelper.MouseOverBorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+					          Click="ButtonBase_OnClick">
+						<mah:Tile.Background>
+							<ImageBrush ImageSource="{Binding ImageSource}" />
+						</mah:Tile.Background>
+						<!--<iconPacks:PackIconModern Width="40"
+						                          Height="40"
+						                          Kind="{Binding Kind}"/>-->
+					</mah:Tile>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
 	</Grid>
 </Page>

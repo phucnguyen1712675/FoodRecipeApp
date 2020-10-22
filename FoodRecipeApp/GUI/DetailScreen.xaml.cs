@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace FoodRecipeApp.GUI
@@ -17,7 +18,7 @@ namespace FoodRecipeApp.GUI
 	/// <summary>
 	/// Interaction logic for DetailScreen.xaml
 	/// </summary>
-	public partial class DetailScreen : Window
+	public partial class DetailScreen : Page
 	{
 		public DetailScreen()
 		{

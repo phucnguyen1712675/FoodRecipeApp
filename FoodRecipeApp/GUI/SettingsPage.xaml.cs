@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace FoodRecipeApp.GUI
+namespace FoodRecipeApp.Views
 {
 	/// <summary>
-	/// Interaction logic for AddRecipe.xaml
+	/// Interaction logic for SettingsPage.xaml
 	/// </summary>
-	public partial class AddRecipe : Page
+	public partial class SettingsPage : Page
 	{
-		public AddRecipe()
+		public SettingsPage()
 		{
 			InitializeComponent();
 		}

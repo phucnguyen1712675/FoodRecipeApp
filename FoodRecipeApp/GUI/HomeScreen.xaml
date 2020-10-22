@@ -19,9 +19,9 @@
                  BorderThickness="1"
                  mc:Ignorable="d">
 
-	<Window.Background>
+	<!--<Window.Background>
 		<ImageBrush ImageSource="/Resources/HomeSrceen_Background.png" Stretch="UniformToFill"/>
-	</Window.Background>
+	</Window.Background>-->
 
 	<controls:MetroWindow.DataContext>
 		<viewModels:ShellViewModel />
@@ -145,20 +145,4 @@
 		                          Height="40"
 		                          Kind="Email" />
 	</mah:Tile>-->
-
-	<!--<ListView Name="dataListView" Background="red" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-		<ListView.ItemsPanel>
-			<ItemsPanelTemplate>
-				<WrapPanel />
-			</ItemsPanelTemplate>
-		</ListView.ItemsPanel>
-		<ListView.ItemTemplate>
-			<DataTemplate>
-				<StackPanel>
-					<Image Width="80" Height="80" Source="{Binding Avatar}"/>
-					<TextBlock Text="{Binding Fullname}"/>
-				</StackPanel>
-			</DataTemplate>
-		</ListView.ItemTemplate>
-	</ListView>-->
 </mah:MetroWindow>

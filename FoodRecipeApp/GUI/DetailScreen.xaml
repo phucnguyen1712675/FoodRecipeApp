@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodRecipeApp.GUI"
         mc:Ignorable="d"
-        Title="DetailScreen" Height="450" Width="800">
+        Title="DetailScreen" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        
+        <Label Name="tempLabel" HorizontalAlignment="Left" Margin="307,173,0,0" VerticalAlignment="Top"/>
+        <Image x:Name="tempImage" HorizontalAlignment="Left" Height="100" Margin="307,243,0,0" VerticalAlignment="Top" Width="100"/>
+
     </Grid>
 </Window>

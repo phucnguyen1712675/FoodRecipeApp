@@ -176,6 +176,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DAO\DataProvider.cs" />
+    <Compile Include="DAO\DishDAO.cs" />
+    <Compile Include="DAO\ImageDAO.cs" />
+    <Compile Include="DAO\QuoteDAO.cs" />
+    <Compile Include="DAO\StepDAO.cs" />
+    <Compile Include="DTO\Dish.cs" />
+    <Compile Include="DTO\Images.cs" />
+    <Compile Include="DTO\Quote.cs" />
+    <Compile Include="DTO\Step.cs" />
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="Navigation\NavigationServiceEx.cs" />
@@ -273,8 +282,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DAO\" />
-    <Folder Include="DTO\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
@@ -285,6 +292,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\HomeSrceen_Background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ConnectString.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />

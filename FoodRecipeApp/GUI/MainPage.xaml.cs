@@ -26,6 +26,43 @@ namespace FoodRecipeApp.GUI
 			InitializeComponent();
 		}
 
+		private void OnAutoGeneratingTile(object sender, AutoGeneratingTileEventArgs e)
+		{
+			var employeePosition = (e.Tile.DataContext as Dish).Loai;
+
+			switch (employeePosition)
+			{
+				case "Sales Representative":
+					e.Tile.Group.DisplayIndex = 0;
+					break;
+				case "Sales Manager":
+					e.Tile.Group.DisplayIndex = 1;
+					break;
+				case "Vice President, Sales":
+					e.Tile.Group.DisplayIndex = 2;
+					break;
+				default:
+					e.Tile.Group.DisplayIndex = 0;
+					break;
+			}
+		}
+		/*private NasdaqViewModel _viewModel;
+		public MainPage()
+		{
+			InitializeComponent();
+			this._viewModel = this.LayoutRoot.Resources["NasdaqViewModel"] as NasdaqViewModel;
+
+			DispatcherTimer timer = new DispatcherTimer();
+			timer.Interval = TimeSpan.FromSeconds(5);
+			timer.Tick += OnTimerTick;
+			timer.Start();
+		}
+
+		void OnTimerTick(object sender, EventArgs e)
+		{
+			_viewModel.UpdateDisplayValue();
+		}
+
 		class Recipe
 		{
 			public string Tittle { get; set; }

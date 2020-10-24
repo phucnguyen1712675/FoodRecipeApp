@@ -24,5 +24,21 @@ namespace FoodRecipeApp.GUI
 		{
 			InitializeComponent();
 		}
-	}
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Previous_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Next_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
+
 }

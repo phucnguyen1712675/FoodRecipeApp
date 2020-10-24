@@ -1,4 +1,9 @@
-﻿CREATE DATABASE RecipeDATA
+/* 
+Drive chứa folder Images :
+https://drive.google.com/drive/folders/1Gynz4CHjAK2kWUN-NP183yyFJ22Yv2iD?usp=sharing
+*/
+
+CREATE DATABASE RecipeDATA
 go
 
 use RecipeDATA
@@ -29,9 +34,8 @@ CREATE TABLE IMAGE (
  Dish int,
  StepNumber int,
  FilePath nvarchar(100),
- CONSTRAINT fk_IMAGE_STEP
-   FOREIGN KEY (Dish, StepNumber)
-   REFERENCES dbo.Step (Dish, StepNumber)
+ 
+ CONSTRAINT fk_IMAGE_STEP FOREIGN KEY (Dish, StepNumber) REFERENCES dbo.STEP (Dish, StepNumber)
 )
 go
 

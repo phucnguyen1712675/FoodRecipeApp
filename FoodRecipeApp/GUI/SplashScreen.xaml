@@ -76,7 +76,7 @@
 			<!--Column 0-->
 			<DockPanel Name="TipDockPanel" Grid.Column="0">
 				<!--<TextBlock DockPanel.Dock="Top" Height="90"></TextBlock>-->
-				<TextBlock x:Name="AdviceLabel" 
+				<TextBlock x:Name="AdviceTextBlock" 
 				       Margin="0, 0, 135, 5" 
 				       DockPanel.Dock="Top"
 				       FontSize="18"
@@ -84,8 +84,7 @@
 				       Foreground="White"
 				       TextWrapping="WrapWithOverflow"
 					   Padding="20"
-					   VerticalAlignment="Bottom"
-				       Text="I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang"/>
+					   VerticalAlignment="Bottom"/>
 			</DockPanel>
 			<!--Column 1-->
 			<DockPanel Grid.Column="1">

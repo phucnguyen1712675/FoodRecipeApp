@@ -28,14 +28,14 @@ namespace FoodRecipeApp.GUI
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-/*            List<Dish> dishes = Dish.getAllDish();
+            List<Dish> dishes = Dish.getAllDish();
             Dish temp = dishes[3];
-            tempLabel.Content = temp.Name;
+            TempLabel.Content = temp.Name;
             Step tempStep = temp.Steps[1];
             var bitmap = new BitmapImage(
                 new Uri(tempStep.ListImage[0], UriKind.Absolute)
             );
-            tempImage.Source = bitmap;*/
+            TempImage.Source = bitmap;
         }
     }
 }

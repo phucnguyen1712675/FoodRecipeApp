@@ -1,6 +1,8 @@
 ﻿using FoodRecipeApp.DAO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FoodRecipeApp.DTO
 {
-    public class Dish
+    public class Dish: INotifyPropertyChanged
     {
         public int DishCode { get; set; }
         public bool IsLove { get; set; }
@@ -30,11 +32,15 @@ namespace FoodRecipeApp.DTO
             Steps = Step.getAllStepsInDish(DishCode);
         }
 
+        #pragma warning disable 67
+        public event PropertyChangedEventHandler PropertyChanged;
+        #pragma warning restore 67
+
         public static List<Dish> getAllDish()
         {
             List<Dish> dishes = new List<Dish>();
             DataTable data = DishDAO.Instance.getAllDishes();
-            foreach ( DataRow row  in data.Rows)
+            foreach (DataRow row in data.Rows)
             {
                 Dish dish = new Dish(row);
                 dishes.Add(dish);
@@ -42,6 +48,16 @@ namespace FoodRecipeApp.DTO
             return dishes;
         }
 
-        
+        public static ObservableCollection<Dish> GetDishes()
+        {
+            ObservableCollection<Dish> dishes = new ObservableCollection<Dish>();
+            DataTable data = DishDAO.Instance.getAllDishes();
+            foreach (DataRow row in data.Rows)
+            {
+                Dish dish = new Dish(row);
+                dishes.Add(dish);
+            }
+            return dishes;
+        }
     }
 }

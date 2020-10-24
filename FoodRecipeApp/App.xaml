@@ -35,12 +35,12 @@
 									<RowDefinition Height="Auto" />
 								</Grid.RowDefinitions>
 								<ContentPresenter Grid.Row="0" />
-								<TextBlock Grid.Row="1"
+								<!--<TextBlock Grid.Row="1"
 								           Margin="4"
 								           FontSize="40"
-										   Foreground="White"
+										   Foreground="#322226"
 										   FontFamily="Segoe UI Light"
-								           Text="{TemplateBinding Title}" />
+								           Text="{TemplateBinding Title}" />-->
 							</Grid>
 						</ControlTemplate>
 					</Setter.Value>

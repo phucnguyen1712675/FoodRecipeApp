@@ -1,4 +1,9 @@
-﻿CREATE DATABASE RecipeDATA
+<!-- 
+Drive chứa folder Images :
+https://drive.google.com/drive/folders/1Gynz4CHjAK2kWUN-NP183yyFJ22Yv2iD?usp=sharing
+-->
+
+CREATE DATABASE RecipeDATA
 go
 
 use RecipeDATA

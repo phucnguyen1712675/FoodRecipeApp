@@ -33,8 +33,9 @@ go
 CREATE TABLE IMAGE (
  Dish int,
  StepNumber int,
- FilePath nvarchar(100)
- ADD CONSTRAINT fk_IMAGE_STEP FOREIGN KEY (Dish, StepNumber) REFERENCES dbo.STEP (Dish, StepNumber)
+ FilePath nvarchar(100),
+ 
+ CONSTRAINT fk_IMAGE_STEP FOREIGN KEY (Dish, StepNumber) REFERENCES dbo.STEP (Dish, StepNumber)
 )
 go
 

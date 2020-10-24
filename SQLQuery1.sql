@@ -28,8 +28,10 @@ go
 CREATE TABLE IMAGE (
  Dish int,
  StepNumber int,
- FilePath nvarchar(100)
- ADD CONSTRAINT fk_IMAGE_STEP FOREIGN KEY (Dish, StepNumber) REFERENCES dbo.STEP (Dish, StepNumber)
+ FilePath nvarchar(100),
+ CONSTRAINT fk_IMAGE_STEP
+   FOREIGN KEY (Dish, StepNumber)
+   REFERENCES dbo.Step (Dish, StepNumber)
 )
 go
 
@@ -1728,7 +1730,13 @@ go
 UPDATE dbo.IMAGE set FilePath = dbo.fsetImage(Dish,StepNumber) + FilePath
 go
 
+go
+update dbo.DISH set Loai = REPLACE (Loai, ' ', '' ) from dbo.DISH
+go
 
+go
+update dbo.DISH set Love = 1 where Dish = 8 or Dish = 7 or Dish = 9 or Dish = 12 or Dish = 15 or Dish = 3 or Dish = 4 or Dish =1
+go
 ------------PROCEDURE ---------------------
 --QUOTES
 CREATE PROC USP_getAllQuotes
@@ -1751,6 +1759,20 @@ as begin
 select FilePath from dbo.DISH where Dish = @Dish
 end
 go
+
+--STEP 
+CREATE PROC USP_getAllStepsInDish
+@Dish int
+as begin
+select * from dbo.STEP where Dish = @Dish
+end
+go
+
+--DISH
+CREATE PROC USP_getAllDishes
+AS BEGIN
+SELECT * FROM DBO.DISH
+END
+GO
 -------------------------------------------
 
-select * from DISH

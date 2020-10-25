@@ -26,7 +26,7 @@ namespace FoodRecipeApp.DAO
 
         public DataTable getAllDishes()
         {
-            return DataProvider.Instance.ExecuteQuery("EXEC USP_getAllDishes ");
+            return DataProvider.Instance.ExecuteQuery("EXEC USP_getAllDishes");
         }
     }
 }

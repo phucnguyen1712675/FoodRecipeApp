@@ -2,10 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
                     xmlns:local="clr-namespace:FoodRecipeApp">
+	
 	<telerik:BinaryImageConverter x:Key="converter" />
-	<Style TargetType="telerik:Tile" BasedOn="{StaticResource TileStyle}">
-		<Setter Property="Background" Value="#FF8FC442"/>
-	</Style>
+
 	<DataTemplate x:Key="GroupTemplate">
 		<TextBlock Text="{Binding}"
                            FontSize="20"
@@ -14,7 +13,38 @@
                            VerticalAlignment="Top"
                            HorizontalAlignment="Left"/>
 	</DataTemplate>
+	
+	<!--<Style TargetType="telerik:Tile" BasedOn="{StaticResource TileStyle}">
+		<Setter Property="Background" Value="#FF8FC442"/>
+	</Style>-->
 	<DataTemplate x:Key="TileListItemTemplate">
+		<telerik:Tile TileType="Double" >
+			<telerik:Tile.Background>
+				<ImageBrush ImageSource="{Binding ImagePath}" />
+			</telerik:Tile.Background>
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+					<RowDefinition />
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+				<TextBlock Grid.Row="0" Grid.Column="0" Text="Dish code"/>
+				<TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding DishCode}" />
+				<TextBlock Grid.Row="1" Grid.Column="0" Text="Name"/>
+				<TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Name}" />
+				<TextBlock Grid.Row="2" Grid.Column="0" Text="Loai"/>
+				<TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding Loai}" />
+				<TextBlock Grid.Row="3" Grid.Column="0" Text="ImagePath"/>
+				<TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding ImagePath}" />
+			</Grid>
+		</telerik:Tile>
+	</DataTemplate>
+	<!--<DataTemplate x:Key="TileListItemTemplate">
 		<Grid VerticalAlignment="Center"
 						  Margin="0">
 			<Grid.ColumnDefinitions>
@@ -72,5 +102,5 @@
 				</Grid>
 			</Grid>
 		</Grid>
-	</DataTemplate>
+	</DataTemplate>-->
 </ResourceDictionary>

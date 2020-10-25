@@ -36,9 +36,9 @@ namespace FoodRecipeApp.DTO
         public event PropertyChangedEventHandler PropertyChanged;
         #pragma warning restore 67
 
-        public static List<Dish> getAllDish()
+        public static BindingList<Dish> getAllDish()
         {
-            List<Dish> dishes = new List<Dish>();
+            BindingList<Dish> dishes = new BindingList<Dish>();
             DataTable data = DishDAO.Instance.getAllDishes();
             foreach (DataRow row in data.Rows)
             {

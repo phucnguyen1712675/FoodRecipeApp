@@ -16,7 +16,7 @@
       Style="{DynamicResource PageStyle}"
       mc:Ignorable="d"
       Loaded="Page_Loaded">
-	<!--<Page.Resources>
+    <!--<Page.Resources>
 		 <ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/TileList;component/BindingItemsSource/WPF/Resources.xaml" />
@@ -24,26 +24,26 @@
 		</ResourceDictionary>
 	</Page.Resources>-->
 
-	<Page.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/FoodRecipeApp;component/RecipeResources.xaml" />
-			</ResourceDictionary.MergedDictionaries>
-			
-			<viewModels:RecipeViewModel x:Key = "MyRecipeViewModel" />
-			<converters:TileConverter x:Key="MyTileConverter"/>
-		</ResourceDictionary>
-		
-		
-		<!--<Style TargetType="telerik:Tile">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FoodRecipeApp;component/RecipeResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <viewModels:RecipeViewModel x:Key = "MyRecipeViewModel" />
+            <converters:TileConverter x:Key="MyTileConverter"/>
+        </ResourceDictionary>
+
+
+        <!--<Style TargetType="telerik:Tile">
 			<Setter Property="TileType" Value="{Binding Content.Loai, Converter={StaticResource MyTileConverter}, RelativeSource={RelativeSource Self}}" />
 		</Style>-->
-	</Page.Resources>
-	<Grid	x:Name="LayoutRoot"
+    </Page.Resources>
+    <Grid	x:Name="LayoutRoot"
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Stretch"
 			DataContext="{StaticResource MyRecipeViewModel}">
-		<telerik:RadTileList x:Name="RadTileList" 
+        <telerik:RadTileList x:Name="RadTileList" 
 							 ItemsSource="{Binding Recipes}"
 							 ScrollViewer.HorizontalScrollBarVisibility="Hidden"
 							 AutoGeneratingTile="OnAutoGeneratingTile"
@@ -55,15 +55,15 @@
                              TileReorderMode="{Binding SelectedValue, ElementName=tileReorderModeComboBox, Mode=TwoWay}"
                              VerticalTilesAlignment="{Binding SelectedValue, ElementName=verticalTilesAlignmentComboBox, Mode=TwoWay}" 
                              ItemTemplate="{DynamicResource TileListItemTemplate}">
-			<telerik:RadTileList.PanoramaBackground>
-				<Image Source="/Resources/panoramic-view-sea.jpg" 
+            <telerik:RadTileList.PanoramaBackground>
+                <Image Source="/Resources/panoramic-view-sea.jpg" 
 					   Stretch="UniformToFill"/>
-			</telerik:RadTileList.PanoramaBackground>
-		</telerik:RadTileList>
-	</Grid>
-	
+            </telerik:RadTileList.PanoramaBackground>
+        </telerik:RadTileList>
+    </Grid>
 
-	<!--<Grid x:Name="LayoutRoot"
+
+    <!--<Grid x:Name="LayoutRoot"
 		  Background="White"
 		  HorizontalAlignment="Stretch"
 		  VerticalAlignment="Stretch"
@@ -118,7 +118,7 @@
 			</DataTemplate>
 		</Grid.Resources>-->
 
-		<!--<telerik:RadTileList x:Name="RadTileList" 
+    <!--<telerik:RadTileList x:Name="RadTileList" 
                              ItemsSource="{Binding Recipes}"
                              AutoGeneratingTile="OnAutoGeneratingTile"
                              GroupMember="Title" 
@@ -143,9 +143,11 @@
 							<ImageBrush ImageSource="{Binding ImageSource}" />
 						</mah:Tile.Background>
 						
-						--><!--<iconPacks:PackIconModern Width="40"
+						-->
+    <!--<iconPacks:PackIconModern Width="40"
 						                          Height="40"
-						                          Kind="{Binding Kind}"/>--><!--
+						                          Kind="{Binding Kind}"/>-->
+    <!--
 		
 					</mah:Tile>
 				</DataTemplate>
@@ -153,7 +155,7 @@
 		</telerik:RadTileList>-->
 
 
-		<!--<telerik:RadTileList x:Name="RadTileList" 
+    <!--<telerik:RadTileList x:Name="RadTileList" 
 		                     GroupTemplate="{StaticResource GroupTemplate}">
 
 			<telerik:RadTileList.PanoramaBackground>
@@ -166,12 +168,14 @@
 						<telerik:Tile Background="#FF00A100"
                           TileType="Double" >
 							<Grid>
-								--><!--<Path Name="Mail"
+								-->
+    <!--<Path Name="Mail"
                           Data="M12.343673,26.303528 L12.343673,48.725266 L53.020504,48.725266 L53.020504,26.303528 L34.296661,40.339897 C33.984161,40.635036 33.693367,40.808647 33.424271,40.860729 C33.155174,40.912811 32.864376,40.938854 32.55188,40.938854 C32.256741,40.938854 31.961605,40.912811 31.66647,40.860729 C31.37133,40.808647 31.067513,40.635036 30.755016,40.339897 z M12.864503,20.756687 L32.55188,35.938885 L52.239258,20.756687 z M9.5832739,15.652554 L55.181946,15.652554 C55.633331,15.652554 56.036976,15.717659 56.392876,15.847866 C56.748775,15.978073 57.056931,16.151684 57.317348,16.368694 C57.577766,16.585709 57.773079,16.828762 57.903286,17.097858 C58.033493,17.366955 58.098595,17.640388 58.098595,17.918163 L58.098595,50.964832 C58.098595,51.815521 57.833839,52.501282 57.304329,53.02211 C56.774818,53.542942 56.067356,53.803356 55.181946,53.803356 L9.5832739,53.803356 C9.2881355,53.803356 9.0016794,53.733913 8.7239037,53.595024 C8.4461269,53.456139 8.2030735,53.260826 7.9947419,53.00909 C7.7864099,52.757355 7.6127996,52.457878 7.4739113,52.110661 C7.3350234,51.763439 7.2655792,51.381496 7.2655797,50.964832 L7.2655797,17.918163 C7.2655792,17.640388 7.3350234,17.366955 7.4739113,17.097858 C7.6127996,16.828762 7.7864099,16.585709 7.9947419,16.368694 C8.2030735,16.151684 8.4461269,15.978073 8.7239037,15.847866 C9.0016794,15.717659 9.2881355,15.652554 9.5832739,15.652554 z"
 					      Fill="White"
 					      HorizontalAlignment="Center"
 					      VerticalAlignment="Center"  >
-								</Path>--><!--
+								</Path>-->
+    <!--
 								<Image Source="{Binding ImageSource}"></Image>
 								<TextBlock Text="{Binding Name}"
                                Style="{StaticResource TileLabelStyle}"/>
@@ -288,8 +292,8 @@
 				</telerik:TileGroup>
 			</telerik:RadTileList.Groups>
 		</telerik:RadTileList>-->
-	<!--</Grid>-->
-	<!--<Grid>
+    <!--</Grid>-->
+    <!--<Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="87*"/>
 			<ColumnDefinition Width="430*"/>
@@ -344,7 +348,7 @@
 
 		
 	</Grid>-->
-	
-	<!--Content-->
-	
+
+    <!--Content-->
+
 </Page>

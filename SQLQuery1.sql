@@ -1778,5 +1778,26 @@ AS BEGIN
 SELECT * FROM DBO.DISH
 END
 GO
+
+CREATE PROC USP_getAllDishesType
+AS BEGIN
+SELECT Loai FROM DBO.DISH
+END
+GO
+
+exec USP_getAllDishes
+go
+
+CREATE PROC USP_getOneTypeDish
+AS BEGIN
+SELECT * FROM DBO.DISH
+END
+GO
+
+CREATE PROC USP_getManyTypeDish
+AS BEGIN
+SELECT * FROM DBO.DISH
+END
+GO
 -------------------------------------------
 

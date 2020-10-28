@@ -7,25 +7,98 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Telerik.Windows.Controls;
+using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace FoodRecipeApp.ViewModels
 {
 	public class RecipeViewModel
 	{
-		private ObservableCollection<Dish> _recipes;
+        public RecipeViewModel() { }
+
+        private ObservableCollection<Dish> _recipes;
 		public ObservableCollection<Dish> Recipes
 		{
 			get
 			{
-				if (this._recipes != null)
+				if (this._recipes == null)
 				{
-					this._recipes = Dish.GetDishes();
+                    this._recipes = DishesDataSource.Instance.DishesCollection;
 				}
 				return this._recipes;
 			}
 		}
 
-        IEnumerable<TileReorderMode> reorderModes;
+        private ObservableCollection<string> _recipeTypes;
+        public ObservableCollection<string> RecipeTypes
+		{
+            get
+            {
+                if (this._recipes != null)
+                {
+                    IEnumerable<Dish> dishesCollection = (IEnumerable<Dish>)this._recipes;
+                    var dishesList = new List<Dish>(dishesCollection);
+                    var dishTypesList = new List<string>();
+                    var tempList = new List<string>();
+                    var delimiterChars = ',';
+                    foreach (var dish in dishesList)
+					{
+                        tempList = dish.Loai.Split(delimiterChars).ToList();
+                        foreach (var type in tempList)
+						{
+                            var temp = type.ToLowerInvariant();
+                            dishTypesList.Add(char.ToUpper(temp[0]) + temp.Substring(1));
+                        }
+                        tempList.Clear();
+					}
+                    this._recipeTypes = (ObservableCollection<string>)dishTypesList.Select(x => x).Distinct();
+                }
+                return this._recipeTypes;
+            }
+        }
+      
+        /*object[] _pagerDisplayModes;
+        public object[] PagerDisplayModes
+        {
+            get
+            {
+                if (_pagerDisplayModes == null)
+                {
+                    _pagerDisplayModes = EnumHelper.GetValues(typeof(PagerDisplayModes));
+                }
+
+                return _pagerDisplayModes;
+            }
+        }
+
+        object[] _autoEllipsisModes;
+        public object[] AutoEllipsisModes
+        {
+            get
+            {
+                if (_autoEllipsisModes == null)
+                {
+                    _autoEllipsisModes = EnumHelper.GetValues(typeof(AutoEllipsisModes));
+                }
+
+                return _autoEllipsisModes;
+            }
+        }
+
+        EndlessPagedCollectionView _view;
+        public EndlessPagedCollectionView View
+        {
+            get
+            {
+                if (_view == null)
+                {
+                    _view = new EndlessPagedCollectionView();
+                }
+
+                return _view;
+            }
+        }*/
+        /*IEnumerable<TileReorderMode> reorderModes;
 
         public IEnumerable<TileReorderMode> ReorderModes
         {
@@ -103,6 +176,6 @@ namespace FoodRecipeApp.ViewModels
 
                 return this.verticalTilesAlignments;
             }
-        }
+        }*/
     }
 }

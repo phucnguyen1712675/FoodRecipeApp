@@ -1,4 +1,5 @@
 ﻿using FoodRecipeApp.DAO;
+using FoodRecipeApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -35,43 +36,5 @@ namespace FoodRecipeApp.DTO
         #pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
         #pragma warning restore 67
-
-        public static BindingList<Dish> getAllDish()
-        {
-            BindingList<Dish> dishes = new BindingList<Dish>();
-            DataTable data = DishDAO.Instance.getAllDishes();
-            foreach (DataRow row in data.Rows)
-            {
-                Dish dish = new Dish(row);
-                dishes.Add(dish);
-            }
-            return dishes;
-        }
-
-        public static ObservableCollection<Dish> GetDishes()
-        {
-            ObservableCollection<Dish> dishes = new ObservableCollection<Dish>();
-            DataTable data = DishDAO.Instance.getAllDishes();
-            foreach (DataRow row in data.Rows)
-            {
-                Dish dish = new Dish(row);
-                dishes.Add(dish);
-            }
-            return dishes;
-        }
-
-       /* IEnumerable<Dish> _dishs;
-        public IEnumerable<Dish> Dishs
-        {
-            get
-            {
-                if (Dishs == null)
-                {
-                    _dishs = this.Northwind.DishsCollection;
-                }
-
-                return Dishs;
-            }
-        }*/
     }
 }

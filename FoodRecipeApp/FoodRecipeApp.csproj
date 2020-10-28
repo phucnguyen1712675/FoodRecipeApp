@@ -491,6 +491,8 @@
     <Compile Include="DAO\QuoteDAO.cs" />
     <Compile Include="DAO\StepDAO.cs" />
     <Compile Include="DTO\Dish.cs" />
+    <Compile Include="DTO\DishesCollection.cs" />
+    <Compile Include="DTO\DishesDataSource.cs" />
     <Compile Include="DTO\Images.cs" />
     <Compile Include="DTO\Quote.cs" />
     <Compile Include="DTO\SimpleItems.cs" />

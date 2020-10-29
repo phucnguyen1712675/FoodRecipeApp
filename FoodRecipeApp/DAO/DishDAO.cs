@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FoodRecipeApp.DTO;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -29,6 +30,23 @@ namespace FoodRecipeApp.DAO
         {
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getAllDishes");
         }
+
+        internal void addNewDish(Dish newDish)
+        {
+            string IsLove = (newDish.IsLove == true ? 1 : 0 ).ToString();
+            string Name = newDish.Name;
+            string Video = newDish.Video;
+            string Description = newDish.Desciption;
+            string FilePath = newDish.ImagePath;
+            string Loai = newDish.Loai;
+            
+            DataTable data =  DataProvider.Instance.ExecuteQuery("EXEC USP_addNewDish @IsLove , @Name , @Video , @Description , @FilePath , @Loai ", new object[] { IsLove , Name, Video, Description, FilePath, Loai });
+            
+            int dishCode = (int)(data.Rows[0]["Dish"]);
+
+            Step.AddNewStepsToData(newDish.Steps, dishCode);
+        }
+      
         public DataTable getFilterDishes(string filterQuery)
         {
             

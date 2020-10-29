@@ -1764,6 +1764,15 @@ select FilePath from dbo.DISH where Dish = @Dish
 end
 go
 
+CREATE PROC USP_addNewImage 
+@Dish int , @StepNumber int , @FilePath nvarchar(100)
+as begin
+insert into dbo.IMAGE (Dish, StepNumber, FilePath)
+values(@Dish, @StepNumber, @FilePath)
+end
+go
+
+
 --STEP 
 CREATE PROC USP_getAllStepsInDish
 @Dish int
@@ -1772,6 +1781,15 @@ select * from dbo.STEP where Dish = @Dish
 end
 go
 
+CREATE PROC USP_addNewStep
+ @Dish int , @StepNumber int , @Description nvarchar(600)
+ as begin
+ insert into dbo.STEP (Dish, StepNumber, Desrciption)
+ values (@Dish, @StepNumber, @Description)
+ end
+ go
+
+
 --DISH
 CREATE PROC USP_getAllDishes
 AS BEGIN
@@ -1779,27 +1797,15 @@ SELECT * FROM DBO.DISH
 END
 GO
 
-CREATE PROC USP_getAllDishesType
-AS BEGIN
-SELECT Loai FROM DBO.DISH
-END
-GO
+CREATE PROC USP_addNewDish
+ @IsLove BIT , @Name NVARCHAR(40) , @Video nvarchar(100) , @Description nvarchar(600) , @FilePath nvarchar(100) , @Loai nvarchar(50)
+ AS BEGIN
+ INSERT INTO dbo.DISH (Love, Name, Video , Description, FilePath, Loai)
+ values (@IsLove  , @Name  , @Video , @Description , @FilePath , @Loai )
+ select top(1)  * from dbo.DISH order by Dish desc
+ END
+ GO
 
-exec USP_getAllDishes
-go
-
-CREATE PROC USP_getOneTypeDish
-AS BEGIN
-SELECT * FROM DBO.DISH
-END
-GO
-
-CREATE PROC USP_getManyTypeDish
-AS BEGIN
-SELECT * FROM DBO.DISH
-END
-GO
--------------------------------------------
 go
 CREATE FUNCTION dbo.SplitInts
 (
@@ -1827,4 +1833,4 @@ where not exists ((select Item from dbo.SplitInts(@List,','))
 								except (select Item from dbo.SplitInts(Loai,',')))
 END
 GO
-EXEC USP_getDishByTypes @List = N'Chay'
+

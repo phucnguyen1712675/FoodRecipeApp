@@ -1,1 +1,2 @@
-Data Source=DESKTOP-049JUV9\SQLEXPRESS;Initial Catalog=RecipeDATA;Integrated Security=True
+
+Data Source=DESKTOP-46J3TMV;Initial Catalog=RecipeDATA;Integrated Security=True

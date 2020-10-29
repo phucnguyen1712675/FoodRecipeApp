@@ -33,5 +33,12 @@ namespace FoodRecipeApp.DAO
         {
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getImageDish @Dish ", new object[] { dish });
         }
+
+        internal void addNewImage(int dish, string StepNumber, string FilePath)
+        {
+            string Dish = dish.ToString();
+
+            DataProvider.Instance.ExecuteQuery("EXEC USP_addNewImage @Dish , @StepNumber , @FilePath", new object[] { Dish, StepNumber, FilePath });
+        }
     }
 }

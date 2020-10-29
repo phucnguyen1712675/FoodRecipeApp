@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FoodRecipeApp.DAO
 {
@@ -27,6 +28,14 @@ namespace FoodRecipeApp.DAO
         public DataTable getAllDishes()
         {
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getAllDishes");
+        }
+        public DataTable getFilterDishes(string filterQuery)
+        {
+            
+            //string test = "EXEC USP_getDishByTypes @List = N'" + filterQuery + "'";
+            //MessageBox.Show(test);
+            //return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'Mặn,chay'");
+            return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'" + filterQuery + "'");
         }
     }
 }

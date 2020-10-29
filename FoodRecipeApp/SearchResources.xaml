@@ -1,0 +1,32 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
+    <DataTemplate x:Key="sizeTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="Item" />
+            <TextBlock Text="{Binding Name}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="contentTemplate">
+        <TextBlock FontStyle="Italic" FontSize="48" Foreground="#767676" Text="{Binding Name}"
+						HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </DataTemplate>
+
+    <Style TargetType="telerik:RadTileViewItem" BasedOn="{StaticResource RadTileViewItemStyle}">
+        <Setter Property="Background" Value="#eaeaea" />
+    </Style>
+
+    <Style TargetType="telerik:RadTileView" BasedOn="{StaticResource RadTileViewStyle}">
+        <Setter Property="RowHeight" Value="200" />
+        <Setter Property="ColumnWidth" Value="200" />
+        <Setter Property="ColumnsCount" Value="7" />
+        <Setter Property="MaximizeMode" Value="Zero" />
+        <Setter Property="MinimizedRowHeight" Value="100" />
+        <Setter Property="MinimizedColumnWidth" Value="100" />
+        <Setter Property="IsAutoScrollingEnabled" Value="True" />
+        <Setter Property="PreservePositionWhenMaximized" Value="True" />
+        <Setter Property="ItemTemplate" Value="{StaticResource sizeTemplate}" />
+        <Setter Property="ContentTemplate" Value="{StaticResource contentTemplate}" />
+    </Style>
+</ResourceDictionary>

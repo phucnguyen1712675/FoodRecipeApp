@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FoodRecipeApp.DTO
 {
-	public class DishesDataSource
-	{
+    public class DishesDataSource
+    {
         private static DishesDataSource _instance = null;
-		private DishesCollection _dishesCollection;
+        private DishesCollection _dishesCollection;
 
-		public static DishesDataSource Instance
+        public static DishesDataSource Instance
         {
             get
             {
@@ -23,23 +23,28 @@ namespace FoodRecipeApp.DTO
             }
         }
 
-        private DishesDataSource() 
-		{
-			this._dishesCollection = null;
-		}
-
-		public DishesCollection DishesCollection 
-		{ 
-			get
-			{
-				if (this._dishesCollection == null)
-				{
-					this._dishesCollection = DishesCollection.GetDishes();
-				}
-				return this._dishesCollection;
-			}
-		}
+        private DishesDataSource()
+        {
+            this._dishesCollection = null;
+        }
 
 
-	}
+        public DishesCollection DishesCollection
+        {
+            get
+            {
+                if (this._dishesCollection == null)
+                {
+                    this._dishesCollection = DishesCollection.GetDishes();
+                }
+                return this._dishesCollection;
+            }
+        }
+        public static DishesCollection DishesFilterCollection(string queryFilter)
+        {
+            DishesCollection FilterDishes = DishesCollection.GetFilterDishes(queryFilter);
+            return FilterDishes;
+        }
+
+    }
 }

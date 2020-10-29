@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Configuration;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using FoodRecipeApp.DTO;
 using MahApps.Metro.Controls;
 
 namespace FoodRecipeApp.GUI
@@ -13,13 +15,9 @@ namespace FoodRecipeApp.GUI
 	/// </summary>
 	public partial class SplashScreen : MetroWindow
 	{
-		//private DispatcherTimer _timer;
 		public SplashScreen()
 		{
 			InitializeComponent();
-
-			/*ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithAppMode;
-			ThemeManager.Current.SyncTheme();*/
 		}
 
 		public double Progress
@@ -33,24 +31,11 @@ namespace FoodRecipeApp.GUI
 			System.Diagnostics.Process.Start("https://github.com/phucnguyen1712675/FoodRecipeApp");
 		}
 
-		private void DeployCupCakes(object sender, RoutedEventArgs e)
-		{
-			// deploy some CupCakes...
 		}*/
 
 		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
 		{
-			AdviceTextBlock.Text =
-				"I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang I love Ngô Nha Trang";
-			/*_timer = new DispatcherTimer(TimeSpan.FromMilliseconds(200),
-				DispatcherPriority.Normal,
-				(o, args) =>
-				{
-					*/ /*TheProgressBar.Value = DateTime.Now.Millisecond;
-					TheOtherProgressBar.Value = DateTime.Now.Millisecond;*/ /*
-				},
-				Dispatcher);
-			_timer.Start();*/
+			//AdviceTextBlock.Text = QuotesDataSource.Instance.GetRandomQuote();
 		}
 
 		private MetroWindow _accentThemeTestWindow;

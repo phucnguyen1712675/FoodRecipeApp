@@ -20,10 +20,19 @@
                  AllowsTransparency="True"
                  Loaded="MainWindow_OnLoaded"
                  mc:Ignorable="d">
-	
+
+	<Window.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="/FoodRecipeApp;component/Resources/RecipeResources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Window.Resources>
+
 	<!--Background-->
 	<Window.Background>
-		<ImageBrush ImageSource="/Resources/coffee.png" Stretch="UniformToFill"/>
+		<ImageBrush ImageSource="/Resources/SplashScreen/coffee.png" 
+					Stretch="UniformToFill"/>
 	</Window.Background>
 
 	<!--Full Screen-->
@@ -32,10 +41,10 @@
 			<RowDefinition Height="12*">
 				
 			</RowDefinition>
-			<RowDefinition Height="6.5*">
+			<RowDefinition Height="6.6*">
 
 			</RowDefinition>
-			<RowDefinition Height="0.5*">
+			<RowDefinition Height="0.4*">
 
 			</RowDefinition>
 		</Grid.RowDefinitions>
@@ -52,7 +61,7 @@
 			<!--Column 0-->
 			<DockPanel Grid.Column="0" 
 			           TextBlock.FontFamily="Segoe UI Light"
-			           TextBlock.Foreground="White">
+			           TextBlock.Foreground="#704523">
 				<TextBlock Margin="10, 120, 0, 0" 
 				           DockPanel.Dock="Top"
 				           FontSize="44"
@@ -62,6 +71,11 @@
 				           FontSize="54"
 				           Text="Food Recipe App"/>
 			</DockPanel>
+			
+			<!--<Border VerticalAlignment="Top" Grid.Column="1" Background="Transparent">
+				<Image Source="/Resources/SplashScreen/oneline.jpg"
+					   Stretch="Uniform" />
+			</Border>-->
 		</Grid>
 		<!--Row 1-->
 		<Grid Grid.Row="1">
@@ -75,16 +89,16 @@
 			</Grid.ColumnDefinitions>
 			<!--Column 0-->
 			<DockPanel Name="TipDockPanel" Grid.Column="0">
-				<!--<TextBlock DockPanel.Dock="Top" Height="90"></TextBlock>-->
 				<TextBlock x:Name="AdviceTextBlock" 
-				       Margin="0, 0, 135, 5" 
-				       DockPanel.Dock="Top"
-				       FontSize="18"
-				       FontFamily="Segoe UI Light"
-				       Foreground="White"
-				       TextWrapping="WrapWithOverflow"
-					   Padding="20"
-					   VerticalAlignment="Bottom"/>
+						   Margin="0, 0, 135, 5" 
+						   DockPanel.Dock="Top"
+				           FontSize="18"
+				           FontFamily="Segoe UI Light"
+				           Foreground="#704523"
+				           TextWrapping="WrapWithOverflow"
+					       Padding="20"
+					       VerticalAlignment="Bottom"
+					       Text="{Binding QuoteToShow, Source={StaticResource MyRecipeViewModel}}"/>
 			</DockPanel>
 			<!--Column 1-->
 			<DockPanel Grid.Column="1">
@@ -98,7 +112,7 @@
 						<ScaleTransform ScaleX="1.5" ScaleY="1.5" />
 					</CheckBox.LayoutTransform>
 					<TextBlock TextBlock.FontFamily="Segoe UI Light"
-					           TextBlock.Foreground="White"
+					           TextBlock.Foreground="#704523"
 					           Text="Don't show again"/>
 				</CheckBox>
 			</DockPanel>
@@ -108,56 +122,14 @@
 
 	<mah:MetroWindow.WindowButtonCommands>
 		<mah:WindowButtonCommands Minimize="A custom Tooltip which will be shown on Min button"
-                                       Maximize="Maximize the window"
-                                       Restore="Restore the window"
-                                       Close="Noooo... don't close me!"
-                                       LightMinButtonStyle="{StaticResource CustomLightMinButtonStyle}"
-                                       LightMaxButtonStyle="{StaticResource CustomLightMaxButtonStyle}"
-                                       LightCloseButtonStyle="{StaticResource CustomLightCloseButtonStyle}"
-                                       DarkMinButtonStyle="{StaticResource CustomDarkMinButtonStyle}"
-                                       DarkMaxButtonStyle="{StaticResource CustomDarkMaxButtonStyle}"
-                                       DarkCloseButtonStyle="{StaticResource CustomDarkCloseButtonStyle}" />
+                                  Maximize="Maximize the window"
+                                  Restore="Restore the window"
+                                  Close="Noooo... don't close me!"
+                                  LightMinButtonStyle="{StaticResource CustomLightMinButtonStyle}"
+                                  LightMaxButtonStyle="{StaticResource CustomLightMaxButtonStyle}"
+                                  LightCloseButtonStyle="{StaticResource CustomLightCloseButtonStyle}"
+                                  DarkMinButtonStyle="{StaticResource CustomDarkMinButtonStyle}"
+                                  DarkMaxButtonStyle="{StaticResource CustomDarkMaxButtonStyle}"
+                                  DarkCloseButtonStyle="{StaticResource CustomDarkCloseButtonStyle}" />
 	</mah:MetroWindow.WindowButtonCommands>
-
-	<!--<mah:MetroWindow.LeftWindowCommands>
-		<mah:WindowCommands>
-			<Button Click="LaunchGitHubSite" ToolTip="Open up the GitHub site">
-				<iconPacks:PackIconModern Width="22"
-				                          Height="22"
-				                          Kind="SocialGithubOctocat" />
-			</Button>
-		</mah:WindowCommands>
-	</mah:MetroWindow.LeftWindowCommands>-->
-
-	<!--<mah:MetroWindow.RightWindowCommands>
-		<mah:WindowCommands>
-			<Button Click="DeployCupCakes" Content="Deploy CupCakes">
-				<Button.ContentTemplate>
-					<DataTemplate>
-						<StackPanel Orientation="Horizontal">
-							<iconPacks:PackIconModern Width="22"
-							                          Height="22"
-							                          VerticalAlignment="Center"
-							                          Kind="FoodCupcake" />
-							<TextBlock Margin="4 0 0 0"
-							           VerticalAlignment="Center"
-							           Text="{Binding}" />
-						</StackPanel>
-					</DataTemplate>
-				</Button.ContentTemplate>
-			</Button>
-		</mah:WindowCommands>
-	</mah:MetroWindow.RightWindowCommands>-->
-	<!--<mah:MetroWindow.RightWindowCommands>
-		<mah:WindowCommands>
-			<Button Click="ChangeAppStyleButtonClick">
-				<StackPanel Orientation="Horizontal">
-					<iconPacks:PackIconModern Width="24" Height="24" Kind="FoodCupcake" />
-					<TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Change App Style..." />
-				</StackPanel>
-			</Button>
-		</mah:WindowCommands>
-	</mah:MetroWindow.RightWindowCommands>-->
-
-
 </mah:MetroWindow>

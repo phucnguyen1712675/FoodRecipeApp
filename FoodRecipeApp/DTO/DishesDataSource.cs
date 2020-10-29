@@ -28,8 +28,6 @@ namespace FoodRecipeApp.DTO
 			this._dishesCollection = null;
 		}
 
-       
-
 		public DishesCollection DishesCollection 
 		{ 
 			get
@@ -41,5 +39,7 @@ namespace FoodRecipeApp.DTO
 				return this._dishesCollection;
 			}
 		}
+
+
 	}
 }

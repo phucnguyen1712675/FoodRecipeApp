@@ -7,43 +7,44 @@
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:local="clr-namespace:FoodRecipeApp"
       xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-      x:Class="FoodRecipeApp.GUI.MainPage"
+	  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      x:Class="FoodRecipeApp.GUI.MainPage" 
       Title="Home Screen"
       d:DesignHeight="485"
       d:DesignWidth="920"
       Style="{DynamicResource PageStyle}"
+	  
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Light"
+        TextElement.FontSize="14"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        FontFamily="{DynamicResource MaterialDesignFont}"
       mc:Ignorable="d">
 
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/FoodRecipeApp;component/RecipeResources.xaml" />
+				<ResourceDictionary Source="/FoodRecipeApp;component/Resources/RecipeResources.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</Page.Resources>
 
 	<Grid x:Name="LayoutRoot"
-		HorizontalAlignment="Stretch"
-		VerticalAlignment="Stretch">
+		  HorizontalAlignment="Center"
+		  VerticalAlignment="Center">
 
 		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
+			<RowDefinition Height="*"/>
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<telerik:RadTileList Grid.Row="0"
-						     x:Name="radTileList"
+		<telerik:RadTileView Grid.Row="0"
+							 x:Name="radTileView"
 							 ItemsSource="{Binding PagedSource, ElementName=radDataPager1}"
-							 ItemTemplate="{DynamicResource TileListItemTemplate}"
-							 ScrollViewer.HorizontalScrollBarVisibility="Auto"
-							 >
-
-			<telerik:RadTileList.PanoramaBackground>
-				<Image Source="/Resources/panoramic-view-sea.jpg" 
-					   Stretch="UniformToFill"/>
-			</telerik:RadTileList.PanoramaBackground>
-
-		</telerik:RadTileList>
+							 ItemTemplate="{StaticResource sizeTemplate}"
+                             ContentTemplate="{StaticResource contentTemplate}"
+							 TileStateChanged="radTileView_TileStateChanged"/>
 
 		<telerik:RadDataPager Grid.Row="1"
 							  x:Name="radDataPager1" 
@@ -53,7 +54,6 @@
 							  BorderThickness="1,0,1,1"
 							  Margin="0,10,0,0"
 							  Source="{Binding Recipes, Source={StaticResource MyRecipeViewModel}}"
-							  IsTotalItemCountFixed="True" 
-							  />
+							  IsTotalItemCountFixed="True"/>
 	</Grid>
 </Page>

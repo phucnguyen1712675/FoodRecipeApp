@@ -25,7 +25,7 @@ namespace FoodRecipeApp.DTO
             return dishes;
         }
 
-        public static List<Dish> GetDishList()
+        /*public static List<Dish> GetDishList()
         {
             List<Dish> dishes = new List<Dish>();
             DataTable data = DishDAO.Instance.getAllDishes();
@@ -35,6 +35,7 @@ namespace FoodRecipeApp.DTO
                 dishes.Add(dish);
             }
             return dishes;
+*/
         }
         public static DishesCollection GetFilterDishes(string queryFilter)
         {

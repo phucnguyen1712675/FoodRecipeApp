@@ -29,7 +29,6 @@ namespace FoodRecipeApp.DTO
         }
 
 
-
         public DishesCollection DishesCollection
         {
             get

@@ -3,8 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            
-      xmlns:local="clr-namespace:FoodRecipeApp.GUI"
+					xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
+
+    xmlns:local="clr-namespace:FoodRecipeApp.GUI"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
 		xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     
@@ -14,7 +15,13 @@
       Style="{DynamicResource PageStyle}"
       mc:Ignorable="d"
 		>
-
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FoodRecipeApp;component/RecipeResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <!--Full screen-->
     <Grid Background="Pink">
@@ -57,8 +64,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Món chay"/>
-                    <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Món mặn"/>
+                    <CheckBox Name="checkBox1" Checked="Check_Click" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chay"/>
+                    <CheckBox Name="checkBox2"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Mặn"/>
 
                 </Grid>
                 <!--Row 3-->
@@ -78,14 +85,14 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Heo" Padding="10"/>
-                    <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Gà" Padding="10" />
-                    <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Bò" Padding="10" />
-                    <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Dê" Padding="10"/>
-                    <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Hải sản" Padding="10"/>
-                    <CheckBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Dê" Padding="10"/>
-                    <CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Đồ ngọt" Padding="10"/>
-                    <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác" Padding="10"/>
+                    <CheckBox Name="checkBox3" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Heo" Padding="10"/>
+                    <CheckBox Name="checkBox4" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Gà" Padding="10" />
+                    <CheckBox Name="checkBox5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Bò" Padding="10" />
+                    <CheckBox Name="checkBox6" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Dê" Padding="10"/>
+                    <CheckBox Name="checkBox7" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Hải sản" Padding="10"/>
+                    <CheckBox Name="checkBox8" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác" Padding="10"/>
+                    <CheckBox Name="checkBox9" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Đồ ngọt" Padding="10"/>
+                    
                 </Grid>
                 <!--Row 5-->
                 <Label Grid.Row="5" Content="Cách chế biến"
@@ -104,14 +111,14 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chiên"/>
-                    <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Xào"/>
-                    <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nấu"/>
-                    <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Kho"/>
-                    <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nướng"/>
-                    <CheckBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Hấp"/>
-                    <CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Lên men"/>
-                    <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác"/>
+                    <CheckBox Name="checkBox11" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chiên"/>
+                    <CheckBox Name="checkBox12" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Xào"/>
+                    <CheckBox Name="checkBox13" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nấu"/>
+                    <CheckBox Name="checkBox14" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Kho"/>
+                    <CheckBox Name="checkBox15" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nướng"/>
+                    <CheckBox Name="checkBox16" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Hấp"/>
+                    <CheckBox Name="checkBox17" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Lên men"/>
+                    <CheckBox Name="checkBox18" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác"/>
                 </Grid>
             </Grid>
         </Border>
@@ -165,8 +172,9 @@
 
                 <!--Row 1 Hien thi ket qua -->
                 <Grid Grid.Row="1">
-                    <Grid x:Name="LayoutRoot">
-
+                    <Grid x:Name="LayoutRoot" >
+                        
+                        
                         <telerik:RadTileView ColumnsCount="4" 
                                              ColumnWidth='200'
                                              RowHeight='200'
@@ -177,8 +185,10 @@
                                              TileStateChangeTrigger="SingleClick"
                                              MinimizedColumnWidth= '150'
 	                                         MinimizedRowHeight='150'
-                                             ItemsSource="{Binding ImagePath}"
+                                             ItemsSource="{Binding Name}"
+                                             Margin="2,2,2,2"
                                              />
+                        
 
                     </Grid>
 

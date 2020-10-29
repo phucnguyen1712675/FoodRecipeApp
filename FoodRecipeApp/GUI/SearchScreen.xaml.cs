@@ -37,6 +37,8 @@ namespace FoodRecipeApp.GUI
 
 			//this.DataContext = Dish.GetDishes();
 			AddAllCheckBox();
+			this.DataContext = DishesDataSource.Instance.DishesCollection;
+			//FilterList = DishesDataSource.Instance.DishesCollection;
 
 
 		}
@@ -68,13 +70,14 @@ namespace FoodRecipeApp.GUI
 		private void Check_Click(object sender, RoutedEventArgs e)
 		{
 			string FilterQuery = ListCheckBoxes.GetFilterQuery();
-			FilterList = DishesDataSource.DishesFilterCollection(FilterQuery);
-			this.DataContext =  FilterList;
+			//FilterList = DishesDataSource.DishesFilterCollection(FilterQuery);
+			
+			this.DataContext = DishesDataSource.DishesFilterCollection(FilterQuery);
+			//MessageBox.Show(FilterList.Count.ToString());
 			//MessageBox.Show(FilterQuery);
 		}
 		private void Search_Click(object sender, RoutedEventArgs e)
         {
-			checkBox1.Content = "123";
 		}
 
         private void Previous_Click(object sender, RoutedEventArgs e)
@@ -109,7 +112,31 @@ namespace FoodRecipeApp.GUI
 			//this.DialogBox.Visibility = System.Windows.Visibility.Collapsed;
 		}
 
-        
-    }
+		private void radTileView_TileStateChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
+		{
+			RadTileViewItem item = e.OriginalSource as RadTileViewItem;
+			if (item != null)
+			{
+				RadFluidContentControl fluid = item.ChildrenOfType<RadFluidContentControl>().FirstOrDefault();
+				if (fluid != null)
+				{
+					switch (item.TileState)
+					{
+						case TileViewItemState.Maximized:
+							fluid.State = FluidContentControlState.Large;
+							break;
+						case TileViewItemState.Minimized:
+							fluid.State = FluidContentControlState.Normal;
+							break;
+						case TileViewItemState.Restored:
+							fluid.State = FluidContentControlState.Normal;
+							break;
+						default:
+							break;
+					}
+				}
+			}
+		}
+	}
 
 }

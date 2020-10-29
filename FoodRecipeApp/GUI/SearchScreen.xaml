@@ -18,10 +18,23 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FoodRecipeApp;component/Resources/RecipeResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+                <EventSetter Event="Checked" Handler="Check_Click" />
+            </Style>
+            <!--Style="{StaticResource CheckBoxStyle}"-->
+        </ResourceDictionary>
+        
+    </Page.Resources>
+
+    <!--<Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/FoodRecipeApp;component/RecipeResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Page.Resources>
+    </Page.Resources>-->
 
     <!--Full screen-->
     <Grid Background="Pink">
@@ -65,8 +78,8 @@
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
                     <CheckBox Name="checkBox1" Checked="Check_Click" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chay"/>
-                    <CheckBox Name="checkBox2"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Mặn"/>
-
+                    <CheckBox Name="checkBox2" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Mặn"/>
+                   
                 </Grid>
                 <!--Row 3-->
                 <Label Grid.Row="3" Content="Nguyên liệu chính"
@@ -92,7 +105,7 @@
                     <CheckBox Name="checkBox7" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Hải sản" Padding="10"/>
                     <CheckBox Name="checkBox8" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác" Padding="10"/>
                     <CheckBox Name="checkBox9" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Đồ ngọt" Padding="10"/>
-                    
+
                 </Grid>
                 <!--Row 5-->
                 <Label Grid.Row="5" Content="Cách chế biến"
@@ -161,8 +174,8 @@
                             BorderBrush="{x:Null}" Margin="1,1,1,1" 
                             BorderThickness="0">
                             <Image 
-                                Source="ecommerce (1).png" 
-                                Opacity="0.8">
+                                Source="/Resources/recipe-book.ico" 
+                                Opacity="1">
                             </Image>
                         </Button>
                     </Grid>
@@ -173,25 +186,14 @@
 
                 <!--Row 1 Hien thi ket qua -->
                 <Grid Grid.Row="1">
-                    <Grid x:Name="LayoutRoot" >
-                        
-                        
-                        <telerik:RadTileView ColumnsCount="4" 
-                                             ColumnWidth='200'
-                                             RowHeight='200'
-                                             IsAutoScrollingEnabled="True"
-                                             IsDockingEnabled="True"
-	                                         IsVirtualizing="True"
-                                             PreservePositionWhenMaximized="True"
-                                             TileStateChangeTrigger="SingleClick"
-                                             MinimizedColumnWidth= '150'
-	                                         MinimizedRowHeight='150'
-                                             ItemsSource="{Binding Name}"
-                                             Margin="2,2,2,2"
-                                             />
-                        
 
-                    </Grid>
+                    <telerik:RadTileView Grid.Row="0"
+							 x:Name="radTileView"
+							 ItemsSource="{Binding}"
+							 ItemTemplate="{StaticResource sizeTemplate}"
+                             ContentTemplate="{StaticResource contentTemplate}"
+							 TileStateChanged="radTileView_TileStateChanged"/>
+
 
                 </Grid>
             </Grid>

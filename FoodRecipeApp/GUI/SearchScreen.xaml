@@ -147,10 +147,10 @@
                             Click="Search_Click" 
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="4.2,5" 
-                            BorderThickness="0">                         
-                            <Image 
-                                Source="C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\ecommerce (1).png" 
-                                Opacity="0.6">                                
+                            BorderThickness="0">
+                            <Image >
+                                <!--Source="C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\ecommerce (1).png"
+                                Opacity="0.6"-->                                
                             </Image>
                         </Button>
                     </Grid>
@@ -180,9 +180,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell 1 0-->
@@ -195,9 +195,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell 2 0-->
@@ -210,9 +210,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell 0 1-->
@@ -225,9 +225,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell 1 1-->
@@ -240,9 +240,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell 2 1-->
@@ -255,9 +255,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell 0 2-->
@@ -270,9 +270,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell 1 2-->
@@ -285,9 +285,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell 2 2-->
@@ -300,9 +300,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}" Margin="0,0,0,5" 
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
                                 Opacity="0.6">
-                            </Image>
+                            </Image>-->
                         </Button>
                     </DockPanel>
                     <!--Cell Slide board-->
@@ -319,9 +319,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}"  
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\previous.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\previous.png"
                                 Opacity="1">
-                            </Image>
+                            </Image>-->
                         </Button>
                         <!--Next Button-->
                         <Button Grid.Column="2"
@@ -330,9 +330,9 @@
                             Background="{x:Null}" Foreground="{x:Null}" 
                             BorderBrush="{x:Null}"  
                             BorderThickness="0">
-                            <Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\next-button.png"
+                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\next-button.png"
                                 Opacity="1">
-                            </Image>
+                            </Image>-->
                         </Button>
                         <!--Current page-->
                         <Label Grid.Column="1" Content="1/10" 

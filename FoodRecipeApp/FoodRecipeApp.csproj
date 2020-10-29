@@ -510,6 +510,7 @@
     </Compile>
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
+    <Compile Include="MyRandom.cs" />
     <Compile Include="Navigation\NavigationServiceEx.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
     <Compile Include="ViewModels\NasdaqViewModel.cs" />
@@ -639,10 +640,6 @@
     <Resource Include="Resources\MainPage\heart.png" />
     <Resource Include="Resources\MainPage\heart_1.png" />
     <Resource Include="Resources\MainPage\heart_2.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="GUI\ecommerce %281%29.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />

@@ -17,7 +17,9 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using FoodRecipeApp.ViewModels;
 using Telerik.Windows.Controls;
-
+using Telerik.Windows.Data;
+using System.Diagnostics;
+using System.Windows.Controls.Primitives;
 
 namespace FoodRecipeApp.GUI
 {
@@ -26,55 +28,70 @@ namespace FoodRecipeApp.GUI
 	/// </summary>
 	public partial class MainPage : Page
 	{
+		Dictionary<int, ToggleButton> toggleButtons = new Dictionary<int, ToggleButton>();
+
 		public MainPage()
 		{
 			InitializeComponent();
-			this.RadTileList.ItemsSource = Dish.GetDishes();
-			this.Loaded += Example_Loaded;
-			this.Unloaded += Example_Unloaded;
+			this.AddHandler(Tile.MouseDownEvent, new MouseButtonEventHandler(OnMouseDownEvent), true);
+			/*this.radDataPager1.ItemCount = DishesDataSource.Instance.DishesCollection.Count;
+			this.radTileList.ItemsSource = DishesDataSource.Instance.DishesCollection.Take(this.radDataPager1.PageSize).ToList();*/
 		}
 
-		private void Example_Loaded(object sender, RoutedEventArgs e)
+		private void OnMouseDownEvent(object sender, MouseButtonEventArgs e)
 		{
-			//ApplicationThemeManager.GetInstance().ThemeChanged += this.Example_ThemeChanged;
+			//
 		}
 
-		private void Example_Unloaded(object sender, RoutedEventArgs e)
-		{
-			//ApplicationThemeManager.GetInstance().ThemeChanged -= this.Example_ThemeChanged;
-		}
-
-		private void Example_ThemeChanged(object sender, EventArgs e)
+		/*private void Example_ThemeChanged(object sender, EventArgs e)
 		{
 			this.Resources.MergedDictionaries.Clear();
-			this.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("/TileList;component/BindingItemsSource/WPF/Resources.xaml", UriKind.RelativeOrAbsolute) });
-		}
+			this.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("/FoodRecipeApp;component/RecipeResources.xaml", UriKind.RelativeOrAbsolute) });
+		}*/
 
-		private void OnAutoGeneratingTile(object sender, AutoGeneratingTileEventArgs e)
+		private void radTileView_TileStateChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
 		{
-			var recipePosition = (e.Tile.DataContext as Dish).Loai;
-
-			switch (recipePosition)
+			RadTileViewItem item = e.OriginalSource as RadTileViewItem;
+			if (item != null)
 			{
-				case "Sales Representative":
-					e.Tile.Group.DisplayIndex = 0;
-					break;
-				case "Sales Manager":
-					e.Tile.Group.DisplayIndex = 1;
-					break;
-				case "Vice President, Sales":
-					e.Tile.Group.DisplayIndex = 2;
-					break;
-				default:
-					e.Tile.Group.DisplayIndex = 0;
-					break;
+				RadFluidContentControl fluid = item.ChildrenOfType<RadFluidContentControl>().FirstOrDefault();
+				if (fluid != null)
+				{
+					switch (item.TileState)
+					{
+						case TileViewItemState.Maximized:
+							fluid.State = FluidContentControlState.Large;
+							break;
+						case TileViewItemState.Minimized:
+							fluid.State = FluidContentControlState.Normal;
+							break;
+						case TileViewItemState.Restored:
+							fluid.State = FluidContentControlState.Normal;
+							break;
+						default:
+							break;
+					}
+				}
 			}
 		}
 
-		private BindingList<Dish> _dishes = new BindingList<Dish>();
-
-		private void Page_Loaded(object sender, RoutedEventArgs e)
+		private void FavouriteButton_Click(object sender, RoutedEventArgs e)
 		{
+			if ((sender as ToggleButton).IsChecked.Value)
+			{
+				// Code for Checked state
+			}
+			else
+			{
+				// Code for Un-Checked state
+			}
 		}
+		/*private void radDataPager1_PageIndexChanged(object sender, PageIndexChangedEventArgs e)
+		{
+			if (DishesDataSource.Instance.DishesCollection != null)
+			{
+				this.radTileList.ItemsSource = DishesDataSource.Instance.DishesCollection.Skip(e.NewPageIndex * this.radDataPager1.PageSize).Take(this.radDataPager1.PageSize).ToList();
+			}
+		}*/
 	}
 }

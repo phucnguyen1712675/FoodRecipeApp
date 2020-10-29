@@ -3,14 +3,25 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            
-      xmlns:local="clr-namespace:FoodRecipeApp.GUI"
+					xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
+
+    xmlns:local="clr-namespace:FoodRecipeApp.GUI"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+		xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    
 	  Title="Search Screen"
       d:DesignHeight="485"
       d:DesignWidth="1110"
       Style="{DynamicResource PageStyle}"
-      mc:Ignorable="d">
+      mc:Ignorable="d"
+		>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FoodRecipeApp;component/RecipeResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <!--Full screen-->
     <Grid Background="Pink">
@@ -53,8 +64,8 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Món chay"/>
-                    <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Món mặn"/>
+                    <CheckBox Name="checkBox1" Checked="Check_Click" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chay"/>
+                    <CheckBox Name="checkBox2"  Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Mặn"/>
 
                 </Grid>
                 <!--Row 3-->
@@ -74,14 +85,14 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Heo" Padding="10"/>
-                    <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Gà" Padding="10" />
-                    <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Bò" Padding="10" />
-                    <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Dê" Padding="10"/>
-                    <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Hải sản" Padding="10"/>
-                    <CheckBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Dê" Padding="10"/>
-                    <CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Đồ ngọt" Padding="10"/>
-                    <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác" Padding="10"/>
+                    <CheckBox Name="checkBox3" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Heo" Padding="10"/>
+                    <CheckBox Name="checkBox4" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Gà" Padding="10" />
+                    <CheckBox Name="checkBox5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Bò" Padding="10" />
+                    <CheckBox Name="checkBox6" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Dê" Padding="10"/>
+                    <CheckBox Name="checkBox7" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Hải sản" Padding="10"/>
+                    <CheckBox Name="checkBox8" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác" Padding="10"/>
+                    <CheckBox Name="checkBox9" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Đồ ngọt" Padding="10"/>
+                    
                 </Grid>
                 <!--Row 5-->
                 <Label Grid.Row="5" Content="Cách chế biến"
@@ -100,14 +111,14 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chiên"/>
-                    <CheckBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Xào"/>
-                    <CheckBox Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nấu"/>
-                    <CheckBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Kho"/>
-                    <CheckBox Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nướng"/>
-                    <CheckBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Hấp"/>
-                    <CheckBox Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Lên men"/>
-                    <CheckBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác"/>
+                    <CheckBox Name="checkBox11" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chiên"/>
+                    <CheckBox Name="checkBox12" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Xào"/>
+                    <CheckBox Name="checkBox13" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nấu"/>
+                    <CheckBox Name="checkBox14" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Kho"/>
+                    <CheckBox Name="checkBox15" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nướng"/>
+                    <CheckBox Name="checkBox16" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Hấp"/>
+                    <CheckBox Name="checkBox17" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Lên men"/>
+                    <CheckBox Name="checkBox18" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác"/>
                 </Grid>
             </Grid>
         </Border>
@@ -121,7 +132,7 @@
                     <RowDefinition Height="2*"/>
                     <RowDefinition Height="19*"/>
                 </Grid.RowDefinitions>
-                <!--Border Row 0-->
+                <!--Border Row 0  Search bar-->
                 <Border BorderBrush="Black"
                             BorderThickness="1"          
                             VerticalAlignment="Center"
@@ -146,204 +157,47 @@
                             VerticalAlignment="center" 
                             Click="Search_Click" 
                             Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="4.2,5" 
+
+                            BorderBrush="{x:Null}" Margin="1,1,1,1" 
                             BorderThickness="0">
-                            <Image >
-                                <!--Source="C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\ecommerce (1).png"
-                                Opacity="0.6"-->                                
+                            <Image 
+                                Source="ecommerce (1).png" 
+                                Opacity="0.8">
                             </Image>
                         </Button>
                     </Grid>
 
+
+
                 </Border>
-                
-                <!--Row 1-->
+
+                <!--Row 1 Hien thi ket qua -->
                 <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="3*"/>
-                        <RowDefinition Height="1*"/>
-                    </Grid.RowDefinitions>
-                    <!--Cell 0 0-->
-                    <DockPanel Grid.Column="0" Grid.Row="0">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell 1 0-->
-                    <DockPanel Grid.Column="1" Grid.Row="0">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell 2 0-->
-                    <DockPanel Grid.Column="2" Grid.Row="0">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell 0 1-->
-                    <DockPanel Grid.Column="0" Grid.Row="1">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell 1 1-->
-                    <DockPanel Grid.Column="1" Grid.Row="1">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell 2 1-->
-                    <DockPanel Grid.Column="2" Grid.Row="1">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell 0 2-->
-                    <DockPanel Grid.Column="0" Grid.Row="2">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell 1 2-->
-                    <DockPanel Grid.Column="1" Grid.Row="2">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell 2 2-->
-                    <DockPanel Grid.Column="2" Grid.Row="2">
-                        <Label FontSize="15"  Content="Tên món ăn"
-                               DockPanel.Dock="Bottom" HorizontalAlignment="Center" />
-                        <Button DockPanel.Dock="Bottom"
-                            VerticalAlignment="center" 
-                            Click="Search_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}" Margin="0,0,0,5" 
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\coffee.png"
-                                Opacity="0.6">
-                            </Image>-->
-                        </Button>
-                    </DockPanel>
-                    <!--Cell Slide board-->
-                    <Grid Grid.Column="1" Grid.Row="3">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="5*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-                        <!--Previous Button-->
-                        <Button Grid.Column="0"
-                            VerticalAlignment="center" 
-                            Click="Previous_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}"  
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\previous.png"
-                                Opacity="1">
-                            </Image>-->
-                        </Button>
-                        <!--Next Button-->
-                        <Button Grid.Column="2"
-                            VerticalAlignment="center" 
-                            Click="Next_Click" 
-                            Background="{x:Null}" Foreground="{x:Null}" 
-                            BorderBrush="{x:Null}"  
-                            BorderThickness="0">
-                            <!--<Image Source=  "C:\Users\vothi\Source\Repos\phucnguyen1712675\FoodRecipeApp\FoodRecipeApp\Resources\next-button.png"
-                                Opacity="1">
-                            </Image>-->
-                        </Button>
-                        <!--Current page-->
-                        <Label Grid.Column="1" Content="1/10" 
-                               FontSize="35" 
-                               HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+                    <Grid x:Name="LayoutRoot" >
+                        
+                        
+                        <telerik:RadTileView ColumnsCount="4" 
+                                             ColumnWidth='200'
+                                             RowHeight='200'
+                                             IsAutoScrollingEnabled="True"
+                                             IsDockingEnabled="True"
+	                                         IsVirtualizing="True"
+                                             PreservePositionWhenMaximized="True"
+                                             TileStateChangeTrigger="SingleClick"
+                                             MinimizedColumnWidth= '150'
+	                                         MinimizedRowHeight='150'
+                                             ItemsSource="{Binding Name}"
+                                             Margin="2,2,2,2"
+                                             />
+                        
+
                     </Grid>
+
                 </Grid>
             </Grid>
-            
+
         </Border>
-        
-        
+
+
     </Grid>
 </Page>

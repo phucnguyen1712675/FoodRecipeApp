@@ -1833,4 +1833,4 @@ where not exists ((select Item from dbo.SplitInts(@List,','))
 								except (select Item from dbo.SplitInts(Loai,',')))
 END
 GO
--------------------------------------------
+

@@ -8,23 +8,13 @@ using System.Threading.Tasks;
 
 namespace FoodRecipeApp.DTO
 {
-    class Quote
+    public class Quote
     {
-        public List<string> Quotes { get; set; }
+        public string QuoteString { get; set; }
 
-        public string getQuoteFromRow(DataRow row)
+        public Quote(DataRow row)
         {
-            return row["Quote"].ToString();
-        }
-
-        public Quote()
-        {
-            Quotes = new List<string>();
-            DataTable allQuotes = QuoteDAO.Instance.getAllQuotes();
-            foreach(DataRow row in allQuotes.Rows)
-            {
-                Quotes.Add(getQuoteFromRow(row));
-            }
+            QuoteString = row["Quote"].ToString();
         }
     }
 }

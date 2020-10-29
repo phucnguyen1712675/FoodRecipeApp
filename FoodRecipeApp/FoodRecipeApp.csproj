@@ -490,12 +490,12 @@
     <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\QuoteDAO.cs" />
     <Compile Include="DAO\StepDAO.cs" />
+    <Compile Include="DTO\CheckedList.cs" />
     <Compile Include="DTO\Dish.cs" />
     <Compile Include="DTO\DishesCollection.cs" />
     <Compile Include="DTO\DishesDataSource.cs" />
     <Compile Include="DTO\Images.cs" />
     <Compile Include="DTO\Quote.cs" />
-    <Compile Include="DTO\SimpleItems.cs" />
     <Compile Include="DTO\Step.cs" />
     <Compile Include="GUI\AddRecipe.xaml.cs">
       <DependentUpon>AddRecipe.xaml</DependentUpon>

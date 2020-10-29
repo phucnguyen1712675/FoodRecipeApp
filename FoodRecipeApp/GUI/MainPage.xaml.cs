@@ -30,9 +30,10 @@ namespace FoodRecipeApp.GUI
 		public MainPage()
 		{
 			InitializeComponent();
-			/*this.radDataPager1.ItemCount = DishesDataSource.Instance.DishesCollection.Count;
-			this.radTileList.ItemsSource = DishesDataSource.Instance.DishesCollection.Take(this.radDataPager1.PageSize).ToList();*/
-		}
+			Debug.WriteLine(DishesDataSource.Instance.DishesCollection.Count);
+            //this.radDataPager1.ItemCount = DishesDataSource.Instance.DishesCollection.Count;
+            //this.radTileList.ItemsSource = DishesDataSource.Instance.DishesCollection.Take(this.radDataPager1.PageSize).ToList();
+        }
 
 		private void Example_ThemeChanged(object sender, EventArgs e)
 		{

@@ -1800,4 +1800,31 @@ SELECT * FROM DBO.DISH
 END
 GO
 -------------------------------------------
+go
+CREATE FUNCTION dbo.SplitInts
+(
+   @List      NVARCHAR(MAX),
+   @Delimiter NVARCHAR(255)
+)
+RETURNS TABLE
+AS
+  RETURN ( SELECT Item  FROM
+      ( SELECT Item = x.i.value(N'(./text())[1]', 'nvarchar(max)')
+        FROM ( SELECT [XML] = CONVERT(XML, '<i>'
+        + REPLACE(@List, @Delimiter, '</i><i>') + '</i>').query('.')
+          ) AS a CROSS APPLY [XML].nodes('i') AS x(i) ) AS y
+      WHERE Item IS NOT NULL
+  );
+GO
 
+CREATE PROCEDURE USP_getDishByTypes
+  @List NVARCHAR(MAX)
+AS
+BEGIN
+  SET NOCOUNT ON;  
+  select * from DISH
+where not exists ((select Item from dbo.SplitInts(@List,','))
+								except (select Item from dbo.SplitInts(Loai,',')))
+END
+GO
+EXEC USP_getDishByTypes @List = N'Chay'

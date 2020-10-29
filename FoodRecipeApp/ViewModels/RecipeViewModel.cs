@@ -9,29 +9,28 @@ using System.Windows;
 using Telerik.Windows.Controls;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-
+using FoodRecipeApp.GUI;
 namespace FoodRecipeApp.ViewModels
 {
-	public class RecipeViewModel
-	{
+    public class RecipeViewModel
+    {
         public RecipeViewModel() { }
 
         private ObservableCollection<Dish> _recipes;
-		public ObservableCollection<Dish> Recipes
-		{
-			get
-			{
-				if (this._recipes == null)
-				{
+        public ObservableCollection<Dish> Recipes
+        {
+            get
+            {
+                if (this._recipes == null)
+                {
                     this._recipes = DishesDataSource.Instance.DishesCollection;
-				}
-				return this._recipes;
-			}
-		}
-
+                }
+                return this._recipes;
+            }
+        }
         private ObservableCollection<string> _recipeTypes;
         public ObservableCollection<string> RecipeTypes
-		{
+        {
             get
             {
                 if (this._recipes != null)
@@ -42,21 +41,23 @@ namespace FoodRecipeApp.ViewModels
                     var tempList = new List<string>();
                     var delimiterChars = ',';
                     foreach (var dish in dishesList)
-					{
+                    {
                         tempList = dish.Loai.Split(delimiterChars).ToList();
                         foreach (var type in tempList)
-						{
+                        {
                             var temp = type.ToLowerInvariant();
                             dishTypesList.Add(char.ToUpper(temp[0]) + temp.Substring(1));
                         }
                         tempList.Clear();
-					}
+                    }
                     this._recipeTypes = (ObservableCollection<string>)dishTypesList.Select(x => x).Distinct();
                 }
                 return this._recipeTypes;
             }
         }
-      
+
+
+
         /*object[] _pagerDisplayModes;
         public object[] PagerDisplayModes
         {

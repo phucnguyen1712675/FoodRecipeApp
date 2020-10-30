@@ -47,12 +47,13 @@
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="HeaderStyle" Value="{StaticResource TileItemHeaderStyle}" />
 	</Style>
-	<DataTemplate x:Key="sizeTemplate">
-		<StackPanel Orientation="Horizontal">
-			<TextBlock Text="{Binding Name}"/>
-		</StackPanel>
-	</DataTemplate>
-	<DataTemplate x:Key="contentTemplate">
+    <DataTemplate x:Key="sizeTemplate">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Name}"/>
+        </StackPanel>
+    </DataTemplate>
+    <DataTemplate x:Key="contentTemplate">
+        
 		<telerik:RadFluidContentControl ContentChangeMode="Manual"
 			                            State="Normal"
 			                            TransitionDuration="0:0:.5">
@@ -67,8 +68,7 @@
 						   Grid.RowSpan ="2"
 						   Source="{Binding ImagePath}" 
 						   Stretch="UniformToFill"/>
-
-					<DockPanel Grid.Row="1">
+                    <DockPanel Grid.Row="1">
 						<ToggleButton x:Name="FavouriteButton" 
 									  Margin="5"
 									  Width="40"

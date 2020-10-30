@@ -18,10 +18,17 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/FoodRecipeApp;component/Resources/RecipeResources.xaml" />
+                <ResourceDictionary Source="/FoodRecipeApp;component/Resources/SearchResultResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
                 <EventSetter Event="Checked" Handler="Check_Click" />
+                <EventSetter Event="Unchecked" Handler="Check_Click"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextBlock.FontFamily" Value="Arial"/>
+                <Setter Property="Foreground" Value="Black"/>
+                
+
             </Style>
             <!--Style="{StaticResource CheckBoxStyle}"-->
         </ResourceDictionary>
@@ -60,14 +67,25 @@
                     <TextBlock x:Name="FilterTextBlock" Text="Bộ lọc tìm kiếm" 
                            TextBlock.FontWeight="Bold" FontSize="20"
                            HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-
+                    <Button 
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="center" 
+                            Click="Unchecked_Click" 
+                            Background="{x:Null}" Foreground="{x:Null}" 
+                            BorderBrush="{x:Null}" Margin="0" 
+                            BorderThickness="0">
+                        <Image 
+                                Source="/Resources/reset.png" 
+                                Opacity="1">
+                        </Image>
+                    </Button>
                 </Grid>
                 <!--Row 1 -->
                 <Label Grid.Row="1" Content="Loại món"
                    TextBlock.FontWeight="Bold"
                    VerticalAlignment="Center"
                    Background="LightGreen"/>
+
                 <!--Row 2-->
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -77,8 +95,10 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Name="checkBox1" Checked="Check_Click" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chay"/>
-                    <CheckBox Name="checkBox2" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Mặn"/>
+                    <CheckBox Name="checkBox1" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chay"/>
+                    <CheckBox Name="checkBox2" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="0" Grid.Column="1" Content="Mặn"/>
                    
                 </Grid>
                 <!--Row 3-->
@@ -98,13 +118,20 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Name="checkBox3" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Heo" Padding="10"/>
-                    <CheckBox Name="checkBox4" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Gà" Padding="10" />
-                    <CheckBox Name="checkBox5" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Bò" Padding="10" />
-                    <CheckBox Name="checkBox6" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Dê" Padding="10"/>
-                    <CheckBox Name="checkBox7" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Hải sản" Padding="10"/>
-                    <CheckBox Name="checkBox8" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác" Padding="10"/>
-                    <CheckBox Name="checkBox9" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Đồ ngọt" Padding="10"/>
+                    <CheckBox Name="checkBox3" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Heo" />
+                    <CheckBox Name="checkBox4" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Gà"  />
+                    <CheckBox Name="checkBox5" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Bò" />
+                    <CheckBox Name="checkBox6" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Dê" />
+                    <CheckBox Name="checkBox7" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Hải sản"/>
+                    <CheckBox Name="checkBox8" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác" />
+                    <CheckBox Name="checkBox9" Style="{StaticResource CheckBoxStyle}"
+                              Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Đồ ngọt"/>
 
                 </Grid>
                 <!--Row 5-->
@@ -124,14 +151,22 @@
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
                     </Grid.RowDefinitions>
-                    <CheckBox Name="checkBox11" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chiên"/>
-                    <CheckBox Name="checkBox12" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Xào"/>
-                    <CheckBox Name="checkBox13" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nấu"/>
-                    <CheckBox Name="checkBox14" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Kho"/>
-                    <CheckBox Name="checkBox15" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nướng"/>
-                    <CheckBox Name="checkBox16" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Hấp"/>
-                    <CheckBox Name="checkBox17" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Lên men"/>
-                    <CheckBox Name="checkBox18" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác"/>
+                    <CheckBox Name="checkBox11" Style="{StaticResource CheckBoxStyle}" 
+                              Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch" Content="Chiên"/>
+                    <CheckBox Name="checkBox12" Style="{StaticResource CheckBoxStyle}" 
+                              Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Content="Xào"/>
+                    <CheckBox Name="checkBox13" Style="{StaticResource CheckBoxStyle}" 
+                              Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nấu"/>
+                    <CheckBox Name="checkBox14" Style="{StaticResource CheckBoxStyle}" 
+                              Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch" Content="Kho"/>
+                    <CheckBox Name="checkBox15" Style="{StaticResource CheckBoxStyle}" 
+                              Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch" Content="Nướng"/>
+                    <CheckBox Name="checkBox16" Style="{StaticResource CheckBoxStyle}" 
+                              Grid.Row="2" Grid.Column="1" HorizontalAlignment="Stretch" Content="Hấp"/>
+                    <CheckBox Name="checkBox17" Style="{StaticResource CheckBoxStyle}" 
+                              Grid.Row="3" Grid.Column="0" HorizontalAlignment="Stretch" Content="Lên men"/>
+                    <CheckBox Name="checkBox18" Style="{StaticResource CheckBoxStyle}" 
+                              Grid.Row="3" Grid.Column="1" HorizontalAlignment="Stretch" Content="Khác"/>
                 </Grid>
             </Grid>
         </Border>
@@ -178,11 +213,7 @@
                             </Image>
                         </Button>
                     </Grid>
-
-
-
                 </Border>
-
                 <!--Row 1 Hien thi ket qua -->
                 <Grid Grid.Row="1">
 

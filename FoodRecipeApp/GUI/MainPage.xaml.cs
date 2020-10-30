@@ -34,10 +34,9 @@ namespace FoodRecipeApp.GUI
 		{
 			InitializeComponent();
 			this.AddHandler(Tile.MouseDownEvent, new MouseButtonEventHandler(OnMouseDownEvent), true);
-			/*this.radDataPager1.ItemCount = DishesDataSource.Instance.DishesCollection.Count;
+            /*this.radDataPager1.ItemCount = DishesDataSource.Instance.DishesCollection.Count;
 			this.radTileList.ItemsSource = DishesDataSource.Instance.DishesCollection.Take(this.radDataPager1.PageSize).ToList();*/
-		}
-
+        }
 		private void OnMouseDownEvent(object sender, MouseButtonEventArgs e)
 		{
 			//

@@ -205,6 +205,7 @@
                             VerticalAlignment="center" 
                             Click="Search_Click" 
                             Background="{x:Null}" Foreground="{x:Null}" 
+
                             BorderBrush="{x:Null}" Margin="1,1,1,1" 
                             BorderThickness="0">
                             <Image 

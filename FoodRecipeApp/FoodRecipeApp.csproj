@@ -153,7 +153,10 @@
       <HintPath>..\packages\MaterialDesignThemes.3.2.0\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="MediaFoundation, Version=3.1.0.32450, Culture=neutral, PublicKeyToken=36fa660e1d6ebf8d, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\MediaFoundation\MediaFoundation.dll</HintPath>
+
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R3 2020\Binaries\WPF45\MediaFoundation\MediaFoundation.dll</HintPath>
+
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -163,6 +166,23 @@
       <HintPath>..\packages\PropertyChanged.Fody.3.2.10\lib\net40\PropertyChanged.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct2D1, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.Direct2D1.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D10, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.Direct3D10.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.Direct3D9, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.Direct3D9.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SharpDX.DXGI, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
+      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.DXGI.dll</HintPath>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R3 2020\Binaries\WPF45\SharpDX\SharpDX.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -484,12 +504,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\ImageConverter.cs" />
+    <Compile Include="Converter\RichTextBoxHelper.cs" />
+    <Compile Include="Converter\StepLabelConverterAddRecipe.cs" />
     <Compile Include="Converter\IsLoveImageConverter.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="DAO\DishDAO.cs" />
     <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\QuoteDAO.cs" />
     <Compile Include="DAO\StepDAO.cs" />
+    <Compile Include="DTO\DateItem.cs" />
     <Compile Include="DTO\CheckedList.cs" />
     <Compile Include="DTO\Dish.cs" />
     <Compile Include="DTO\DishesCollection.cs" />
@@ -507,6 +531,9 @@
     </Compile>
     <Compile Include="GUI\SearchScreen.xaml.cs">
       <DependentUpon>SearchScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\AddedStepWindow.xaml.cs">
+      <DependentUpon>AddedStepWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
@@ -588,6 +615,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\AddedStepWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

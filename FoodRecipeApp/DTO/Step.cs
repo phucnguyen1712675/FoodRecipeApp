@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FoodRecipeApp.DTO
 {
@@ -21,6 +22,19 @@ namespace FoodRecipeApp.DTO
             ListImage = filePaths;
         }
 
+        public static Step CreateStep (int stepNumber, string description, List<string> filePaths)
+        {
+            if(description == "\r\n" || description == "" || filePaths == null)
+            {
+                return null;
+            }
+            else
+            {
+                filePaths = Images.trimListFilePathImage(filePaths);
+                return new Step(stepNumber, description, filePaths);
+            }
+        }
+
         public static List<Step> getAllStepsInDish (int dish)
         {
             List<Step> steps = new List<Step>();
@@ -34,6 +48,14 @@ namespace FoodRecipeApp.DTO
             }
 
             return steps;
+        }
+
+        internal static void AddNewStepsToData(List<Step> steps, int dishCode)
+        {
+            foreach(Step step in steps)
+            {
+                StepDAO.Instance.addNewStep(step, dishCode);
+            }
         }
     }
 }

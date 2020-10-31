@@ -96,7 +96,7 @@
                                 Text="Link to Video here"
                                 Foreground="Gray"
                                 Name="HintDishMediaTextBlock"/>
-                            <TextBox x:Name="DishMediaTextBox"  Width="570" HorizontalAlignment="Center" Height="35" 
+                            <TextBox x:Name="DishMediaTextBox"  Width="500" HorizontalAlignment="Center" Height="35" 
                                     TextChanged="DishMediaTextBox_TextChanged" FontSize="20" FontWeight="Medium" Foreground="#332226"
                                  />
                         </Grid>
@@ -209,7 +209,7 @@
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0" Background="#ffd9fd" Padding="10" Content="Nguyên liệu chính" Foreground="#332226" FontWeight="Medium" FontSize="20"/>
                             <StackPanel Grid.Column="1">
-                                
+
                                 <CheckBox Name="checkBox3" HorizontalAlignment="Stretch" Margin="10" FontSize="20" Foreground="#332226"  Content="Heo" Padding="10"/>
                                 <CheckBox Name="checkBox4" HorizontalAlignment="Stretch" Margin="10" FontSize="20" Foreground="#332226"  Content="Bò" Padding="10" />
                                 <CheckBox Name="checkBox5" HorizontalAlignment="Stretch" Margin="10" FontSize="20" Foreground="#332226"   Content="Hải sản" Padding="10"/>

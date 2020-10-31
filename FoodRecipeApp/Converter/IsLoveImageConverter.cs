@@ -19,6 +19,8 @@ namespace FoodRecipeApp.Converter
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
+			//int dish = (int)parameter;
+
 			bool isLove = (bool)value;
 			return isLove;
 		}

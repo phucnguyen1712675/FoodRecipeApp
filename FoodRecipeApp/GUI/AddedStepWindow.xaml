@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:FoodRecipeApp.GUI"
         xmlns:local1="clr-namespace:FoodRecipeApp.DTO" 
         xmlns:converters="clr-namespace:FoodRecipeApp.Converter"
+        xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
         Icon="/Resources/recipe-book.ico"
         ResizeMode="NoResize"
         mc:Ignorable="d"
@@ -14,48 +15,89 @@
         Width="1110"
         Loaded="Window_Loaded"
         WindowStartupLocation="CenterScreen"
-        Background="LightPink">
+        Background="LightPink"
+        
+        >
 
     <Window.Resources>
         <ResourceDictionary>
             <converters:StepLabelConverterAddRecipe x:Key="LableStepConverter"/>
+            <converters:ImageConverter x:Key="ImageConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
     <Canvas TextBlock.FontFamily="Segoe UI Light" Background="AliceBlue">
+
+        <!--HorizontalScrollBarVisibility="Hidden"
+        <telerik:RadCarousel x:Name="MyCarousel" Background="Black" Height="200" ItemsSource="{Binding ImagesCollection }" 
+        />-->
+
+
         <Label Content="Các bước làm" FontSize="25" FontWeight="Bold" Foreground="#332226" Margin="20,10,0,0" />
 
         <ScrollViewer HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Visible" Padding="10,0,10,0" Height="476" Canvas.Left="10" Canvas.Top="56" Width="1084">
             <WrapPanel Margin="10" Name="AddedStepPanel" Width="1050" HorizontalAlignment="Center">
-                <WrapPanel.Resources>
-                    <DataTemplate DataType="{x:Type local1:Step}">
 
-                        <Border Background="AliceBlue" BorderBrush="#FFD80073" Padding="10" BorderThickness="2" Margin="10" Width="1000" CornerRadius="5" >
+                <WrapPanel.Resources>
+                    <DataTemplate x:Name="datatemp" DataType="{x:Type local1:Step}">
+
+                        <Border Background="AliceBlue" BorderBrush="#FFD80073" BorderThickness="2" Margin="20" Width="1000" CornerRadius="5" >
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="5" Opacity="0.5" ShadowDepth="2"/>
                             </Border.Effect>
-                            <StackPanel Margin="0,20,0,16" Name="AddStepStackPanel">
-                                <Grid Width="1048">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="1*"/>
-                                        <RowDefinition Height="5*"/>
-                                    </Grid.RowDefinitions>
-                                    <Label Name="StepNumberLabel" Grid.Row="0" Content="{Binding Path=StepNumber, Converter={StaticResource LableStepConverter }}"  Foreground ="#332226" FontWeight="Medium" FontSize="20"/>
-                                    <Grid Grid.Row="1">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="1*"/>
-                                            <ColumnDefinition Width="1*"/>
-                                        </Grid.ColumnDefinitions>
-
-                                        <ScrollViewer Grid.Column="0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <StackPanel  Name="AddStepStackPanel">
+                                <Grid Width="1000">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="0">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="1*"/>
+                                            <RowDefinition Height="5*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Name="StepNumberLabel" Grid.Row="0" Content="{Binding Path=StepNumber, Converter={StaticResource LableStepConverter }}"  Foreground ="#332226" FontWeight="Medium" FontSize="20"/>
+                                        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Height="250" Margin="10">
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock x:Name="DescriptionStepTextBlock" Margin="3" VerticalAlignment="Stretch"
                                                             TextWrapping="Wrap" TextAlignment="Justify" AllowDrop="False" Text="{Binding Path = Description}" FontSize="20" FontWeight="Regular" Foreground="#332226" />
                                             </StackPanel>
                                         </ScrollViewer>
-                                        <!-- TODO make it CAROUSEL -->
-                                        <ListView Grid.Column="1" x:Name="ImagesListView" ItemsSource="{Binding Path = ListImage}"/>
                                     </Grid>
+
+                                    <Border Grid.Column="1" Margin="10,10,10,10" BorderThickness="1" BorderBrush="LightPink"  >
+                                        <Grid VerticalAlignment="Center" Width="450" Height="270"  HorizontalAlignment="Center">
+                                            <Grid.Resources>
+                                                <Path x:Key="path"
+			                                          Data="M30,347 L307.5,347"
+			                                          Stroke="#FF0998f8"
+			                                          StrokeThickness="1"
+			                                          Stretch="Fill" />
+                                                <DataTemplate x:Key="customImageItemTemplate">
+                                                    <StackPanel Width="240" Height="180">
+                                                        <Image Source="{Binding Converter={StaticResource ImageConverter}}"/>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </Grid.Resources>
+                                            
+                                            <telerik:RadCarousel x:Name="MyCarousel"
+                                                                  ItemsSource="{Binding ListImage}"
+                                                                  Padding="5"
+                                                                  HorizontalAlignment="Stretch"
+						                                          VerticalAlignment="Stretch"
+                                                                  VirtualizingStackPanel.IsVirtualizing="False"
+                                                                  ItemTemplate="{StaticResource customImageItemTemplate}"
+                                                                  Width="450" Height="270"
+                                                                 >
+                                                <telerik:RadCarousel.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <telerik:RadCarouselPanel Path="{StaticResource path}" />
+                                                    </ItemsPanelTemplate>
+                                                </telerik:RadCarousel.ItemsPanel>
+                                            </telerik:RadCarousel>
+                                        </Grid>
+                                    </Border>
+
                                 </Grid>
                             </StackPanel>
                         </Border>
@@ -63,7 +105,8 @@
                 </WrapPanel.Resources>
                 <ItemsControl x:Name="itemsControl"/>
             </WrapPanel>
-
         </ScrollViewer>
+
+
     </Canvas>
 </Window>

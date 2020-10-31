@@ -7,12 +7,18 @@
                     xmlns:local="clr-namespace:FoodRecipeApp" 
 					xmlns:Controls="http://metro.mahapps.com/winfx/xaml/iconpacks"
 					xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                    xmlns:src="clr-namespace:FoodRecipeApp.Converter" 
 					>
 
 	<viewModels:RecipeViewModel x:Key = "MyRecipeViewModel" />
-	<converters:IsLoveImageConverter x:Key="LoveImageConverter"/>
+    <converters:IsLoveImageConverter x:Key="LoveImageConverter"/>
+    <converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter"/>
+    <converters:DishNameConverter x:Key="DishNameConverter"/>
+    <converters:DetailMediaDishConverter x:Key="MediaDishconverter"/>
+   
 
-	<Style TargetType="ToggleButton" 
+
+    <Style TargetType="ToggleButton" 
                BasedOn="{StaticResource MaterialDesignActionToggleButton}" />
 
 	<Style x:Key="TileItemHeaderStyle" TargetType="tileview:TileViewItemHeader">
@@ -46,6 +52,7 @@
 		<Setter Property="Background" Value="#c3f8f7" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="HeaderStyle" Value="{StaticResource TileItemHeaderStyle}" />
+        <Setter Property="FontFamily" Value="Segoe UI Light" />
 	</Style>
 	<DataTemplate x:Key="sizeTemplate">
 		<StackPanel Orientation="Horizontal">
@@ -53,23 +60,24 @@
 		</StackPanel>
 	</DataTemplate>
 	<DataTemplate x:Key="contentTemplate">
-		<telerik:RadFluidContentControl ContentChangeMode="Manual"
+        <telerik:RadFluidContentControl ContentChangeMode="Manual"
 			                            State="Normal"
-			                            TransitionDuration="0:0:.5">
-			<telerik:RadFluidContentControl.Content>
-				<Grid Margin="20 10">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*"/>
-						<RowDefinition Height="Auto"/>
-					</Grid.RowDefinitions>
+			                            TransitionDuration="0:0:.5" 
+                                        >
+            <telerik:RadFluidContentControl.Content>
+                <Grid Margin="20 10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
 
-					<Image Grid.Row="0" 
+                    <Image Grid.Row="0" 
 						   Grid.RowSpan ="2"
 						   Source="{Binding ImagePath}" 
 						   Stretch="UniformToFill"/>
 
-					<DockPanel Grid.Row="1">
-						<ToggleButton x:Name="FavouriteButton" 
+                    <DockPanel Grid.Row="1">
+                        <ToggleButton x:Name="FavouriteButton" 
 									  Margin="5"
 									  Width="40"
 									  Height="40"
@@ -77,21 +85,23 @@
 									  HorizontalAlignment="Right"
 									  VerticalAlignment="Bottom"
 									  Background="#ff2014"
-									  IsChecked="{Binding IsLove, Converter={StaticResource LoveImageConverter}}" 
+                                      Tag="{Binding DishCode}"
+                                      IsChecked="{Binding IsLove ,Converter={StaticResource LoveImageConverter}}"
 									  >
 
-							<ToggleButton.Content>
-								<materialDesign:PackIcon Kind="HeartOutline" Width="25" Height="25"/>
-							</ToggleButton.Content>
 
-							<materialDesign:ToggleButtonAssist.OnContent>
-								<materialDesign:PackIcon Kind="Heart" Width="25" Height="25"/>
-							</materialDesign:ToggleButtonAssist.OnContent>
+                            <ToggleButton.Content>
+                                <materialDesign:PackIcon Kind="HeartOutline" Width="25" Height="25"/>
+                            </ToggleButton.Content>
 
-						</ToggleButton>
-					</DockPanel>
-				</Grid>
-				<!--<Border Background="Black">
+                            <materialDesign:ToggleButtonAssist.OnContent>
+                                <materialDesign:PackIcon Kind="Heart" Width="25" Height="25"/>
+                            </materialDesign:ToggleButtonAssist.OnContent>
+
+                        </ToggleButton>
+                    </DockPanel>
+                </Grid>
+                <!--<Border Background="Black">
 					<Grid Margin="20 10">
 						<StackPanel>
 							<TextBlock Margin="0 0 0 5"
@@ -125,9 +135,79 @@
 						</Border>
 					</Grid>
 				</Border>-->
-			</telerik:RadFluidContentControl.Content>
-			<telerik:RadFluidContentControl.LargeContent>
-				<Grid>
+            </telerik:RadFluidContentControl.Content>
+            <telerik:RadFluidContentControl.LargeContent>
+                <ScrollViewer  HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Visible" Padding="10" Height="600" Width="1050" HorizontalAlignment="Center">
+                    <StackPanel Width="1000">
+                        
+                        <!--ảnh + tên + thể loại-->
+                        <Border Background="AliceBlue" BorderBrush="#FFD80073" BorderThickness="1.5" Margin="15" CornerRadius="5">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5" Opacity="0.5" ShadowDepth="2"/>
+                            </Border.Effect>
+                            <StackPanel  Width="900">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="7*"/>
+                                    </Grid.RowDefinitions>
+                                </Grid>
+                                <!--TODO : converter : Món + string Name-->
+                                <Border Margin="20,10,20,10" Padding="15" Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="#FFD80073">
+                                    <TextBlock x:Name="DishNameTextBlock"  TextWrapping="Wrap" TextAlignment="Justify" 
+                                                   Text="{Binding Name, Converter={StaticResource DishNameConverter}}" FontSize="40" Foreground="#332226" />
+                                </Border>
+                                
+                                <Grid Grid.Row="1" Margin="15">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border   BorderThickness="1" BorderBrush="LightPink" Padding="5" Grid.Column="0" VerticalAlignment="Center">
+                                        <Image x:Name="ImagePathImage" Source="{Binding ImagePath}"  />
+                                    </Border>
+                                    <StackPanel Grid.Column="1" Margin="20,10">
+                                        <!--TODO : converter tách thể loại ra " " + "," + " "-->
+                                        <StackPanel Orientation="Horizontal" >
+                                            <Label Content="Thể loại : " FontSize="20"  Foreground="#332226"/>
+                                            <Label Content="{Binding Loai, Converter={StaticResource TypesStringAddSpaceConverter}}" FontSize="20"  Foreground="#332226" />
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical">
+                                             <TextBlock x:Name="DescriptionDishTextBlock" Margin="3" VerticalAlignment="Stretch"
+                                                            TextWrapping="Wrap" TextAlignment="Justify" AllowDrop="False" Text="{Binding Desciption}" 
+                                                           FontSize="20"  Foreground="#332226" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+
+                        <!--video hướng dẫn-->
+                        <Border Background="AliceBlue" BorderBrush="#FFD80073" BorderThickness="1.5" Margin="15" CornerRadius="5">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="5" Opacity="0.5" ShadowDepth="2"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1*"/>
+                                    <RowDefinition Height="7*"/>
+                                </Grid.RowDefinitions>
+                                <Border Margin="20,10,20,10" Padding="15" Grid.Row="0" BorderThickness="0,0,0,2" BorderBrush="#FFD80073">
+                                    <TextBlock x:Name="DishMeidaTextBlock"  TextWrapping="Wrap" TextAlignment="Justify" 
+                                                   Text="Video hướng dẫn" FontSize="40" Foreground="#332226" />
+                                </Border>
+                                <!-- converter : video meida-->
+                                <!--<WebBrowser x:Name="DishMedia" Resources="{Binding Video, Converter={StaticResource MediaDishconverter}}"  Margin="20" Height="400" Width="650" Grid.Row="1" />-->
+                                <WebBrowser src:WebBrowserUtility.BindableSource="{Binding Video,Converter={StaticResource MediaDishconverter}}" Grid.Row="1" />
+
+                            </Grid>
+                        </Border>
+
+                        <!--Xem hướng dẫn cụ thể các bước làm-->
+
+                    </StackPanel>
+                </ScrollViewer>
+                <!--<Grid>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="0.45*" />
 						<ColumnDefinition Width="0.25*" />
@@ -155,10 +235,10 @@
                                        Text="{Binding Price}" />
 						<telerik:RadRating Margin="-15 200 0 0" NumberOfItemsToGenerate="5" Precision="Exact" Value="4" />
 					</StackPanel>
-				</Grid>
-			</telerik:RadFluidContentControl.LargeContent>
-		</telerik:RadFluidContentControl>
-	</DataTemplate>
+				</Grid>-->
+            </telerik:RadFluidContentControl.LargeContent>
+        </telerik:RadFluidContentControl>
+    </DataTemplate>
 	<!--<Image Source="{Binding ImagePath}"/>-->
 		<!--<TextBlock FontStyle="Italic" FontSize="48" Foreground="#767676" Text="{Binding Name}"
 						HorizontalAlignment="Center" VerticalAlignment="Center" />-->

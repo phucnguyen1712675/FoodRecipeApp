@@ -61,11 +61,20 @@ namespace FoodRecipeApp.DTO
             return true;
         }
         public static Regex YoutubeURIRegex = new Regex(@"[\?&]v=(?<v>[^&]+)");
-        public static string Display(string url, double width, double height)
+
+        public static string simpleURL (string url)
         {
             Match m = YoutubeURIRegex.Match(url);
             string id = m.Groups["v"].Value;
             string newUrl = "http://www.youtube.com/embed/" + id;
+            return newUrl;
+        }
+        public static string Display(string url, double width, double height)
+        {
+            /*Match m = YoutubeURIRegex.Match(url);
+            string id = m.Groups["v"].Value;
+            string newUrl = "http://www.youtube.com/embed/" + id;*/
+            string newUrl = simpleURL(url);
             string page =
                 "<html>" +
                 "<head><meta http-equiv='X-UA-Compatible' content='IE=11'/>" +

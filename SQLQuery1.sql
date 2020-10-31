@@ -83,10 +83,10 @@ INSERT INTO dbo.DISH(
 )
 VALUES( --1
 	N'Chè đậu xanh - Khoai lang',
-	N'Nguyên liệu rất dễ tìm và rẻ, ai cũng có thể làm món chè đậu xanh khoai lang thơm ngon, bùi hơn. Chiều chiều nấu món này giải nhiệt là nhất luôn đấy!\n
-	Thành phần \n
-	- Khoai lang : 2 củ\n
-	- Đậu xanh : 100gr \n
+	N'Nguyên liệu rất dễ tìm và rẻ, ai cũng có thể làm món chè đậu xanh khoai lang thơm ngon, bùi hơn. Chiều chiều nấu món này giải nhiệt là nhất luôn đấy!
+Thành phần
+	- Khoai lang : 2 củ
+	- Đậu xanh : 100gr
 	- Đường trắng : 150 gr',
 	N'https://www.youtube.com/watch?v=KFl6kp4Y6hE',
 	N'Chè, ngọt, chay',
@@ -94,15 +94,15 @@ VALUES( --1
 ),
 ( --2
 N'Canh củ xen hầm táo đỏ',
-	N'Củ sen hay còn gọi là liên ngẫu, theo đông y có vị ngọt, tính mát, có tác dụng lợi tiểu, an thần,... Chính vì giá trị dinh dưỡng cao nên củ sen được chế biến thành rất nhiều món ăn. Khi được nấu cùng táo đỏ, nấm hương càng làm món ăn bổ dưỡng hơn. Đặc biệt, món ăn này rất phù hợp cho người ăn chay.\n
-	Thành phần \n
-	- Củ sen : 400 Gr\n
-	- Hạt sen : 100 Gr\n
-	- Nấm hương : 30 Gr\n
-	- Dừa : 1 Trái\n
-	- Cà rốt : 2 Củ\n
-	- Đường phèn : 1 Muỗng canh\n
-	- Muối : 1/2 Muỗng cà phê\n
+	N'Củ sen hay còn gọi là liên ngẫu, theo đông y có vị ngọt, tính mát, có tác dụng lợi tiểu, an thần,... Chính vì giá trị dinh dưỡng cao nên củ sen được chế biến thành rất nhiều món ăn. Khi được nấu cùng táo đỏ, nấm hương càng làm món ăn bổ dưỡng hơn. Đặc biệt, món ăn này rất phù hợp cho người ăn chay.
+Thành phần
+	- Củ sen : 400 Gr
+	- Hạt sen : 100 Gr
+	- Nấm hương : 30 Gr
+	- Dừa : 1 Trái
+	- Cà rốt : 2 Củ
+	- Đường phèn : 1 Muỗng canh
+	- Muối : 1/2 Muỗng cà phê
 	- Hạt nêm : 1 Muỗng cà phê',
 	N'https://www.youtube.com/watch?v=nWsXBe5_fjg',
 	N'mặn, chay',
@@ -111,221 +111,221 @@ N'Canh củ xen hầm táo đỏ',
 ( --3
 N'Bánh mỳ bọc cơm chiên',
 	N'Bánh mì bọc cơm chiên là món ăn kết hợp mới lạ giữa bánh mì sandwich giòn giòn, cơm chiên đậm đà, màu sắc đẹp mắt. Hãy nạp năng lượng ngày mới với món ăn này nhé! Không những người lớn mà các bé cũng thích mê.\n
-	Thành phần \n
-	- Cơm : 1 Chén\n
-	- Bánh mì sandwich : 6 Lát\n
-	- Cà rốt : 1/2 Củ\n
-	- Đậu Hà Lan : 100 Gr\n
-	- Bắp hột : 100 Gr\n
-	- Sốt cà chua : 1 Muỗng canhn\n
+Thành phần 
+	- Cơm : 1 Chén
+	- Bánh mì sandwich : 6 Lát
+	- Cà rốt : 1/2 Củ
+	- Đậu Hà Lan : 100 Gr
+	- Bắp hột : 100 Gr
+	- Sốt cà chua : 1 Muỗng canh
 	- Muối : 1/2 Muỗng cà phê',
 	N'https://www.youtube.com/watch?v=nvTlubT2vmE',
 	N'mặn, chiên, cơm',
 	N'\\Image\\3\\recipe11094-636020985974231510.jpg'
 ),( --4
 N'Lẩu kim chi - hải sản',
-	N'Lẩu kim chi hải sản với vị chua chua, cay cay đặc trưng của kim chi. Hải sản tươi roi rói hòa quyện cùng nước lẩu và các loại rau củ, chả cá, đậu hũ, xúc xích, ... Trong những ngày lạnh cuối năm mà cả nhà có thể sum tụ, quây quần bên nồi lẩu nóng hổi, vừa ăn vừa hít hà thì ấm cùng biết bao\n
-	Thành phần \n
-	Kim chi cải thảo : 400 Gr\n
-	- Xúc xích heo : 3 Cây\n
-	- Bạch tuộc : 1 Kg\n
-	- Mực : 1 Con\n
-	- Tôm tươi : 10 Con\n
-	- Nấm kim châm : 200 Gr\n
-	- Đậu hũ chiên : 1 Miếng\n
+	N'Lẩu kim chi hải sản với vị chua chua, cay cay đặc trưng của kim chi. Hải sản tươi roi rói hòa quyện cùng nước lẩu và các loại rau củ, chả cá, đậu hũ, xúc xích, ... Trong những ngày lạnh cuối năm mà cả nhà có thể sum tụ, quây quần bên nồi lẩu nóng hổi, vừa ăn vừa hít hà thì ấm cùng biết bao
+Thành phần
+	- Kim chi cải thảo : 400 Gr
+	- Xúc xích heo : 3 Cây
+	- Bạch tuộc : 1 Kg
+	- Mực : 1 Con
+	- Tôm tươi : 10 Con
+	- Nấm kim châm : 200 Gr
+	- Đậu hũ chiên : 1 Miếng
 	- Nấm đông cô : 5 Cái',
 	N'https://www.youtube.com/watch?v=12-n7KaMLjE',
 	N'Lẩu, mặn, cay, hải sản',
 	N'\\Image\\4\\recipe-cover-r25727.jpg'
 ),( --5
 N'Thịt hấp trứng muối',
-	N'Thịt hấp trứng muối - món ăn dinh dưỡng cho bữa cơm gia đình thêm ngon miệng hơn trong những ngày mưa mát mẻ. Sự kết hợp giữa trứng muối bùi bùi, mặn mặn và vị béo ngậy của thịt được hấp chín, mùi thơm lan tỏa càng làm cho món ăn càng hấp dẫn.\n
-	Thành phần \n
-	- Thịt heo xay : 300gr\n
-	- Nấm mộc nhĩ : 30gr\n
-	- Trứng gà : 1 quả\n
-	- Trứng vịt muối : 2 quả\n
-	- Tiêu xay  : 1 muỗng cà phê\n
+N'Thịt hấp trứng muối - món ăn dinh dưỡng cho bữa cơm gia đình thêm ngon miệng hơn trong những ngày mưa mát mẻ. Sự kết hợp giữa trứng muối bùi bùi, mặn mặn và vị béo ngậy của thịt được hấp chín, mùi thơm lan tỏa càng làm cho món ăn càng hấp dẫn.
+Thành phần 
+	- Thịt heo xay : 300gr
+	- Nấm mộc nhĩ : 30gr
+	- Trứng gà : 1 quả
+	- Trứng vịt muối : 2 quả
+	- Tiêu xay  : 1 muỗng cà phê
 	- Đường : 1/2 muỗng canh',
-	N'https://youtu.be/Bs9pTN6F9eU',
+	N'https://www.youtube.com/watch?v=Bs9pTN6F9eU&feature=youtu.be',
 	N'mặn, trứng, heo',
 	N'\\Image\\5\\ae6ccde4-e2a8-42c0-8ecf-9526ef26b82b.jpg'
 ),(--6
 N'Đùi gà nướng khoai lang',
 	N'Đùi gà nướng khoai lang là món ăn thơm ngon, hấp dẫn, bổ dưỡng rất thích hợp để chiêu đãi bạn bè, người thân. Thay vì cách làm thông thường bạn sẽ mất hơn vài giờ đồng hồ để hoàn thành thì Nồi chiên không dầu Corosi sẽ giúp bạn giải quyết vấn đề đó,\n
-	Thành phần \n
-	- Đùi gà góc tư : 1 đùi\n
-	- Khoai lang : 2 củ\n
-	- Muối : 1 muỗng cà phê\n
-	- Tiêu : 1 muỗng cà phê\n
+Thành phần 
+	- Đùi gà góc tư : 1 đùi
+	- Khoai lang : 2 củ
+	- Muối : 1 muỗng cà phê
+	- Tiêu : 1 muỗng cà phê
 	- Mật ong : 2 muỗng canh',
-	N'https://youtu.be/cMgQ5HfSGgc',
+	N'https://www.youtube.com/watch?v=cMgQ5HfSGgc&feature=youtu.be',
 	N'mặn, gà, nướng',
 	N'\\Image\\6\\69d38891-be04-4461-8acb-3a4e5c3244a8.jpg'
 ),( --7
 N'Lẩu cá linh bông điền điền',
-	N'Lẩu cá linh bông điên điển với hương vị đúng điệu của miền Tây sông nước sẽ là một trong những món ngon cuối tuần cho gia đình bạn. Chỉ mất vài phút chuẩn bị và chế biến theo công thức của Cooky, bạn sẽ có một nồi lẩu thơm nức mũi, hương vị ngọt ngào, đậm đà để mời cả nhà cùng thưởng thức nhé!\n
-	Thành phần \n
-	- Cá linh : 500gr\n
-	- Bông điên điển : 300gr\n
-	- Xương ống : 1kg\n
-	- Bông súng : 200gr\n
-	- Rau ngò gai : 20gr\n
+	N'Lẩu cá linh bông điên điển với hương vị đúng điệu của miền Tây sông nước sẽ là một trong những món ngon cuối tuần cho gia đình bạn. Chỉ mất vài phút chuẩn bị và chế biến theo công thức của Cooky, bạn sẽ có một nồi lẩu thơm nức mũi, hương vị ngọt ngào, đậm đà để mời cả nhà cùng thưởng thức nhé!
+Thành phần 
+	- Cá linh : 500gr
+	- Bông điên điển : 300gr
+	- Xương ống : 1kg
+	- Bông súng : 200gr
+	- Rau ngò gai : 20gr
 	- Nước cốt me : 30ml',
-	N'https://youtu.be/ZvIxQ6zu0EE',
+	N'https://www.youtube.com/watch?v=ZvIxQ6zu0EE&feature=youtu.be',
 	N'lẩu, mặn, hải sản',
 	N'\\Image\\7\\62600c4f-6d27-429f-bbf6-685e44e83441.jpg'
 ),( --8
 N'Snack chuối chiên mè',
-	N'Chuối xanh là loại quả không mấy phổ biến bởi nó vừa cứng vừa chát. Tuy nhiên, vẫn có một cách sẽ khiến cho quả chuối xanh vô vị này trở nên hấp dẫn hơn rất nhiều. Cùng bắt tay vào làm món Snack chuối chiên mè sau đây bạn nhé, bạn sẽ thấy món này cực dễ làm mà độ ngon thì đúng chuẩn\n
-	Thành phần \n
-	- Chuối xiêm xanh : 1 nải\n
+	N'Chuối xanh là loại quả không mấy phổ biến bởi nó vừa cứng vừa chát. Tuy nhiên, vẫn có một cách sẽ khiến cho quả chuối xanh vô vị này trở nên hấp dẫn hơn rất nhiều. Cùng bắt tay vào làm món Snack chuối chiên mè sau đây bạn nhé, bạn sẽ thấy món này cực dễ làm mà độ ngon thì đúng chuẩn
+Thành phần
+	- Chuối xiêm xanh : 1 nải
 	- Chanh : 1 trái\n
-	- Muối : 1 muỗng cà phê\n
+	- Muối : 1 muỗng cà phê
 	- Bột mì : 30gr',
-	N'https://youtu.be/EANhMhsZ-A4',
+	N'https://www.youtube.com/watch?v=EANhMhsZ-A4&feature=youtu.be',
 	N'ngọt, chay, chiên',
 	N'\\Image\\8\\3fb0ae40-bbad-4eb7-8484-e97f6764c6d3.jpg'
 ),( --9
 N'Bông điền điền muối chua',
 	N'Bông điên điển muối chua, mang đậm hương vị miền Tây. Dưa chua bông điên điển giòn ngon, vị chua chua, món ăn không những ngon mà còn hấp dẫn bởi màu vàng của bông điên điển, màu trắng của giá, xanh của hẹ, thêm chút đỏ đỏ của ớt. Món ăn có thể ăn kèm với nhiều món thịt luộc, thịt kho, cá kho... thì rất bắt cơm vào mùa mưa
-	\nThành phần \n
-	- Bông điên điển : 300gr\n
-	- Giá đỗ : 300gr\n
-	- Hẹ lá : 100gr\n
-	- Tỏi lát : 20gr\n
+Thành phần 
+	- Bông điên điển : 300gr
+	- Giá đỗ : 300gr
+	- Hẹ lá : 100gr
+	- Tỏi lát : 20gr
 	- Ớt sừng : 20gr',
-	N'https://youtu.be/K_J9_yHXPGQ',
+	N'https://www.youtube.com/watch?v=K_J9_yHXPGQ&feature=youtu.be',
 	N'chay, lên men',
 	N'\\Image\\9\\40efaa4f-fc88-4327-85c3-89c7722ac279.jpg'
 ),(--10
 N'Cà Phê Dalgona',
 	N'Cà phê bọt biển hay còn gọi là cà phê Dalgona là một món cà phê đang rất hot tại Hàn Quốc. Cách làm cực kì đơn giản và những nguyên liệu sẵn có tại nhà. Với hương thơm đầy mê hoặc từ cà phê được đánh bông lên cộng thêm vị sữa tươi béo ngậy, đã tạo nên một ly cà phê độc đáo, thơm ngon và lạ mắt. Hãy cùng Cooky bắt trend năm nay nào. 
-	\nThành phần \n
-	- Sữa tươi không đường : 150 ml\n
-	- Đường trắng : 1 Muỗng canh\n
-	- Cà phê hoà tan : 2 Muỗng canh\n
+Thành phần
+	- Sữa tươi không đường : 150 ml
+	- Đường trắng : 1 Muỗng canh
+	- Cà phê hoà tan : 2 Muỗng canh
 	- Nước sôi : 50 ml',
-	N'https://youtu.be/duJMErdoOXU',
+	N'https://www.youtube.com/watch?v=duJMErdoOXU&feature=youtu.be',
 	N'ngọt, chay',
 	N'\\Image\\10\\recipe52666-cook-step3-637207612645558113.jpg'
 ),(--11
 N'Rau muống xào chao',
 	N'Rau muống xào chao là một món ngon dân dã với cách chế biến vô cùng đơn giản. Sự kết hợp giữa vị giòn ngọt của rau muống cùng chao trắng béo ngậy sẽ đem lại vị ngon, lạ và đầy thú vị cho bữa cơm gia đình. Cùng học làm món ăn thanh mát, ngon miệng với công thức đơn giản dưới đây nhé!	
-	\nThành phần \n
-	- Rau muống : 300 Gr\n
-	- Nấm đùi gà : 200 Gr\n
-	- Chao : 150 Gr\n
-	- Hành boa rô : 20 Gr\n
+Thành phần 
+	- Rau muống : 300 Gr
+	- Nấm đùi gà : 200 Gr
+	- Chao : 150 Gr
+	- Hành boa rô : 20 Gr
 	- Hạt nêm Maggi : 1 Muỗng canh',
-	N'https://youtu.be/0A06x-KtPRg',
+	N'https://www.youtube.com/watch?v=0A06x-KtPRg&feature=youtu.be',
 	N'mặn, chay, xào',
 	N'\\Image\\11\\recipe48273-cook-step5-636975756004892956.jpg'
 ),(--12
 N'Thịt bò xào đậu hà lan',
 	N'Thịt bò xào đậu Hà Lan là một món ăn quen thuộc đối với mọi nhà nhưng với sự biến tấu, thêm vào một ít nguyên liệu và gia vị thân quen đã có thể biến món ăn này thành một phiên bản khác, thơm ngon hơn và đầy đủ chất dinh dưỡng hơn. Với sự hỗ trợ của chảo Tchef Fry Pan của Tupperwware sẽ giúp bạn rút ngắn thời gian nấu nướng nhưng vẫn giữ được vẹn nguyên hương vị của món ăn	
-	\nThành phần \n
-	- Thịt bò : 300 Gr\n
-	- Đậu Hà Lan : 50 Gr\n
-	- Bắp non : 50 Gr\n
+Thành phần 
+	- Thịt bò : 300 Gr
+	- Đậu Hà Lan : 50 Gr
+	- Bắp non : 50 Gr
 	- Tỏi băm : 10 Gr',
-	N'https://youtu.be/x8S482hfOfI',
+	N'https://www.youtube.com/watch?v=x8S482hfOfI&feature=youtu.be',
 	N'mặn, xào, bò',
 	N'\\Image\\12\\recipe50343-cook-step5-637061211654378235.jpg'
 ),(--13
 N'Canh sườn heo ra củ',
 	N'Món canh sườn heo hầm cùng những loại rau củ thơm ngon, hấp dẫn lại cung cấp được đầy đủ những dưỡng chất thiết yếu sẽ giúp cho bữa cơm của gia đình bạn ấm áp và hấp dẫn hơn rất nhiều. Với nồi Tchef Casserole của Tupperwware món canh sườn heo hầm rau củ sẽ trở nên đơn giản hơn bao giờ hết, bạn đã sẵn sàng để thử chưa?	
-	\nThành phần \n
-	- Sườn non : 300 Gr\n
-	- Khoai tây : 100 Gr\n
-	- Hạt sen tươi : 100 Gr\n
-	- Cà rốt : 100 Gr\n
+Thành phần
+	- Sườn non : 300 Gr
+	- Khoai tây : 100 Gr
+	- Hạt sen tươi : 100 Gr
+	- Cà rốt : 100 Gr
 	- Hạt nêm : 1 Muỗng canh',
-	N'https://youtu.be/x8S482hfOfI',
+	N'https://www.youtube.com/watch?v=x8S482hfOfI&feature=youtu.be',
 	N'mặn, hầm, heo',
 	N'\\Image\\13\\recipe50341-cook-step4-637075998898748530.jpg'
 ),(--14
 N'Bánh Tráng Mắm Ruốc Bằng Chảo Chống Dính',
 	N'Bánh tráng mắm ruốc lại có thể dễ dàng làm dễ dàng trên chảo chống chính, bánh khi ăn giòn, mềm kết hợp với vị thơm của bơ, của trứng rồi thịt bằm và nhất là mắm ruốc ngon lành. Món bánh tráng mắm ruốc với những nguyên liệu đơn giản sẽ giúp bạn có món ăn vặt xế chiều chiêu đãi mọi người	
-	\nThành phần \n
-	- Bánh tráng : 20 Miếng\n
-	- Mắm ruốc : 120 Gr\n
-	- Thịt băm : 100 Gr\n
-	- Trứng cút : 20 Quả\n
+Thành phần 
+	- Bánh tráng : 20 Miếng
+	- Mắm ruốc : 120 Gr
+	- Thịt băm : 100 Gr
+	- Trứng cút : 20 Quả
 	- Bơ : 50 Gr',
-	N'https://youtu.be/frQi2dv9wn0',
+	N'https://www.youtube.com/watch?v=frQi2dv9wn0&feature=youtu.be',
 	N'mặn, chiên, heo, snack',
 	N'\\Image\\14\\recipe19443-prepare-step5-636266371717770790.jpg'
 ),(--15
 N'Nem chuối',
 	N'Nem chuối là món ăn vặt lý tưởng, béo ngậy cho những ai thích đồ béo nè. Lớp ngoài giòn tan, bên trong ngọt, mềm của chuối, beo béo của phô mai ăn thật thích. Cùng học cách làm với Cooky nào!	
-	\nThành phần \n
-	- Bánh tráng bía : 1 Gói\n
-	- Chuối : 4 Trái\n
-	- Phô mai : 50 Gr\n
+Thành phần
+	- Bánh tráng bía : 1 Gói
+	- Chuối : 4 Trái
+	- Phô mai : 50 Gr
 	- Dầu ăn : 1 Chén',
-	N'https://youtu.be/eRfjWIhKARI',
+	N'https://www.youtube.com/watch?v=eRfjWIhKARI&feature=youtu.be',
 	N'ngọt, chiên, chay',
 	N'\\Image\\15\\recipe15965-prepare-step5-635821475775109157.jpg'
 ),(--16
 N'Sò điệp khổng lồ nướng phô mai',
 	N'Sò điệp khổng lồ nướng phô mai là món ăn chơi cực ngon và hấp dẫn mà bạn có thể làm ngay tại nhà. Cách làm sò điệp nướng phô mai này quan trọng nhất chính là cách làm sốt phô mai và thời gian nướng sò điệp không để bị cháy. Tất cả các bước đã có, chị em xách giỏ lên đi chợ mua sò về và vào bếp thôi	
-	\nThành phần \n
-	- Sò điệp Sanriku khổng lồ : 8 Con\n
-	- Bơ lạt : 20 Gr\n
-	- Xốt mayonnaise : 10 Gr\n
-	- Tiêu : 1 Muỗng cà phê\n
+Thành phần
+	- Sò điệp Sanriku khổng lồ : 8 Con
+	- Bơ lạt : 20 Gr
+	- Xốt mayonnaise : 10 Gr
+	- Tiêu : 1 Muỗng cà phê
 	- Muối : 1/2 Muỗng cà phê',
-	N'https://youtu.be/RC9rjP6uZVs',
+	N'https://www.youtube.com/watch?v=RC9rjP6uZVs&feature=youtu.be',
 	N'mặn, nướng, hải sản',
 	N'\\Image\\16\\recipe52512-cook-step4-637196063038775196.jpg'
 ),(--17
 N'Bánh tráng nướng trứng Đà Lạt',
 	N'Bánh tráng trứng Đà Lạt là món ăn vặt trẻ con rất yêu thích. Cuối tuần có nhiều thời gian, bạn có thể tự làm ở nhà cho các bé thưởng thức.	
-	\nThành phần \n
-	- cái bánh tráng : 10 Cái\n
-	- quả trứng gà : 10 Quả\n
-	- Khô bò 100 Gr\n
-	- Hành lá : 50 Gr\n
+Thành phần 
+	- cái bánh tráng : 10 Cái
+	- quả trứng gà : 10 Quả
+	- Khô bò 100 Gr
+	- Hành lá : 50 Gr
 	- hộp bơ thực vật : 1 Hộp',
-	N'https://youtu.be/WzIUteiwbGY',
+	N'https://www.youtube.com/watch?v=WzIUteiwbGY&feature=youtu.be',
 	N'mặn, nướng, heo, trứng',
 	N'\\Image\\17\\cooky-recipe-637215497149075617.jpg'
 ),(--18
 N'Thịt kho trứng cút',
 	N'Thịt kho trứng cút là món ăn tương đối dễ dàm, đơn giản nhưng lại là 1 món ăn ngon, phù hợp với bất kỳ mùa nào trong năm. Đặc biệt vào những ngày Tết mà có 1 nồi thịt kho trứng cút đậm đà, nóng hổi thì rất hao cơm. Hãy cùng Tupperware thực hiện món ngon này nhé!	
-	\nThành phần \n
-	- Thịt ba chỉ : 250 Gr\n
-	- Nước hàng : 50 ml\n
-	- Trứng cút : 10 Quả\n
-	- Nước mắm : 1.50 Muỗng canh\n
+Thành phần 
+	- Thịt ba chỉ : 250 Gr
+	- Nước hàng : 50 ml
+	- Trứng cút : 10 Quả
+	- Nước mắm : 1.50 Muỗng canh
 	- Đường trắng : 1/2 Muỗng canh',
-	N'https://youtu.be/_fkbfcn24nM',
+	N'https://www.youtube.com/watch?v=_fkbfcn24nM&feature=youtu.be',
 	N'mặn, kho, heo, trứng',
 	N'\\Image\\18\\recipe51998-cook-step3-637147671158673032.jpg'
 ),(--19
 N'Mực và rau củ trộn sốt cay',
 	N'Mực và rau củ trộn sốt cay là món ăn giàu dinh dưỡng từ mực tươi và rau củ mà bạn nên thử. Từng miếng mực tươi giòn kết hợp cùng các rau củ bắt mắt và sốt thấm vị, sẽ làm bạn muốn vào bếp thực hiện món này ngay. Cùng Cooky học cách làm mực và rau củ sốt cay siêu hấp dẫn để đãi gia đình thân yêu của mình nhé!	
-	\nThành phần \n
-	- Mực ống : 2 Con\n
-	- Củ cải trắng : 50 Gr\n
-	- Cà rốt : 50 Gr\n
-	- Dưa leo : 50 Gr\n
-	- Hành tây : 50 Gr\n
+Thành phần 
+	- Mực ống : 2 Con
+	- Củ cải trắng : 50 Gr
+	- Cà rốt : 50 Gr
+	- Dưa leo : 50 Gr
+	- Hành tây : 50 Gr
 	- Tương ớt Hàn Quốc : 2 Muỗng canh',
-	N'https://youtu.be/4-Lie43c2Ig',
+	N'https://www.youtube.com/watch?v=4-Lie43c2Ig&feature=youtu.be',
 	N'mặn, xào, hải sản',
 	N'\\Image\\19\\recipe52668-cook-step5-637221427442396421.jpg'
 ),(--20
 N'Súp hoành thánh lá',
 	N'Hoành thánh bắt nguồn từ người Hoa, du nhập và được biến tấu để phù hợp với khẩu vị người Việt nhưng vẫn giữ được nét đặc trưng. Tuy không có nhân nhưng món súp hoành thánh lá ăn kèm tôm, thịt xương ống, trứng cút, giá, huyết. Nghe cái tên đơn giản, nhưng để biết rõ hơn về công thức nấu món súp hoành thánh này thì hãy cùng Cooky vào bếp thử liền nhé	
-	\nThành phần \n
-	- Vỏ hoành thánh : 300 Gr\n
-	- Xương ống : 300 Gr\n
-	- Huyết heo : 200 Gr\n
-	- Tôm tươi : 200 Gr\n
+Thành phần 
+	- Vỏ hoành thánh : 300 Gr
+	- Xương ống : 300 Gr
+	- Huyết heo : 200 Gr
+	- Tôm tươi : 200 Gr
 	- Trứng cút : 10 Quả',
-	N'https://youtu.be/Uknq2Vjxvq0',
+	N'https://www.youtube.com/watch?v=Uknq2Vjxvq0&feature=youtu.be',
 	N'mặn, hầm, heo, trứng, hải sản',
 	N'\\Image\\20\\recipe50103-cook-step5-637129919680310953.jpg'
 )
@@ -1834,3 +1834,4 @@ where not exists ((select Item from dbo.SplitInts(@List,','))
 END
 GO
 
+--todo : SEARCH BY NAME

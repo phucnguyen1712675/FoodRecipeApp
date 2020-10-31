@@ -154,9 +154,7 @@
     </Reference>
     <Reference Include="MediaFoundation, Version=3.1.0.32450, Culture=neutral, PublicKeyToken=36fa660e1d6ebf8d, processorArchitecture=MSIL">
       <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\MediaFoundation\MediaFoundation.dll</HintPath>
-
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R3 2020\Binaries\WPF45\MediaFoundation\MediaFoundation.dll</HintPath>
-
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -504,10 +502,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converter\ImageConverter.cs" />
-    <Compile Include="Converter\RichTextBoxHelper.cs" />
-    <Compile Include="Converter\StepLabelConverterAddRecipe.cs" />
+    <Compile Include="Converter\DetailMediaDishConverter.cs" />
+    <Compile Include="Converter\DishNameConverter.cs" />
     <Compile Include="Converter\IsLoveImageConverter.cs" />
+    <Compile Include="Converter\ListImageConverter.cs" />
+    <Compile Include="Converter\ImageConverter.cs" />
+    <Compile Include="Converter\MediaDishConverter.cs" />
+    <Compile Include="Converter\StepLabelConverterAddRecipe.cs" />
+    <Compile Include="Converter\TypesStringAddSpaceConverter.cs" />
+    <Compile Include="Converter\WebBrowserUtility.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="DAO\DishDAO.cs" />
     <Compile Include="DAO\ImageDAO.cs" />
@@ -534,6 +537,9 @@
     </Compile>
     <Compile Include="GUI\AddedStepWindow.xaml.cs">
       <DependentUpon>AddedStepWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Temp.xaml.cs">
+      <DependentUpon>Temp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
@@ -619,6 +625,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\AddedStepWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Temp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

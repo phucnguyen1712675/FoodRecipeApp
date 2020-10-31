@@ -1,11 +1,13 @@
 ﻿using FoodRecipeApp.DAO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace FoodRecipeApp.DTO
 {
@@ -15,11 +17,15 @@ namespace FoodRecipeApp.DTO
         public string Description { get; set; }
         public List<string> ListImage { get; set; }
 
+       public ObservableCollection<string> ImagesCollection { get; set; }
+
         public Step(int stepNumber, string description, List<string> filePaths)
         {
             StepNumber = stepNumber;
             Description = description;
             ListImage = filePaths;
+
+           ImagesCollection = Images.GetImages(ListImage);
         }
 
         public static Step CreateStep (int stepNumber, string description, List<string> filePaths)

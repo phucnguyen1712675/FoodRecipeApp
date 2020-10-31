@@ -19,6 +19,9 @@ namespace FoodRecipeApp.DTO
 
        public ObservableCollection<string> ImagesCollection { get; set; }
 
+        public ImagesPerStepCollection ImageList { get; set; }
+
+
         public Step(int stepNumber, string description, List<string> filePaths)
         {
             StepNumber = stepNumber;
@@ -28,20 +31,34 @@ namespace FoodRecipeApp.DTO
            ImagesCollection = Images.GetImages(ListImage);
         }
 
-        public static Step CreateStep (int stepNumber, string description, List<string> filePaths)
+        public Step(int stepNumber, string description, ImagesPerStepCollection imageList)
         {
-            if(description == "\r\n" || description == "" || filePaths == null)
-            {
-                return null;
-            }
-            else
-            {
-                filePaths = Images.trimListFilePathImage(filePaths);
-                return new Step(stepNumber, description, filePaths);
-            }
+            StepNumber = stepNumber;
+            Description = description;
+            ImageList = imageList;
         }
 
-        public static List<Step> getAllStepsInDish (int dish)
+        public static Step CreateStep (int stepNumber, string description, List<string> filePaths)
+		{
+			return CreateNewStep(stepNumber, description, ref filePaths);
+		}
+
+		private static Step CreateNewStep(int stepNumber, string description, ref List<string> filePaths)
+		{
+			if (description == "\r\n"
+				|| description == ""
+				|| filePaths == null)
+			{
+				return null;
+			}
+			else
+			{
+				filePaths = Images.trimListFilePathImage(filePaths);
+				return new Step(stepNumber, description, filePaths);
+			}
+		}
+
+		public static List<Step> getAllStepsInDish (int dish)
         {
             List<Step> steps = new List<Step>();
             

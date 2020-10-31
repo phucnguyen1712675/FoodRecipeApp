@@ -1834,4 +1834,61 @@ where not exists ((select Item from dbo.SplitInts(@List,','))
 END
 GO
 
---todo : SEARCH BY NAME
+
+CREATE PROC USP_getFavouriteDishes
+AS 
+BEGIN
+	SELECT * FROM DBO.DISH
+	WHERE LOVE = 1;
+END
+GO
+
+CREATE PROC USP_updateFavouriteDishes
+@DishCode INT
+AS 
+BEGIN
+	update dbo.DISH 
+	set Love = 1 ^ Love 
+	where Dish = @DishCode
+END
+GO
+
+CREATE FUNCTION [dbo].[ufn_removeMark] (@text nvarchar(max))
+RETURNS nvarchar(max)
+AS
+BEGIN
+	SET @text = LOWER(@text)
+	DECLARE @textLen int = LEN(@text)
+	IF @textLen > 0
+	BEGIN
+		DECLARE @index int = 1
+		DECLARE @lPos int
+		DECLARE @SIGN_CHARS nvarchar(100) = N'ăâđêôơưàảãạáằẳẵặắầẩẫậấèẻẽẹéềểễệếìỉĩịíòỏõọóồổỗộốờởỡợớùủũụúừửữựứỳỷỹỵýđð'
+		DECLARE @UNSIGN_CHARS varchar(100) = 'aadeoouaaaaaaaaaaaaaaaeeeeeeeeeeiiiiiooooooooooooooouuuuuuuuuuyyyyydd'
+
+		WHILE @index <= @textLen
+		BEGIN
+			SET @lPos = CHARINDEX(SUBSTRING(@text,@index,1),@SIGN_CHARS)
+			IF @lPos > 0
+			BEGIN
+				SET @text = STUFF(@text,@index,1,SUBSTRING(@UNSIGN_CHARS,@lPos,1))
+			END
+			SET @index = @index + 1
+		END
+	END
+	RETURN @text
+END
+go
+
+DROP PROCEDURE USP_getDishByName
+GO
+CREATE PROCEDURE USP_getDishByName
+  @Name NVARCHAR(MAX)
+AS
+BEGIN
+  SET NOCOUNT ON;  
+  select * from DISH
+where dbo.ufn_removeMark(Name) LIKE '%'+ @Name +'%' OR Name LIKE '%'+ @Name +'%'
+END
+GO
+

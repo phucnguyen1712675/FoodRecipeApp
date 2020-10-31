@@ -48,7 +48,7 @@ namespace FoodRecipeApp.DTO
             return result;
         }
 
-        public static List<String> getAllImagesInStep(int dish, int stepNumber)
+        public static List<string> getAllImagesInStep(int dish, int stepNumber)
         {
             List<string> allImages = new List<string>();
 

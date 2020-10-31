@@ -1,32 +1,45 @@
-﻿using System.Collections.Generic;
+﻿using FoodRecipeApp.DTO;
+using FoodRecipeApp.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using Telerik.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using FoodRecipeApp.DTO;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
-using Label = Telerik.Windows.Controls.Label;
-using FoodRecipeApp.ViewModels;
-using System.Diagnostics;
-using System.Collections;
-using SharpDX.Collections;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Telerik.Windows.Controls;
 
 namespace FoodRecipeApp.GUI
 {
 	/// <summary>
-	/// Interaction logic for MainPage.xaml
+	/// Interaction logic for FavouriteRecipePage.xaml
 	/// </summary>
-	public partial class MainPage : Page
+	public partial class FavouriteRecipePage : Page
 	{
-		static MainPage()
+		static FavouriteRecipePage()
 		{
 			var deleteBinding = new CommandBinding(TileViewCommandsExtension.Delete, OnDeleteCommandExecute, OnCanDeleteCommandExecute);
 			CommandManager.RegisterClassCommandBinding(typeof(RadTileViewItem), deleteBinding);
 
-			var addFavouriteItemBinding = new CommandBinding(TileViewCommandsExtension.AddNewFavouriteRecipe, OnAddFavouriteItemCommandExecute, OnCanAddFavouriteItemCommandExecute); 
-			CommandManager.RegisterClassCommandBinding(typeof(RadTileViewItem), addFavouriteItemBinding); 
+			var addFavouriteItemBinding = new CommandBinding(TileViewCommandsExtension.AddNewFavouriteRecipe, OnAddFavouriteItemCommandExecute, OnCanAddFavouriteItemCommandExecute);
+			CommandManager.RegisterClassCommandBinding(typeof(RadTileViewItem), addFavouriteItemBinding);
+		}
+
+		public static FavouriteRecipePage AppFavouritepage;
+		public FavouriteRecipePage()
+		{
+			InitializeComponent();
+			AppFavouritepage = this;
+			this.DataContext = new RecipeViewModel();
 		}
 
 		private static void OnCanDeleteCommandExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -48,7 +61,7 @@ namespace FoodRecipeApp.GUI
 
 				// Note: This will change the DataContext's Items collection. 
 				//var source = tileView.ItemsSource as IList;
-				var source = AppMainpage.radDataPager1.Source as DishesCollection;
+				var source = AppFavouritepage.radDataPager1.Source as DishesCollection;
 				if (dataItem != null && source != null)
 				{
 					source.Remove(dataItem);
@@ -77,7 +90,7 @@ namespace FoodRecipeApp.GUI
 				Debug.WriteLine(dataItem.DishCode);
 
 				// Note: This will change the DataContext's Items collection. 
-				var source = AppMainpage.radDataPager1.Source as DishesCollection;
+				var source = AppFavouritepage.radDataPager1.Source as DishesCollection;
 				if (dataItem != null && source != null)
 				{
 					source.Remove(dataItem);
@@ -87,16 +100,6 @@ namespace FoodRecipeApp.GUI
 			{
 				tileView.Items.Remove(tileViewItem);
 			}
-		}
-
-		public static MainPage AppMainpage; 
-
-		public MainPage()
-		{
-			InitializeComponent();
-			AppMainpage = this;
-			this.DataContext = new RecipeViewModel();
-			//this.AddHandler(Tile.MouseDownEvent, new MouseButtonEventHandler(OnMouseDownEvent), true);
 		}
 
 		private void radTileView_TileStateChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)

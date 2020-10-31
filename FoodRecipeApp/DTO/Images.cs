@@ -10,7 +10,6 @@ namespace FoodRecipeApp.DTO
 {
     public class Images
     {
-        
         public static string getFilePath(DataRow row)
         {
             string result = AppDomain.CurrentDomain.BaseDirectory + row["FilePath"].ToString();
@@ -24,7 +23,7 @@ namespace FoodRecipeApp.DTO
             return result;
         }
 
-        public static List<String> getAllImagesInStep(int dish, int stepNumber)
+        public static List<string> getAllImagesInStep(int dish, int stepNumber)
         {
             List<string> allImages = new List<string>();
 

@@ -154,9 +154,7 @@
     </Reference>
     <Reference Include="MediaFoundation, Version=3.1.0.32450, Culture=neutral, PublicKeyToken=36fa660e1d6ebf8d, processorArchitecture=MSIL">
       <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\MediaFoundation\MediaFoundation.dll</HintPath>
-
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R3 2020\Binaries\WPF45\MediaFoundation\MediaFoundation.dll</HintPath>
-
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -167,23 +165,6 @@
     </Reference>
     <Reference Include="SharpDX, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
       <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct2D1, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.Direct2D1.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D10, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.Direct3D10.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Direct3D9, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.Direct3D9.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.DXGI, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2020.3.1020.45.Trial\SharpDX\SharpDX.DXGI.dll</HintPath>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Progress\Telerik UI for WPF R3 2020\Binaries\WPF45\SharpDX\SharpDX.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX.Direct2D1, Version=2.5.0.0, Culture=neutral, PublicKeyToken=627a3d6d1956f55a, processorArchitecture=MSIL">
@@ -518,16 +499,24 @@
     <Compile Include="DTO\Dish.cs" />
     <Compile Include="DTO\DishesCollection.cs" />
     <Compile Include="DTO\DishesDataSource.cs" />
+    <Compile Include="DTO\ImagePair.cs" />
     <Compile Include="DTO\Images.cs" />
+    <Compile Include="DTO\ImagesPerStepCollection.cs" />
+    <Compile Include="DTO\ImagesPerStepDataSource.cs" />
     <Compile Include="DTO\Quote.cs" />
     <Compile Include="DTO\QuotesCollection.cs" />
     <Compile Include="DTO\QuotesDataSource.cs" />
     <Compile Include="DTO\Step.cs" />
+    <Compile Include="DTO\StepCollection.cs" />
+    <Compile Include="DTO\StepDataSource.cs" />
     <Compile Include="GUI\AddRecipe.xaml.cs">
       <DependentUpon>AddRecipe.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\DetailScreen.xaml.cs">
       <DependentUpon>DetailScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\FavouriteRecipePage.xaml.cs">
+      <DependentUpon>FavouriteRecipePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SearchScreen.xaml.cs">
       <DependentUpon>SearchScreen.xaml</DependentUpon>
@@ -539,6 +528,8 @@
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="MyRandom.cs" />
     <Compile Include="Navigation\NavigationServiceEx.cs" />
+    <Compile Include="Resources\RecipeResources.cs" />
+    <Compile Include="TileViewCommandsExtension.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
     <Compile Include="ViewModels\NasdaqViewModel.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
@@ -577,6 +568,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\DetailScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\FavouriteRecipePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -668,9 +663,11 @@
     <Resource Include="ConnectString.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\MainPage\heart.png" />
-    <Resource Include="Resources\MainPage\heart_1.png" />
-    <Resource Include="Resources\MainPage\heart_2.png" />
+    <Resource Include="Resources\MainPage\searchBackground.jpg" />
+    <Resource Include="Resources\MainPage\searchBackground1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MainPage\searchBackground2.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />

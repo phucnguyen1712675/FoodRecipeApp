@@ -1834,3 +1834,20 @@ where not exists ((select Item from dbo.SplitInts(@List,','))
 END
 GO
 
+CREATE PROC USP_getFavouriteDishes
+AS 
+BEGIN
+	SELECT * FROM DBO.DISH
+	WHERE LOVE = 1;
+END
+GO
+
+CREATE PROC USP_updateFavouriteDishes
+@DishCode INT
+AS 
+BEGIN
+	update dbo.DISH 
+	set Love = 1 ^ Love 
+	where Dish = @DishCode
+END
+GO

@@ -31,16 +31,37 @@ namespace FoodRecipeApp.GUI
 			set;
         }
 		public ObservableCollection<Dish> FilterList;
+		public ObservableCollection<Dish> FullList;
 		public SearchScreen()
 		{
 			InitializeComponent();
 
-			//this.DataContext = Dish.GetDishes();
 			AddAllCheckBox();
-			this.DataContext = DishesDataSource.Instance.DishesCollection;
-			//FilterList = DishesDataSource.Instance.DishesCollection;
+			FullList = DishesDataSource.Instance.DishesCollection;
+			ShowAll();
 
-
+			// Getting the currently selected ListBoxItem
+			// Note that the ListBox must have
+			// IsSynchronizedWithCurrentItem set to True for this to work
+		}
+		private childItem FindVisualChild<childItem>(DependencyObject obj)
+	where childItem : DependencyObject
+		{
+			for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+			{
+				DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+				if (child != null && child is childItem)
+				{
+					return (childItem)child;
+				}
+				else
+				{
+					childItem childOfChild = FindVisualChild<childItem>(child);
+					if (childOfChild != null)
+						return childOfChild;
+				}
+			}
+			return null;
 		}
 		public int AddAllCheckBox()
         {
@@ -66,15 +87,19 @@ namespace FoodRecipeApp.GUI
 			ListCheckBoxes = new CheckedList(ListABC);
 			return 0;
         }
-
+		public void ShowAll()
+        {
+			this.DataContext = FullList;
+        }
+		public void ShowSearchResult()
+        {
+			this.DataContext = this.FilterList;
+		}
 		private void Check_Click(object sender, RoutedEventArgs e)
 		{
 			string FilterQuery = ListCheckBoxes.GetFilterQuery();
-			//FilterList = DishesDataSource.DishesFilterCollection(FilterQuery);
-			
-			this.DataContext = DishesDataSource.DishesFilterCollection(FilterQuery);
-			//MessageBox.Show(FilterList.Count.ToString());
-			//MessageBox.Show(FilterQuery);
+			this.FilterList = DishesDataSource.DishesFilterCollection(FilterQuery);
+			ShowSearchResult();
 		}
 		private void Search_Click(object sender, RoutedEventArgs e)
         {
@@ -136,6 +161,12 @@ namespace FoodRecipeApp.GUI
 					}
 				}
 			}
+		}
+
+        private void Unchecked_Click(object sender, RoutedEventArgs e)
+        {
+			ShowAll();
+			ListCheckBoxes.UncheckAll();
 		}
 	}
 

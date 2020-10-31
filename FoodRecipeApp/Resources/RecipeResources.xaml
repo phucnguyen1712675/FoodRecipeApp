@@ -12,8 +12,13 @@
 
 	<viewModels:RecipeViewModel x:Key="MyRecipeViewModel" />
 	<converters:IsLoveImageConverter x:Key="LoveImageConverter" />
+  <converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter"/>
+  <converters:DishNameConverter x:Key="DishNameConverter"/>
+  <converters:DetailMediaDishConverter x:Key="MediaDishconverter"/>
+   
 
 	<Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
+
 
 	<Style x:Key="TileItemHeaderStyle" TargetType="tileview:TileViewItemHeader">
 		<Setter Property="Foreground" Value="#2f0572" />
@@ -390,68 +395,7 @@
 		<Setter Property="Background" Value="#c5a1ff" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="HeaderStyle" Value="{StaticResource TileItemHeaderStyle}" />
+        <Setter Property="FontFamily" Value="Segoe UI Light" />
 	</Style>
 
-	<!--<Style x:Key="LeftArrowButton" TargetType="telerik:RadButton">
-		<Setter Property="Background" Value="#FF909090" />
-		<Setter Property="Width" Value="32" />
-		<Setter Property="Height" Value="32" />
-		<Setter Property="BorderBrush" Value="{x:Null}" />
-		<Setter Property="BorderThickness" Value="0" />
-		<Setter Property="Margin" Value="8" />
-		<Setter Property="Cursor" Value="Hand" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="telerik:RadButton">
-					<Grid x:Name="Root">
-						<Ellipse x:Name="Ellipse" Width="32" Height="32" Fill="Transparent" Stroke="#FF909090"
-								StrokeThickness="2" />
-						<Path x:Name="Arrow" Width="16" Height="16" Data="M1,8 L15,8 M8,1 L1,8 8,15" Stroke="#FF909090"
-								StrokeThickness="2.5" />
-					</Grid>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled" Value="False">
-							<Setter TargetName="Ellipse" Property="Opacity" Value="0.5" />
-							<Setter TargetName="Arrow" Property="Opacity" Value="0.5" />
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="False">
-							<Setter TargetName="Ellipse" Property="Stroke" Value="#FFAFAFAF" />
-							<Setter TargetName="Arrow" Property="Stroke" Value="#FFAFAFAF" />
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-	<Style x:Key="RightArrowButton" TargetType="telerik:RadButton">
-		<Setter Property="Background" Value="#FF909090" />
-		<Setter Property="Width" Value="32" />
-		<Setter Property="Height" Value="32" />
-		<Setter Property="BorderBrush" Value="{x:Null}" />
-		<Setter Property="BorderThickness" Value="0" />
-		<Setter Property="Margin" Value="8" />
-		<Setter Property="Cursor" Value="Hand" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="telerik:RadButton">
-					<Grid x:Name="Root">
-						<Ellipse x:Name="Ellipse" Width="32" Height="32" Fill="Transparent" Stroke="#FF909090"
-								StrokeThickness="2" />
-						<Path x:Name="Arrow" Width="16" Height="16" Data="M1,8 L15,8 M8,1 L15,8 8,15" Stroke="#FF909090"
-								StrokeThickness="2.5" />
-					</Grid>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsEnabled" Value="False">
-							<Setter TargetName="Ellipse" Property="Opacity" Value="0.5" />
-							<Setter TargetName="Arrow" Property="Opacity" Value="0.5" />
-						</Trigger>
-						<Trigger Property="IsMouseOver" Value="False">
-							<Setter TargetName="Ellipse" Property="Stroke" Value="#FFAFAFAF" />
-							<Setter TargetName="Arrow" Property="Stroke" Value="#FFAFAFAF" />
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>-->
 </ResourceDictionary>

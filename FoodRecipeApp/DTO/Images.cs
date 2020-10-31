@@ -1,18 +1,43 @@
 ﻿using FoodRecipeApp.DAO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
+using System.Windows.Controls;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 namespace FoodRecipeApp.DTO
 {
     public class Images
     {
+        string ImagePath { get; set; }
+
+
+        public Images(string filePath)
+        {
+            filePath = getFilePath(filePath);
+            ImagePath = filePath;
+        }
+        
+        public static string getFilePath(string filepath)
+        {
+            string result = filepath;
+            if (result.Contains(AppDomain.CurrentDomain.BaseDirectory))
+                return result;
+            else result = AppDomain.CurrentDomain.BaseDirectory + result;
+            return result;
+        }
+
         public static string getFilePath(DataRow row)
         {
-            string result = AppDomain.CurrentDomain.BaseDirectory + row["FilePath"].ToString();
+            string result = row["FilePath"].ToString();
+            if (result.Contains(AppDomain.CurrentDomain.BaseDirectory))
+                return result;
+            else result = AppDomain.CurrentDomain.BaseDirectory + result;
             return result;
         }
 
@@ -55,6 +80,16 @@ namespace FoodRecipeApp.DTO
                 filePath[i] = trimFilePathImage(filePath[i]);
             }
             return filePath;
+        }
+
+        public static ObservableCollection<string> GetImages(List<string> imagesList)
+        {
+            ObservableCollection<string> images = new ObservableCollection<string>();
+            foreach (string image in imagesList)
+            {
+                images.Add(image);
+            }
+            return images;
         }
     }
 }

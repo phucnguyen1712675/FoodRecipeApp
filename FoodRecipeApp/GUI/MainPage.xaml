@@ -154,7 +154,6 @@
 
 	</Page.Resources>
 
-
 	<Grid
 		x:Name="LayoutRoot"
 		HorizontalAlignment="Center"

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FoodRecipeApp.DTO;
+using FoodRecipeApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -8,15 +10,14 @@ using System.Windows.Data;
 
 namespace FoodRecipeApp.Converter
 {
-    class ImageConverter : IValueConverter
+    class MediaDishConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string relative = (string)value;
-            if (relative.Contains(AppDomain.CurrentDomain.BaseDirectory)) return relative;
-            string folder = AppDomain.CurrentDomain.BaseDirectory;
-            string absolutePath = $"{folder}{relative}";
-            return absolutePath;
+            string result = (string)value;
+            result = Dish.Display(result, 650, 400);
+           
+            return result;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

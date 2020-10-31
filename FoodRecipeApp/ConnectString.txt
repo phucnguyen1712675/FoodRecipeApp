@@ -1,2 +1,1 @@
-
-Data Source=DESKTOP-46J3TMV;Initial Catalog=RecipeDATA;Integrated Security=True
+Data Source=DESKTOP-3U520I8;Initial Catalog=RecipeDATA;Integrated Security=True

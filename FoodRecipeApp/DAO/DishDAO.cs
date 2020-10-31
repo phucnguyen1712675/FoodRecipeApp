@@ -31,6 +31,11 @@ namespace FoodRecipeApp.DAO
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getAllDishes");
         }
 
+        public DataTable getFavouriteDishes()
+        {
+            return DataProvider.Instance.ExecuteQuery("EXEC USP_getFavouriteDishes");
+        }
+
         internal void addNewDish(Dish newDish)
         {
             string IsLove = (newDish.IsLove == true ? 1 : 0 ).ToString();

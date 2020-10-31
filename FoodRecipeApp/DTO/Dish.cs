@@ -22,6 +22,8 @@ namespace FoodRecipeApp.DTO
         public string Loai { get; set; }
         public string ImagePath { get; set; }
         public List<Step> Steps { get; set; }
+        public StepCollection StepsCollection { get; set; }
+
 
         public Dish(DataRow row)
         {
@@ -34,6 +36,8 @@ namespace FoodRecipeApp.DTO
             Loai = row["Loai"].ToString();
             ImagePath = Images.getFilePath(row);
             Steps = Step.getAllStepsInDish(DishCode);
+
+            StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
         public Dish(bool isLove, string name, string imagePath, string description, string video, List<Step> steps, string loai){

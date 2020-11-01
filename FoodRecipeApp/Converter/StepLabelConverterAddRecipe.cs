@@ -8,7 +8,7 @@ using System.Windows.Data;
 
 namespace FoodRecipeApp.Converter
 {
-    class StepLabelConverterAddRecipe : IValueConverter
+    public class StepLabelConverterAddRecipe : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

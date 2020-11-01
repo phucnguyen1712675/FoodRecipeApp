@@ -485,15 +485,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converter\DetailMediaDishConverter.cs" />
     <Compile Include="Converter\DishNameConverter.cs" />
     <Compile Include="Converter\IsLoveImageConverter.cs" />
-    <Compile Include="Converter\ListImageConverter.cs" />
     <Compile Include="Converter\ImageConverter.cs" />
     <Compile Include="Converter\MediaDishConverter.cs" />
+    <Compile Include="Converter\RatioConverter.cs" />
     <Compile Include="Converter\StepLabelConverterAddRecipe.cs" />
     <Compile Include="Converter\TypesStringAddSpaceConverter.cs" />
-    <Compile Include="Converter\WebBrowserUtility.cs" />
     <Compile Include="DAO\DataProvider.cs" />
     <Compile Include="DAO\DishDAO.cs" />
     <Compile Include="DAO\ImageDAO.cs" />
@@ -523,14 +521,14 @@
     <Compile Include="GUI\FavouriteRecipePage.xaml.cs">
       <DependentUpon>FavouriteRecipePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\HtmlBox.xaml.cs">
+      <DependentUpon>HtmlBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\SearchScreen.xaml.cs">
       <DependentUpon>SearchScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\AddedStepWindow.xaml.cs">
       <DependentUpon>AddedStepWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Temp.xaml.cs">
-      <DependentUpon>Temp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
@@ -587,6 +585,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\HtmlBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\SearchScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -622,10 +624,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\AddedStepWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\Temp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -687,6 +685,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\reset.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\AboutPage\phuc.jpg" />
+    <Resource Include="Resources\AboutPage\tin.jpg" />
+    <Resource Include="Resources\AboutPage\trang.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Fody.6.3.0\build\Fody.targets" Condition="Exists('..\packages\Fody.6.3.0\build\Fody.targets')" />

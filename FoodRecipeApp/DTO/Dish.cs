@@ -73,6 +73,12 @@ namespace FoodRecipeApp.DTO
             string newUrl = "http://www.youtube.com/embed/" + id;
             return newUrl;
         }
+
+        public static int updateIsLoveDish(int DishCode)
+        {
+            return DishDAO.Instance.updateFavouriteRecipe(DishCode.ToString());
+        }
+
         public static string Display(string url, double width, double height)
         {
             /*Match m = YoutubeURIRegex.Match(url);

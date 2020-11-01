@@ -36,6 +36,11 @@ namespace FoodRecipeApp.DAO
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getFavouriteDishes");
         }
 
+        public int updateFavouriteRecipe(string DishCode)
+        {
+            return DataProvider.Instance.ExecuteNonQuery("EXEC USP_updateFavouriteDishes @DishCode ", new object[] { DishCode });
+        }
+
         internal void addNewDish(Dish newDish)
         {
             string IsLove = (newDish.IsLove == true ? 1 : 0 ).ToString();
@@ -60,5 +65,7 @@ namespace FoodRecipeApp.DAO
             //return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'Mặn,chay'");
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'" + filterQuery + "'");
         }
+
+
     }
 }

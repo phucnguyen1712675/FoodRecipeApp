@@ -4,7 +4,7 @@ using System.Windows.Data;
 
 namespace FoodRecipeApp.Converter
 {
-    class TypesStringAddSpaceConverter : IValueConverter
+    public class TypesStringAddSpaceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

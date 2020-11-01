@@ -23,9 +23,12 @@ namespace FoodRecipeApp.GUI
 	/// </summary>
 	public partial class HomeScreen : MetroWindow
 	{
+        public static HomeScreen homeScreen;
+
 		private readonly Navigation.NavigationServiceEx _navigationServiceEx;
 		public HomeScreen()
 		{
+            homeScreen = this;
 			InitializeComponent();
             this._navigationServiceEx = new Navigation.NavigationServiceEx();
             this._navigationServiceEx.Navigated += this.NavigationServiceEx_OnNavigated;

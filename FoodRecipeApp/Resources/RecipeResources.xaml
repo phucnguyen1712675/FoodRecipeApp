@@ -8,16 +8,19 @@
 	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
 	xmlns:tileview="clr-namespace:Telerik.Windows.Controls.TileView;assembly=Telerik.Windows.Controls.Navigation"
 	xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
-	x:ClassModifier="public">
+	x:ClassModifier="public"
+    xmlns:uc="clr-namespace:FoodRecipeApp.GUI"
+    >
 
 	<viewModels:RecipeViewModel x:Key="MyRecipeViewModel" />
 	<converters:IsLoveImageConverter x:Key="LoveImageConverter" />
-  <converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter"/>
-  <converters:DishNameConverter x:Key="DishNameConverter"/>
-  <converters:DetailMediaDishConverter x:Key="MediaDishconverter"/>
-   
+	<converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter"/>
+	<converters:DishNameConverter x:Key="DishNameConverter"/>
+    <converters:MediaDishConverter x:Key="MediaDishconverter"/>
+    <converters:RatioConverter x:Key="RatioConverter"/>
 
-	<Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
+
+    <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
 
 
 	<Style x:Key="TileItemHeaderStyle" TargetType="tileview:TileViewItemHeader">

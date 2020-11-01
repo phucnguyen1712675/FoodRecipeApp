@@ -1880,8 +1880,7 @@ BEGIN
 END
 go
 
-DROP PROCEDURE USP_getDishByName
-GO
+
 CREATE PROCEDURE USP_getDishByName
   @Name NVARCHAR(MAX)
 AS
@@ -1891,4 +1890,3 @@ BEGIN
 where dbo.ufn_removeMark(Name) LIKE '%'+ @Name +'%' OR Name LIKE '%'+ @Name +'%'
 END
 GO
-

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FoodRecipeApp.GUI"
         xmlns:local1="clr-namespace:FoodRecipeApp.DTO" 
         xmlns:converters="clr-namespace:FoodRecipeApp.Converter"
         xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
@@ -11,62 +10,66 @@
         ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="Các Step Đã thêm"
-        Height="600"
-        Width="1110"
+        Height="540" 
+        Width="1140"
+        WindowState="Maximized"
         Loaded="Window_Loaded"
+        Closing="Window_Closing"
         WindowStartupLocation="CenterScreen"
         Background="LightPink"
-        
         >
-
+    <!--WindowState="Maximized"-->
+    
     <Window.Resources>
         <ResourceDictionary>
             <converters:StepLabelConverterAddRecipe x:Key="LableStepConverter"/>
             <converters:ImageConverter x:Key="ImageConverter"/>
+            <converters:RatioConverter x:Key="RatioConverter"/>
         </ResourceDictionary>
     </Window.Resources>
 
     <Canvas TextBlock.FontFamily="Segoe UI Light" Background="AliceBlue">
 
-        <!--HorizontalScrollBarVisibility="Hidden"
-        <telerik:RadCarousel x:Name="MyCarousel" Background="Black" Height="200" ItemsSource="{Binding ImagesCollection }" 
-        />-->
 
+        <Label Content="Các bước làm" FontSize="25" FontWeight="Bold" Foreground="#332226" Margin="20,10,0,0"/>
 
-        <Label Content="Các bước làm" FontSize="25" FontWeight="Bold" Foreground="#332226" Margin="20,10,0,0" />
-
-        <ScrollViewer HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Visible" Padding="10,0,10,0" Height="476" Canvas.Left="10" Canvas.Top="56" Width="1084">
-            <WrapPanel Margin="10" Name="AddedStepPanel" Width="1050" HorizontalAlignment="Center">
+        <ScrollViewer HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Visible" Padding="0,0,0,0" Canvas.Left="10" Canvas.Top="56" 
+                      Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={converters:RatioConverter }, ConverterParameter='0.98' }" 
+                       Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={converters:RatioConverter }, ConverterParameter='0.8' }"   >
+            <WrapPanel Margin="0,10,0,10" Name="AddedStepPanel"  HorizontalAlignment="Center"
+                       Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={converters:RatioConverter }, ConverterParameter='0.9' }" >
 
                 <WrapPanel.Resources>
                     <DataTemplate x:Name="datatemp" DataType="{x:Type local1:Step}">
 
-                        <Border Background="AliceBlue" BorderBrush="#FFD80073" BorderThickness="2" Margin="20" Width="1000" CornerRadius="5" >
+                        <Border Background="AliceBlue" BorderBrush="#FFD80073" BorderThickness="2" Margin="20" CornerRadius="5"
+                             Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={converters:RatioConverter }, ConverterParameter='0.85' }" >
                             <Border.Effect>
                                 <DropShadowEffect BlurRadius="5" Opacity="0.5" ShadowDepth="2"/>
                             </Border.Effect>
                             <StackPanel  Name="AddStepStackPanel">
-                                <Grid Width="1000">
+                                <Grid Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={converters:RatioConverter }, ConverterParameter='0.8' }">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
-                                    <Grid Grid.Column="0">
+                                    <Grid Grid.Column="0" Margin="15,10,15,10">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="1*"/>
                                             <RowDefinition Height="5*"/>
                                         </Grid.RowDefinitions>
-                                        <Label Name="StepNumberLabel" Grid.Row="0" Content="{Binding Path=StepNumber, Converter={StaticResource LableStepConverter }}"  Foreground ="#332226" FontWeight="Medium" FontSize="20"/>
-                                        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Height="250" Margin="10">
-                                            <StackPanel Orientation="Vertical">
-                                                <TextBlock x:Name="DescriptionStepTextBlock" Margin="3" VerticalAlignment="Stretch"
-                                                            TextWrapping="Wrap" TextAlignment="Justify" AllowDrop="False" Text="{Binding Path = Description}" FontSize="20" FontWeight="Regular" Foreground="#332226" />
-                                            </StackPanel>
-                                        </ScrollViewer>
+                                        <Label Name="StepNumberLabel" Grid.Row="0" Content="{Binding Path=StepNumber, Converter={StaticResource LableStepConverter }}" 
+                                               Foreground ="#332226" FontWeight="Medium" FontSize="20" Margin="0,0,0,20"/>
+                                        <StackPanel Orientation="Vertical" Grid.Row="1">
+                                            <TextBlock x:Name="DescriptionStepTextBlock" Margin="3" VerticalAlignment="Stretch"
+                                                       TextWrapping="Wrap" TextAlignment="Justify" AllowDrop="False" Text="{Binding Path = Description}" FontSize="20" FontWeight="Regular" Foreground="#332226" />
+                                        </StackPanel>
                                     </Grid>
 
                                     <Border Grid.Column="1" Margin="10,10,10,10" BorderThickness="1" BorderBrush="LightPink"  >
-                                        <Grid VerticalAlignment="Center" Width="450" Height="270"  HorizontalAlignment="Center">
+                                        <Grid VerticalAlignment="Center"  HorizontalAlignment="Center"
+                                              Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={converters:RatioConverter }, ConverterParameter='0.39' }"
+                                              Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={converters:RatioConverter }, ConverterParameter='0.3' }">
                                             <Grid.Resources>
                                                 <Path x:Key="path"
 			                                          Data="M30,347 L307.5,347"
@@ -74,12 +77,12 @@
 			                                          StrokeThickness="1"
 			                                          Stretch="Fill" />
                                                 <DataTemplate x:Key="customImageItemTemplate">
-                                                    <StackPanel Width="240" Height="180">
+                                                    <StackPanel Width="260" Height="190">
                                                         <Image Source="{Binding Converter={StaticResource ImageConverter}}"/>
                                                     </StackPanel>
                                                 </DataTemplate>
                                             </Grid.Resources>
-                                            
+
                                             <telerik:RadCarousel x:Name="MyCarousel"
                                                                   ItemsSource="{Binding ListImage}"
                                                                   Padding="5"
@@ -87,7 +90,8 @@
 						                                          VerticalAlignment="Stretch"
                                                                   VirtualizingStackPanel.IsVirtualizing="False"
                                                                   ItemTemplate="{StaticResource customImageItemTemplate}"
-                                                                  Width="450" Height="270"
+                                                                   Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={converters:RatioConverter }, ConverterParameter='0.38' }"
+                                                                    Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={converters:RatioConverter }, ConverterParameter='0.28' }"
                                                                  >
                                                 <telerik:RadCarousel.ItemsPanel>
                                                     <ItemsPanelTemplate>
@@ -106,7 +110,5 @@
                 <ItemsControl x:Name="itemsControl"/>
             </WrapPanel>
         </ScrollViewer>
-
-
     </Canvas>
 </Window>

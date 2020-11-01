@@ -124,5 +124,35 @@ namespace FoodRecipeApp.GUI
 				}
 			}
 		}
+
+		private void ToggleButton_Click(object sender, RoutedEventArgs e)
+		{
+			ToggleButton Temp = (ToggleButton)sender;
+			int dishCode = (int)(Temp.Tag);
+			if (Dish.updateIsLoveDish(dishCode) == 1)
+			{
+				MessageBox.Show("Update thành công");
+			}
+			else
+			{
+				MessageBox.Show("Update thất bại");
+			}
+		}
+
+		private void DetailSteps_Click(object sender, RoutedEventArgs e)
+		{
+			Button temp = (Button)sender;
+			int DishCode = (int)(temp.Tag);
+			List<Step> steps = Step.getAllStepsInDish(DishCode);
+			var addedStepsScreen = new AddedStepWindow(steps);
+			addedStepsScreen.Dying += OpenThis;
+			addedStepsScreen.Show();
+			HomeScreen.homeScreen.Hide();
+		}
+
+		private void OpenThis()
+		{
+			HomeScreen.homeScreen.Show();
+		}
 	}
 }

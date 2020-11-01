@@ -284,7 +284,7 @@ namespace FoodRecipeApp.GUI
         private void ClearAll()
         {
             steps.Clear();
-            //TODO refresh this page
+
            
         }
         #endregion

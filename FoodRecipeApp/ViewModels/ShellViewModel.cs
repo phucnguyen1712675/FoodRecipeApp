@@ -47,17 +47,11 @@ namespace FoodRecipeApp.ViewModels
 	        this.Menu.Add(new MenuItem()
 	        {
 		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
-		        Label = "Detail Screen",
-		        NavigationType = typeof(MainPage),
-		        NavigationDestination = new Uri("GUI/DetailScreen.xaml", UriKind.RelativeOrAbsolute)
-	        });
-	        this.Menu.Add(new MenuItem()
-	        {
-		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
 		        Label = "Add Recipe",
 		        NavigationType = typeof(MainPage),
 		        NavigationDestination = new Uri("GUI/AddRecipe.xaml", UriKind.RelativeOrAbsolute)
 	        });
+
 			this.OptionsMenu.Add(new MenuItem()
 	        {
 		        Icon = new PackIconFontAwesome() {Kind = PackIconFontAwesomeKind.CogsSolid},

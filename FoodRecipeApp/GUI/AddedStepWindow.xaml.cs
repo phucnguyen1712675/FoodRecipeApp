@@ -8,6 +8,8 @@ using Telerik.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using SharpDX.Collections;
 using FoodRecipeApp.DAO;
+using System.ComponentModel;
+using System;
 
 namespace FoodRecipeApp.GUI
 {
@@ -16,21 +18,29 @@ namespace FoodRecipeApp.GUI
     /// </summary>
     public partial class AddedStepWindow : Window
     {
+        public delegate void DeathHandler();
+        public event DeathHandler Dying;
+
         private List<Step> steps = new List<Step>();
+
         public AddedStepWindow(List<Step> steps)
         {
             InitializeComponent();
             this.steps = steps;
         }
 
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             foreach (Step step in steps)
                  itemsControl.Items.Add(step);
-/*            List<string> images = new List<string> { "C:\\Users\\LENOVO\\source\\repos\\phucnguyen1712675\\FoodRecipeApp\\FoodRecipeApp\\bin\\Debug\\Image\\5\\1\\2fcd0a86-522d-4044-87c8-be001c5521df.jpeg", "C:\\Users\\LENOVO\\source\\repos\\phucnguyen1712675\\FoodRecipeApp\\FoodRecipeApp\\bin\\Debug\\Image\\5\\1\\2fcd0a86-522d-4044-87c8-be001c5521df.jpeg" };
-            Step step = new Step(1, "sthing ", images);*/
-
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Dying?.Invoke();
+        }
+
 
     }
 }

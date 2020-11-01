@@ -10,13 +10,12 @@ using System.Windows.Data;
 
 namespace FoodRecipeApp.Converter
 {
-    class MediaDishConverter : IValueConverter
+    public class MediaDishConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string result = (string)value;
             result = Dish.Display(result, 650, 400);
-           
             return result;
         }
 

@@ -1834,7 +1834,6 @@ where not exists ((select Item from dbo.SplitInts(@List,','))
 END
 GO
 
-
 CREATE PROC USP_getFavouriteDishes
 AS 
 BEGIN
@@ -1890,3 +1889,13 @@ BEGIN
 where dbo.ufn_removeMark(Name) LIKE '%'+ @Name +'%' OR Name LIKE '%'+ @Name +'%'
 END
 GO
+
+create procedure USP_GetDishByDishCode
+@Dish int
+as
+begin
+select * from DISH where Dish = @Dish
+end
+go
+
+select Dish , Love, Name from DISH

@@ -70,5 +70,5 @@ namespace FoodRecipeApp.DAO
 		{
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getNewestDish");
 		}
-	}
+    }
 }

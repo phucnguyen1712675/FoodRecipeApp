@@ -25,8 +25,6 @@ namespace FoodRecipeApp.DTO
                 if (_instance == null)
                 {
                     _instance = new DishesDataSource();
-					//var listener = OcPropertyChangedListener.Create();
-					//listener.PropertyChanged += (sender, args) => { //do you stuff}
 				}
 				return _instance;
             }
@@ -72,9 +70,15 @@ namespace FoodRecipeApp.DTO
             return FilterDishes;
         }
 
-		public static void getAllRecipeCollectAgain()
+		public void updateIsLoveByDishCode(int DishCode, bool isLove)
 		{
-			
+			foreach(Dish dish in AllRecipesCollection)
+            {
+				if(dish.DishCode == DishCode)
+                {
+					dish.IsLove = isLove;
+                }
+            }
 		}
     }
 }

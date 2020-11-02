@@ -101,20 +101,6 @@ namespace FoodRecipeApp.GUI
 			}
 		}
 
-		private void ToggleButton_Click(object sender, RoutedEventArgs e)
-		{
-			ToggleButton Temp = (ToggleButton)sender;
-			int dishCode = (int)(Temp.Tag);
-			if (Dish.updateIsLoveDish(dishCode) == 1)
-			{
-				MessageBox.Show("Update thành công");
-			}
-			else
-			{
-				MessageBox.Show("Update thất bại");
-			}
-		}
-
 		private void DetailSteps_Click(object sender, RoutedEventArgs e)
 		{
 			Button temp = (Button)sender;
@@ -145,7 +131,33 @@ namespace FoodRecipeApp.GUI
 
         private void VideoDishButton_Click(object sender, RoutedEventArgs e)
         {
-
+			Button temp = (Button)sender;
+			string Video = temp.Tag.ToString();
+			youtubeWindow youtubeWindow = new youtubeWindow(Video);
+			youtubeWindow.Show();
         }
+
+/*        private void FavouriteButton_Click(object sender, RoutedEventArgs e)
+        {
+			ToggleButton Temp = (ToggleButton)sender;
+			int dishCode = (int)(Temp.Tag);
+			if (Dish.updateIsLoveDish(dishCode) == 1)
+			{
+				MessageBox.Show("Update thành công");
+				Dish dish;
+				
+				if (Temp.IsChecked.Value == true)
+				{
+					dish = DishesDataSource.Instance.AllRecipesCollection.FirstOrDefault(i => i.DishCode == dishCode);
+					DishesDataSource.Instance.FavouriteDishesCollection.Add(dish);
+				}
+				else
+				{
+					dish = DishesDataSource.Instance.FavouriteDishesCollection.FirstOrDefault(i => i.DishCode == dishCode);
+					DishesDataSource.Instance.FavouriteDishesCollection.Remove(dish);
+					DishesDataSource.Instance.updateIsLoveByDishCode(dishCode, false);
+				}
+			}
+		}*/
     }
 }

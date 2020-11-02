@@ -71,5 +71,10 @@ namespace FoodRecipeApp.DTO
             DishesCollection FilterDishes = DishesCollection.GetFilterDishes(queryFilter);
             return FilterDishes;
         }
+
+		public static void getAllRecipeCollectAgain()
+		{
+			
+		}
     }
 }

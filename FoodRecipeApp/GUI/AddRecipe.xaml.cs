@@ -218,7 +218,10 @@ namespace FoodRecipeApp.GUI
             {
                 MessageBox.Show("Thêm thành công vào database");
                 ClearAll();
-
+                Dish newDish = new Dish(isLove, dishName, imagePath, descriptionDish, video, steps, loai);
+                newDish.DishCode = Dish.getNewestDishCode();
+                DishesDataSource.Instance.AllRecipesCollection.Add(newDish);
+                if (newDish.IsLove == true) DishesDataSource.Instance.FavouriteDishesCollection.Add(newDish);
             }
             else
             {

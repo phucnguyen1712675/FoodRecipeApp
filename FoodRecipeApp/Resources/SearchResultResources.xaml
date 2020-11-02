@@ -10,9 +10,10 @@
 	xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels">
 
 	<viewModels:RecipeViewModel x:Key="MyRecipeViewModel" />
-	<converters:IsLoveImageConverter x:Key="LoveImageConverter" />
+    <converters:IsLoveImageConverter x:Key="LoveImageConverter" />
 
-	<Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
+
+    <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
 
 	<Style x:Key="TileItemHeaderStyle" TargetType="tileview:TileViewItemHeader">
 		<Setter Property="Foreground" Value="White" />

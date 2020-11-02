@@ -25,21 +25,22 @@ namespace FoodRecipeApp.ViewModels
 	        // Build the menus
 	        this.Menu.Add(new MenuItem()
 	        {
-		        Icon = new PackIconFontAwesome() {Kind = PackIconFontAwesomeKind.BugSolid},
+		        Icon = new PackIconFontAwesome() {Kind = PackIconFontAwesomeKind.HomeSolid},
 		        Label = "Home Screen",
 		        NavigationType = typeof(MainPage),
 		        NavigationDestination = new Uri("GUI/MainPage.xaml", UriKind.RelativeOrAbsolute)
 	        });
 			this.Menu.Add(new MenuItem()
 	        {
-		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
+		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.SearchSolid },
+
 		        Label = "Search Screen",
 		        NavigationType = typeof(SearchScreen),
 		        NavigationDestination = new Uri("GUI/SearchScreen.xaml", UriKind.RelativeOrAbsolute)
 	        });
 	        this.Menu.Add(new MenuItem()
 	        {
-		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.BugSolid },
+		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.PlusCircleSolid },
 		        Label = "Add Recipe",
 		        NavigationType = typeof(AddRecipe),
 		        NavigationDestination = new Uri("GUI/AddRecipe.xaml", UriKind.RelativeOrAbsolute)

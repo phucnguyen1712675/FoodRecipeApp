@@ -40,6 +40,7 @@ namespace FoodRecipeApp.GUI
 	{
         public List<Step> steps = new List<Step>();
 
+
 		public AddRecipe()
 		{
 			InitializeComponent();
@@ -209,7 +210,7 @@ namespace FoodRecipeApp.GUI
             string dishName = DishNameTextBox.Text;
             string descriptionDish = new TextRange(DescriptionDishRichTextBox.Document.ContentStart, DescriptionDishRichTextBox.Document.ContentEnd).Text;
             string video = DishMediaTextBox.Text;
-            string imagePath = DishImage.Tag.ToString();
+            string imagePath = DishImage.Tag.ToString(); //TODO fix : check diều kiện khác null mới chuyển toString đc
             string loai = AddAllCheckBoxes();
 
             bool isLove = (bool)IsLoveDishCheckBox.IsChecked;
@@ -284,8 +285,8 @@ namespace FoodRecipeApp.GUI
         private void ClearAll()
         {
             steps.Clear();
-
-           
+            //InitializeComponent();
+            this.DataContext = null;
         }
         #endregion
 

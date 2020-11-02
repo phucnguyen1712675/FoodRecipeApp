@@ -7,18 +7,17 @@
 	xmlns:local="clr-namespace:FoodRecipeApp"
 	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
 	xmlns:tileview="clr-namespace:Telerik.Windows.Controls.TileView;assembly=Telerik.Windows.Controls.Navigation"
+	xmlns:uc="clr-namespace:FoodRecipeApp.GUI"
 	xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
-	x:ClassModifier="public"
-    xmlns:uc="clr-namespace:FoodRecipeApp.GUI"
-    >
+	x:ClassModifier="public">
 
 	<viewModels:RecipeViewModel x:Key="MyRecipeViewModel" />
 	<converters:IsLoveImageConverter x:Key="LoveImageConverter" />
-	<converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter"/>
-	<converters:DishNameConverter x:Key="DishNameConverter"/>
-    <converters:MediaDishConverter x:Key="MediaDishconverter"/>
-    <converters:RatioConverter x:Key="RatioConverter"/>
-    <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
+	<converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter" />
+	<converters:DishNameConverter x:Key="DishNameConverter" />
+	<converters:MediaDishConverter x:Key="MediaDishconverter" />
+	<converters:RatioConverter x:Key="RatioConverter" />
+	<Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
 	<converters:CountConverter x:Key="countConverter" />
 
 	<Style x:Key="TileItemHeaderStyle" TargetType="tileview:TileViewItemHeader">

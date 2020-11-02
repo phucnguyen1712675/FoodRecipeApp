@@ -42,7 +42,7 @@ namespace FoodRecipeApp.DTO
 
         public Dish(bool isLove, string name, string imagePath, string description, string video, List<Step> steps, string loai){
             IsLove = isLove;
-            ImagePath = Images.trimFilePathImage(imagePath);
+            ImagePath = (imagePath);
             Desciption = description;
             Video = video;
             Steps = steps;
@@ -61,6 +61,7 @@ namespace FoodRecipeApp.DTO
             if (imagePath == "" || description == "" || video == "" || steps == null || loai == "") return false;
 
             Dish newDish = new Dish(isLove,  name,  imagePath,  description,  video, steps,  loai);
+            newDish.ImagePath = Images.trimFilePathImage(newDish.ImagePath);
             DishDAO.Instance.addNewDish(newDish);
             return true;
         }
@@ -81,9 +82,6 @@ namespace FoodRecipeApp.DTO
 
         public static string Display(string url, double width, double height)
         {
-            /*Match m = YoutubeURIRegex.Match(url);
-            string id = m.Groups["v"].Value;
-            string newUrl = "http://www.youtube.com/embed/" + id;*/
             string newUrl = simpleURL(url);
             string page =
                 "<html>" +
@@ -94,5 +92,12 @@ namespace FoodRecipeApp.DTO
                 "</body></html>";
             return page;
         }
+
+        public static int getNewestDishCode()
+		{
+            DataTable data = DishDAO.Instance.getNewestDishCode();
+            int dishCode = (int)(data.Rows[0]["Dish"]);
+            return dishCode;
+		}
     }
 }

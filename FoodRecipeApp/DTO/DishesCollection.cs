@@ -12,13 +12,9 @@ using System.Windows;
 
 namespace FoodRecipeApp.DTO
 {
-	public class DishesCollection : ObservableCollection<Dish>, INotifyCollectionChanged
+	public class DishesCollection : ObservableCollection<Dish>
 	{
-/*#pragma warning disable 67
-		public event PropertyChangedEventHandler PropertyChanged;
-#pragma warning restore 67*/
-
-		public static DishesCollection GetDishes()
+		public static DishesCollection GetAllDishes()
         {
             DishesCollection dishes = new DishesCollection();
             DataTable data = DishDAO.Instance.getAllDishes();
@@ -54,5 +50,48 @@ namespace FoodRecipeApp.DTO
             }
             return dishes;
         }
+
+		/*private void CollectionItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			//To do
+		}
+
+		private void DishesCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			if (e.NewItems != null)
+			{
+				foreach (object Meeting in e.NewItems)
+				{
+					(Meeting as INotifyPropertyChanged).PropertyChanged += new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
+				}
+			}
+
+			if (e.OldItems != null)
+			{
+				foreach (object Meeting in e.OldItems)
+				{
+					(Meeting as INotifyPropertyChanged).PropertyChanged -= new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
+				}
+			}
+		}
+
+		private void FavouriteDishesCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			if (e.NewItems != null)
+			{
+				foreach (object Meeting in e.NewItems)
+				{
+					(Meeting as INotifyPropertyChanged).PropertyChanged += new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
+				}
+			}
+
+			if (e.OldItems != null)
+			{
+				foreach (object Meeting in e.OldItems)
+				{
+					(Meeting as INotifyPropertyChanged).PropertyChanged -= new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
+				}
+			}
+		}*/
 	}
 }

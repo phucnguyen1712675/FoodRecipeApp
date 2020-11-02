@@ -11,11 +11,8 @@ namespace FoodRecipeApp
     {
         static TileViewCommandsExtension()
         {
-            TileViewCommandsExtension.Delete = new RoutedUICommand("Xóa khỏi danh sách", "Delete", typeof(TileViewCommandsExtension));
             TileViewCommandsExtension.AddNewFavouriteRecipe = new RoutedUICommand("Thêm vào danh sách yêu thích", "Add To Favourites", typeof(TileViewCommandsExtension));
         }
-
-        public static RoutedUICommand Delete { get; private set; }
         public static RoutedUICommand AddNewFavouriteRecipe { get; private set; }
     }
 }

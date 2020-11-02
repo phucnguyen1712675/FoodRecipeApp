@@ -12,6 +12,7 @@ using FoodRecipeApp.ViewModels;
 using System.Diagnostics;
 using System.Collections;
 using SharpDX.Collections;
+using FoodRecipeApp.DAO;
 
 namespace FoodRecipeApp.GUI
 {
@@ -20,44 +21,17 @@ namespace FoodRecipeApp.GUI
 	/// </summary>
 	public partial class MainPage : Page
 	{
+		public static MainPage AppMainpage;
+		public MainPage()
+		{
+			InitializeComponent();
+			AppMainpage = this;
+			this.DataContext = new RecipeViewModel();
+		}
 		static MainPage()
 		{
-			var deleteBinding = new CommandBinding(TileViewCommandsExtension.Delete, OnDeleteCommandExecute, OnCanDeleteCommandExecute);
-			CommandManager.RegisterClassCommandBinding(typeof(RadTileViewItem), deleteBinding);
-
 			var addFavouriteItemBinding = new CommandBinding(TileViewCommandsExtension.AddNewFavouriteRecipe, OnAddFavouriteItemCommandExecute, OnCanAddFavouriteItemCommandExecute); 
 			CommandManager.RegisterClassCommandBinding(typeof(RadTileViewItem), addFavouriteItemBinding); 
-		}
-
-		private static void OnCanDeleteCommandExecute(object sender, CanExecuteRoutedEventArgs e)
-		{
-			e.CanExecute = true;
-		}
-
-		private static void OnDeleteCommandExecute(object sender, ExecutedRoutedEventArgs e)
-		{
-			var tileViewItem = sender as RadTileViewItem;
-			var tileView = tileViewItem.ParentTileView as RadTileView;
-			if (tileViewItem == null || tileView == null) return;
-
-			if (tileView.ItemsSource != null)
-			{
-				//----------------------------------------------------------------------------------------
-				//var dataItem = tileView.ItemContainerGenerator.ItemFromContainer(tileViewItem) as TileInfo;
-				var dataItem = tileView.ItemContainerGenerator.ItemFromContainer(tileViewItem) as Dish;
-
-				// Note: This will change the DataContext's Items collection. 
-				//var source = tileView.ItemsSource as IList;
-				var source = AppMainpage.radDataPager1.Source as DishesCollection;
-				if (dataItem != null && source != null)
-				{
-					source.Remove(dataItem);
-				}
-			}
-			else
-			{
-				tileView.Items.Remove(tileViewItem);
-			}
 		}
 
 		private static void OnCanAddFavouriteItemCommandExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -69,34 +43,36 @@ namespace FoodRecipeApp.GUI
 		{
 			var tileViewItem = sender as RadTileViewItem;
 			var tileView = tileViewItem.ParentTileView as RadTileView;
-			if (tileViewItem == null || tileView == null) return;
 
-			if (tileView.ItemsSource != null)
+			if (tileViewItem == null || tileView == null || tileView.ItemsSource == null) return;
+
+			var dataItem = tileView.ItemContainerGenerator.ItemFromContainer(tileViewItem) as Dish;
+			var AllRecipesSource = AppMainpage.AllRecipesPager.Source as DishesCollection;
+			var FavouriteRecipesSource = AppMainpage.FavouriteRecipesPager.Source as DishesCollection;
+
+			if (dataItem == null || AllRecipesSource == null || FavouriteRecipesSource == null)
 			{
-				var dataItem = tileView.ItemContainerGenerator.ItemFromContainer(tileViewItem) as Dish;
-				Debug.WriteLine(dataItem.DishCode);
-
-				// Note: This will change the DataContext's Items collection. 
-				var source = AppMainpage.radDataPager1.Source as DishesCollection;
-				if (dataItem != null && source != null)
-				{
-					source.Remove(dataItem);
-				}
+				return;
+			}
+			if (dataItem.IsLove)
+			{
+				DishesDataSource.Instance.FavouriteDishesCollection.Add(dataItem);
 			}
 			else
 			{
-				tileView.Items.Remove(tileViewItem);
+				DishesDataSource.Instance.FavouriteDishesCollection.Remove(dataItem);
+
+				var item = DishesDataSource.Instance.AllRecipesCollection.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+
+				if (item != null)
+				{
+					item.IsLove = !item.IsLove;
+					if (DishDAO.Instance.updateFavouriteRecipe(dataItem.DishCode.ToString()) == 1)
+					{
+						MessageBox.Show("Updated");
+					}
+				}
 			}
-		}
-
-		public static MainPage AppMainpage; 
-
-		public MainPage()
-		{
-			InitializeComponent();
-			AppMainpage = this;
-			this.DataContext = new RecipeViewModel();
-			//this.AddHandler(Tile.MouseDownEvent, new MouseButtonEventHandler(OnMouseDownEvent), true);
 		}
 
 		private void radTileView_TileStateChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
@@ -123,6 +99,18 @@ namespace FoodRecipeApp.GUI
 					}
 				}
 			}
+		}
+
+		private void Pager_PageIndexChanging(object sender, PageIndexChangingEventArgs e)
+		{
+			//if (true)
+			//{
+			//	MessageBoxResult result = MessageBox.Show("There is unsaved data! Are you sure you want to continue?", "Confirm", MessageBoxButton.OKCancel);
+			//	if (result == MessageBoxResult.Cancel)
+			//	{
+			//		e.Cancel = true;
+			//	}
+			//}
 		}
 	}
 }

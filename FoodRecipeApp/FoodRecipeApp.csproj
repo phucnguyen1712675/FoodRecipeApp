@@ -485,6 +485,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\CountConverter.cs" />
     <Compile Include="Converter\ImageConverter.cs" />
     <Compile Include="Converter\RichTextBoxHelper.cs" />
     <Compile Include="Converter\StepLabelConverterAddRecipe.cs" />
@@ -512,12 +513,6 @@
     <Compile Include="GUI\AddRecipe.xaml.cs">
       <DependentUpon>AddRecipe.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\DetailScreen.xaml.cs">
-      <DependentUpon>DetailScreen.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\FavouriteRecipePage.xaml.cs">
-      <DependentUpon>FavouriteRecipePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\SearchScreen.xaml.cs">
       <DependentUpon>SearchScreen.xaml</DependentUpon>
     </Compile>
@@ -528,6 +523,7 @@
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="MyRandom.cs" />
     <Compile Include="Navigation\NavigationServiceEx.cs" />
+    <Compile Include="OcPropertyChangedListener.cs" />
     <Compile Include="Resources\RecipeResources.cs" />
     <Compile Include="TileViewCommandsExtension.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
@@ -564,14 +560,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\AddRecipe.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\DetailScreen.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\FavouriteRecipePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -196,8 +196,8 @@ namespace FoodRecipeApp.GUI
         private void AddMediaButton_Click(object sender, RoutedEventArgs e)
         {
             string linkMedia = DishMediaTextBox.Text;
-            linkMedia = Dish.Display(linkMedia, DishMedia.Width - 10, DishMedia.Height - 10);
-            DishMedia.NavigateToString(linkMedia);
+            var youtubeWindow = new youtubeWindow(linkMedia);
+            youtubeWindow.Show();
         }
 
         private void CancelDishButton_Click(object sender, RoutedEventArgs e)
@@ -210,7 +210,9 @@ namespace FoodRecipeApp.GUI
             string dishName = DishNameTextBox.Text;
             string descriptionDish = new TextRange(DescriptionDishRichTextBox.Document.ContentStart, DescriptionDishRichTextBox.Document.ContentEnd).Text;
             string video = DishMediaTextBox.Text;
-            string imagePath = DishImage.Tag.ToString(); //TODO fix : check diều kiện khác null mới chuyển toString đc
+            string imagePath;
+            if (DishImage.Tag == null) imagePath = "";
+            else imagePath= DishImage.Tag.ToString();
             string loai = AddAllCheckBoxes();
 
             bool isLove = (bool)IsLoveDishCheckBox.IsChecked;

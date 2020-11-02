@@ -525,6 +525,9 @@
     <Compile Include="GUI\AddedStepWindow.xaml.cs">
       <DependentUpon>AddedStepWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\youtubeWindow.xaml.cs">
+      <DependentUpon>youtubeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="MyRandom.cs" />
@@ -612,6 +615,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\AddedStepWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\youtubeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -142,5 +142,10 @@ namespace FoodRecipeApp.GUI
 			//	}
 			//}
 		}
-	}
+
+        private void VideoDishButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+    }
 }

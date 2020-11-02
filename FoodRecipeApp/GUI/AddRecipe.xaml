@@ -11,62 +11,62 @@
 	Style="{DynamicResource PageStyle}"
 	mc:Ignorable="d">
 
-	<Page.Resources>
-		<ResourceDictionary>
-			<converters:ImageConverter x:Key="imageConverter" />
-		</ResourceDictionary>
-	</Page.Resources>
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:ImageConverter x:Key="imageConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
 
-	<ScrollViewer
+    <ScrollViewer
 		Margin="0,0,0,5"
 		Padding="10,0,10,0"
 		FontFamily="Segoe UI Light"
 		HorizontalScrollBarVisibility="Auto"
 		VerticalScrollBarVisibility="Visible">
 
-		<StackPanel
+        <StackPanel
 			Name="fatherStackPanel"
 			Height="2909"
 			Margin="0">
 
-			<Border
+            <!--<Border.Effect>
+                <DropShadowEffect
+						BlurRadius="3"
+						Opacity="0.5"
+						ShadowDepth="1" />
+            </Border.Effect>-->
+            <Border
 				Width="1027"
 				Margin="15"
 				Padding="20"
 				Background="AliceBlue"
 				CornerRadius="3">
-				<Border.Effect>
-					<DropShadowEffect
-						BlurRadius="3"
-						Opacity="0.5"
-						ShadowDepth="1" />
-				</Border.Effect>
-				<Grid Margin="0,20,0,20">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="1*" />
-						<RowDefinition Height="2*" />
-					</Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition Width="7*" />
-						<ColumnDefinition Width="3*" />
-					</Grid.ColumnDefinitions>
-					<Label
+                <Grid Margin="0,20,0,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="2*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Label
 						Grid.Row="0"
 						Margin="20,10,0,10"
 						Content="tên món"
 						FontSize="25"
 						FontWeight="Bold"
 						Foreground="#332226" />
-					<Grid
+                    <Grid
 						Grid.Row="1"
 						Grid.Column="0"
 						Background="White">
-						<TextBlock
+                        <TextBlock
 							Name="HintDishNameTextBlock"
 							Margin="5,2"
 							Foreground="Gray"
 							Text="Tên món ăn" />
-						<TextBox
+                        <TextBox
 							x:Name="DishNameTextBox"
 							Width="678"
 							Height="35"
@@ -76,8 +76,8 @@
 							FontWeight="Medium"
 							Foreground="#332226"
 							TextChanged="DishNameTextBox_TextChanged" />
-					</Grid>
-					<CheckBox
+                    </Grid>
+                    <CheckBox
 						x:Name="IsLoveDishCheckBox"
 						Grid.Row="1"
 						Grid.Column="1"
@@ -90,84 +90,66 @@
 						FontWeight="Medium"
 						Foreground="#332226" />
 
-				</Grid>
-			</Border>
+                </Grid>
+            </Border>
 
-			<!--  khung chọn Main Image  -->
-			<Border
+            <!--  khung chọn Main Image  -->
+            <Border
 				Width="1027"
 				Margin="15"
 				Padding="20"
 				Background="AliceBlue"
 				CornerRadius="3">
-				<Border.Effect>
-					<DropShadowEffect
-						BlurRadius="3"
-						Opacity="0.5"
-						ShadowDepth="1" />
-				</Border.Effect>
-				<StackPanel Height="390" Margin="0,20,0,20">
-					<Label
+                <StackPanel Height="420" Margin="0,20,0,10">
+                    <Label
 						Margin="20,10,0,0"
 						Content="Ảnh thumnail"
 						FontSize="25"
 						FontWeight="Bold"
 						Foreground="#332226" />
-					<StackPanel
-						Width="480"
-						Height="277"
+                    <StackPanel
+						Width="550"
+						Height="300"
 						Margin="10,0,10,0"
 						Background="White">
-						<Image
+                        <Image
 							x:Name="DishImage"
 							Width="480"
 							Height="279" />
-					</StackPanel>
-					<Button
+                    </StackPanel>
+                    <Button
 						x:Name="AddDishImageButton"
 						Width="160"
 						Height="46"
 						Margin="248,10"
 						Padding="20,10,20,10"
 						HorizontalAlignment="Center"
-						Background="LightGray"
 						Click="AddDishImageButton_Click"
-						Content="Chọn ảnh"
-						Foreground="#ca00e3" />
-				</StackPanel>
-			</Border>
+						Content="Chọn ảnh" />
+                </StackPanel>
+            </Border>
 
-			<!--  khung mô tả món ăn  -->
-			<Border
+            <!--  khung mô tả món ăn  -->
+            <Border
 				Width="1027"
 				Margin="15"
 				Padding="20"
 				Background="AliceBlue"
 				CornerRadius="3">
-				<Border.Effect>
-					<DropShadowEffect
-						BlurRadius="3"
-						Opacity="0.5"
-						ShadowDepth="1" />
-				</Border.Effect>
-				<StackPanel Margin="0,20,0,20">
-					<Label
+                <StackPanel Margin="0,20,0,20">
+                    <Label
 						Margin="20,10,0,0"
 						Content="Giới thiệu và nguyên liệu"
 						FontSize="25"
 						FontWeight="Bold"
 						Foreground="#332226" />
-					<Border
-						Margin="10,0,10,0"
-						BorderBrush="LightPink"
-						BorderThickness="1">
-						<Grid Background="White">
-							<TextBlock
+                    <Grid Background="White" Margin="10,0,10,0">
+                        <TextBlock
 								Name="HintDishDescriptionTextBlock"
 								Margin="20,20"
 								Foreground="Gray"
 								Text="nhập giới thiệu món ăn" />
-							<RichTextBox
+                        <RichTextBox
 								Name="DescriptionDishRichTextBox"
 								Height="174"
 								Margin="10"
@@ -176,108 +158,86 @@
 								Foreground="#332226"
 								TextChanged="DescriptionDishRichTextBox_TextChanged"
 								VerticalScrollBarVisibility="Visible" />
-						</Grid>
-					</Border>
-				</StackPanel>
-			</Border>
+                    </Grid>
+                </StackPanel>
+            </Border>
 
-			<!--  khung chọn vIDEO  -->
-			<Border
+            <!--  khung chọn vIDEO  -->
+            <Border
 				Width="1027"
-				Height="500"
 				Margin="15"
 				Padding="20"
 				Background="AliceBlue"
 				CornerRadius="3">
-				<Border.Effect>
-					<DropShadowEffect
-						BlurRadius="3"
-						Opacity="0.5"
-						ShadowDepth="1" />
-				</Border.Effect>
-				<StackPanel Width="650" Margin="166,20,167,26">
-					<Label
-						Margin="20,10,0,0"
+                <Grid Margin="0,20,0,20" Height="192">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Label
+                        Grid.Row="0"
+						Margin="20,10,20,20"
 						Content="Video hướng dẫn"
 						FontSize="25"
 						FontWeight="Bold"
 						Foreground="#332226" />
-					<StackPanel
-						Name="MeidaStackpanel"
-						Width="620"
-						Height="313"
-						Margin="10,0,10,0"
-						Background="White"
-						CanHorizontallyScroll="False"
-						CanVerticallyScroll="False">
-						<WebBrowser
-							x:Name="DishMedia"
-							Width="600"
-							Height="308" />
-					</StackPanel>
-					<StackPanel Margin="10" Orientation="Horizontal">
-						<Grid Width="500" Background="White">
-							<TextBlock
+
+                    <StackPanel Margin="0,10,10,10" Orientation="Horizontal" Grid.Row="1">
+                        <Grid Width="650" Background="White" Margin="10,0,10,0" Height="80">
+                            <TextBlock
 								Name="HintDishMediaTextBlock"
 								Margin="5,2"
 								Foreground="Gray"
 								Text="Link to Video here" />
-							<TextBox
+                            <TextBox
 								x:Name="DishMediaTextBox"
-								Width="500"
-								Height="35"
+								Width="635"
+								Height="30"
 								HorizontalAlignment="Center"
 								FontSize="20"
 								FontWeight="Medium"
 								Foreground="#332226"
-								TextChanged="DishMediaTextBox_TextChanged" />
-						</Grid>
-						<Button
-							Name="AddMediaButton"
-							Width="101"
-							Margin="20,0,0,0"
+								TextChanged="DishMediaTextBox_TextChanged" Margin="10,0,5,0" />
+                        </Grid>
+                        <Button
+							x:Name="AddMediaButton"
+							Width="140"
+                            Height="50"
+							Margin="40,0,0,0"
 							HorizontalAlignment="Center"
-							Background="LightGray"
 							Click="AddMediaButton_Click"
-							Content="Thêm"
-							Foreground="#ca00e3" />
-					</StackPanel>
-				</StackPanel>
-			</Border>
+							Content="Xem thử"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
 
-			<!--  Các bước làm  -->
-			<Border
+            <!--  Các bước làm  -->
+            <Border
 				Width="1027"
 				Margin="15"
 				Padding="20"
 				Background="AliceBlue"
 				CornerRadius="3">
-				<Border.Effect>
-					<DropShadowEffect
-						BlurRadius="3"
-						Opacity="0.5"
-						ShadowDepth="1" />
-				</Border.Effect>
-				<StackPanel Name="AddStepStackPanel" Margin="0,20,0,16">
-					<Label
+                <StackPanel Name="AddStepStackPanel" Margin="0,20,0,16">
+                    <Label
 						Margin="20,10,0,0"
 						Content="Các bước làm"
 						FontSize="25"
 						FontWeight="Bold"
 						Foreground="#332226" />
-					<!--  TODO add new step  -->
-					<Grid>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="1*" />
-							<ColumnDefinition Width="1*" />
-						</Grid.ColumnDefinitions>
-						<Grid Grid.Column="0">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="1*" />
-								<RowDefinition Height="5*" />
-							</Grid.RowDefinitions>
-							<Label
+                    <!--  TODO add new step  -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="5*" />
+                            </Grid.RowDefinitions>
+                            <Label
 								Name="StepNumberLabel"
 								Grid.Row="0"
 								Content="Bước 1"
@@ -285,18 +245,13 @@
 								FontWeight="Medium"
 								Foreground="#332226" />
 
-							<Border
-								Grid.Row="1"
-								Margin="10,0,10,0"
-								BorderBrush="LightPink"
-								BorderThickness="1">
-								<Grid Grid.Row="1" Background="White">
-									<TextBlock
+                            <Grid Grid.Row="1" Background="White" Margin="10,0,10,0">
+                                <TextBlock
 										Name="HintDesciptionStepDishTextBlock"
 										Margin="10,20"
 										Foreground="Gray"
 										Text="Mô tả bước làm" />
-									<RichTextBox
+                                <RichTextBox
 										Name="DescriptionStepRichTextBox"
 										Width="472"
 										Height="174"
@@ -309,75 +264,69 @@
 										Foreground="#332226"
 										TextChanged="DescriptionStepRichTextBox_TextChanged"
 										VerticalScrollBarVisibility="Visible" />
-								</Grid>
-							</Border>
-						</Grid>
-						<Grid Grid.Column="1">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="1*" />
-								<RowDefinition Height="5*" />
-								<RowDefinition Height="1*" />
-							</Grid.RowDefinitions>
-							<Label
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="5*" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+                            <Label
 								Grid.Row="0"
 								Content="Ảnh hướng dẫn"
 								FontSize="20"
 								FontWeight="Medium"
 								Foreground="#332226" />
 
-							<Border
-								Grid.Row="1"
-								Margin="10,0,10,0"
-								BorderBrush="LightPink"
-								BorderThickness="1">
-								<ScrollViewer
-									Margin="5"
+                            <ScrollViewer
+                                    Grid.Row="1"
+									Margin="20,10,10,20"
 									Background="White"
 									HorizontalScrollBarVisibility="Auto"
 									VerticalScrollBarVisibility="Visible">
-									<ListView
+                                <ListView
 										Name="ImageListView"
 										Margin="0,10,0,10"
 										Background="White"
 										ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-										<ListView.ItemsPanel>
-											<ItemsPanelTemplate>
-												<WrapPanel />
-											</ItemsPanelTemplate>
-										</ListView.ItemsPanel>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel />
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
 
-										<ListView.ItemTemplate>
-											<DataTemplate>
-												<StackPanel>
-													<Image
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <Image
 														Width="150"
 														Height="100"
-														Margin="5"
+														Margin="5 "
 														Source="{Binding}" />
-												</StackPanel>
-											</DataTemplate>
-										</ListView.ItemTemplate>
-									</ListView>
-								</ScrollViewer>
-							</Border>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                </ListView>
+                            </ScrollViewer>
 
-							<Button
+                            <Button
 								Name="AddStepImagesButton"
 								Grid.Row="2"
 								Margin="352,15,10,0"
 								Click="AddStepImagesButton_Click"
 								Content="Ảnh minh họa" />
-						</Grid>
-					</Grid>
-					<Grid
+                        </Grid>
+                    </Grid>
+                    <Grid
 						Width="472"
 						Margin="250,20,250,20"
 						HorizontalAlignment="Center">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="1*" />
-							<ColumnDefinition Width="1*" />
-						</Grid.ColumnDefinitions>
-						<Button
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="1*" />
+                        </Grid.ColumnDefinitions>
+                        <Button
 							x:Name="FinishStep"
 							Grid.Column="0"
 							Width="161"
@@ -385,11 +334,9 @@
 							Margin="0"
 							Padding="20,10,20,10"
 							HorizontalAlignment="Center"
-							Background="LightGray"
 							Click="FinishStep_Click"
-							Content="Các bước đã thêm"
-							Foreground="#ca00e3" />
-						<Button
+							Content="Các bước đã thêm" />
+                        <Button
 							x:Name="AddStepButton"
 							Grid.Column="1"
 							Width="161"
@@ -397,271 +344,263 @@
 							Margin="0"
 							Padding="20,10,20,10"
 							HorizontalAlignment="Center"
-							Background="LightGray"
 							Click="AddStepButton_Click"
-							Content=" Thêm bước"
-							Foreground="#ca00e3" />
-					</Grid>
-				</StackPanel>
-			</Border>
+							Content=" Thêm bước"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
 
 
-			<!--  phân loại  -->
-			<Border
+            <!--  phân loại  -->
+            <Border
 				Width="1027"
-				Height="690"
+				Height="600"
 				Margin="15"
 				Padding="20"
 				Background="AliceBlue"
 				CornerRadius="3">
-				<Border.Effect>
-					<DropShadowEffect
-						BlurRadius="3"
-						Opacity="0.5"
-						ShadowDepth="1" />
-				</Border.Effect>
-				<StackPanel Margin="0,0,0,-79">
-					<Label
+                <StackPanel Margin="0,0,0,-79">
+                    <Label
 						Margin="20,10,0,0"
 						Content="Phân loại món ăn"
 						FontSize="25"
 						FontWeight="Bold"
 						Foreground="#332226" />
 
-					<Border
+                    <Border
 						Margin="10,0,10,0"
 						BorderBrush="LightPink"
-						BorderThickness="1">
-						<Grid Background="White">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="1*" />
-								<ColumnDefinition Width="1*" />
-								<ColumnDefinition Width="1*" />
-							</Grid.ColumnDefinitions>
-							<Label
+						BorderThickness="0.75">
+                        <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
 								Grid.Column="0"
-								Padding="10"
-								Background="#ffd9fd"
+								Padding="5"
+								Background="#fff5fe"
 								Content="Loại món"
 								FontSize="20"
 								FontWeight="Medium"
 								Foreground="#332226" />
-							<CheckBox
+                            <CheckBox
 								Name="checkBox1"
 								Grid.Column="1"
-								Margin="10"
+								Margin="30,5"
 								HorizontalAlignment="Stretch"
 								Content="Chay"
 								FontSize="20"
 								Foreground="#332226" />
-							<CheckBox
+                            <CheckBox
 								Name="checkBox2"
 								Grid.Column="2"
-								Margin="10"
+								Margin="30,5"
 								HorizontalAlignment="Stretch"
 								Content="Mặn"
 								FontSize="20"
 								Foreground="#332226" />
-						</Grid>
-					</Border>
+                        </Grid>
+                    </Border>
 
-					<Border
+                    <Border
 						Margin="10,0,10,0"
 						BorderBrush="LightPink"
-						BorderThickness="1">
-						<Grid Background="White">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="1*" />
-								<ColumnDefinition Width="1*" />
-								<ColumnDefinition Width="1*" />
-							</Grid.ColumnDefinitions>
-							<Label
+						BorderThickness="0.75">
+                        <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
 								Grid.Column="0"
-								Padding="10"
-								Background="#ffd9fd"
+								Padding="5"
+								Background="#fff5fe"
 								Content="Nguyên liệu chính"
 								FontSize="20"
 								FontWeight="Medium"
 								Foreground="#332226" />
-							<StackPanel Grid.Column="1">
+                            <StackPanel Grid.Column="1">
 
-								<CheckBox
+                                <CheckBox
 									Name="checkBox3"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Heo"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox4"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Bò"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox5"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Hải sản"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox6"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Đồ ngọt"
 									FontSize="20"
 									Foreground="#332226" />
 
-							</StackPanel>
-							<StackPanel Grid.Column="2">
-								<CheckBox
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <CheckBox
 									Name="checkBox7"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Gà"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox8"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Dê"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox9"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Khác"
 									FontSize="20"
 									Foreground="#332226" />
-							</StackPanel>
-						</Grid>
-					</Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
 
-					<Border
+                    <Border
 						Margin="10,0,10,0"
 						BorderBrush="LightPink"
-						BorderThickness="1">
-						<Grid Background="White">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="1*" />
-								<ColumnDefinition Width="1*" />
-								<ColumnDefinition Width="1*" />
-							</Grid.ColumnDefinitions>
-							<Label
+						BorderThickness="0.75">
+                        <Grid Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+                            <Label
 								Grid.Column="0"
-								Padding="10"
-								Background="#ffd9fd"
+								Padding="5"
+								Background="#fff5fe"
 								Content="Cách chế biến"
 								FontSize="20"
 								FontWeight="Medium"
 								Foreground="#332226" />
-							<StackPanel Grid.Column="1">
-								<CheckBox
+                            <StackPanel Grid.Column="1">
+                                <CheckBox
 									Name="checkBox10"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Chiên"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox11"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Nấu"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox12"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Nướng"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox13"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Lên men"
 									FontSize="20"
 									Foreground="#332226" />
 
-							</StackPanel>
-							<StackPanel Grid.Column="2">
-								<CheckBox
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <CheckBox
 									Name="checkBox14"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Xào"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox15"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Kho"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox16"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Hấp"
 									FontSize="20"
 									Foreground="#332226" />
-								<CheckBox
+                                <CheckBox
 									Name="checkBox17"
-									Margin="10"
+									Margin="30,5"
 									Padding="10"
 									HorizontalAlignment="Stretch"
 									Content="Khác"
 									FontSize="20"
 									Foreground="#332226" />
-							</StackPanel>
-						</Grid>
-					</Border>
-				</StackPanel>
-			</Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+            </Border>
 
-			<Grid Margin="0,30,0,0">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="3*" />
-					<ColumnDefinition Width="1*" />
-					<ColumnDefinition Width="1*" />
-				</Grid.ColumnDefinitions>
-				<Button
+            <Grid Margin="0,30,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <Button
 					x:Name="AddDishButton"
 					Grid.Column="2"
 					Height="45"
 					Margin="10,0,10,0"
 					Click="AddDishButton_Click"
 					Content="Thêm món" />
-				<Button
+                <Button
 					x:Name="CancelDishButton"
 					Grid.Column="1"
 					Height="45"
 					Margin="10,0,10,0"
 					Click="CancelDishButton_Click"
 					Content="Hủy thêm" />
-			</Grid>
+            </Grid>
 
-		</StackPanel>
-	</ScrollViewer>
+        </StackPanel>
+    </ScrollViewer>
 </Page>

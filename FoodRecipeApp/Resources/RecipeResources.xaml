@@ -7,375 +7,38 @@
 	xmlns:local="clr-namespace:FoodRecipeApp"
 	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
 	xmlns:tileview="clr-namespace:Telerik.Windows.Controls.TileView;assembly=Telerik.Windows.Controls.Navigation"
+	xmlns:uc="clr-namespace:FoodRecipeApp.GUI"
 	xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
-	x:ClassModifier="public"
-    xmlns:uc="clr-namespace:FoodRecipeApp.GUI"
-    >
+	x:ClassModifier="public">
 
 	<viewModels:RecipeViewModel x:Key="MyRecipeViewModel" />
 	<converters:IsLoveImageConverter x:Key="LoveImageConverter" />
-	<converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter"/>
-	<converters:DishNameConverter x:Key="DishNameConverter"/>
-    <converters:MediaDishConverter x:Key="MediaDishconverter"/>
-    <converters:RatioConverter x:Key="RatioConverter"/>
-
-
-    <Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
-
+	<converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter" />
+	<converters:DishNameConverter x:Key="DishNameConverter" />
+	<converters:MediaDishConverter x:Key="MediaDishconverter" />
+	<converters:RatioConverter x:Key="RatioConverter" />
+	<Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
+	<converters:CountConverter x:Key="countConverter" />
 
 	<Style x:Key="TileItemHeaderStyle" TargetType="tileview:TileViewItemHeader">
 		<Setter Property="Foreground" Value="#2f0572" />
-		<Setter Property="Background" Value="#fff261" />
+		<Setter Property="Background" Value="White" />
+		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="FontSize" Value="16" />
 		<Setter Property="FontFamily" Value="Segoe UI Light" />
 		<Setter Property="HorizontalContentAlignment" Value="Left" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
 		<Setter Property="VerticalAlignment" Value="Stretch" />
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="tileview:TileViewItemHeader">
-
-					<Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-						<StackPanel>
-							<Border
-								Padding="10,0,7,0"
-								Background="White"
-								BorderBrush="#4b0eae"
-								BorderThickness="0,0,0,1"
-								CornerRadius="1">
-								<Grid MinHeight="28">
-									<Border x:Name="GripBarElement" Background="Transparent">
-										<ContentPresenter
-											x:Name="HeaderElement"
-											Margin="0,0,10,0"
-											HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-											VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-											Content="{TemplateBinding Content}"
-											ContentTemplate="{TemplateBinding ContentTemplate}" />
-									</Border>
-
-									<Grid HorizontalAlignment="Right" VerticalAlignment="Center">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition />
-											<ColumnDefinition />
-										</Grid.ColumnDefinitions>
-
-										<telerik:RadButton
-											x:Name="CloseButton"
-											Grid.Column="1"
-											Margin="2,0,0,0"
-											Command="local:TileViewCommandsExtension.Delete"
-											InnerCornerRadius="0">
-											<telerik:RadButton.Style>
-												<Style TargetType="telerik:RadButton">
-													<Setter Property="VerticalAlignment" Value="Center" />
-													<Setter Property="HorizontalAlignment" Value="Right" />
-													<Setter Property="Width" Value="17" />
-													<Setter Property="Height" Value="17" />
-													<Setter Property="Template">
-														<Setter.Value>
-															<ControlTemplate TargetType="telerik:RadButton">
-																<Grid Background="Transparent">
-																	<Grid x:Name="closeButtonContent">
-																		<Path
-																			x:Name="closeButtonPath"
-																			Width="15"
-																			Height="15"
-																			VerticalAlignment="Center"
-																			Data="M41.191966,0.5 L71.431967,0.5 71.431967,41.207996 112.12394,42.350311 111.27536,72.578407 71.431967,71.459915 71.431967,111.319 41.191966,111.319 41.191966,70.611007 0.5,69.468688 1.3485718,39.240596 41.191966,40.359092 z"
-																			RenderTransformOrigin="0.469186441898057,0.49999999091146"
-																			Stretch="Uniform"
-																			Stroke="White"
-																			StrokeThickness="1.5">
-																			<Path.RenderTransform>
-																				<TransformGroup>
-																					<ScaleTransform ScaleX="-1" />
-																					<SkewTransform />
-																					<RotateTransform Angle="45.01" />
-																					<TranslateTransform />
-																				</TransformGroup>
-																			</Path.RenderTransform>
-
-																			<Path.Fill>
-																				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-																					<GradientStop Color="#FF282828" />
-																					<GradientStop Offset="1" Color="#FF7C7C7C" />
-																				</LinearGradientBrush>
-																			</Path.Fill>
-																		</Path>
-																	</Grid>
-																	<VisualStateManager.VisualStateGroups>
-																		<VisualStateGroup x:Name="CommonStates">
-																			<VisualState x:Name="Disabled" />
-																			<VisualState x:Name="Normal" />
-																			<VisualState x:Name="MouseOver">
-																				<Storyboard>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="closeButtonPath" Storyboard.TargetProperty="Stroke">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<SolidColorBrush Color="White" />
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="closeButtonPath" Storyboard.TargetProperty="Fill">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-																									<GradientStop Offset="0" Color="#FFFEEDB7" />
-																									<GradientStop Offset="1" Color="#FFFACA6A" />
-																									<GradientStop Offset="0.526" Color="#FFFFC94A" />
-																									<GradientStop Offset="0.509" Color="#FFFEEDB7" />
-																								</LinearGradientBrush>
-
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																				</Storyboard>
-																			</VisualState>
-																		</VisualStateGroup>
-																	</VisualStateManager.VisualStateGroups>
-																</Grid>
-															</ControlTemplate>
-														</Setter.Value>
-													</Setter>
-												</Style>
-											</telerik:RadButton.Style>
-										</telerik:RadButton>
-
-										<telerik:RadToggleButton
-											x:Name="MaximizeToggleButton"
-											Command="tileview:TileViewCommands.ToggleTileState"
-											InnerCornerRadius="0">
-											<telerik:RadToggleButton.Style>
-												<Style TargetType="telerik:RadToggleButton">
-													<Setter Property="VerticalAlignment" Value="Center" />
-													<Setter Property="HorizontalAlignment" Value="Right" />
-													<Setter Property="Width" Value="17" />
-													<Setter Property="Height" Value="17" />
-													<Setter Property="Template">
-														<Setter.Value>
-															<ControlTemplate TargetType="telerik:RadToggleButton">
-																<Grid Background="Transparent">
-																	<Grid x:Name="Restore" Background="Transparent">
-																		<ToolTipService.ToolTip>
-																			<ToolTip Content="{telerik:LocalizableResource Key=TileViewItemMaximizeText}" />
-																		</ToolTipService.ToolTip>
-																		<Path
-																			x:Name="RestoreIcon"
-																			Margin="1"
-																			Data="M2,5L2,9 6,9 6,5z M0,3L8,3 8,5 8,9 8,11 0,11 0,9 0,5z M3,0L11,0 11,2 11,9 9,9 9,2 3,2z"
-																			Stretch="Fill"
-																			Stroke="{x:Null}">
-																			<Path.Fill>
-																				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-																					<GradientStop Color="#FF282828" />
-																					<GradientStop Offset="1" Color="#FF7C7C7C" />
-																				</LinearGradientBrush>
-																			</Path.Fill>
-																		</Path>
-																		<Path
-																			Data="M1,12L9,12 9,13 1,13z M4,7L4,9 6,9 6,7z M3,6L7,6 7,7 7,9 7,10 3,10 3,9 3,7z M0,4L1,4 1,12 0,12z M12,1L13,1 13,10 12,10z M3,1L4,1 4,3 10,3 10,4 10,10 12,10 12,11 10,11 10,12 9,12 9,4 1,4 1,3 3,3z M4,0L12,0 12,1 4,1z"
-																			Fill="White"
-																			Stretch="Fill"
-																			Stroke="{x:Null}" />
-																	</Grid>
-																	<Grid
-																		x:Name="Collapse"
-																		Background="Transparent"
-																		Visibility="Collapsed">
-																		<ToolTipService.ToolTip>
-																			<ToolTip Content="{telerik:LocalizableResource Key=TileViewItemMinimizeText}" />
-																		</ToolTipService.ToolTip>
-																		<Rectangle
-																			x:Name="CollapseIcon"
-																			Width="13"
-																			Height="5"
-																			VerticalAlignment="Bottom"
-																			Stroke="White"
-																			StrokeThickness="1">
-																			<Rectangle.Fill>
-																				<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-																					<GradientStop Color="#FF282828" />
-																					<GradientStop Offset="1" Color="#FF7C7C7C" />
-																				</LinearGradientBrush>
-																			</Rectangle.Fill>
-																		</Rectangle>
-																	</Grid>
-																	<VisualStateManager.VisualStateGroups>
-																		<VisualStateGroup x:Name="FocusStates">
-																			<VisualState x:Name="Focused" />
-																			<VisualState x:Name="Unfocused" />
-																		</VisualStateGroup>
-																		<VisualStateGroup x:Name="CommonStates">
-																			<VisualState x:Name="Disabled" />
-																			<VisualState x:Name="Normal" />
-																			<VisualState x:Name="MouseOver">
-																				<Storyboard>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="RestoreIcon" Storyboard.TargetProperty="Fill">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-																									<GradientStop Offset="0" Color="#FFFEEDB7" />
-																									<GradientStop Offset="1" Color="#FFFACA6A" />
-																									<GradientStop Offset="0.526" Color="#FFFFC94A" />
-																									<GradientStop Offset="0.509" Color="#FFFEEDB7" />
-																								</LinearGradientBrush>
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="CollapseIcon" Storyboard.TargetProperty="Fill">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-																									<GradientStop Offset="0" Color="#FFFEEDB7" />
-																									<GradientStop Offset="1" Color="#FFFACA6A" />
-																									<GradientStop Offset="0.526" Color="#FFFFC94A" />
-																									<GradientStop Offset="0.509" Color="#FFFEEDB7" />
-																								</LinearGradientBrush>
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																				</Storyboard>
-																			</VisualState>
-																			<VisualState x:Name="Pressed">
-																				<Storyboard>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="RestoreIcon" Storyboard.TargetProperty="Fill">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-																									<GradientStop Offset="0" Color="#FFFECE95" />
-																									<GradientStop Offset="1" Color="#FFFEB407" />
-																									<GradientStop Offset="0.517" Color="#FFFEBB6E" />
-																									<GradientStop Offset="0.539" Color="#FFE78318" />
-																								</LinearGradientBrush>
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="CollapseIcon" Storyboard.TargetProperty="Fill">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-																									<GradientStop Offset="0" Color="#FFFECE95" />
-																									<GradientStop Offset="1" Color="#FFFEB407" />
-																									<GradientStop Offset="0.517" Color="#FFFEBB6E" />
-																									<GradientStop Offset="0.539" Color="#FFE78318" />
-																								</LinearGradientBrush>
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																				</Storyboard>
-																			</VisualState>
-																		</VisualStateGroup>
-																		<VisualStateGroup x:Name="CheckStates">
-																			<VisualState x:Name="Checked">
-																				<Storyboard>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Restore" Storyboard.TargetProperty="Visibility">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<Visibility>Collapsed</Visibility>
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Collapse" Storyboard.TargetProperty="Visibility">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<Visibility>Visible</Visibility>
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																				</Storyboard>
-																			</VisualState>
-																			<VisualState x:Name="Unchecked">
-																				<Storyboard>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Restore" Storyboard.TargetProperty="Visibility">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<Visibility>Visible</Visibility>
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																					<ObjectAnimationUsingKeyFrames Storyboard.TargetName="Collapse" Storyboard.TargetProperty="Visibility">
-																						<DiscreteObjectKeyFrame KeyTime="0">
-																							<DiscreteObjectKeyFrame.Value>
-																								<Visibility>Collapsed</Visibility>
-																							</DiscreteObjectKeyFrame.Value>
-																						</DiscreteObjectKeyFrame>
-																					</ObjectAnimationUsingKeyFrames>
-																				</Storyboard>
-																			</VisualState>
-																			<VisualState x:Name="Indeterminate" />
-																		</VisualStateGroup>
-																	</VisualStateManager.VisualStateGroups>
-																</Grid>
-															</ControlTemplate>
-														</Setter.Value>
-													</Setter>
-												</Style>
-											</telerik:RadToggleButton.Style>
-										</telerik:RadToggleButton>
-									</Grid>
-
-								</Grid>
-							</Border>
-							<Border
-								x:Name="Splitter"
-								Height="4"
-								Background="#FFBFBFBF"
-								BorderThickness="0">
-								<Border.OpacityMask>
-									<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-										<GradientStop Offset="0" Color="Black" />
-										<GradientStop Offset="1" />
-									</LinearGradientBrush>
-								</Border.OpacityMask>
-							</Border>
-						</StackPanel>
-
-						<VisualStateManager.VisualStateGroups>
-							<VisualStateGroup x:Name="TileStates">
-								<VisualState x:Name="Maximized">
-									<Storyboard>
-										<ObjectAnimationUsingKeyFrames
-											Storyboard.TargetName="MaximizeToggleButton"
-											Storyboard.TargetProperty="IsChecked"
-											Duration="0">
-											<DiscreteObjectKeyFrame KeyTime="0">
-												<DiscreteObjectKeyFrame.Value>
-													<System:Boolean>True</System:Boolean>
-												</DiscreteObjectKeyFrame.Value>
-											</DiscreteObjectKeyFrame>
-										</ObjectAnimationUsingKeyFrames>
-									</Storyboard>
-								</VisualState>
-								<VisualState x:Name="Restored">
-									<Storyboard>
-										<ObjectAnimationUsingKeyFrames
-											Storyboard.TargetName="MaximizeToggleButton"
-											Storyboard.TargetProperty="IsChecked"
-											Duration="0">
-											<DiscreteObjectKeyFrame KeyTime="0">
-												<DiscreteObjectKeyFrame.Value>
-													<System:Boolean>False</System:Boolean>
-												</DiscreteObjectKeyFrame.Value>
-											</DiscreteObjectKeyFrame>
-										</ObjectAnimationUsingKeyFrames>
-									</Storyboard>
-								</VisualState>
-							</VisualStateGroup>
-						</VisualStateManager.VisualStateGroups>
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
 	</Style>
 
 	<Style TargetType="telerik:RadTileView">
-		<!--<Setter Property="Margin" Value="300, 100, 0, 0" />-->
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="PreservePositionWhenMaximized" Value="True" />
 		<Setter Property="telerik:TileViewPanel.IsVirtualized" Value="True" />
+		<Setter Property="telerik:TileViewPanel.IsColumnsShrinkEnabled" Value="False" />
+		<Setter Property="telerik:TileViewPanel.IsRowsShrinkEnabled" Value="False" />
 		<Setter Property="IsAutoScrollingEnabled" Value="False" />
 		<Setter Property="IsSelectionEnabled" Value="True" />
 		<Setter Property="IsDockingEnabled" Value="True" />
@@ -398,7 +61,5 @@
 		<Setter Property="Background" Value="#c5a1ff" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="HeaderStyle" Value="{StaticResource TileItemHeaderStyle}" />
-        <Setter Property="FontFamily" Value="Segoe UI Light" />
 	</Style>
-
 </ResourceDictionary>

@@ -31,25 +31,18 @@ namespace FoodRecipeApp.ViewModels
 		        NavigationDestination = new Uri("GUI/MainPage.xaml", UriKind.RelativeOrAbsolute)
 	        });
 			this.Menu.Add(new MenuItem()
-			{
-				Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.HeartSolid},
-				Label = "Your Favourites",
-				NavigationType = typeof(FavouriteRecipePage),
-				NavigationDestination = new Uri("GUI/FavouriteRecipePage.xaml", UriKind.RelativeOrAbsolute)
-			});
-			this.Menu.Add(new MenuItem()
 	        {
 		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.SearchSolid },
 
 		        Label = "Search Screen",
-		        NavigationType = typeof(MainPage),
+		        NavigationType = typeof(SearchScreen),
 		        NavigationDestination = new Uri("GUI/SearchScreen.xaml", UriKind.RelativeOrAbsolute)
 	        });
 	        this.Menu.Add(new MenuItem()
 	        {
 		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.PlusCircleSolid },
 		        Label = "Add Recipe",
-		        NavigationType = typeof(MainPage),
+		        NavigationType = typeof(AddRecipe),
 		        NavigationDestination = new Uri("GUI/AddRecipe.xaml", UriKind.RelativeOrAbsolute)
 	        });
 
@@ -64,7 +57,7 @@ namespace FoodRecipeApp.ViewModels
 	        {
 		        Icon = new PackIconFontAwesome() {Kind = PackIconFontAwesomeKind.InfoCircleSolid },
 		        Label = "About us",
-		        NavigationType = typeof(SettingsPage),
+		        NavigationType = typeof(AboutPage),
 		        NavigationDestination = new Uri("GUI/AboutPage.xaml", UriKind.RelativeOrAbsolute)
 	        });
         }

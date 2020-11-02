@@ -37,9 +37,9 @@ namespace FoodRecipeApp.DAO
         }
 
         public int updateFavouriteRecipe(string DishCode)
-        {
+		{
             return DataProvider.Instance.ExecuteNonQuery("EXEC USP_updateFavouriteDishes @DishCode ", new object[] { DishCode });
-        }
+		} 
 
         internal void addNewDish(Dish newDish)
         {
@@ -66,6 +66,9 @@ namespace FoodRecipeApp.DAO
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'" + filterQuery + "'");
         }
 
-
-    }
+		public DataTable getNewestDishCode()
+		{
+            return DataProvider.Instance.ExecuteQuery("EXEC USP_getNewestDish");
+		}
+	}
 }

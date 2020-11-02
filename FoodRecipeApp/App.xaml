@@ -2,17 +2,20 @@
 	x:Class="FoodRecipeApp.App"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="clr-namespace:FoodRecipeApp.Converter"
+	xmlns:dataPager="clr-namespace:Telerik.Windows.Controls.Data.DataPager;assembly=Telerik.Windows.Controls.Data"
 	xmlns:local="clr-namespace:FoodRecipeApp"
 	xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
 	xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
 	ShutdownMode="OnLastWindowClose">
+
 	<Application.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
 				<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Pink.xaml" />
-
 
 				<!--  For Navigation Menu  -->
 				<ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/LoadingDoubleBounce.xaml" />
@@ -23,7 +26,6 @@
 					PrimaryColor="DeepPurple"
 					SecondaryColor="Lime" />
 				<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-
 
 			</ResourceDictionary.MergedDictionaries>
 
@@ -53,17 +55,6 @@
 				</Setter>
 			</Style>
 
-			<Style x:Key="LargeTileStyle" TargetType="mah:Tile">
-				<Setter Property="Width" Value="300" />
-				<Setter Property="Height" Value="225" />
-				<Setter Property="TitleFontSize" Value="10" />
-			</Style>
-
-			<Style x:Key="SmallTileStyle" TargetType="mah:Tile">
-				<Setter Property="Width" Value="147" />
-				<Setter Property="Height" Value="125" />
-				<Setter Property="TitleFontSize" Value="10" />
-			</Style>
 			<Style
 				x:Key="CustomLightMinButtonStyle"
 				BasedOn="{StaticResource MahApps.Styles.Button.MetroWindow.Light}"
@@ -155,6 +146,190 @@
 				</Style.Triggers>
 			</Style>
 
+			<!--<Style TargetType="telerik:RadDataPager">
+				<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
+			</Style>-->
+
+			<!--<converters:CountConverter x:Key="countConverter" />
+			<ControlTemplate x:Key="DataPagerPresenterTemplate" TargetType="dataPager:DataPagerPresenter">
+				<Border
+					Background="{TemplateBinding Background}"
+					BorderBrush="{TemplateBinding BorderBrush}"
+					BorderThickness="{TemplateBinding BorderThickness}">
+					<Grid HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<StackPanel
+							HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+							VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+							Orientation="Horizontal">
+							<telerik:RadButton
+								Name="MoveToFirstPageButton"
+								Width="18"
+								Height="18"
+								Margin="2"
+								Command="{x:Static telerik:RadDataPagerCommands.MoveToFirstPage}"
+								Visibility="{Binding PagerControlsVisibility.MoveToFirstPageControlVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+								<StackPanel Orientation="Horizontal">
+									<Rectangle
+										Width="1"
+										Height="7"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Fill="{StaticResource RadPager_Indicator}" />
+									<Path
+										Width="4"
+										Height="7"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Data="M0,0 L3.5,3.5 0,7 Z"
+										Fill="{StaticResource RadPager_Indicator}"
+										RenderTransformOrigin="0.5, 0.5">
+										<Path.RenderTransform>
+											<TransformGroup>
+												<ScaleTransform ScaleX="-1" ScaleY="1" />
+												<SkewTransform AngleX="0" AngleY="0" />
+												<RotateTransform Angle="0" />
+												<TranslateTransform />
+											</TransformGroup>
+										</Path.RenderTransform>
+									</Path>
+								</StackPanel>
+							</telerik:RadButton>
+							<telerik:RadButton
+								Name="MoveToPreviousPageButton"
+								Width="18"
+								Height="18"
+								Margin="2"
+								Command="{x:Static telerik:RadDataPagerCommands.MoveToPreviousPage}"
+								Visibility="{Binding PagerControlsVisibility.MoveToPreviousPageControlVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+								<Path
+									Width="4"
+									Height="7"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Data="M0,0 L3.5,3.5 0,7 Z"
+									Fill="{StaticResource RadPager_Indicator}"
+									RenderTransformOrigin="0.5, 0.5">
+									<Path.RenderTransform>
+										<TransformGroup>
+											<ScaleTransform ScaleX="-1" ScaleY="1" />
+											<SkewTransform AngleX="0" AngleY="0" />
+											<RotateTransform Angle="0" />
+											<TranslateTransform />
+										</TransformGroup>
+									</Path.RenderTransform>
+								</Path>
+							</telerik:RadButton>
+							<Border
+								Height="20"
+								VerticalAlignment="Center"
+								Background="{StaticResource RadPager_NumericPresenter_Background}"
+								BorderBrush="{StaticResource RadPager_NumericPresenter_Border}"
+								BorderThickness="1,0,0,0"
+								Visibility="{Binding PagerControlsVisibility.NumericElementsControlVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+								<dataPager:NumericElementsPresenter
+									AutoEllipsisMode="{TemplateBinding AutoEllipsisMode}"
+									NumericButtonCount="{TemplateBinding NumericButtonCount}"
+									NumericButtonStyle="{TemplateBinding NumericButtonStyle}"
+									PageCount="{TemplateBinding PageCount}"
+									PageIndex="{TemplateBinding PageIndex}" />
+							</Border>
+							<telerik:RadButton
+								Name="MoveToNextPageButton"
+								Width="18"
+								Height="18"
+								Margin="2"
+								Command="{x:Static telerik:RadDataPagerCommands.MoveToNextPage}"
+								Visibility="{Binding PagerControlsVisibility.MoveToNextPageControlVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+								<Path
+									Width="4"
+									Height="7"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									Data="M0,0 L3.5,3.5 0,7 Z"
+									Fill="{StaticResource RadPager_Indicator}" />
+							</telerik:RadButton>
+							<telerik:RadButton
+								Name="MoveToLastPageButton"
+								Width="18"
+								Height="18"
+								Margin="2"
+								Command="{x:Static telerik:RadDataPagerCommands.MoveToLastPage}"
+								Visibility="{Binding PagerControlsVisibility.MoveToLastPageControlVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+								<StackPanel Orientation="Horizontal">
+									<Path
+										Width="4"
+										Height="7"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Data="M0,0 L3.5,3.5 0,7 Z"
+										Fill="{StaticResource RadPager_Indicator}" />
+									<Rectangle
+										Width="1"
+										Height="7"
+										HorizontalAlignment="Center"
+										VerticalAlignment="Center"
+										Fill="{StaticResource RadPager_Indicator}" />
+								</StackPanel>
+							</telerik:RadButton>
+						</StackPanel>
+						<StackPanel
+							Grid.Column="1"
+							Margin="5,0"
+							Orientation="Horizontal"
+							Visibility="{Binding PagerControlsVisibility.TextControlVisibility, RelativeSource={RelativeSource TemplatedParent}}">
+							-->
+			<!--  This ComboBox is bound to the ItemCount property of the parent RadDataPager  -->
+			<!--
+							<telerik:RadComboBox
+								x:Name="radComboBox"
+								ItemsSource="{Binding ItemCount, RelativeSource={RelativeSource AncestorType=telerik:RadDataPager}, Converter={StaticResource countConverter}}"
+								SelectedValue="{Binding PageSize, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />
+							<Border
+								Width="1"
+								Height="18"
+								Margin="5,0,0,0"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								Background="{StaticResource RadPager_Separator1}" />
+							<Border
+								Width="1"
+								Height="18"
+								Margin="0,0,10,0"
+								HorizontalAlignment="Left"
+								VerticalAlignment="Center"
+								Background="{StaticResource RadPager_Separator2}" />
+							<TextBlock
+								Margin="2,0"
+								VerticalAlignment="Center"
+								telerik:LocalizationManager.ResourceKey="RadDataPagerPage" />
+							<dataPager:DataPagerTextBox
+								Width="48"
+								Height="22"
+								Margin="2,0"
+								VerticalAlignment="Center"
+								VerticalContentAlignment="Center"
+								Command="{x:Static telerik:RadDataPagerCommands.MoveToPage}"
+								PageIndex="{TemplateBinding PageIndex}" />
+							<TextBlock
+								Margin="2,0"
+								VerticalAlignment="Center"
+								telerik:LocalizationManager.ResourceKey="RadDataPagerOf" />
+							<TextBlock
+								Margin="2,0"
+								VerticalAlignment="Center"
+								Text="{Binding PageCount, RelativeSource={RelativeSource TemplatedParent}}" />
+						</StackPanel>
+					</Grid>
+				</Border>
+			</ControlTemplate>
+
+			<Style TargetType="dataPager:DataPagerPresenter">
+				<Setter Property="Template" Value="{StaticResource DataPagerPresenterTemplate}" />
+			</Style>-->
 
 		</ResourceDictionary>
 	</Application.Resources>

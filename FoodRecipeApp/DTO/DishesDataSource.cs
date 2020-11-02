@@ -11,16 +11,13 @@ namespace FoodRecipeApp.DTO
 {
     public class DishesDataSource: INotifyPropertyChanged
     {
-#pragma warning disable 67
+		#pragma warning disable 67
 		public event PropertyChangedEventHandler PropertyChanged;
-#pragma warning restore 67
+		#pragma warning restore 67
 
-		private static DishesDataSource _instance = null;
-        private DishesCollection _dishesCollection;
-        private DishesCollection _favouriteDishesCollection;
+        //public event NotifyCollectionChangedEventHandler CollectionChanged;
 
-		//public event NotifyCollectionChangedEventHandler CollectionChanged;
-
+        private static DishesDataSource _instance = null;
 		public static DishesDataSource Instance
         {
             get
@@ -28,91 +25,56 @@ namespace FoodRecipeApp.DTO
                 if (_instance == null)
                 {
                     _instance = new DishesDataSource();
-                }
-                return _instance;
+					//var listener = OcPropertyChangedListener.Create();
+					//listener.PropertyChanged += (sender, args) => { //do you stuff}
+				}
+				return _instance;
             }
         }
+
+		private DishesCollection _allRecipesCollection;
+		public DishesCollection AllRecipesCollection 
+		{
+			get => this._allRecipesCollection;
+			set
+			{
+				if (this._allRecipesCollection != value)
+				{
+					this._allRecipesCollection = value;
+					//RaisePropertyChanged();
+					//this.OnPropertyChanged("Recipes");
+				}
+			}
+		}
+
+		private DishesCollection _favouriteDishesCollection;
+        public DishesCollection FavouriteDishesCollection
+        {
+			get => this._favouriteDishesCollection;
+			set
+			{
+				if (this._favouriteDishesCollection != value)
+				{
+					this._favouriteDishesCollection = value;
+				}
+			}
+		}
 
         private DishesDataSource()
         {
-            this._dishesCollection = null;
-            this._favouriteDishesCollection = null;
-		}
-
-		public DishesCollection DishesCollection
-        {
-            get
-            {
-                if (this._dishesCollection == null)
-                {
-                    this._dishesCollection = DishesCollection.GetDishes();
-                    this._dishesCollection.CollectionChanged += DishesCollection_CollectionChanged;
-                }
-                return this._dishesCollection;
-            }
+            this._allRecipesCollection = DishesCollection.GetAllDishes();
+            this._favouriteDishesCollection = DishesCollection.GetFavouriteDishes();
         }
 
-        public DishesCollection FavouriteDishesCollection
-        {
-            get
-            {
-                if (this._favouriteDishesCollection == null)
-                {
-                    this._favouriteDishesCollection = DishesCollection.GetFavouriteDishes();
-                    this._favouriteDishesCollection.CollectionChanged += FavouriteDishesCollection_CollectionChanged;
-                }
-                return this._favouriteDishesCollection;
-            }
-        }
-
-        private void CollectionItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			//To do
-	    }
-
-		private void DishesCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			if (e.NewItems != null)
-			{
-				foreach (object Meeting in e.NewItems)
-				{
-					(Meeting as INotifyPropertyChanged).PropertyChanged += new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
-				}
-			}
-
-			if (e.OldItems != null)
-			{
-				foreach (object Meeting in e.OldItems)
-				{
-					(Meeting as INotifyPropertyChanged).PropertyChanged -= new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
-				}
-			}
-		}
-
-		private void FavouriteDishesCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			if (e.NewItems != null)
-			{
-				foreach (object Meeting in e.NewItems)
-				{
-					(Meeting as INotifyPropertyChanged).PropertyChanged += new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
-				}
-			}
-
-			if (e.OldItems != null)
-			{
-				foreach (object Meeting in e.OldItems)
-				{
-					(Meeting as INotifyPropertyChanged).PropertyChanged -= new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
-				}
-			}
-		}
-
-		
-        public static DishesCollection DishesFilterCollection(string queryFilter)
+		public static DishesCollection DishesFilterCollection(string queryFilter)
         {
             DishesCollection FilterDishes = DishesCollection.GetFilterDishes(queryFilter);
             return FilterDishes;
         }
+
+		public static void getAllRecipeCollectAgain()
+		{
+			
+		}
     }
 }

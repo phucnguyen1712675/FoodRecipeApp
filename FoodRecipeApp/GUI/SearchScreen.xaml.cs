@@ -30,14 +30,14 @@ namespace FoodRecipeApp.GUI
 			get;
 			set;
         }
-		public ObservableCollection<Dish> FilterList;
-		public ObservableCollection<Dish> FullList;
+		public DishesCollection FilterList;
+		public DishesCollection FullList;
 		public SearchScreen()
 		{
 			InitializeComponent();
 
 			AddAllCheckBox();
-			FullList = DishesDataSource.Instance.DishesCollection;
+			FullList = DishesDataSource.Instance.AllRecipesCollection;
 			ShowAll();
 
 			// Getting the currently selected ListBoxItem
@@ -65,25 +65,27 @@ namespace FoodRecipeApp.GUI
 		}
 		public int AddAllCheckBox()
         {
-			List<CheckBox> ListABC = new List<CheckBox>();
-			ListABC.Add(checkBox1);
-			ListABC.Add(checkBox2);
-			ListABC.Add(checkBox3);
-			ListABC.Add(checkBox4);
-			ListABC.Add(checkBox5);
-			ListABC.Add(checkBox6);
-			ListABC.Add(checkBox7);
-			ListABC.Add(checkBox8);
-			ListABC.Add(checkBox9);
-			//ListABC.Add(checkBox10);
-			ListABC.Add(checkBox11);
-			ListABC.Add(checkBox12);
-			ListABC.Add(checkBox13);
-			ListABC.Add(checkBox14);
-			ListABC.Add(checkBox15);
-			ListABC.Add(checkBox16);
-			ListABC.Add(checkBox17);
-			ListABC.Add(checkBox18);
+			List<CheckBox> ListABC = new List<CheckBox>
+			{
+				checkBox1,
+				checkBox2,
+				checkBox3,
+				checkBox4,
+				checkBox5,
+				checkBox6,
+				checkBox7,
+				checkBox8,
+				checkBox9,
+				//ListABC.Add(checkBox10);
+				checkBox11,
+				checkBox12,
+				checkBox13,
+				checkBox14,
+				checkBox15,
+				checkBox16,
+				checkBox17,
+				checkBox18
+			};
 			ListCheckBoxes = new CheckedList(ListABC);
 			return 0;
         }
@@ -114,23 +116,6 @@ namespace FoodRecipeApp.GUI
         {
 
         }
-
-		void Example_Loaded(object sender, System.Windows.RoutedEventArgs e)
-		{
-			//ApplicationThemeManager.GetInstance().ThemeChanged += this.Example_ThemeChanged;
-		}
-
-		private void Example_Unloaded(object sender, System.Windows.RoutedEventArgs e)
-		{
-			//ApplicationThemeManager.GetInstance().ThemeChanged -= this.Example_ThemeChanged;
-		}
-
-		private void Example_ThemeChanged(object sender, System.EventArgs e)
-		{
-			this.Resources.MergedDictionaries.Clear();
-			this.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("/TileView;component//Common/CommonTemplates.xaml", UriKind.RelativeOrAbsolute) });
-			this.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("/TileView;component/Features/AutomaticScrolling/Resources.xaml", UriKind.RelativeOrAbsolute) });
-		}
 
 		private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
 		{

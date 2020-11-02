@@ -11,11 +11,52 @@ using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using FoodRecipeApp.GUI;
 using System.Windows.Input;
+using Telerik.Windows.Controls.Slider;
+using System.Collections.Specialized;
+using System.ComponentModel;
 
 namespace FoodRecipeApp.ViewModels
 {
     public class RecipeViewModel: ViewModelBase
     {
+		public RecipeViewModel()
+		{
+			this.Recipes = DishesDataSource.Instance.AllRecipesCollection;
+			this.Recipes.CollectionChanged += Recipes_CollectionChanged;
+			this.FavouriteRecipes = DishesDataSource.Instance.FavouriteDishesCollection;
+			this.QuoteToShow = QuotesDataSource.Instance.GetRandomQuote();
+			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
+			this.AllRecipesPageCountTotal = this.Recipes.Count;
+			this.favouriteRecipesPageCountTotal = this.FavouriteRecipes.Count;
+			this.allRecipesCustomPageSize = this.allRecipesPageCountTotal > 5 ? 6 : 3;
+			this.favouriteRecipesCustomPageSize = this.favouriteRecipesPageCountTotal > 5 ? 6 : 3;
+		}
+
+		private void Recipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			if (e.Action == NotifyCollectionChangedAction.Remove)
+			{
+				foreach (Dish item in e.OldItems)
+				{
+					//Removed items
+					item.PropertyChanged -= EntityViewModelPropertyChanged;
+				}
+			}
+			else if (e.Action == NotifyCollectionChangedAction.Add)
+			{
+				foreach (Dish item in e.NewItems)
+				{
+					//Added items
+					item.PropertyChanged += EntityViewModelPropertyChanged;
+				}
+			}
+		}
+
+		public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			//This will get called when the property of an object inside the collection changes
+		}
+
 		private DishesCollection _recipes;
 		public DishesCollection Recipes
 		{
@@ -26,7 +67,6 @@ namespace FoodRecipeApp.ViewModels
 				{
 					this._recipes = value;
 					RaisePropertyChanged();
-					//this.OnPropertyChanged("Recipes");
 				}
 			}
 		}
@@ -41,58 +81,17 @@ namespace FoodRecipeApp.ViewModels
 				{
 					this._favouriteRecipes = value; 
 					RaisePropertyChanged();
-					//this.OnPropertyChanged("FavouriteRecipes");
+					this.OnPropertyChanged("FavouriteRecipesPageCountTotal");
 				}
 			}
 		}
 		public string QuoteToShow { get; set; }
 
-		private TileInfo _selectedItem;
-		public TileInfo SelectedItem
-		{
-			get => this._selectedItem;
-			set
-			{
-				if (this._selectedItem != value)
-				{
-					this._selectedItem = value;
-					RaisePropertyChanged();
-					//this.OnPropertyChanged("SelectedItem");
-				}
-			}
-		}
-
-		public ObservableCollection<TileInfo> Tiles { get; set; }
-
-		public RecipeViewModel()
-		{
-			this.Recipes = DishesDataSource.Instance.DishesCollection;
-			this.FavouriteRecipes = DishesDataSource.Instance.FavouriteDishesCollection;
-			this.QuoteToShow = QuotesDataSource.Instance.GetRandomQuote();
-
-			this.Tiles = new ObservableCollection<TileInfo>();
-			int n = this.Recipes.Count;
-			for (int i = 0; i < n; i++)
-			{
-				var dataItem = new TileInfo() 
-				{ 
-					DishCode = Recipes[i].DishCode 
-				};
-				this.Tiles.Add(dataItem);
-			}
-			this.SelectedItem = this.Tiles[0];
-
-			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
-		}
-
-		private string searchText;
-		private bool isDropDownOpen;
-		private Dish selectedSearchItem;
-
 		public ICommand ClearSelectionCommand { get; set; }
 
-
 		public bool IsClearButtonVisible => !string.IsNullOrEmpty(SearchText);
+
+		private bool isDropDownOpen;
 		public bool IsDropDownOpen
 		{
 			get => this.isDropDownOpen;
@@ -101,11 +100,12 @@ namespace FoodRecipeApp.ViewModels
 				if (this.isDropDownOpen != value)
 				{
 					this.isDropDownOpen = value;
-					this.OnPropertyChanged("IsDropDownOpen");
+					RaisePropertyChanged();
 				}
 			}
 		}
 
+		private Dish selectedSearchItem;
 		public Dish SelectedSearchItem
 		{
 			get => this.selectedSearchItem;
@@ -114,11 +114,12 @@ namespace FoodRecipeApp.ViewModels
 				if (this.selectedSearchItem != value)
 				{
 					this.selectedSearchItem = value;
-					this.OnPropertyChanged("SelectedItem");
+					RaisePropertyChanged();
 				}
 			}
 		}
 
+		private string searchText;
 		public string SearchText
 		{
 			get => this.searchText;
@@ -128,7 +129,7 @@ namespace FoodRecipeApp.ViewModels
 				{
 					this.searchText = value;
 					this.OnPropertyChanged("IsClearButtonVisible");
-					this.OnPropertyChanged("SearchText");
+					RaisePropertyChanged();
 				}
 			}
 		}
@@ -136,122 +137,64 @@ namespace FoodRecipeApp.ViewModels
 		private void OnClearSelectionCommandExecuted(object obj)
 		{
 			this.SearchText = string.Empty;
-			this.SelectedItem = null;
+			this.SelectedSearchItem = null;
 			this.IsDropDownOpen = false;
 		}
 
-		/*private ObservableCollection<ImagePair> items;
-		private ObservableCollection<ImagePair> backgounds;
-		private ImagePair selectedPair;
-		private DelegateCommand selectNextPerson;
-		private DelegateCommand selectPreviousPerson;
-
-		public RecipeViewModel()
+		private int allRecipesCustomPageSize;
+		public int AllRecipesCustomPageSize
 		{
-			this.items = new ObservableCollection<ImagePair>();
-			for (int i = 0; i < 8; i++)
-			{
-				this.items.Add(new ImagePair()
-				{
-					SmallImage = this.simages[i],
-					LargeImage = this.limages[i],
-				});
-			}
-
-			this.backgounds = new ObservableCollection<ImagePair>();
-			for (int i = 0; i < 4; i++)
-			{
-				this.backgounds.Add(new ImagePair()
-				{
-					SmallImage = this.simages[8 + i],
-					LargeImage = this.limages[8 + i],
-				});
-			}
-
-			this.selectNextPerson = new DelegateCommand(new Action<object>(SelectNext), new Predicate<object>(CanSelectNext));
-			this.selectPreviousPerson = new DelegateCommand(new Action<object>(SelectPrevious), new Predicate<object>(CanSelectPrevious));
-			this.SelectedPair = this.Items[0];
-		}
-
-		public ObservableCollection<ImagePair> Items => this.items;
-		public ObservableCollection<ImagePair> Backgounds => this.backgounds;
-		public ImagePair SelectedPair
-		{
-			get => this.selectedPair;
+			get => this.allRecipesCustomPageSize;
 			set
 			{
-				if (this.selectedPair != value)
+				if (this.allRecipesCustomPageSize != value)
 				{
-					this.selectedPair = value;
-					this.OnPropertyChanged("SelectedPair");
-					this.SelectNextPerson.InvalidateCanExecute();
-					this.SelectPreviousPerson.InvalidateCanExecute();
+					this.allRecipesCustomPageSize = value;
+					RaisePropertyChanged();
 				}
 			}
 		}
-		public DelegateCommand SelectPreviousPerson => this.selectPreviousPerson;
-		public DelegateCommand SelectNextPerson => this.selectNextPerson;
 
-		private List<string> simages = new List<string>()
+		private int favouriteRecipesCustomPageSize;
+		public int FavouriteRecipesCustomPageSize
 		{
-			"/TileView;component/Images/TileView/DifferentSizes/Small/1.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/2.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/3.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/4.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/5.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/6.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/7.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/8.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/BG0.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/BG1.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/BG2.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Small/BG3.png",
-		};
-
-		private List<string> limages = new List<string>()
-		{
-			"/TileView;component/Images/TileView/DifferentSizes/Large/1.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/2.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/3.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/4.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/5.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/6.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/7.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/8.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/BG0.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/BG1.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/BG2.png",
-			"/TileView;component/Images/TileView/DifferentSizes/Large/BG3.png",
-		};
-
-		private bool CanSelectNext(object target)
-		{
-			return this.items.IndexOf(this.SelectedPair) < this.items.Count - 1;
+			get => this.favouriteRecipesCustomPageSize;
+			set
+			{
+				if (this.favouriteRecipesCustomPageSize != value)
+				{
+					this.favouriteRecipesCustomPageSize = value;
+					RaisePropertyChanged();
+				}
+			}
 		}
 
-		private void SelectNext(object target)
+		private int allRecipesPageCountTotal;
+		public int AllRecipesPageCountTotal
 		{
-			int selectedIndex = this.items.IndexOf(this.SelectedPair);
-			this.SelectedPair = this.items[selectedIndex + 1];
+			get => this.allRecipesPageCountTotal;
+			set
+			{
+				if (this.allRecipesPageCountTotal != value)
+				{
+					this.allRecipesPageCountTotal = value;
+					RaisePropertyChanged();
+				}
+			}
 		}
 
-		private bool CanSelectPrevious(object target)
+		private int favouriteRecipesPageCountTotal;
+		public int FavouriteRecipesPageCountTotal
 		{
-			return this.items.IndexOf(this.SelectedPair) > 0;
+			get => this.FavouriteRecipes.Count;
+			set
+			{
+				if (this.favouriteRecipesPageCountTotal != value)
+				{
+					this.favouriteRecipesPageCountTotal = value;
+					RaisePropertyChanged();
+				}
+			}
 		}
-
-		private void SelectPrevious(object target)
-		{
-			int selectedIndex = this.items.IndexOf(this.SelectedPair);
-			this.SelectedPair = this.items[selectedIndex - 1];
-		}*/
 	}
-}
-
-public class TileInfo
-{
-	/*public string Header { get; set; }
-	public string Content { get; set; }*/
-
-	public int DishCode { get; set; }
 }

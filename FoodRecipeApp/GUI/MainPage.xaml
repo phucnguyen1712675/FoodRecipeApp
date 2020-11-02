@@ -20,13 +20,12 @@
 	TextOptions.TextFormattingMode="Ideal"
 	TextOptions.TextRenderingMode="Auto"
 	mc:Ignorable="d">
-   
+
 	<Page.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/FoodRecipeApp;component/Resources/RecipeResources.xaml" />
 				<ResourceDictionary Source="/Telerik.Windows.Controls;component/Themes/FontResources.xaml" />
-				<!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />-->
 			</ResourceDictionary.MergedDictionaries>
 
 			<DataTemplate x:Key="ItemTemplate">
@@ -209,6 +208,7 @@
 
 			<telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 			<telerik:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+
 			<Style x:Key="AutoCompleteCustomTextBoxStyle" TargetType="telerik:RadWatermarkTextBox">
 				<Setter Property="AdditionalContent">
 					<Setter.Value>
@@ -252,12 +252,12 @@
 			mah:TabControlHelper.CloseButtonEnabled="True"
 			mah:TabControlHelper.Transition="LeftReplace"
 			mah:TabControlHelper.UnderlineMouseOverBrush="#29e7e4"
-			mah:TabControlHelper.Underlined="SelectedTabItem"
+			mah:TabControlHelper.Underlined="TabItems"
 			ScrollViewer.CanContentScroll="False"
 			ScrollViewer.HorizontalScrollBarVisibility="Hidden"
 			ScrollViewer.PanningMode="Both">
 
-			<mah:MetroTabItem Header="Discover">
+			<mah:MetroTabItem x:Name="DiscoverTabItem" Header="Discover">
 				<Grid
 					x:Name="TopGrid"
 					Grid.Row="0"
@@ -288,6 +288,7 @@
 							FontFamily="Segoe UI Light"
 							FontSize="24"
 							Foreground="White"
+							Style="{DynamicResource MaterialDesignTextBlock}"
 							Text="Discover our Top Food Suggestions"
 							TextWrapping="Wrap" />
 						<telerik:RadAutoCompleteBox
@@ -297,10 +298,10 @@
 							MinHeight="24"
 							Margin="163,0"
 							VerticalAlignment="Center"
-							telerik:StyleManager.Theme="VisualStudio2019"
+							telerik:StyleManager.Theme="Office2019"
 							AutoCompleteMode="Suggest"
 							DropDownItemTemplate="{StaticResource FoodsSearchAutoComplete}"
-							Foreground="#c5a1ff"
+							Foreground="DarkGray"
 							IsDropDownOpen="{Binding IsDropDownOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 							ItemsSource="{Binding Recipes}"
 							NoResultsContent="No Matches"
@@ -438,35 +439,133 @@
 				</Grid>
 			</mah:MetroTabItem>
 
-			<mah:MetroTabItem Header="All Recipes">
+			<mah:MetroTabItem x:Name="AllRecipesTabItem" Header="All Recipes">
 
-				<Grid>
+				<Grid Width="Auto" Height="Auto">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 
 					<telerik:RadTileView
-						x:Name="radTileView"
+						x:Name="AllRecipesTileView"
 						Grid.Row="0"
+						telerik:StyleManager.Theme="Office2019"
 						ContentTemplate="{StaticResource ContentTemplate}"
+						DisplayMemberPath="{Binding Name}"
 						ItemTemplate="{StaticResource ItemTemplate}"
-						ItemsSource="{Binding PagedSource, ElementName=radDataPager1}"
+						ItemsSource="{Binding PagedSource, ElementName=AllRecipesPager}"
 						SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
 						TileStateChanged="radTileView_TileStateChanged" />
 
 					<telerik:RadDataPager
-						x:Name="radDataPager1"
+						x:Name="AllRecipesPager"
 						Grid.Row="1"
 						Margin="0,10,0,0"
+						telerik:StyleManager.Theme="Office2019"
 						BorderThickness="1,0,1,1"
-						DisplayMode="PreviousNext, Text"
+						DisplayMode="PreviousNextNumeric"
 						FontSize="14"
 						IsTotalItemCountFixed="True"
-						PageSize="6"
+						PageIndexChanging="Pager_PageIndexChanging"
+						PageSize="{Binding AllRecipesCustomPageSize}"
 						Source="{Binding Recipes}" />
+
+					<DockPanel
+						x:Name="AllRecipesPageSizeSettingDockPanel"
+						Grid.Row="2"
+						Margin="0,2,0,0"
+						HorizontalAlignment="Right"
+						LastChildFill="True">
+
+						<telerik:RadNumericUpDown
+							Width="100"
+							telerik:StyleManager.Theme="Office2019"
+							BorderBrush="LightGray"
+							BorderThickness="1"
+							DockPanel.Dock="Right"
+							IsInteger="True"
+							Maximum="{Binding AllRecipesPageCountTotal}"
+							Minimum="1"
+							Value="{Binding AllRecipesCustomPageSize, Mode=TwoWay}" />
+						<Label
+							Width="Auto"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							Background="White"
+							BorderBrush="LightGray"
+							BorderThickness="1,1,1,0"
+							Content="Page Size:"
+							DockPanel.Dock="Right"
+							Style="{DynamicResource MaterialDesignLabel}" />
+					</DockPanel>
 				</Grid>
 
+			</mah:MetroTabItem>
+
+			<mah:MetroTabItem x:Name="FavouriteRecipesTabItem" Header="Your Favourites">
+				<Grid Width="Auto" Height="Auto">
+
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="Auto" />
+					</Grid.RowDefinitions>
+
+					<telerik:RadTileView
+						x:Name="FavouriteRecipesTileView"
+						Grid.Row="0"
+						telerik:StyleManager.Theme="Office2019"
+						ContentTemplate="{StaticResource ContentTemplate}"
+						DisplayMemberPath="{Binding Name}"
+						ItemTemplate="{StaticResource ItemTemplate}"
+						ItemsSource="{Binding PagedSource, ElementName=FavouriteRecipesPager}"
+						SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+						TileStateChanged="radTileView_TileStateChanged" />
+
+					<telerik:RadDataPager
+						x:Name="FavouriteRecipesPager"
+						Grid.Row="1"
+						Margin="0,10,0,0"
+						telerik:StyleManager.Theme="Office2019"
+						BorderThickness="1,0,1,1"
+						DisplayMode="PreviousNextNumeric"
+						FontSize="14"
+						IsTotalItemCountFixed="True"
+						PageIndexChanging="Pager_PageIndexChanging"
+						PageSize="{Binding FavouriteRecipesCustomPageSize}"
+						Source="{Binding FavouriteRecipes}" />
+
+					<DockPanel
+						x:Name="FavouriteRecipesPageSizeSettingDockPanel"
+						Grid.Row="2"
+						Margin="0,2,0,0"
+						HorizontalAlignment="Right"
+						LastChildFill="True">
+
+						<telerik:RadNumericUpDown
+							Width="100"
+							telerik:StyleManager.Theme="Office2019"
+							BorderBrush="LightGray"
+							BorderThickness="1"
+							DockPanel.Dock="Right"
+							IsInteger="True"
+							Maximum="{Binding FavouriteRecipesPageCountTotal}"
+							Minimum="1"
+							Value="{Binding FavouriteRecipesCustomPageSize, Mode=TwoWay}" />
+						<Label
+							Width="Auto"
+							HorizontalContentAlignment="Center"
+							VerticalContentAlignment="Center"
+							Background="White"
+							BorderBrush="LightGray"
+							BorderThickness="1,1,1,0"
+							Content="Page Size:"
+							DockPanel.Dock="Right"
+							Style="{DynamicResource MaterialDesignLabel}" />
+					</DockPanel>
+				</Grid>
 			</mah:MetroTabItem>
 		</mah:MetroAnimatedSingleRowTabControl>
 	</Grid>

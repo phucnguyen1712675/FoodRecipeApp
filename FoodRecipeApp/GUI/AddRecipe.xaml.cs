@@ -291,7 +291,6 @@ namespace FoodRecipeApp.GUI
         {
             steps.Clear();
             //InitializeComponent();
-            this.DataContext = null;
         }
         #endregion
 

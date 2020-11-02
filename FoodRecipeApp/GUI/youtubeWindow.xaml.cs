@@ -33,5 +33,10 @@ namespace FoodRecipeApp.GUI
             youtubeLink = Dish.Display(youtubeLink, DishMedia.Width-20, DishMedia.Height-20);
             DishMedia.NavigateToString(youtubeLink);
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            DishMedia.Dispose();
+        }
     }
 }

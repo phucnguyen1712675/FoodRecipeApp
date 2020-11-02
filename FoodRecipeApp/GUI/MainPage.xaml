@@ -62,10 +62,12 @@
 									HorizontalAlignment="Right"
 									VerticalAlignment="Bottom"
 									Background="#ff2014"
-									Command="local:TileViewCommandsExtension.AddNewFavouriteRecipe"
+                                    Command="local:TileViewCommandsExtension.AddNewFavouriteRecipe"
 									IsChecked="{Binding IsLove, Converter={StaticResource LoveImageConverter}}"
 									ToolTip="Add to Favourite List">
 
+                                    <!--Tag="{Binding DishCode}"
+                                    Click="FavouriteButton_Click"-->
 									<ToggleButton.Content>
 										<materialDesign:PackIcon
 											Width="25"
@@ -141,13 +143,13 @@
 													HorizontalAlignment="Right"
 													VerticalAlignment="Bottom"
 													Background="#ff2014"
-													Click="ToggleButton_Click"
 													Command="local:TileViewCommandsExtension.AddNewFavouriteRecipe"
 													IsChecked="{Binding IsLove, Converter={StaticResource LoveImageConverter}}"
-													Tag="{Binding DishCode}"
 													ToolTip="Add to Favourite List">
 
-													<ToggleButton.Content>
+                                                    <!--Tag="{Binding DishCode}"
+													Click="FavouriteButton_Click"-->
+                                                    <ToggleButton.Content>
 														<materialDesign:PackIcon
 															Width="25"
 															Height="25"
@@ -164,6 +166,7 @@
 											</Grid>
 										</Border>
 
+                                        <!--  description  -->
 										<Grid Grid.Row="1" Margin="15">
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="1*" />
@@ -205,46 +208,7 @@
 									</StackPanel>
 								</Border>
 
-								<!--  video hướng dẫn  -->
-								<!--<Border
-									Margin="15"
-									Background="AliceBlue"
-									CornerRadius="3">
-									<Border.Effect>
-										<DropShadowEffect
-											BlurRadius="3"
-											Opacity="0.5"
-											ShadowDepth="1" />
-									</Border.Effect>
-									<Grid>
-										<Grid.RowDefinitions>
-											<RowDefinition Height="1*" />
-											<RowDefinition Height="7*" />
-										</Grid.RowDefinitions>
-										<Border
-											Grid.Row="0"
-											Margin="20,10,20,10"
-											Padding="15"
-											BorderBrush="#FFD80073"
-											BorderThickness="0,0,0,2">
-											<TextBlock
-												x:Name="DishMeidaTextBlock"
-												FontSize="40"
-												Foreground="#332226"
-												Text="Video hướng dẫn"
-												TextAlignment="Justify"
-												TextWrapping="Wrap" />
-										</Border>
-										<uc:HtmlBox
-											x:Name="DishMedia"
-											Grid.Row="1"
-											Width="650"
-											Height="400"
-											Margin="20"
-											HtmlText="{Binding Video, Converter={StaticResource MediaDishconverter}}" />
-									</Grid>
-								</Border>-->
-
+                                <!--  video hướng dẫn  -->
                                 <Border
 									Margin="15"
 									Background="AliceBlue"

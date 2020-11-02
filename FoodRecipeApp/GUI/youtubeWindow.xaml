@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FoodRecipeApp.GUI"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         WindowStartupLocation="CenterScreen"
         Loaded="ChildWindow_Loaded"
         mc:Ignorable="d"
         Background="AliceBlue"
         Icon="/Resources/recipe-book.ico"
+        Closing="Window_Closing"
         Title="youtubeWindow" Height="530" Width="931.959">
     <Canvas>
         <Grid>

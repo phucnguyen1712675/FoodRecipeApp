@@ -24,7 +24,6 @@ namespace FoodRecipeApp.DTO
         public List<Step> Steps { get; set; }
         public StepCollection StepsCollection { get; set; }
 
-
         public Dish(DataRow row)
         {
             DishCode = (int)row["Dish"];

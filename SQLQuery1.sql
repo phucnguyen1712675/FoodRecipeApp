@@ -1899,3 +1899,10 @@ end
 go
 
 select Dish , Love, Name from DISH
+
+CREATE PROCEDURE USP_getNewestDish
+As
+begin
+select max(Dish) as Dish from DISH
+end
+go

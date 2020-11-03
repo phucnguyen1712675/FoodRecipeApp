@@ -1,4 +1,5 @@
 ﻿using FoodRecipeApp.DTO;
+using FoodRecipeApp.ViewModels;
 using SharpDX;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace FoodRecipeApp.GUI
 		public AddRecipe()
 		{
 			InitializeComponent();
+            this.DataContext = new RecipeViewModel();
 		}
 
         public string AddAllCheckBoxes()
@@ -222,8 +224,10 @@ namespace FoodRecipeApp.GUI
                 ClearAll();
                 Dish newDish = new Dish(isLove, dishName, imagePath, descriptionDish, video, steps, loai);
                 newDish.DishCode = Dish.getNewestDishCode();
-                DishesDataSource.Instance.AllRecipesCollection.Add(newDish);
-                if (newDish.IsLove == true) DishesDataSource.Instance.FavouriteDishesCollection.Add(newDish);
+
+                var viewmodel = (RecipeViewModel)this.DataContext;
+                viewmodel.AddNewItemToAllRecipesList(newDish);
+                if (newDish.IsLove == true) viewmodel.AddNewItemToFavouriteRecipesList(newDish);
             }
             else
             {

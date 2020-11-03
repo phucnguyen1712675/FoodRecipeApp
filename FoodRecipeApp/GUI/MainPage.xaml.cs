@@ -21,13 +21,15 @@ namespace FoodRecipeApp.GUI
 	/// </summary>
 	public partial class MainPage : Page
 	{
-		public static MainPage AppMainpage;
+		public static MainPage AppMainpage; 
 		public MainPage()
 		{
 			InitializeComponent();
 			AppMainpage = this;
-			this.DataContext = new RecipeViewModel();
+			var viewModel = new RecipeViewModel();
+			this.DataContext = viewModel;
 		}
+
 		static MainPage()
 		{
 			var addFavouriteItemBinding = new CommandBinding(TileViewCommandsExtension.AddNewFavouriteRecipe, OnAddFavouriteItemCommandExecute, OnCanAddFavouriteItemCommandExecute); 
@@ -47,30 +49,31 @@ namespace FoodRecipeApp.GUI
 			if (tileViewItem == null || tileView == null || tileView.ItemsSource == null) return;
 
 			var dataItem = tileView.ItemContainerGenerator.ItemFromContainer(tileViewItem) as Dish;
-			var AllRecipesSource = AppMainpage.AllRecipesPager.Source as DishesCollection;
-			var FavouriteRecipesSource = AppMainpage.FavouriteRecipesPager.Source as DishesCollection;
 
-			if (dataItem == null || AllRecipesSource == null || FavouriteRecipesSource == null)
-			{
-				return;
-			}
-			if (dataItem.IsLove)
-			{
-				DishesDataSource.Instance.FavouriteDishesCollection.Add(dataItem);
-			}
-			else
-			{
-				DishesDataSource.Instance.FavouriteDishesCollection.Remove(dataItem);
+			if (dataItem == null) return;
 
-				var item = DishesDataSource.Instance.AllRecipesCollection.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+			if (DishDAO.Instance.updateFavouriteRecipe(dataItem.DishCode.ToString()) == 1)
+			{
+				MessageBox.Show("Updated");
 
-				if (item != null)
+				var viewModel = (RecipeViewModel)AppMainpage.DataContext;
+				if (dataItem.IsLove)
 				{
-					item.IsLove = !item.IsLove;
-					if (DishDAO.Instance.updateFavouriteRecipe(dataItem.DishCode.ToString()) == 1)
+					var item = viewModel.Recipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+					viewModel.AddNewItemToFavouriteRecipesList(dataItem);
+				}
+				else
+				{
+					var item = viewModel.FavouriteRecipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+					viewModel.RemoveItemFromFavouriteRecipesList(item);
+					foreach (var tom in viewModel.Recipes.Where(w => w.DishCode == dataItem.DishCode))
 					{
-						MessageBox.Show("Updated");
+						tom.IsLove = dataItem.IsLove;
 					}
+				}
+				if (!viewModel.UpdateFavouriteRecipesCustomPageSize())
+				{
+					MessageBox.Show("Error");
 				}
 			}
 		}
@@ -78,26 +81,26 @@ namespace FoodRecipeApp.GUI
 		private void radTileView_TileStateChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
 		{
 			RadTileViewItem item = e.OriginalSource as RadTileViewItem;
-			if (item != null)
+
+			if (item == null) return;
+
+			RadFluidContentControl fluid = item.ChildrenOfType<RadFluidContentControl>().FirstOrDefault();
+
+			if (fluid == null) return;
+
+			switch (item.TileState)
 			{
-				RadFluidContentControl fluid = item.ChildrenOfType<RadFluidContentControl>().FirstOrDefault();
-				if (fluid != null)
-				{
-					switch (item.TileState)
-					{
-						case TileViewItemState.Maximized:
-							fluid.State = FluidContentControlState.Large;
-							break;
-						case TileViewItemState.Minimized:
-							fluid.State = FluidContentControlState.Normal;
-							break;
-						case TileViewItemState.Restored:
-							fluid.State = FluidContentControlState.Normal;
-							break;
-						default:
-							break;
-					}
-				}
+				case TileViewItemState.Maximized:
+					fluid.State = FluidContentControlState.Large;
+					break;
+				case TileViewItemState.Minimized:
+					fluid.State = FluidContentControlState.Normal;
+					break;
+				case TileViewItemState.Restored:
+					fluid.State = FluidContentControlState.Normal;
+					break;
+				default:
+					break;
 			}
 		}
 
@@ -119,14 +122,7 @@ namespace FoodRecipeApp.GUI
 
 		private void Pager_PageIndexChanging(object sender, PageIndexChangingEventArgs e)
 		{
-			//if (true)
-			//{
-			//	MessageBoxResult result = MessageBox.Show("There is unsaved data! Are you sure you want to continue?", "Confirm", MessageBoxButton.OKCancel);
-			//	if (result == MessageBoxResult.Cancel)
-			//	{
-			//		e.Cancel = true;
-			//	}
-			//}
+			//Do nothing
 		}
 
         private void VideoDishButton_Click(object sender, RoutedEventArgs e)
@@ -136,28 +132,5 @@ namespace FoodRecipeApp.GUI
 			youtubeWindow youtubeWindow = new youtubeWindow(Video);
 			youtubeWindow.Show();
         }
-
-/*        private void FavouriteButton_Click(object sender, RoutedEventArgs e)
-        {
-			ToggleButton Temp = (ToggleButton)sender;
-			int dishCode = (int)(Temp.Tag);
-			if (Dish.updateIsLoveDish(dishCode) == 1)
-			{
-				MessageBox.Show("Update thành công");
-				Dish dish;
-				
-				if (Temp.IsChecked.Value == true)
-				{
-					dish = DishesDataSource.Instance.AllRecipesCollection.FirstOrDefault(i => i.DishCode == dishCode);
-					DishesDataSource.Instance.FavouriteDishesCollection.Add(dish);
-				}
-				else
-				{
-					dish = DishesDataSource.Instance.FavouriteDishesCollection.FirstOrDefault(i => i.DishCode == dishCode);
-					DishesDataSource.Instance.FavouriteDishesCollection.Remove(dish);
-					DishesDataSource.Instance.updateIsLoveByDishCode(dishCode, false);
-				}
-			}
-		}*/
     }
 }

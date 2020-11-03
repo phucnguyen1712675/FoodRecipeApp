@@ -17,7 +17,6 @@
 	<converters:DishNameConverter x:Key="DishNameConverter" />
 	<converters:MediaDishConverter x:Key="MediaDishconverter" />
 	<converters:RatioConverter x:Key="RatioConverter" />
-	<Style BasedOn="{StaticResource MaterialDesignActionToggleButton}" TargetType="ToggleButton" />
 	<converters:CountConverter x:Key="countConverter" />
 
 	<Style x:Key="TileItemHeaderStyle" TargetType="tileview:TileViewItemHeader">
@@ -30,6 +29,7 @@
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
 		<Setter Property="VerticalAlignment" Value="Stretch" />
+		<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
 	</Style>
 
 	<Style TargetType="telerik:RadTileView">
@@ -50,16 +50,18 @@
 		<Setter Property="IsItemsAnimationEnabled" Value="True" />
 		<Setter Property="MinimizedColumnWidth" Value="240" />
 		<Setter Property="MinimizedRowHeight" Value="180" />
+		<Setter Property="MaxColumns" Value="3" />
 		<Setter Property="RowHeight" Value="300" />
-		<Setter Property="ColumnWidth" Value="400" />
+		<Setter Property="ColumnWidth" Value="250" />
 		<Setter Property="ColumnsCount" Value="3" />
+		<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
 	</Style>
 
 	<Style TargetType="telerik:RadTileViewItem">
-		<Setter Property="Padding" Value="3" />
 		<Setter Property="BorderBrush" Value="#fff261" />
-		<Setter Property="Background" Value="#c5a1ff" />
+		<Setter Property="Background" Value="#b0e4ff " />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="HeaderStyle" Value="{StaticResource TileItemHeaderStyle}" />
+		<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
 	</Style>
 </ResourceDictionary>

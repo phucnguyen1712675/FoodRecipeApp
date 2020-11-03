@@ -1890,3 +1890,12 @@ BEGIN
 where dbo.ufn_removeMark(Name) LIKE '%'+ @Name +'%' OR Name LIKE '%'+ @Name +'%'
 END
 GO
+
+CREATE PROCEDURE USP_getNewestDish
+As
+begin
+select max(Dish) as Dish from DISH
+end
+go
+
+select * from DISH

@@ -37,7 +37,7 @@ namespace FoodRecipeApp.GUI
 			InitializeComponent();
 
 			AddAllCheckBox();
-			FullList = DishesDataSource.Instance.AllRecipesCollection;
+			//FullList = DishesDataSource.Instance.AllRecipesCollection;
 			ShowAll();
 
 			// Getting the currently selected ListBoxItem
@@ -100,7 +100,7 @@ namespace FoodRecipeApp.GUI
 		private void Check_Click(object sender, RoutedEventArgs e)
 		{
 			string FilterQuery = ListCheckBoxes.GetFilterQuery();
-			this.FilterList = DishesDataSource.DishesFilterCollection(FilterQuery);
+			this.FilterList = DishesCollection.GetFilterDishes(FilterQuery);
 			ShowSearchResult();
 		}
 		private void Search_Click(object sender, RoutedEventArgs e)

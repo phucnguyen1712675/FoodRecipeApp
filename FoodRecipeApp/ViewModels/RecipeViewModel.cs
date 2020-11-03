@@ -14,77 +14,137 @@ using System.Windows.Input;
 using Telerik.Windows.Controls.Slider;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Windows.Threading;
+using PropertyChanged;
 
 namespace FoodRecipeApp.ViewModels
 {
-    public class RecipeViewModel: ViewModelBase
+    public class RecipeViewModel: ViewModelBase, INotifyPropertyChanged
     {
+		private Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
+		///public DelegateCommand AddItems { get; }
+		//public DelegateCommand AddItems { get; }
+		
 		public RecipeViewModel()
 		{
-			this.Recipes = DishesDataSource.Instance.AllRecipesCollection;
-			this.Recipes.CollectionChanged += Recipes_CollectionChanged;
-			this.FavouriteRecipes = DishesDataSource.Instance.FavouriteDishesCollection;
+			/*AddItems = new DelegateCommand(() => Task.Run(() =>
+				Parallel.ForEach(DishesCollection.GetAllDishes(),
+					 (item) => dispatcher.Invoke(() => Recipes.Add(item))))
+			);*/
+
+			/*Items.Add(new Item() { ItemId = 1 });
+			for (int i = 1; i < 10; i++)
+			{
+				Items.Add(new Item() { ItemId = i });
+			}
+			Recipes = DishesCollection.GetAllDishes();*/
+			this.ModifiedItems = new List<Dish>();
+
+			foreach (var item in DishesCollection.GetAllDishes()) this.Recipes.Add(item);
+			this.Recipes.CollectionChanged += this.OnCollectionChanged;
+
+			foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
+			this.FavouriteRecipes.CollectionChanged += this.OnCollectionChanged;
+
 			this.QuoteToShow = QuotesDataSource.Instance.GetRandomQuote();
 			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 			this.AllRecipesPageCountTotal = this.Recipes.Count;
 			this.favouriteRecipesPageCountTotal = this.FavouriteRecipes.Count;
 			this.allRecipesCustomPageSize = this.allRecipesPageCountTotal > 5 ? 6 : 3;
-			this.favouriteRecipesCustomPageSize = this.favouriteRecipesPageCountTotal > 5 ? 6 : 3;
+			this.favouriteRecipesCustomPageSize = this.favouriteRecipesPageCountTotal > 6 ? 6 : this.favouriteRecipesPageCountTotal;
 		}
 
-		private void Recipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		[SuppressPropertyChangedWarnings]
+		void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
-			if (e.Action == NotifyCollectionChangedAction.Remove)
+			if (e.NewItems != null)
 			{
-				foreach (Dish item in e.OldItems)
+				foreach (Dish newItem in e.NewItems)
 				{
-					//Removed items
-					item.PropertyChanged -= EntityViewModelPropertyChanged;
+					ModifiedItems.Add(newItem);
+
+					//Add listener for each item on PropertyChanged event
+					newItem.PropertyChanged += this.OnItemPropertyChanged;
 				}
 			}
-			else if (e.Action == NotifyCollectionChangedAction.Add)
-			{
-				foreach (Dish item in e.NewItems)
-				{
-					//Added items
-					item.PropertyChanged += EntityViewModelPropertyChanged;
-				}
-			}
-		}
 
-		public void EntityViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			//This will get called when the property of an object inside the collection changes
-		}
-
-		private DishesCollection _recipes;
-		public DishesCollection Recipes
-		{
-			get => this._recipes;
-			set
+			if (e.OldItems != null)
 			{
-				if (this._recipes != value)
+				foreach (Dish oldItem in e.OldItems)
 				{
-					this._recipes = value;
-					RaisePropertyChanged();
+					ModifiedItems.Add(oldItem);
+
+					oldItem.PropertyChanged -= this.OnItemPropertyChanged;
 				}
 			}
 		}
 
-		private DishesCollection _favouriteRecipes;
-		public DishesCollection FavouriteRecipes
+		[SuppressPropertyChangedWarnings]
+		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			get => this._favouriteRecipes;
-			set
-			{
-				if (this._favouriteRecipes != value)
-				{
-					this._favouriteRecipes = value; 
-					RaisePropertyChanged();
-					this.OnPropertyChanged("FavouriteRecipesPageCountTotal");
-				}
-			}
+			Dish item = sender as Dish;
+			if (item != null)
+				ModifiedItems.Add(item);
 		}
+
+		public List<Dish> ModifiedItems { get; set; }
+
+
+		public DishesCollection Recipes { get; } = new DishesCollection();
+		public bool AddNewItemToAllRecipesList(Dish newDish)
+		{
+			bool result = false;
+
+			if (newDish != null)
+			{
+				result = true;
+				this.Recipes.Add(newDish);
+			}
+
+			return result;
+		}
+
+		public bool RemoveItemToAllRecipesList(Dish deletedDish)
+		{
+			bool result = false;
+
+			if (deletedDish != null)
+			{
+				result = true;
+				this.Recipes.Remove(deletedDish);
+			}
+
+			return result;
+		}
+
+		public DishesCollection FavouriteRecipes { get; } = new DishesCollection();
+
+		public bool AddNewItemToFavouriteRecipesList(Dish newDish)
+		{
+			bool result = false;
+
+			if (newDish != null)
+			{
+				result = true;
+				this.FavouriteRecipes.Add(newDish);
+			}
+
+			return result;	
+		}
+
+		public bool RemoveItemFromFavouriteRecipesList(Dish deletedDish)
+		{
+			bool result = false;
+
+			if (deletedDish != null)
+			{
+				result = true;
+				this.FavouriteRecipes.Remove(deletedDish);
+			}
+
+			return result;
+		}
+
 		public string QuoteToShow { get; set; }
 
 		public ICommand ClearSelectionCommand { get; set; }
@@ -100,7 +160,7 @@ namespace FoodRecipeApp.ViewModels
 				if (this.isDropDownOpen != value)
 				{
 					this.isDropDownOpen = value;
-					RaisePropertyChanged();
+					RaisePropertyChanged("IsDropDownOpen");
 				}
 			}
 		}
@@ -114,7 +174,7 @@ namespace FoodRecipeApp.ViewModels
 				if (this.selectedSearchItem != value)
 				{
 					this.selectedSearchItem = value;
-					RaisePropertyChanged();
+					RaisePropertyChanged("SelectedSearchItem");
 				}
 			}
 		}
@@ -129,7 +189,7 @@ namespace FoodRecipeApp.ViewModels
 				{
 					this.searchText = value;
 					this.OnPropertyChanged("IsClearButtonVisible");
-					RaisePropertyChanged();
+					RaisePropertyChanged("SearchText");
 				}
 			}
 		}
@@ -150,7 +210,7 @@ namespace FoodRecipeApp.ViewModels
 				if (this.allRecipesCustomPageSize != value)
 				{
 					this.allRecipesCustomPageSize = value;
-					RaisePropertyChanged();
+					RaisePropertyChanged("AllRecipesCustomPageSize");
 				}
 			}
 		}
@@ -164,9 +224,26 @@ namespace FoodRecipeApp.ViewModels
 				if (this.favouriteRecipesCustomPageSize != value)
 				{
 					this.favouriteRecipesCustomPageSize = value;
-					RaisePropertyChanged();
+					RaisePropertyChanged("FavouriteRecipesCustomPageSize");
 				}
 			}
+		}
+
+		public bool UpdateFavouriteRecipesCustomPageSize()
+		{
+			bool flag = true;
+
+			if (this.favouriteRecipesPageCountTotal <  7)
+			{
+				this.favouriteRecipesCustomPageSize = this.FavouriteRecipes.Count;
+			}
+			else
+			{
+				this.favouriteRecipesCustomPageSize = 6;
+				flag = false;
+			}
+
+			return flag;
 		}
 
 		private int allRecipesPageCountTotal;
@@ -178,7 +255,7 @@ namespace FoodRecipeApp.ViewModels
 				if (this.allRecipesPageCountTotal != value)
 				{
 					this.allRecipesPageCountTotal = value;
-					RaisePropertyChanged();
+					RaisePropertyChanged("AllRecipesPageCountTotal");
 				}
 			}
 		}
@@ -192,9 +269,43 @@ namespace FoodRecipeApp.ViewModels
 				if (this.favouriteRecipesPageCountTotal != value)
 				{
 					this.favouriteRecipesPageCountTotal = value;
-					RaisePropertyChanged();
+					RaisePropertyChanged("FavouriteRecipesPageCountTotal");
 				}
 			}
 		}
+
+		/*private ICommand mUpdater;
+		public ICommand UpdateCommand
+		{
+			get
+			{
+				if (mUpdater == null)
+					mUpdater = new Updater();
+				return mUpdater;
+			}
+			set
+			{
+				mUpdater = value;
+			}
+		}
+
+		private class Updater : ICommand
+		{
+			#region ICommand Members  
+
+			public bool CanExecute(object parameter)
+			{
+				return true;
+			}
+
+			public event EventHandler CanExecuteChanged;
+
+			public void Execute(object parameter)
+			{
+
+			}
+
+			#endregion
+		}*/
 	}
 }

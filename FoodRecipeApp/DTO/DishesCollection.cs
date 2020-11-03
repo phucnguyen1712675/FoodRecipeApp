@@ -14,19 +14,32 @@ namespace FoodRecipeApp.DTO
 {
 	public class DishesCollection : ObservableCollection<Dish>
 	{
-		public static DishesCollection GetAllDishes()
-        {
-            DishesCollection dishes = new DishesCollection();
-            DataTable data = DishDAO.Instance.getAllDishes();
-            foreach (DataRow row in data.Rows)
-            {
-                Dish dish = new Dish(row);
-                dishes.Add(dish);
-            }
-            return dishes;
-        }
 
-        public static DishesCollection GetFilterDishes(string queryFilter)
+		public static DishesCollection GetAllDishes()
+		{
+			DishesCollection dishes = new DishesCollection();
+			DataTable data = DishDAO.Instance.getAllDishes();
+			foreach (DataRow row in data.Rows)
+			{
+				Dish dish = new Dish(row);
+				dishes.Add(dish);
+			}
+			return dishes;
+		}
+
+		/*public static BindingList<Dish> GetAllDishes()
+		{
+			BindingList<Dish> dishes = new BindingList<Dish>();
+			DataTable data = DishDAO.Instance.getAllDishes();
+			foreach (DataRow row in data.Rows)
+			{
+				Dish dish = new Dish(row);
+				dishes.Add(dish);
+			}
+			return dishes;
+		}*/
+
+		public static DishesCollection GetFilterDishes(string queryFilter)
         {
             DishesCollection dishes = new DishesCollection();
             DataTable data = DishDAO.Instance.getFilterDishes(queryFilter);
@@ -50,48 +63,5 @@ namespace FoodRecipeApp.DTO
             }
             return dishes;
         }
-
-		/*private void CollectionItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			//To do
-		}
-
-		private void DishesCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			if (e.NewItems != null)
-			{
-				foreach (object Meeting in e.NewItems)
-				{
-					(Meeting as INotifyPropertyChanged).PropertyChanged += new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
-				}
-			}
-
-			if (e.OldItems != null)
-			{
-				foreach (object Meeting in e.OldItems)
-				{
-					(Meeting as INotifyPropertyChanged).PropertyChanged -= new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
-				}
-			}
-		}
-
-		private void FavouriteDishesCollection_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			if (e.NewItems != null)
-			{
-				foreach (object Meeting in e.NewItems)
-				{
-					(Meeting as INotifyPropertyChanged).PropertyChanged += new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
-				}
-			}
-
-			if (e.OldItems != null)
-			{
-				foreach (object Meeting in e.OldItems)
-				{
-					(Meeting as INotifyPropertyChanged).PropertyChanged -= new PropertyChangedEventHandler(CollectionItem_PropertyChanged);
-				}
-			}
-		}*/
 	}
 }

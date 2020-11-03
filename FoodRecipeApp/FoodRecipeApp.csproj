@@ -502,7 +502,6 @@
     <Compile Include="DTO\CheckedList.cs" />
     <Compile Include="DTO\Dish.cs" />
     <Compile Include="DTO\DishesCollection.cs" />
-    <Compile Include="DTO\DishesDataSource.cs" />
     <Compile Include="DTO\ImagePair.cs" />
     <Compile Include="DTO\Images.cs" />
     <Compile Include="DTO\ImagesPerStepCollection.cs" />

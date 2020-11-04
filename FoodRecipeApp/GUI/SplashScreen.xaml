@@ -1,25 +1,21 @@
-﻿<mah:MetroWindow x:Class="FoodRecipeApp.GUI.SplashScreen"
-                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                 xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-                 xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:local="clr-namespace:FoodRecipeApp"
-                 Title="FOOD RECIPE APP" 
-                 Height="600" 
-                 Width="800"
-                 GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-                 ResizeMode="NoResize"
-                 WindowStyle="None" 
-                 ShowTitleBar="False"
-                 WindowStartupLocation="CenterScreen"
-                 Icon="/Resources/recipe-book.ico"
-                 BorderThickness="1"
-                 AllowsTransparency="True"
-                 Loaded="MainWindow_OnLoaded"
-                 mc:Ignorable="d">
+﻿<mah:MetroWindow
+	x:Class="FoodRecipeApp.GUI.SplashScreen"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	Width="800"
+	Height="600"
+	AllowsTransparency="True"
+	BorderThickness="1"
+	GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+	ResizeMode="NoResize"
+	ShowTitleBar="False"
+	WindowStartupLocation="CenterScreen"
+	WindowStyle="None"
+	mc:Ignorable="d">
 
 	<Window.Resources>
 		<ResourceDictionary>
@@ -29,107 +25,87 @@
 		</ResourceDictionary>
 	</Window.Resources>
 
-	<!--Background-->
+	<!--  Background  -->
 	<Window.Background>
-		<ImageBrush ImageSource="/Resources/SplashScreen/coffee.png" 
-					Stretch="UniformToFill"/>
+		<ImageBrush ImageSource="/Resources/SplashScreen/coffee.png" Stretch="UniformToFill" />
 	</Window.Background>
 
-	<!--Full Screen-->
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="12*">
-				
-			</RowDefinition>
-			<RowDefinition Height="6.6*">
-
-			</RowDefinition>
-			<RowDefinition Height="0.4*">
-
-			</RowDefinition>
+			<RowDefinition Height="12*" />
+			<RowDefinition Height="6.6*" />
+			<RowDefinition Height="0.4*" />
 		</Grid.RowDefinitions>
-		<!--Row 0-->
+		<!--  Row 0  -->
 		<Grid Grid.Row="0">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="12*">
-
-				</ColumnDefinition>
-				<ColumnDefinition Width="7*">
-
-				</ColumnDefinition>
+				<ColumnDefinition Width="12*" />
+				<ColumnDefinition Width="7*" />
 			</Grid.ColumnDefinitions>
-			<!--Column 0-->
-			<DockPanel Grid.Column="0" 
-			           TextBlock.FontFamily="Segoe UI Light"
-			           TextBlock.Foreground="#704523">
-				<TextBlock Margin="10, 120, 0, 0" 
-				           DockPanel.Dock="Top"
-				           FontSize="44"
-				           Text="Welcome to"/>
-				<TextBlock Margin="10, 0, 0, 0" 
-				           DockPanel.Dock="Top" 
-				           FontSize="54"
-				           Text="Food Recipe App"/>
+			<!--  Column 0  -->
+			<DockPanel
+				Grid.Column="0"
+				TextBlock.FontFamily="Segoe UI Light"
+				TextBlock.Foreground="#704523">
+				<TextBlock
+					Margin="10,120,0,0"
+					DockPanel.Dock="Top"
+					FontSize="44"
+					Style="{StaticResource MahApps.Styles.TextBlock}"
+					Text="Welcome to" />
+				<TextBlock
+					Margin="10,0,0,0"
+					DockPanel.Dock="Top"
+					FontSize="54"
+					Style="{StaticResource MahApps.Styles.TextBlock}"
+					Text="Food Recipe App" />
 			</DockPanel>
-			
-			<!--<Border VerticalAlignment="Top" Grid.Column="1" Background="Transparent">
-				<Image Source="/Resources/SplashScreen/oneline.jpg"
-					   Stretch="Uniform" />
-			</Border>-->
 		</Grid>
-		<!--Row 1-->
+		<!--  Row 1  -->
 		<Grid Grid.Row="1">
 			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="12*">
-
-				</ColumnDefinition>
-				<ColumnDefinition Width="7*">
-
-				</ColumnDefinition>
+				<ColumnDefinition Width="12*" />
+				<ColumnDefinition Width="7*" />
 			</Grid.ColumnDefinitions>
-			<!--Column 0-->
+			<!--  Column 0  -->
 			<DockPanel Name="TipDockPanel" Grid.Column="0">
-				<TextBlock x:Name="AdviceTextBlock" 
-						   Margin="0, 0, 135, 5" 
-						   DockPanel.Dock="Top"
-				           FontSize="18"
-				           FontFamily="Segoe UI Light"
-				           Foreground="#704523"
-				           TextWrapping="WrapWithOverflow"
-					       Padding="20"
-					       VerticalAlignment="Bottom"
-					       Text="{Binding QuoteToShow, Source={StaticResource MyRecipeViewModel}}"/>
+				<TextBlock
+					x:Name="AdviceTextBlock"
+					Margin="0,0,135,5"
+					Padding="20"
+					VerticalAlignment="Bottom"
+					DockPanel.Dock="Top"
+					FontFamily="Segoe UI Light"
+					FontSize="18"
+					Foreground="#704523"
+					Style="{StaticResource MahApps.Styles.TextBlock}"
+					Text="{Binding QuoteToShow, Source={StaticResource MyRecipeViewModel}}"
+					TextWrapping="WrapWithOverflow" />
 			</DockPanel>
-			<!--Column 1-->
+			<!--  Column 1  -->
 			<DockPanel Grid.Column="1">
-				<CheckBox DockPanel.Dock="Bottom"
-				          VerticalAlignment="Bottom" 
-				          HorizontalAlignment="Right"
-				          Name="DoNotShowPlashScreenCheckBox"
-				          Checked="DoNotShowPlashScreenCheckBox_OnChecked" Margin="0,0,20,10"
-				>
+				<CheckBox
+					Name="DoNotShowPlashScreenCheckBox"
+					Margin="0,0,20,10"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Checked="DoNotShowPlashScreenCheckBox_OnChecked"
+					DockPanel.Dock="Bottom"
+					Style="{StaticResource MahApps.Styles.CheckBox}">
 					<CheckBox.LayoutTransform>
 						<ScaleTransform ScaleX="1.5" ScaleY="1.5" />
 					</CheckBox.LayoutTransform>
-					<TextBlock TextBlock.FontFamily="Segoe UI Light"
-					           TextBlock.Foreground="#704523"
-					           Text="Don't show again"/>
+					<TextBlock
+						Style="{StaticResource MahApps.Styles.TextBlock}"
+						Text="Don't show again"
+						TextBlock.FontFamily="Segoe UI Light"
+						TextBlock.Foreground="#704523" />
 				</CheckBox>
 			</DockPanel>
 		</Grid>
-		<controls:MetroProgressBar Grid.Row="2" Name="ProgressBar" Foreground="Blue"/>
+		<controls:MetroProgressBar
+			Name="ProgressBar"
+			Grid.Row="2"
+			Foreground="#ff968a" />
 	</Grid>
-
-	<mah:MetroWindow.WindowButtonCommands>
-		<mah:WindowButtonCommands Minimize="A custom Tooltip which will be shown on Min button"
-                                  Maximize="Maximize the window"
-                                  Restore="Restore the window"
-                                  Close="Noooo... don't close me!"
-                                  LightMinButtonStyle="{StaticResource CustomLightMinButtonStyle}"
-                                  LightMaxButtonStyle="{StaticResource CustomLightMaxButtonStyle}"
-                                  LightCloseButtonStyle="{StaticResource CustomLightCloseButtonStyle}"
-                                  DarkMinButtonStyle="{StaticResource CustomDarkMinButtonStyle}"
-                                  DarkMaxButtonStyle="{StaticResource CustomDarkMaxButtonStyle}"
-                                  DarkCloseButtonStyle="{StaticResource CustomDarkCloseButtonStyle}" />
-	</mah:MetroWindow.WindowButtonCommands>
 </mah:MetroWindow>

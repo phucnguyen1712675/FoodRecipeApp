@@ -26,18 +26,6 @@ namespace FoodRecipeApp.GUI
 			set => ProgressBar.Value = value;
 		}
 
-/*		private void LaunchGitHubSite(object sender, RoutedEventArgs e)
-		{
-			System.Diagnostics.Process.Start("https://github.com/phucnguyen1712675/FoodRecipeApp");
-		}
-
-		}*/
-
-		private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-		{
-			//AdviceTextBlock.Text = QuotesDataSource.Instance.GetRandomQuote();
-		}
-
 		private MetroWindow _accentThemeTestWindow;
 
 		private void ChangeAppStyleButtonClick(object sender, RoutedEventArgs e)
@@ -60,8 +48,7 @@ namespace FoodRecipeApp.GUI
 
 		private void DoNotShowPlashScreenCheckBox_OnChecked(object sender, RoutedEventArgs e)
 		{
-			var config = ConfigurationManager.OpenExeConfiguration(
-				ConfigurationUserLevel.None);
+			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
 			config.AppSettings.Settings["ShowSplashScreen"].Value = "false";
 			config.Save(ConfigurationSaveMode.Minimal);
 		}

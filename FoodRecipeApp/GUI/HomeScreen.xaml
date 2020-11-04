@@ -4,8 +4,6 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-	xmlns:local="clr-namespace:FoodRecipeApp"
 	xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
@@ -50,7 +48,7 @@
 		</DataTemplate>
 
 		<Style BasedOn="{StaticResource {x:Type Frame}}" TargetType="{x:Type Frame}">
-			
+
 			<Setter Property="ClipToBounds" Value="True" />
 			<Setter Property="ContentTemplate">
 				<Setter.Value>
@@ -101,14 +99,7 @@
 		<mah:WindowButtonCommands
 			Close="Noooo... don't close me!"
 			DarkCloseButtonStyle="{StaticResource CustomDarkCloseButtonStyle}"
-			DarkMaxButtonStyle="{StaticResource CustomDarkMaxButtonStyle}"
-			DarkMinButtonStyle="{StaticResource CustomDarkMinButtonStyle}"
-			LightCloseButtonStyle="{StaticResource CustomLightCloseButtonStyle}"
-			LightMaxButtonStyle="{StaticResource CustomLightMaxButtonStyle}"
-			LightMinButtonStyle="{StaticResource CustomLightMinButtonStyle}"
-			Maximize="Maximize the window"
-			Minimize="A custom Tooltip which will be shown on Min button"
-			Restore="Restore the window" />
+			LightCloseButtonStyle="{StaticResource CustomLightCloseButtonStyle}" />
 	</mah:MetroWindow.WindowButtonCommands>
 
 	<mah:MetroWindow.LeftWindowCommands>
@@ -128,7 +119,7 @@
 
 	<mah:MetroWindow.RightWindowCommands>
 		<mah:WindowCommands>
-			<Button Click="ChangeAppStyleButtonClick">
+			<!--<Button Click="ChangeAppStyleButtonClick">
 				<StackPanel Orientation="Horizontal">
 					<iconPacks:PackIconModern
 						Width="24"
@@ -138,10 +129,43 @@
 						Margin="4,0,0,0"
 						VerticalAlignment="Center"
 						Text="Change App Style..." />
+
 				</StackPanel>
-			</Button>
+			</Button>-->
+
+			<ToggleButton
+				Content="First Flyout"
+				Cursor="Hand"
+				IsChecked="{Binding ElementName=firstFlyout, Path=IsOpen}" />
+
+			<ToggleButton
+				Content="Second Flyout"
+				Cursor="Hand"
+				IsChecked="{Binding ElementName=secondFlyout, Path=IsOpen}" />
 		</mah:WindowCommands>
 	</mah:MetroWindow.RightWindowCommands>
+
+	<mah:MetroWindow.Flyouts>
+		<mah:FlyoutsControl>
+			<mah:Flyout
+				x:Name="firstFlyout"
+				Width="200"
+				Header="Flyout"
+				Position="Left"
+				Theme="Accent">
+				<!--  Your custom content here  -->
+			</mah:Flyout>
+
+			<mah:Flyout
+				x:Name="secondFlyout"
+				Width="300"
+				Header="Second Flyout"
+				Position="Right"
+				Theme="Inverse">
+				<!--  Your custom content here  -->
+			</mah:Flyout>
+		</mah:FlyoutsControl>
+	</mah:MetroWindow.Flyouts>
 
 	<DockPanel>
 		<controls:HamburgerMenu

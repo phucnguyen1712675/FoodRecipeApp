@@ -68,7 +68,7 @@
 					TransitionDuration="0:0:.5">
 
 					<telerik:RadFluidContentControl.Content>
-						
+
 						<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
 							<Grid.RowDefinitions>
@@ -77,12 +77,11 @@
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 
-							<Grid
-								Grid.Row="0"
-								Grid.RowSpan="2"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center">
-								<Image Source="{Binding ImagePath}" Stretch="UniformToFill" />
+							<Grid Grid.Row="0" Grid.RowSpan="2">
+								<Image
+									HorizontalAlignment="Center"
+									Source="{Binding ImagePath}"
+									Stretch="UniformToFill" />
 							</Grid>
 
 							<ToggleButton
@@ -152,8 +151,8 @@
 											BorderThickness="0,0,0,2">
 											<Grid Grid.Row="0">
 												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="8*" />
-													<ColumnDefinition Width="2*" />
+													<ColumnDefinition Width="*" />
+													<ColumnDefinition Width="Auto" />
 												</Grid.ColumnDefinitions>
 												<TextBlock
 													x:Name="DishNameTextBlock"
@@ -172,7 +171,7 @@
 											</Grid>
 										</Border>
 
-                                        <!--  description  -->
+										<!--  description  -->
 										<Grid Grid.Row="1" Margin="15">
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="1*" />
@@ -214,23 +213,23 @@
 									</StackPanel>
 								</Border>
 
-                                <!--  video hướng dẫn  -->
-                                <Border
+								<!--  video hướng dẫn  -->
+								<Border
 									Margin="15"
 									Background="AliceBlue"
 									CornerRadius="3">
-                                    <Border.Effect>
-                                        <DropShadowEffect
+									<Border.Effect>
+										<DropShadowEffect
 											BlurRadius="3"
 											Opacity="0.5"
 											ShadowDepth="1" />
-                                    </Border.Effect>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="7*" />
-                                            <ColumnDefinition Width="3*" />
-                                        </Grid.ColumnDefinitions>
-                                        <TextBlock
+									</Border.Effect>
+									<Grid>
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="7*" />
+											<ColumnDefinition Width="3*" />
+										</Grid.ColumnDefinitions>
+										<TextBlock
 											x:Name="DishVideoTextBlock"
 											Grid.Column="0"
 											Margin="20"
@@ -239,7 +238,7 @@
 											Text="Xem video hướng dẫn"
 											TextAlignment="Justify"
 											TextWrapping="Wrap" />
-                                        <Button
+										<Button
 											Name="VideoDishButton"
 											Grid.Column="1"
 											Height="60"
@@ -248,14 +247,14 @@
 											Content="Xem video"
 											FontSize="20"
 											Tag="{Binding Video}" />
-                                        <Border
+										<Border
 											Margin="20,10,20,10"
 											BorderBrush="#FFD80073"
 											BorderThickness="0,0,0,2" />
-                                    </Grid>
-                                </Border>
+									</Grid>
+								</Border>
 
-                                <!--  Xem hướng dẫn cụ thể các bước làm  -->
+								<!--  Xem hướng dẫn cụ thể các bước làm  -->
 								<Border
 									Margin="15"
 									Background="AliceBlue"
@@ -649,6 +648,327 @@
 								Maximum="{Binding FavouriteRecipesPageCountTotal}"
 								Minimum="1"
 								Value="{Binding FavouriteRecipesCustomPageSize, Mode=TwoWay}" />
+							<Label
+								Width="Auto"
+								HorizontalContentAlignment="Center"
+								VerticalContentAlignment="Center"
+								Background="White"
+								BorderBrush="LightGray"
+								BorderThickness="1,1,1,0"
+								Content="Page Size:"
+								DockPanel.Dock="Right"
+								Style="{DynamicResource MaterialDesignLabel}" />
+						</DockPanel>
+					</Grid>
+				</mah:MetroTabItem>
+
+				<mah:MetroTabItem x:Name="SearchTabItem" Header="Search here">
+					<Grid Width="Auto" Height="Auto">
+
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+
+						<!--<Grid
+							Grid.Column="0"
+							Margin="3,0,1,0"
+							TextBlock.FontFamily="Arial">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="2*" />
+								<RowDefinition Height="1*" />
+								<RowDefinition Height="2*" />
+								<RowDefinition Height="1*" />
+								<RowDefinition Height="7*" />
+								<RowDefinition Height="1*" />
+								<RowDefinition Height="7*" />
+							</Grid.RowDefinitions>
+							-->
+						<!--  Row 0  -->
+						<!--
+							<Grid Grid.Row="0">
+
+								<TextBlock
+									x:Name="FilterTextBlock"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontSize="20"
+									Text="Bộ lọc tìm kiếm"
+									TextBlock.FontWeight="Bold" />
+								<Button
+									Margin="0"
+									HorizontalAlignment="Left"
+									VerticalAlignment="center"
+									Background="{x:Null}"
+									BorderBrush="{x:Null}"
+									BorderThickness="0"
+									Click="Unchecked_Click"
+									Foreground="{x:Null}">
+									<Image Opacity="1" Source="/Resources/reset.png" />
+								</Button>
+							</Grid>
+							-->
+						<!--  Row 1  -->
+						<!--
+							<Label
+								Grid.Row="1"
+								VerticalAlignment="Center"
+								Background="LightGreen"
+								Content="Loại món"
+								TextBlock.FontWeight="Bold" />
+
+							-->
+						<!--  Row 2  -->
+						<!--
+							<Grid Grid.Row="2">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="1*" />
+									<ColumnDefinition Width="1*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="1*" />
+								</Grid.RowDefinitions>
+								<CheckBox
+									Name="checkBox1"
+									Grid.Row="0"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Chay"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox2"
+									Grid.Row="0"
+									Grid.Column="1"
+									Content="Mặn"
+									Style="{StaticResource CheckBoxStyle}" />
+
+							</Grid>
+							-->
+						<!--  Row 3  -->
+						<!--
+							<Label
+								Grid.Row="3"
+								VerticalAlignment="Center"
+								Background="LightGreen"
+								Content="Nguyên liệu chính"
+								TextBlock.FontWeight="Bold" />
+							-->
+						<!--  Row 4  -->
+						<!--
+							<Grid Grid.Row="4">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="1*" />
+									<ColumnDefinition Width="1*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="1*" />
+									<RowDefinition Height="1*" />
+									<RowDefinition Height="1*" />
+									<RowDefinition Height="1*" />
+								</Grid.RowDefinitions>
+								<CheckBox
+									Name="checkBox3"
+									Grid.Row="0"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Heo"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox4"
+									Grid.Row="0"
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Content="Gà"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox5"
+									Grid.Row="1"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Bò"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox6"
+									Grid.Row="1"
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Content="Dê"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox7"
+									Grid.Row="2"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Hải sản"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox8"
+									Grid.Row="2"
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Content="Khác"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox9"
+									Grid.Row="3"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Đồ ngọt"
+									Style="{StaticResource CheckBoxStyle}" />
+
+							</Grid>
+							-->
+						<!--  Row 5  -->
+						<!--
+							<Label
+								Grid.Row="5"
+								VerticalAlignment="Center"
+								Background="LightGreen"
+								Content="Cách chế biến"
+								TextBlock.FontWeight="Bold" />
+							-->
+						<!--  Row 6  -->
+						<!--
+							<Grid Grid.Row="6">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="1*" />
+									<ColumnDefinition Width="1*" />
+								</Grid.ColumnDefinitions>
+								<Grid.RowDefinitions>
+									<RowDefinition Height="1*" />
+									<RowDefinition Height="1*" />
+									<RowDefinition Height="1*" />
+									<RowDefinition Height="1*" />
+								</Grid.RowDefinitions>
+								<CheckBox
+									Name="checkBox11"
+									Grid.Row="0"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Chiên"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox12"
+									Grid.Row="0"
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Content="Xào"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox13"
+									Grid.Row="1"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Nấu"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox14"
+									Grid.Row="1"
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Content="Kho"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox15"
+									Grid.Row="2"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Nướng"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox16"
+									Grid.Row="2"
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Content="Hấp"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox17"
+									Grid.Row="3"
+									Grid.Column="0"
+									HorizontalAlignment="Stretch"
+									Content="Lên men"
+									Style="{StaticResource CheckBoxStyle}" />
+								<CheckBox
+									Name="checkBox18"
+									Grid.Row="3"
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Content="Khác"
+									Style="{StaticResource CheckBoxStyle}" />
+							</Grid>
+						</Grid>-->
+
+						<!--<Grid Grid.Row="0">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="21*"/>
+								<ColumnDefinition Width="1*"/>
+							</Grid.ColumnDefinitions>
+							<TextBox HorizontalAlignment="Stretch"
+                             VerticalAlignment="Stretch"
+                            FontSize="25"
+                                 BorderThickness="0"
+                                     mah:TextBoxHelper.Watermark="Nhập tên món ăn"
+                                     mah:TextBoxHelper.ClearTextButton="True"
+                                      TextWrapping="Wrap"
+                                     Background="{x:Null}"
+                                     Margin="5"  CaretBrush="{x:Null}" Foreground="Black" BorderBrush="{x:Null}" >
+							</TextBox>
+							<Button Grid.Column="1"
+                            VerticalAlignment="center"
+                            Click="Search_Click"
+                            Background="{x:Null}" Foreground="{x:Null}"
+
+                            BorderBrush="{x:Null}" Margin="1,1,1,1"
+                            BorderThickness="0">
+								<Image
+                                Source="/Resources/recipe-book.ico"
+                                Opacity="1">
+								</Image>
+							</Button>
+						</Grid>-->
+
+						<telerik:RadTileView
+							x:Name="SearchRecipesTileView"
+							Grid.Row="0"
+							telerik:StyleManager.Theme="Office2019"
+							ContentTemplate="{StaticResource ContentTemplate}"
+							ItemTemplate="{StaticResource ItemTemplate}"
+							ItemsSource="{Binding PagedSource, ElementName=SearchRecipesPager}"
+							SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+							TileStateChanged="radTileView_TileStateChanged" />
+
+						<telerik:RadDataPager
+							x:Name="SearchRecipesPager"
+							Grid.Row="1"
+							Margin="0,10,0,0"
+							telerik:StyleManager.Theme="Office2019"
+							BorderThickness="1,0,1,1"
+							DisplayMode="PreviousNextNumeric"
+							FontSize="14"
+							IsTotalItemCountFixed="True"
+							PageIndexChanging="Pager_PageIndexChanging"
+							PageSize="{Binding SearchRecipesCustomPageSize}"
+							Source="{Binding SearchRecipes}" />
+
+						<DockPanel
+							x:Name="SearchRecipesPageSizeSettingDockPanel"
+							Grid.Row="2"
+							Margin="0,2,0,0"
+							HorizontalAlignment="Right"
+							LastChildFill="True">
+
+							<telerik:RadNumericUpDown
+								Width="100"
+								telerik:StyleManager.Theme="Office2019"
+								BorderBrush="LightGray"
+								BorderThickness="1"
+								DockPanel.Dock="Right"
+								IsInteger="True"
+								Maximum="{Binding SearchRecipesPageCountTotal}"
+								Minimum="1"
+								Value="{Binding SearchRecipesCustomPageSize, Mode=TwoWay}" />
 							<Label
 								Width="Auto"
 								HorizontalContentAlignment="Center"

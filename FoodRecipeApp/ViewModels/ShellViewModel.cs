@@ -30,21 +30,6 @@ namespace FoodRecipeApp.ViewModels
 		        NavigationType = typeof(MainPage),
 		        NavigationDestination = new Uri("GUI/MainPage.xaml", UriKind.RelativeOrAbsolute)
 	        });
-			this.Menu.Add(new MenuItem()
-	        {
-		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.SearchSolid },
-
-		        Label = "Search Screen",
-		        NavigationType = typeof(SearchScreen),
-		        NavigationDestination = new Uri("GUI/SearchScreen.xaml", UriKind.RelativeOrAbsolute)
-	        });
-	        this.Menu.Add(new MenuItem()
-	        {
-		        Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.PlusCircleSolid },
-		        Label = "Add Recipe",
-		        NavigationType = typeof(AddRecipe),
-		        NavigationDestination = new Uri("GUI/AddRecipe.xaml", UriKind.RelativeOrAbsolute)
-	        });
 
 			this.OptionsMenu.Add(new MenuItem()
 	        {

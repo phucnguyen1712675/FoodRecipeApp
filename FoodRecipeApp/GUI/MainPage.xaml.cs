@@ -54,7 +54,7 @@ namespace FoodRecipeApp.GUI
 
 			if (DishDAO.Instance.updateFavouriteRecipe(dataItem.DishCode.ToString()) == 1)
 			{
-				MessageBox.Show("Updated");
+				//Success
 
 				var viewModel = (RecipeViewModel)AppMainpage.DataContext;
 				if (dataItem.IsLove)

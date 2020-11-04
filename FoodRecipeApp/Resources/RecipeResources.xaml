@@ -64,4 +64,11 @@
 		<Setter Property="HeaderStyle" Value="{StaticResource TileItemHeaderStyle}" />
 		<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
 	</Style>
+
+	<Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="TextBlock.FontFamily" Value="Arial" />
+		<Setter Property="Foreground" Value="Black" />
+	</Style>
 </ResourceDictionary>

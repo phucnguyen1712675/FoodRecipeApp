@@ -65,10 +65,15 @@ namespace FoodRecipeApp.DAO
             //return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'Mặn,chay'");
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'" + filterQuery + "'");
         }
-
-		public DataTable getNewestDishCode()
+   
+        public DataTable getNewestDishCode()
 		{
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getNewestDish");
 		}
+        public DataTable getDishByName(string dishName)
+        {
+            return DataProvider.Instance.ExecuteQuery("EXEC  USP_getDishByName @Name = N'" + dishName + "'");
+        }
+
     }
 }

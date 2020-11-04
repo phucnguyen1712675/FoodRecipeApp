@@ -17,6 +17,8 @@ using Telerik.Windows.Controls;
 using System.ComponentModel;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.ObjectModel;
+using FoodRecipeApp.DAO;
+using FoodRecipeApp.ViewModels;
 
 namespace FoodRecipeApp.GUI
 {
@@ -25,6 +27,8 @@ namespace FoodRecipeApp.GUI
 	/// </summary>
 	public partial class SearchScreen : Page
 	{
+		public static SearchScreen SearchPage;
+
 		CheckedList ListCheckBoxes
         {
 			get;
@@ -37,31 +41,15 @@ namespace FoodRecipeApp.GUI
 			InitializeComponent();
 
 			AddAllCheckBox();
-			//FullList = DishesDataSource.Instance.AllRecipesCollection;
+			FullList = DishesCollection.GetAllDishes();
 			ShowAll();
+			SearchPage = this;
+			var viewModel = new RecipeViewModel();
+			this.DataContext = viewModel;
 
 			// Getting the currently selected ListBoxItem
 			// Note that the ListBox must have
 			// IsSynchronizedWithCurrentItem set to True for this to work
-		}
-		private childItem FindVisualChild<childItem>(DependencyObject obj)
-	where childItem : DependencyObject
-		{
-			for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
-			{
-				DependencyObject child = VisualTreeHelper.GetChild(obj, i);
-				if (child != null && child is childItem)
-				{
-					return (childItem)child;
-				}
-				else
-				{
-					childItem childOfChild = FindVisualChild<childItem>(child);
-					if (childOfChild != null)
-						return childOfChild;
-				}
-			}
-			return null;
 		}
 		public int AddAllCheckBox()
         {
@@ -105,54 +93,119 @@ namespace FoodRecipeApp.GUI
 		}
 		private void Search_Click(object sender, RoutedEventArgs e)
         {
+			string NameSearch = SearchBox.Text;
+			this.FilterList = DishesCollection.GetDishByName(NameSearch);
+			ShowSearchResult();
+		}
+        private void Unchecked_Click(object sender, RoutedEventArgs e)
+        {
+			ShowAll();
+			SearchBox.Clear();
+			ListCheckBoxes.UncheckAll();
+		}
+		private static void OnCanAddFavouriteItemCommandExecute(object sender, CanExecuteRoutedEventArgs e)
+		{
+			e.CanExecute = true;
 		}
 
-        private void Previous_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Next_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-		private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+		private static void OnAddFavouriteItemCommandExecute(object sender, ExecutedRoutedEventArgs e)
 		{
-			//this.DialogBox.Visibility = System.Windows.Visibility.Collapsed;
+			var tileViewItem = sender as RadTileViewItem;
+			var tileView = tileViewItem.ParentTileView as RadTileView;
+
+			if (tileViewItem == null || tileView == null || tileView.ItemsSource == null) return;
+
+			var dataItem = tileView.ItemContainerGenerator.ItemFromContainer(tileViewItem) as Dish;
+
+			if (dataItem == null) return;
+
+			if (DishDAO.Instance.updateFavouriteRecipe(dataItem.DishCode.ToString()) == 1)
+			{
+				MessageBox.Show("Updated");
+
+				var viewModel = (RecipeViewModel)SearchPage.DataContext;
+				if (dataItem.IsLove)
+				{
+					var item = viewModel.Recipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+					viewModel.AddNewItemToFavouriteRecipesList(dataItem);
+				}
+				else
+				{
+					var item = viewModel.FavouriteRecipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+					viewModel.RemoveItemFromFavouriteRecipesList(item);
+					foreach (var tom in viewModel.Recipes.Where(w => w.DishCode == dataItem.DishCode))
+					{
+						tom.IsLove = dataItem.IsLove;
+					}
+				}
+				if (!viewModel.UpdateFavouriteRecipesCustomPageSize())
+				{
+					MessageBox.Show("Error");
+				}
+			}
 		}
 
 		private void radTileView_TileStateChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
 		{
 			RadTileViewItem item = e.OriginalSource as RadTileViewItem;
-			if (item != null)
+
+			if (item == null) return;
+
+			RadFluidContentControl fluid = item.ChildrenOfType<RadFluidContentControl>().FirstOrDefault();
+
+			if (fluid == null) return;
+
+			switch (item.TileState)
 			{
-				RadFluidContentControl fluid = item.ChildrenOfType<RadFluidContentControl>().FirstOrDefault();
-				if (fluid != null)
-				{
-					switch (item.TileState)
-					{
-						case TileViewItemState.Maximized:
-							fluid.State = FluidContentControlState.Large;
-							break;
-						case TileViewItemState.Minimized:
-							fluid.State = FluidContentControlState.Normal;
-							break;
-						case TileViewItemState.Restored:
-							fluid.State = FluidContentControlState.Normal;
-							break;
-						default:
-							break;
-					}
-				}
+				case TileViewItemState.Maximized:
+					fluid.State = FluidContentControlState.Large;
+					break;
+				case TileViewItemState.Minimized:
+					fluid.State = FluidContentControlState.Normal;
+					break;
+				case TileViewItemState.Restored:
+					fluid.State = FluidContentControlState.Normal;
+					break;
+				default:
+					break;
 			}
 		}
 
-        private void Unchecked_Click(object sender, RoutedEventArgs e)
-        {
-			ShowAll();
-			ListCheckBoxes.UncheckAll();
+		private void DetailSteps_Click(object sender, RoutedEventArgs e)
+		{
+			Button temp = (Button)sender;
+			int DishCode = (int)(temp.Tag);
+			List<Step> steps = Step.getAllStepsInDish(DishCode);
+			var addedStepsScreen = new AddedStepWindow(steps);
+			addedStepsScreen.Dying += OpenThis;
+			addedStepsScreen.Show();
+			HomeScreen.homeScreen.Hide();
 		}
-	}
+
+		private void OpenThis()
+		{
+			HomeScreen.homeScreen.Show();
+		}
+
+		private void Pager_PageIndexChanging(object sender, PageIndexChangingEventArgs e)
+		{
+			//Do nothing
+		}
+
+		private void VideoDishButton_Click(object sender, RoutedEventArgs e)
+		{
+			Button temp = (Button)sender;
+			string Video = temp.Tag.ToString();
+			youtubeWindow youtubeWindow = new youtubeWindow(Video);
+			youtubeWindow.Show();
+		}
+
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+			string NameSearch = SearchBox.Text;
+			this.FilterList = DishesCollection.GetDishByName(NameSearch);
+			ShowSearchResult();
+		}
+    }
 
 }

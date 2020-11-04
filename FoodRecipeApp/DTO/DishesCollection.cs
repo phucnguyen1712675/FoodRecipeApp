@@ -51,7 +51,18 @@ namespace FoodRecipeApp.DTO
             }
             return dishes;
         }
-
+        public static DishesCollection GetDishByName(string queryFilter)
+        {
+            DishesCollection dishes = new DishesCollection();
+            DataTable data = DishDAO.Instance.getDishByName(queryFilter);
+            //MessageBox.Show(data.Rows.Count.ToString());
+            foreach (DataRow row in data.Rows)
+            {
+                Dish dish = new Dish(row);
+                dishes.Add(dish);
+            }
+            return dishes;
+        }
         public static DishesCollection GetFavouriteDishes()
 		{
             DishesCollection dishes = new DishesCollection();

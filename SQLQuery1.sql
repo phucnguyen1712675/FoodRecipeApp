@@ -1890,6 +1890,8 @@ where dbo.ufn_removeMark(Name) LIKE '%'+ @Name +'%' OR Name LIKE '%'+ @Name +'%'
 END
 GO
 
+-- exec USP_getDishByName @Name = 'Che'
+
 create procedure USP_GetDishByDishCode
 @Dish int
 as

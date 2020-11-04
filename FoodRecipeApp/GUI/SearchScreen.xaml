@@ -4,8 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 					xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
+	xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
-    xmlns:local="clr-namespace:FoodRecipeApp.GUI"
+    xmlns:local="clr-namespace:FoodRecipeApp"
       xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
 		xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     
@@ -16,6 +17,333 @@
       mc:Ignorable="d"
 		>
     <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FoodRecipeApp;component/Resources/RecipeResources.xaml" />
+                <ResourceDictionary Source="/Telerik.Windows.Controls;component/Themes/FontResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style
+				x:Key="CustomToggleButtonStyle"
+				BasedOn="{StaticResource MaterialDesignActionToggleButton}"
+				TargetType="{x:Type ToggleButton}">
+
+                <Setter Property="Width" Value="40" />
+                <Setter Property="Height" Value="40" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="HorizontalAlignment" Value="Right" />
+                <Setter Property="VerticalAlignment" Value="Bottom" />
+                <Setter Property="Background" Value="#ff2014" />
+                <Setter Property="ToolTip" Value="Add to Favourite List" />
+                <Setter Property="IsEnabled" Value="True" />
+                <Setter Property="IsChecked" Value="{Binding IsLove, Converter={StaticResource LoveImageConverter}}" />
+                <Setter Property="Command" Value="local:TileViewCommandsExtension.AddNewFavouriteRecipe" />
+
+                <Style.Triggers>
+                    <DataTrigger />
+                </Style.Triggers>
+            </Style>
+
+            <DataTemplate x:Key="ItemTemplate">
+
+                <!--<StackPanel Orientation="Horizontal">
+
+					<Border Height="10" Background="#fff261" />
+					<TextBlock Text="{Binding Name}" />
+
+				</StackPanel>-->
+            </DataTemplate>
+
+            <DataTemplate x:Key="ContentTemplate">
+
+                <telerik:RadFluidContentControl
+					telerik:StyleManager.Theme="Office2019"
+					ContentChangeMode="Manual"
+					State="Normal"
+					TransitionDuration="0:0:.5">
+
+                    <telerik:RadFluidContentControl.Content>
+
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid
+								Grid.Row="0"
+								Grid.RowSpan="2"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center">
+                                <Image Source="{Binding ImagePath}" Stretch="UniformToFill" />
+                            </Grid>
+
+                            <ToggleButton
+								Grid.Row="1"
+								materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Heart}"
+								Content="{materialDesign:PackIcon Kind=HeartOutline}"
+								Style="{StaticResource CustomToggleButtonStyle}" />
+
+                            <Grid Grid.Row="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Border
+									Grid.Row="0"
+									Height="10"
+									Background="#fff261"
+									Visibility="Hidden" />
+
+                                <Label
+									Grid.Row="1"
+									HorizontalAlignment="Left"
+									VerticalAlignment="Center"
+									Content="{Binding Name}"
+									FontSize="16"
+									Foreground="#005f8f"
+									Style="{StaticResource MahApps.Styles.Label}" />
+                            </Grid>
+
+                        </Grid>
+                    </telerik:RadFluidContentControl.Content>
+
+                    <telerik:RadFluidContentControl.LargeContent>
+                        <ScrollViewer
+							Width="1050"
+							Height="550"
+							Padding="10"
+							HorizontalAlignment="Center"
+							HorizontalScrollBarVisibility="Hidden"
+							VerticalScrollBarVisibility="Visible">
+                            <StackPanel Width="980">
+
+                                <!--  ảnh + tên + thể loại  -->
+                                <Border
+									Margin="15"
+									Background="AliceBlue"
+									CornerRadius="3">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+											BlurRadius="3"
+											Opacity="0.5"
+											ShadowDepth="1" />
+                                    </Border.Effect>
+                                    <StackPanel Width="900">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1*" />
+                                                <RowDefinition Height="7*" />
+                                            </Grid.RowDefinitions>
+                                        </Grid>
+                                        <Border
+											Grid.Row="0"
+											Margin="20,10,20,10"
+											Padding="15"
+											BorderBrush="#FFD80073"
+											BorderThickness="0,0,0,2">
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="8*" />
+                                                    <ColumnDefinition Width="2*" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+													x:Name="DishNameTextBlock"
+													Grid.Column="0"
+													FontSize="40"
+													Foreground="#332226"
+													Text="{Binding Name, Converter={StaticResource DishNameConverter}}"
+													TextAlignment="Justify"
+													TextWrapping="Wrap" />
+
+                                                <ToggleButton
+													Grid.Row="1"
+													materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Heart}"
+													Content="{materialDesign:PackIcon Kind=HeartOutline}"
+													Style="{StaticResource CustomToggleButtonStyle}" />
+                                            </Grid>
+                                        </Border>
+
+                                        <!--  description  -->
+                                        <Grid Grid.Row="1" Margin="15">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border
+												Grid.Column="0"
+												Padding="5"
+												VerticalAlignment="Center"
+												BorderBrush="LightPink"
+												BorderThickness="1">
+                                                <Image x:Name="ImagePathImage" Source="{Binding ImagePath}" />
+                                            </Border>
+                                            <StackPanel Grid.Column="1" Margin="20,10">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label
+														Content="Thể loại : "
+														FontSize="20"
+														Foreground="#332226" />
+                                                    <Label
+														Content="{Binding Loai, Converter={StaticResource TypesStringAddSpaceConverter}}"
+														FontSize="20"
+														Foreground="#332226" />
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock
+														x:Name="DescriptionDishTextBlock"
+														Margin="3"
+														VerticalAlignment="Stretch"
+														AllowDrop="False"
+														FontSize="20"
+														Foreground="#332226"
+														Text="{Binding Desciption}"
+														TextAlignment="Justify"
+														TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
+
+                                <!--  video hướng dẫn  -->
+                                <Border
+									Margin="15"
+									Background="AliceBlue"
+									CornerRadius="3">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+											BlurRadius="3"
+											Opacity="0.5"
+											ShadowDepth="1" />
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="7*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+											x:Name="DishVideoTextBlock"
+											Grid.Column="0"
+											Margin="20"
+											FontSize="40"
+											Foreground="#332226"
+											Text="Xem video hướng dẫn"
+											TextAlignment="Justify"
+											TextWrapping="Wrap" />
+                                        <Button
+											Name="VideoDishButton"
+											Grid.Column="1"
+											Height="60"
+											Margin="20"
+											Click="VideoDishButton_Click"
+											Content="Xem video"
+											FontSize="20"
+											Tag="{Binding Video}" />
+                                        <Border
+											Margin="20,10,20,10"
+											BorderBrush="#FFD80073"
+											BorderThickness="0,0,0,2" />
+                                    </Grid>
+                                </Border>
+
+                                <!--  Xem hướng dẫn cụ thể các bước làm  -->
+                                <Border
+									Margin="15"
+									Background="AliceBlue"
+									CornerRadius="3">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+											BlurRadius="3"
+											Opacity="0.5"
+											ShadowDepth="1" />
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="7*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+											x:Name="DishStepsTextBlock"
+											Grid.Column="0"
+											Margin="20"
+											FontSize="40"
+											Foreground="#332226"
+											Text="Các bước làm"
+											TextAlignment="Justify"
+											TextWrapping="Wrap" />
+                                        <Button
+											Name="DetailSteps"
+											Grid.Column="1"
+											Height="60"
+											Margin="20"
+											Click="DetailSteps_Click"
+											Content="Xem Chi tiết"
+											FontSize="20"
+											Tag="{Binding DishCode}" />
+                                        <Border
+											Margin="20,10,20,10"
+											BorderBrush="#FFD80073"
+											BorderThickness="0,0,0,2" />
+                                    </Grid>
+                                </Border>
+
+
+                            </StackPanel>
+                        </ScrollViewer>
+                    </telerik:RadFluidContentControl.LargeContent>
+
+                </telerik:RadFluidContentControl>
+            </DataTemplate>
+
+            <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <telerik:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+
+            <Style x:Key="AutoCompleteCustomTextBoxStyle" TargetType="telerik:RadWatermarkTextBox">
+                <Setter Property="AdditionalContent">
+                    <Setter.Value>
+                        <telerik:RadButton
+							Command="{Binding ClearSelectionCommand}"
+							CommandTarget="{Binding ElementName=foodAutoCompleteBox}"
+							Focusable="False"
+							IsBackgroundVisible="False"
+							Visibility="{Binding ElementName=foodAutoCompleteBox, Path=DataContext.IsClearButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <telerik:RadGlyph Glyph="{StaticResource GlyphClose}" />
+                        </telerik:RadButton>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <DataTemplate x:Key="FoodsSearchAutoComplete">
+                <StackPanel Orientation="Horizontal">
+                    <Image
+						Width="40"
+						Height="30"
+						Source="{Binding ImagePath}" />
+                    <TextBlock
+						Margin="10,0,0,0"
+						VerticalAlignment="Center"
+						Text="{Binding Name}" />
+                </StackPanel>
+            </DataTemplate>
+            <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+                <EventSetter Event="Checked" Handler="Check_Click" />
+                <EventSetter Event="Unchecked" Handler="Check_Click"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="TextBlock.FontFamily" Value="Arial"/>
+                <Setter Property="Foreground" Value="Black"/>
+
+
+            </Style>
+        </ResourceDictionary>
+
+
+    </Page.Resources>
+    <!--<Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/FoodRecipeApp;component/Resources/SearchResultResources.xaml" />
@@ -30,10 +358,10 @@
                 
 
             </Style>
-            <!--Style="{StaticResource CheckBoxStyle}"-->
+            --><!--Style="{StaticResource CheckBoxStyle}"--><!--
         </ResourceDictionary>
         
-    </Page.Resources>
+    </Page.Resources>-->
 
     <!--<Page.Resources>
         <ResourceDictionary>
@@ -191,7 +519,9 @@
                             <ColumnDefinition Width="21*"/>
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBox HorizontalAlignment="Stretch" 
+                        <TextBox Name="SearchBox" 
+                                 TextChanged="SearchBox_TextChanged"
+                            HorizontalAlignment="Stretch" 
                              VerticalAlignment="Stretch"
                             FontSize="25"
                                  BorderThickness="0"
@@ -221,8 +551,8 @@
                     <telerik:RadTileView Grid.Row="0"
 							 x:Name="radTileView"
 							 ItemsSource="{Binding}"
-							 ItemTemplate="{StaticResource sizeTemplate}"
-                             ContentTemplate="{StaticResource contentTemplate}"
+							 ItemTemplate="{StaticResource ItemTemplate}"
+                             ContentTemplate="{StaticResource ContentTemplate}"
 							 TileStateChanged="radTileView_TileStateChanged"/>
 
 

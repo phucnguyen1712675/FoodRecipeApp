@@ -115,6 +115,8 @@ namespace FoodRecipeApp.GUI
 			HomeScreen.homeScreen.Hide();
 		}
 
+
+
 		private void OpenThis()
 		{
 			HomeScreen.homeScreen.Show();
@@ -132,5 +134,13 @@ namespace FoodRecipeApp.GUI
 			youtubeWindow youtubeWindow = new youtubeWindow(Video);
 			youtubeWindow.Show();
         }
+
+        private void AddRecipeToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+			var addRecipeWindow = new AddRecipeWindow();
+			addRecipeWindow.Dying += OpenThis;
+			addRecipeWindow.Show();
+			HomeScreen.homeScreen.Hide();
+		}
     }
 }

@@ -518,6 +518,9 @@
     <Compile Include="GUI\AddRecipe.xaml.cs">
       <DependentUpon>AddRecipe.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\AddRecipeWindow.xaml.cs">
+      <DependentUpon>AddRecipeWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\HtmlBox.xaml.cs">
       <DependentUpon>HtmlBox.xaml</DependentUpon>
     </Compile>
@@ -568,6 +571,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\AddRecipe.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\AddRecipeWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

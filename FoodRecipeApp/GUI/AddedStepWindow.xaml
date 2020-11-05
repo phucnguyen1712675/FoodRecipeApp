@@ -8,8 +8,8 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
 	Title="Các Step Đã thêm"
-	Width="1140"
-	Height="540"
+	Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={converters:RatioConverter}, ConverterParameter='1'}"
+	Height="{Binding Source={x:Static SystemParameters.PrimaryScreenHeight}, Converter={converters:RatioConverter}, ConverterParameter='1'}"
 	Background="LightPink"
 	Closing="Window_Closing"
 	Icon="/Resources/recipe-book.ico"
@@ -18,9 +18,8 @@
 	WindowStartupLocation="CenterScreen"
 	WindowState="Maximized"
 	mc:Ignorable="d">
-	<!--  WindowState="Maximized"  -->
 
-	<Window.Resources>
+    <Window.Resources>
 		<ResourceDictionary>
 			<converters:StepLabelConverterAddRecipe x:Key="LableStepConverter" />
 			<converters:ImageConverter x:Key="ImageConverter" />
@@ -118,7 +117,7 @@
 													Stroke="#FF0998f8"
 													StrokeThickness="1" />
 												<DataTemplate x:Key="customImageItemTemplate">
-													<StackPanel Width="260" Height="190">
+													<StackPanel Width="190" Height="170">
 														<Image Source="{Binding Converter={StaticResource ImageConverter}}" />
 													</StackPanel>
 												</DataTemplate>

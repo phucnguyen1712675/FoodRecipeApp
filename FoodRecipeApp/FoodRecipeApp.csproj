@@ -535,7 +535,6 @@
     <Compile Include="MyRandom.cs" />
     <Compile Include="Navigation\NavigationServiceEx.cs" />
     <Compile Include="OcPropertyChangedListener.cs" />
-    <Compile Include="Resources\RecipeResources.cs" />
     <Compile Include="TileViewCommandsExtension.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />

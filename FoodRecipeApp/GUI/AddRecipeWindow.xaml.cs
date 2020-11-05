@@ -290,6 +290,7 @@ namespace FoodRecipeApp.GUI
         {
             steps.Clear();
             this.Close();
+
         }
         #endregion
 

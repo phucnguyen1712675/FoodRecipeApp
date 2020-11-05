@@ -377,286 +377,287 @@
 
 	<DockPanel x:Name="LayoutRoot">
 
-		<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+		<Grid>
+			<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
-			<mah:MetroAnimatedSingleRowTabControl
-				x:Name="MainTabControl"
-				SelectionChanged="MainTabControl_SelectionChanged"
-				Style="{StaticResource CustomTabControl}">
+				<mah:MetroAnimatedSingleRowTabControl
+					x:Name="MainTabControl"
+					SelectionChanged="MainTabControl_SelectionChanged"
+					Style="{StaticResource CustomTabControl}">
 
-				<mah:MetroTabItem x:Name="DiscoverTabItem" Header="Discover">
-					<Grid
-						x:Name="TopGrid"
-						Grid.Row="0"
-						Width="680">
-
-						<Grid.RowDefinitions>
-							<RowDefinition Height="200" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="60" />
-						</Grid.RowDefinitions>
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition />
-							<ColumnDefinition />
-							<ColumnDefinition />
-						</Grid.ColumnDefinitions>
-						<Image
+					<mah:MetroTabItem x:Name="DiscoverTabItem" Header="Discover">
+						<Grid
+							x:Name="TopGrid"
 							Grid.Row="0"
-							Grid.ColumnSpan="3"
-							Source="/Resources/MainPage/searchBackground.jpg"
-							Stretch="UniformToFill" />
-						<StackPanel Grid.Row="0" Grid.ColumnSpan="3">
-							<TextBlock
-								x:Name="SuggestTextBlock"
-								Height="35.6"
-								Margin="0,48,0,20"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Top"
-								FontFamily="Segoe UI Light"
-								FontSize="24"
-								Foreground="White"
-								Style="{DynamicResource MahApps.Styles.TextBlock}"
-								Text="Discover our Top Food Suggestions"
-								TextWrapping="Wrap" />
-							<telerik:RadAutoCompleteBox
-								x:Name="foodAutoCompleteBox"
-								Width="{Binding ElementName=SuggestTextBlock, Path=ActualWidth}"
-								Height="14"
-								MinHeight="24"
-								Margin="163,0"
-								VerticalAlignment="Center"
-								telerik:StyleManager.Theme="Office2019"
-								AutoCompleteMode="Suggest"
-								DropDownItemTemplate="{StaticResource FoodsSearchAutoComplete}"
-								Foreground="DarkGray"
-								IsDropDownOpen="{Binding IsDropDownOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-								ItemsSource="{Binding Recipes}"
-								NoResultsContent="No Matches"
-								SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-								SelectedItem="{Binding SelectedSearchItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-								SelectionMode="Single"
-								TextBoxStyle="{StaticResource AutoCompleteCustomTextBoxStyle}"
-								TextSearchMode="Contains"
-								TextSearchPath="Name"
-								WatermarkContent="Search all of our recipes" />
-						</StackPanel>
-						<Border
-							Grid.Row="1"
-							Grid.Column="0"
-							Margin="0,5,5,5"
-							Padding="10"
-							Background="White"
-							BorderBrush="#c5a1ff"
-							BorderThickness="1">
-							<TextBlock
-								Height="35.6"
-								Margin="0"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								FontFamily="Segoe UI Light"
-								FontSize="24"
-								Foreground="#c5a1ff"
-								Text="What's popular"
-								TextWrapping="Wrap" />
-						</Border>
+							Width="680">
 
-						<Border
-							Grid.Row="1"
-							Grid.Column="1"
-							Margin="5"
-							Padding="10"
-							Background="White"
-							BorderBrush="#c5a1ff"
-							BorderThickness="1">
-							<TextBlock
-								Height="35.6"
-								Margin="0"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								FontFamily="Segoe UI Light"
-								FontSize="24"
-								Foreground="#c5a1ff"
-								Text="What to cook?"
-								TextWrapping="Wrap" />
-						</Border>
-						<Border
-							Grid.Row="1"
-							Grid.Column="2"
-							Margin="5,5,0,5"
-							Padding="10"
-							Background="White"
-							BorderBrush="#c5a1ff"
-							BorderThickness="1">
-							<TextBlock
-								Height="35.6"
-								Margin="0"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								FontFamily="Segoe UI Light"
-								FontSize="24"
-								Foreground="#c5a1ff"
-								Text="Easy &amp; Healthy"
-								TextWrapping="Wrap" />
-						</Border>
-						<StackPanel
-							Grid.Row="2"
-							Grid.Column="0"
-							Grid.ColumnSpan="3"
-							HorizontalAlignment="Left"
-							Orientation="Horizontal"
-							Visibility="{Binding SelectedSearchItem, Converter={StaticResource NullToVisibilityConverter}}">
-							<Image Source="{Binding SelectedSearchItem.ImagePath}" />
-							<TextBlock
-								Margin="15,0"
-								VerticalAlignment="Center"
-								FontSize="24"
-								Opacity="0.8"
-								Text="{Binding SelectedSearchItem.Name}"
-								TextWrapping="Wrap" />
-							<Path
-								Margin="0,10,0,0"
-								VerticalAlignment="Center"
-								Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-								Fill="#c5a1ff">
-								<Path.RenderTransform>
-									<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-								</Path.RenderTransform>
-							</Path>
-
-							<Path
-								Margin="0,10,0,0"
-								VerticalAlignment="Center"
-								Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-								Fill="#c5a1ff">
-								<Path.RenderTransform>
-									<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-								</Path.RenderTransform>
-							</Path>
-
-							<Path
-								Margin="0,10,0,0"
-								VerticalAlignment="Center"
-								Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-								Fill="#c5a1ff">
-								<Path.RenderTransform>
-									<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-								</Path.RenderTransform>
-							</Path>
-
-							<Path
-								Margin="0,10,0,0"
-								VerticalAlignment="Center"
-								Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-								Fill="#c5a1ff">
-								<Path.RenderTransform>
-									<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-								</Path.RenderTransform>
-							</Path>
-
-							<Path
-								Margin="0,10,0,0"
-								VerticalAlignment="Center"
-								Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-								Fill="#c5a1ff">
-								<Path.RenderTransform>
-									<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-								</Path.RenderTransform>
-							</Path>
-						</StackPanel>
-					</Grid>
-				</mah:MetroTabItem>
-
-				<mah:MetroTabItem x:Name="AllRecipesTabItem" Header="All Recipes">
-
-					<Grid Width="Auto" Height="Auto">
-						<Grid.RowDefinitions>
-							<RowDefinition Height="*" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-
-						<telerik:RadTileView
-							x:Name="AllRecipesTileView"
-							Grid.Row="0"
-							ContentTemplate="{StaticResource ContentTemplate}"
-							ItemsSource="{Binding PagedSource, ElementName=AllRecipesPager}"
-							TileStateChanged="radTileView_TileStateChanged" />
-
-						<telerik:RadDataPager
-							x:Name="AllRecipesPager"
-							Grid.Row="1"
-							PageIndexChanging="Pager_PageIndexChanging"
-							PageSize="{Binding ElementName=AllRecipesNumericUpDown, Path=Value}"
-							Source="{Binding Recipes}" />
-
-						<DockPanel
-							x:Name="AllRecipesPageSizeSettingDockPanel"
-							Grid.Row="2"
-							Margin="0,2,0,0"
-							HorizontalAlignment="Right">
-
-							<telerik:RadNumericUpDown
-								x:Name="AllRecipesNumericUpDown"
-								DockPanel.Dock="Right"
-								Maximum="{Binding Recipes.Count}"
-								Value="{Binding AllRecipesPageSize, Mode=TwoWay}" />
-
-							<Label
+							<Grid.RowDefinitions>
+								<RowDefinition Height="200" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="60" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition />
+								<ColumnDefinition />
+								<ColumnDefinition />
+							</Grid.ColumnDefinitions>
+							<Image
+								Grid.Row="0"
+								Grid.ColumnSpan="3"
+								Source="/Resources/MainPage/searchBackground.jpg"
+								Stretch="UniformToFill" />
+							<StackPanel Grid.Row="0" Grid.ColumnSpan="3">
+								<TextBlock
+									x:Name="SuggestTextBlock"
+									Height="35.6"
+									Margin="0,48,0,20"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Top"
+									FontFamily="Segoe UI Light"
+									FontSize="24"
+									Foreground="White"
+									Style="{DynamicResource MahApps.Styles.TextBlock}"
+									Text="Discover our Top Food Suggestions"
+									TextWrapping="Wrap" />
+								<telerik:RadAutoCompleteBox
+									x:Name="foodAutoCompleteBox"
+									Width="{Binding ElementName=SuggestTextBlock, Path=ActualWidth}"
+									Height="14"
+									MinHeight="24"
+									Margin="163,0"
+									VerticalAlignment="Center"
+									telerik:StyleManager.Theme="Office2019"
+									AutoCompleteMode="Suggest"
+									DropDownItemTemplate="{StaticResource FoodsSearchAutoComplete}"
+									Foreground="DarkGray"
+									IsDropDownOpen="{Binding IsDropDownOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									ItemsSource="{Binding Recipes}"
+									NoResultsContent="No Matches"
+									SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									SelectedItem="{Binding SelectedSearchItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+									SelectionMode="Single"
+									TextBoxStyle="{StaticResource AutoCompleteCustomTextBoxStyle}"
+									TextSearchMode="Contains"
+									TextSearchPath="Name"
+									WatermarkContent="Search all of our recipes" />
+							</StackPanel>
+							<Border
+								Grid.Row="1"
+								Grid.Column="0"
+								Margin="0,5,5,5"
+								Padding="10"
 								Background="White"
-								Content="Page Size:"
-								DockPanel.Dock="Right"
-								Style="{DynamicResource MahApps.Styles.Label}" />
-						</DockPanel>
-					</Grid>
+								BorderBrush="#c5a1ff"
+								BorderThickness="1">
+								<TextBlock
+									Height="35.6"
+									Margin="0"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="Segoe UI Light"
+									FontSize="24"
+									Foreground="#c5a1ff"
+									Text="What's popular"
+									TextWrapping="Wrap" />
+							</Border>
 
-				</mah:MetroTabItem>
-
-				<mah:MetroTabItem x:Name="FavouriteRecipesTabItem" Header="Your Favourites">
-
-					<Grid Width="Auto" Height="Auto">
-
-						<Grid.RowDefinitions>
-							<RowDefinition Height="*" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
-
-						<telerik:RadTileView
-							x:Name="FavouriteRecipesTileView"
-							Grid.Row="0"
-							ContentTemplate="{StaticResource ContentTemplate}"
-							ItemsSource="{Binding PagedSource, ElementName=FavouriteRecipesPager}"
-							TileStateChanged="radTileView_TileStateChanged" />
-
-						<telerik:RadDataPager
-							x:Name="FavouriteRecipesPager"
-							Grid.Row="1"
-							PageIndexChanging="Pager_PageIndexChanging"
-							PageSize="{Binding ElementName=FavoriteNumericUpDown, Path=Value}"
-							Source="{Binding FavouriteRecipes}" />
-
-						<DockPanel
-							x:Name="FavouriteRecipesPageSizeSettingDockPanel"
-							Grid.Row="2"
-							Margin="0,2,0,0"
-							HorizontalAlignment="Right"
-							LastChildFill="True">
-
-							<telerik:RadNumericUpDown
-								x:Name="FavoriteNumericUpDown"
-								DockPanel.Dock="Right"
-								Maximum="{Binding FavouriteRecipes.Count}"
-								Value="{Binding FavouriteRecipesPageSize, Mode=TwoWay}" />
-							<Label
+							<Border
+								Grid.Row="1"
+								Grid.Column="1"
+								Margin="5"
+								Padding="10"
 								Background="White"
-								Content="Page Size:"
-								DockPanel.Dock="Right"
-								Style="{DynamicResource MahApps.Styles.Label}" />
-						</DockPanel>
-					</Grid>
-				</mah:MetroTabItem>
+								BorderBrush="#c5a1ff"
+								BorderThickness="1">
+								<TextBlock
+									Height="35.6"
+									Margin="0"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="Segoe UI Light"
+									FontSize="24"
+									Foreground="#c5a1ff"
+									Text="What to cook?"
+									TextWrapping="Wrap" />
+							</Border>
+							<Border
+								Grid.Row="1"
+								Grid.Column="2"
+								Margin="5,5,0,5"
+								Padding="10"
+								Background="White"
+								BorderBrush="#c5a1ff"
+								BorderThickness="1">
+								<TextBlock
+									Height="35.6"
+									Margin="0"
+									HorizontalAlignment="Center"
+									VerticalAlignment="Center"
+									FontFamily="Segoe UI Light"
+									FontSize="24"
+									Foreground="#c5a1ff"
+									Text="Easy &amp; Healthy"
+									TextWrapping="Wrap" />
+							</Border>
+							<StackPanel
+								Grid.Row="2"
+								Grid.Column="0"
+								Grid.ColumnSpan="3"
+								HorizontalAlignment="Left"
+								Orientation="Horizontal"
+								Visibility="{Binding SelectedSearchItem, Converter={StaticResource NullToVisibilityConverter}}">
+								<Image Source="{Binding SelectedSearchItem.ImagePath}" />
+								<TextBlock
+									Margin="15,0"
+									VerticalAlignment="Center"
+									FontSize="24"
+									Opacity="0.8"
+									Text="{Binding SelectedSearchItem.Name}"
+									TextWrapping="Wrap" />
+								<Path
+									Margin="0,10,0,0"
+									VerticalAlignment="Center"
+									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+									Fill="#c5a1ff">
+									<Path.RenderTransform>
+										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+									</Path.RenderTransform>
+								</Path>
 
-				<!--<mah:MetroTabItem x:Name="SearchTabItem" Header="Search here">
+								<Path
+									Margin="0,10,0,0"
+									VerticalAlignment="Center"
+									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+									Fill="#c5a1ff">
+									<Path.RenderTransform>
+										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+									</Path.RenderTransform>
+								</Path>
+
+								<Path
+									Margin="0,10,0,0"
+									VerticalAlignment="Center"
+									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+									Fill="#c5a1ff">
+									<Path.RenderTransform>
+										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+									</Path.RenderTransform>
+								</Path>
+
+								<Path
+									Margin="0,10,0,0"
+									VerticalAlignment="Center"
+									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+									Fill="#c5a1ff">
+									<Path.RenderTransform>
+										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+									</Path.RenderTransform>
+								</Path>
+
+								<Path
+									Margin="0,10,0,0"
+									VerticalAlignment="Center"
+									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+									Fill="#c5a1ff">
+									<Path.RenderTransform>
+										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+									</Path.RenderTransform>
+								</Path>
+							</StackPanel>
+						</Grid>
+					</mah:MetroTabItem>
+
+					<mah:MetroTabItem x:Name="AllRecipesTabItem" Header="All Recipes">
+
+						<Grid Width="Auto" Height="Auto">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<telerik:RadTileView
+								x:Name="AllRecipesTileView"
+								Grid.Row="0"
+								ContentTemplate="{StaticResource ContentTemplate}"
+								ItemsSource="{Binding PagedSource, ElementName=AllRecipesPager}"
+								TileStateChanged="radTileView_TileStateChanged" />
+
+							<telerik:RadDataPager
+								x:Name="AllRecipesPager"
+								Grid.Row="1"
+								PageIndexChanging="Pager_PageIndexChanging"
+								PageSize="{Binding ElementName=AllRecipesNumericUpDown, Path=Value}"
+								Source="{Binding Recipes}" />
+
+							<DockPanel
+								x:Name="AllRecipesPageSizeSettingDockPanel"
+								Grid.Row="2"
+								Margin="0,2,0,0"
+								HorizontalAlignment="Right">
+
+								<telerik:RadNumericUpDown
+									x:Name="AllRecipesNumericUpDown"
+									DockPanel.Dock="Right"
+									Maximum="{Binding Recipes.Count}"
+									Value="{Binding AllRecipesPageSize, Mode=TwoWay}" />
+
+								<Label
+									Background="White"
+									Content="Page Size:"
+									DockPanel.Dock="Right"
+									Style="{DynamicResource MahApps.Styles.Label}" />
+							</DockPanel>
+						</Grid>
+
+					</mah:MetroTabItem>
+
+					<mah:MetroTabItem x:Name="FavouriteRecipesTabItem" Header="Your Favourites">
+
+						<Grid Width="Auto" Height="Auto">
+
+							<Grid.RowDefinitions>
+								<RowDefinition Height="*" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
+
+							<telerik:RadTileView
+								x:Name="FavouriteRecipesTileView"
+								Grid.Row="0"
+								ContentTemplate="{StaticResource ContentTemplate}"
+								ItemsSource="{Binding PagedSource, ElementName=FavouriteRecipesPager}"
+								TileStateChanged="radTileView_TileStateChanged" />
+
+							<telerik:RadDataPager
+								x:Name="FavouriteRecipesPager"
+								Grid.Row="1"
+								PageIndexChanging="Pager_PageIndexChanging"
+								PageSize="{Binding ElementName=FavoriteNumericUpDown, Path=Value}"
+								Source="{Binding FavouriteRecipes}" />
+
+							<DockPanel
+								x:Name="FavouriteRecipesPageSizeSettingDockPanel"
+								Grid.Row="2"
+								Margin="0,2,0,0"
+								HorizontalAlignment="Right"
+								LastChildFill="True">
+
+								<telerik:RadNumericUpDown
+									x:Name="FavoriteNumericUpDown"
+									DockPanel.Dock="Right"
+									Maximum="{Binding FavouriteRecipes.Count}"
+									Value="{Binding FavouriteRecipesPageSize, Mode=TwoWay}" />
+								<Label
+									Background="White"
+									Content="Page Size:"
+									DockPanel.Dock="Right"
+									Style="{DynamicResource MahApps.Styles.Label}" />
+							</DockPanel>
+						</Grid>
+					</mah:MetroTabItem>
+
+					<!--<mah:MetroTabItem x:Name="SearchTabItem" Header="Search here">
 					<Grid Width="Auto" Height="Auto">
 
 						<Grid.RowDefinitions>
@@ -679,7 +680,7 @@
 								<RowDefinition Height="7*" />
 							</Grid.RowDefinitions>
 							
-						  Row 0  
+						  Row 0
 						
 							<Grid Grid.Row="0">
 
@@ -703,7 +704,7 @@
 								</Button>
 							</Grid>
 							
-						  Row 1  
+						  Row 1
 						
 							<Label
 								Grid.Row="1"
@@ -713,7 +714,7 @@
 								TextBlock.FontWeight="Bold" />
 
 							
-						  Row 2  
+						  Row 2
 						
 							<Grid Grid.Row="2">
 								<Grid.ColumnDefinitions>
@@ -739,7 +740,7 @@
 
 							</Grid>
 							
-						  Row 3  
+						  Row 3
 						
 							<Label
 								Grid.Row="3"
@@ -748,7 +749,7 @@
 								Content="Nguyên liệu chính"
 								TextBlock.FontWeight="Bold" />
 							
-						  Row 4  
+						  Row 4
 						
 							<Grid Grid.Row="4">
 								<Grid.ColumnDefinitions>
@@ -813,7 +814,7 @@
 
 							</Grid>
 							
-						  Row 5  
+						  Row 5
 						
 							<Label
 								Grid.Row="5"
@@ -822,7 +823,7 @@
 								Content="Cách chế biến"
 								TextBlock.FontWeight="Bold" />
 							
-						  Row 6  
+						  Row 6
 						
 							<Grid Grid.Row="6">
 								<Grid.ColumnDefinitions>
@@ -956,7 +957,19 @@
 						</DockPanel>
 					</Grid>
 				</mah:MetroTabItem>-->
-			</mah:MetroAnimatedSingleRowTabControl>
+				</mah:MetroAnimatedSingleRowTabControl>
+
+			</Grid>
+			<ToggleButton
+				x:Name="AddRecipeToggleButton"
+				Panel.ZIndex="1000"
+				materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Plus,
+				                                                                      Size=30}"
+				Click="AddRecipeToggleButton_Click"
+				Content="{materialDesign:PackIcon Kind=Plus,
+				                                  Size=30}"
+				Style="{StaticResource CustomToggleButtonAddStyle}" />
+
 		</Grid>
 	</DockPanel>
 

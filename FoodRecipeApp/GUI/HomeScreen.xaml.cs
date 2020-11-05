@@ -117,12 +117,12 @@ namespace FoodRecipeApp.GUI
 			var addedStepsScreen = new AddedStepWindow(steps);
 			addedStepsScreen.Dying += OpenThis;
 			addedStepsScreen.Show();
-			//HomeScreen.homeScreen.Hide();
+			this.Hide();
 		}
 
 		private void OpenThis()
 		{
-			///HomeScreen.homeScreen.Show();
+			this.Show();
 		}
 
 		private void Pager_PageIndexChanging(object sender, PageIndexChangingEventArgs e)
@@ -168,6 +168,14 @@ namespace FoodRecipeApp.GUI
 				config.AppSettings.Settings["FavouriteRecipesPageSize"].Value = FavouriteRecipesPageSize;
 			}
 			config.Save(ConfigurationSaveMode.Minimal);
+		}
+
+		private void AddRecipeToggleButton_Click(object sender, RoutedEventArgs e)
+		{
+			var addRecipeWindow = new AddRecipeWindow();
+			addRecipeWindow.Dying += OpenThis;
+			addRecipeWindow.Show();
+			this.Hide();
 		}
 	}
 }

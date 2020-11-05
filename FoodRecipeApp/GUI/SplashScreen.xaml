@@ -79,7 +79,7 @@
 					FontSize="18"
 					Foreground="#704523"
 					Style="{StaticResource MahApps.Styles.TextBlock}"
-					Text="{Binding QuoteToShow, Source={StaticResource MyRecipeViewModel}}"
+					Text="{Binding QuoteToShow}"
 					TextWrapping="WrapWithOverflow" />
 			</DockPanel>
 			<!--  Column 1  -->

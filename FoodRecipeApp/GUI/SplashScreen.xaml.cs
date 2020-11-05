@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
 using FoodRecipeApp.DTO;
+using FoodRecipeApp.ViewModels;
 using MahApps.Metro.Controls;
 
 namespace FoodRecipeApp.GUI
@@ -18,6 +19,8 @@ namespace FoodRecipeApp.GUI
 		public SplashScreen()
 		{
 			InitializeComponent();
+			var viewmodel = new RecipeViewModel();
+			this.DataContext = viewmodel;
 		}
 
 		public double Progress

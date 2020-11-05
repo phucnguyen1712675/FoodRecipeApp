@@ -23,13 +23,6 @@ namespace FoodRecipeApp.ViewModels
         public ShellViewModel()
         {
 	        // Build the menus
-	        this.Menu.Add(new MenuItem()
-	        {
-		        Icon = new PackIconFontAwesome() {Kind = PackIconFontAwesomeKind.HomeSolid},
-		        Label = "Home Screen",
-		        NavigationType = typeof(MainPage),
-		        NavigationDestination = new Uri("GUI/MainPage.xaml", UriKind.RelativeOrAbsolute)
-	        });
 
 			this.OptionsMenu.Add(new MenuItem()
 	        {

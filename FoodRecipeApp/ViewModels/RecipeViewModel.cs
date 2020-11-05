@@ -16,11 +16,25 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Threading;
 using PropertyChanged;
+using System.Configuration;
 
 namespace FoodRecipeApp.ViewModels
 {
     public class RecipeViewModel: ViewModelBase, INotifyPropertyChanged
     {
+		public List<Dish> ModifiedItems { get; set; }
+		public DishesCollection Recipes { get; } = new DishesCollection();
+		public DishesCollection FavouriteRecipes { get; } = new DishesCollection();
+		public BindingList<Dish> SearchRecipes { get; set; }
+		public string QuoteToShow => QuotesDataSource.Instance.GetRandomQuote();
+		public ICommand ClearSelectionCommand { get; set; }
+		public bool IsClearButtonVisible => !string.IsNullOrEmpty(SearchText);
+		public bool IsDropDownOpen { get; set; }
+		public Dish SelectedSearchItem { get; set; }
+		public string SearchText { get; set; }
+		public int AllRecipesPageSize { get; set; }
+		public int FavouriteRecipesPageSize { get; set; }
+
 		public RecipeViewModel()
 		{
 			this.ModifiedItems = new List<Dish>();
@@ -31,12 +45,27 @@ namespace FoodRecipeApp.ViewModels
 			foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
 			this.FavouriteRecipes.CollectionChanged += this.OnCollectionChanged;
 
-			this.QuoteToShow = QuotesDataSource.Instance.GetRandomQuote();
 			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
-			this.AllRecipesPageCountTotal = this.Recipes.Count;
-			this.favouriteRecipesPageCountTotal = this.FavouriteRecipes.Count;
-			this.allRecipesCustomPageSize = this.allRecipesPageCountTotal > 5 ? 6 : 3;
-			this.favouriteRecipesCustomPageSize = this.favouriteRecipesPageCountTotal > 6 ? 6 : this.favouriteRecipesPageCountTotal;
+
+			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			this.AllRecipesPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
+			int favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
+			if (favPageSize != 0)
+			{
+				this.FavouriteRecipesPageSize = favPageSize;
+			}
+			else
+			{
+				int favItemCount = this.FavouriteRecipes.Count;
+				if (favItemCount < 7)
+				{
+					this.FavouriteRecipesPageSize = favItemCount;
+				}
+				else
+				{
+					this.FavouriteRecipesPageSize = 6;
+				}
+			}			
 
 			this.SearchRecipes = new BindingList<Dish>(this.Recipes);
 		}
@@ -74,9 +103,6 @@ namespace FoodRecipeApp.ViewModels
 				ModifiedItems.Add(item);
 		}
 
-		public List<Dish> ModifiedItems { get; set; }
-
-		public DishesCollection Recipes { get; } = new DishesCollection();
 		public bool AddNewItemToAllRecipesList(Dish newDish)
 		{
 			bool result = false;
@@ -103,7 +129,6 @@ namespace FoodRecipeApp.ViewModels
 			return result;
 		}
 
-		public DishesCollection FavouriteRecipes { get; } = new DishesCollection();
 
 		public bool AddNewItemToFavouriteRecipesList(Dish newDish)
 		{
@@ -131,7 +156,12 @@ namespace FoodRecipeApp.ViewModels
 			return result;
 		}
 
-		public BindingList<Dish> SearchRecipes { get; set; } 
+		private void OnClearSelectionCommandExecuted(object obj)
+		{
+			this.SearchText = string.Empty;
+			this.SelectedSearchItem = null;
+			this.IsDropDownOpen = false;
+		}
 
 		public bool GetNewSearchRecipes()
 		{
@@ -144,134 +174,100 @@ namespace FoodRecipeApp.ViewModels
 			return result;
 		}
 
-		public string QuoteToShow { get; set; }
 
-		public ICommand ClearSelectionCommand { get; set; }
 
-		public bool IsClearButtonVisible => !string.IsNullOrEmpty(SearchText);
 
-		private bool isDropDownOpen;
-		public bool IsDropDownOpen
-		{
-			get => this.isDropDownOpen;
-			set
-			{
-				if (this.isDropDownOpen != value)
-				{
-					this.isDropDownOpen = value;
-					RaisePropertyChanged("IsDropDownOpen");
-				}
-			}
-		}
+		//private bool isDropDownOpen;
+		//{
+		//	get => this.isDropDownOpen;
+		//	set
+		//	{
+		//		if (this.isDropDownOpen != value)
+		//		{
+		//			this.isDropDownOpen = value;
+		//			RaisePropertyChanged("IsDropDownOpen");
+		//		}
+		//	}
+		//}
 
-		private Dish selectedSearchItem;
-		public Dish SelectedSearchItem
-		{
-			get => this.selectedSearchItem;
-			set
-			{
-				if (this.selectedSearchItem != value)
-				{
-					this.selectedSearchItem = value;
-					RaisePropertyChanged("SelectedSearchItem");
-				}
-			}
-		}
+		//private Dish selectedSearchItem;
+		//{
+		//	get => this.selectedSearchItem;
+		//	set
+		//	{
+		//		if (this.selectedSearchItem != value)
+		//		{
+		//			this.selectedSearchItem = value;
+		//			RaisePropertyChanged("SelectedSearchItem");
+		//		}
+		//	}
+		//}
 
-		private string searchText;
-		public string SearchText
-		{
-			get => this.searchText;
-			set
-			{
-				if (searchText != value)
-				{
-					this.searchText = value;
-					this.OnPropertyChanged("IsClearButtonVisible");
-					RaisePropertyChanged("SearchText");
-				}
-			}
-		}
+		//private string searchText;
+		//{
+		//	get => this.searchText;
+		//	set
+		//	{
+		//		if (searchText != value)
+		//		{
+		//			this.searchText = value;
+		//			this.OnPropertyChanged("IsClearButtonVisible");
+		//			RaisePropertyChanged("SearchText");
+		//		}
+		//	}
+		//}
 
-		private void OnClearSelectionCommandExecuted(object obj)
-		{
-			this.SearchText = string.Empty;
-			this.SelectedSearchItem = null;
-			this.IsDropDownOpen = false;
-		}
+		//private int allRecipesCustomPageSize;
+		//{
+		//	get => this.allRecipesCustomPageSize;
+		//	set
+		//	{
+		//		if (this.allRecipesCustomPageSize != value)
+		//		{
+		//			this.allRecipesCustomPageSize = value;
+		//			RaisePropertyChanged("AllRecipesCustomPageSize");
+		//		}
+		//	}
+		//}
 
-		private int allRecipesCustomPageSize;
-		public int AllRecipesCustomPageSize
-		{
-			get => this.allRecipesCustomPageSize;
-			set
-			{
-				if (this.allRecipesCustomPageSize != value)
-				{
-					this.allRecipesCustomPageSize = value;
-					RaisePropertyChanged("AllRecipesCustomPageSize");
-				}
-			}
-		}
+		//private int favouriteRecipesCustomPageSize;
+		//{
+		//	get => this.favouriteRecipesCustomPageSize;
+		//	set
+		//	{
+		//		if (this.favouriteRecipesCustomPageSize != value)
+		//		{
+		//			this.favouriteRecipesCustomPageSize = value;
+		//			RaisePropertyChanged("FavouriteRecipesCustomPageSize");
+		//		}
+		//	}
+		//}
 
-		private int favouriteRecipesCustomPageSize;
-		public int FavouriteRecipesCustomPageSize
-		{
-			get => this.favouriteRecipesCustomPageSize;
-			set
-			{
-				if (this.favouriteRecipesCustomPageSize != value)
-				{
-					this.favouriteRecipesCustomPageSize = value;
-					RaisePropertyChanged("FavouriteRecipesCustomPageSize");
-				}
-			}
-		}
+		//private int allRecipesPageCountTotal;
+		//{
+		//	get => this.allRecipesPageCountTotal;
+		//	set
+		//	{
+		//		if (this.allRecipesPageCountTotal != value)
+		//		{
+		//			this.allRecipesPageCountTotal = value;
+		//			RaisePropertyChanged("AllRecipesPageCountTotal");
+		//		}
+		//	}
+		//}
 
-		public bool UpdateFavouriteRecipesCustomPageSize()
-		{
-			bool flag = true;
-
-			if (this.favouriteRecipesPageCountTotal <  7)
-			{
-				this.favouriteRecipesCustomPageSize = this.FavouriteRecipes.Count;
-			}
-			else
-			{
-				this.favouriteRecipesCustomPageSize = 6;
-				flag = false;
-			}
-
-			return flag;
-		}
-
-		private int allRecipesPageCountTotal;
-		public int AllRecipesPageCountTotal
-		{
-			get => this.allRecipesPageCountTotal;
-			set
-			{
-				if (this.allRecipesPageCountTotal != value)
-				{
-					this.allRecipesPageCountTotal = value;
-					RaisePropertyChanged("AllRecipesPageCountTotal");
-				}
-			}
-		}
-
-		private int favouriteRecipesPageCountTotal;
-		public int FavouriteRecipesPageCountTotal
-		{
-			get => this.FavouriteRecipes.Count;
-			set
-			{
-				if (this.favouriteRecipesPageCountTotal != value)
-				{
-					this.favouriteRecipesPageCountTotal = value;
-					RaisePropertyChanged("FavouriteRecipesPageCountTotal");
-				}
-			}
-		}
+		//private int favouriteRecipesPageCountTotal;
+		//{
+		//	get => this.FavouriteRecipes.Count;
+		//	set
+		//	{
+		//		if (this.favouriteRecipesPageCountTotal != value)
+		//		{
+		//			this.favouriteRecipesPageCountTotal = value;
+		//			RaisePropertyChanged("FavouriteRecipesPageCountTotal");
+		//		}
+		//	}
+		//}
 
 		/*private ICommand mUpdater;
 		public ICommand UpdateCommand

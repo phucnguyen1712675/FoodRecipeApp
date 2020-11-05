@@ -538,14 +538,10 @@
     <Compile Include="Resources\RecipeResources.cs" />
     <Compile Include="TileViewCommandsExtension.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
-    <Compile Include="ViewModels\NasdaqViewModel.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="GUI\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
@@ -605,10 +601,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="GUI\AboutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -675,9 +667,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MainPage\searchBackground2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\reset.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\AboutPage\phuc.jpg" />

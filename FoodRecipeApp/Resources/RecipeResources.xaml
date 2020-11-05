@@ -5,13 +5,13 @@
 	xmlns:System="clr-namespace:System;assembly=mscorlib"
 	xmlns:converters="clr-namespace:FoodRecipeApp.Converter"
 	xmlns:local="clr-namespace:FoodRecipeApp"
+	xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
 	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
 	xmlns:tileview="clr-namespace:Telerik.Windows.Controls.TileView;assembly=Telerik.Windows.Controls.Navigation"
 	xmlns:uc="clr-namespace:FoodRecipeApp.GUI"
 	xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
 	x:ClassModifier="public">
 
-	<viewModels:RecipeViewModel x:Key="MyRecipeViewModel" />
 	<converters:IsLoveImageConverter x:Key="LoveImageConverter" />
 	<converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter" />
 	<converters:DishNameConverter x:Key="DishNameConverter" />
@@ -19,7 +19,7 @@
 	<converters:RatioConverter x:Key="RatioConverter" />
 	<converters:CountConverter x:Key="countConverter" />
 
-	<Style x:Key="TileItemHeaderStyle" TargetType="tileview:TileViewItemHeader">
+	<Style x:Key="TileItemHeaderStyle" TargetType="{x:Type tileview:TileViewItemHeader}">
 		<Setter Property="Foreground" Value="#2f0572" />
 		<Setter Property="Background" Value="White" />
 		<Setter Property="BorderThickness" Value="0" />
@@ -32,7 +32,7 @@
 		<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
 	</Style>
 
-	<Style TargetType="telerik:RadTileView">
+	<Style TargetType="{x:Type telerik:RadTileView}">
 		<Setter Property="HorizontalContentAlignment" Value="Center" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="PreservePositionWhenMaximized" Value="True" />
@@ -55,9 +55,10 @@
 		<Setter Property="ColumnWidth" Value="250" />
 		<Setter Property="ColumnsCount" Value="3" />
 		<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
+		<Setter Property="SelectedItem" Value="{Binding SelectedItem, Mode=TwoWay}" />
 	</Style>
 
-	<Style TargetType="telerik:RadTileViewItem">
+	<Style TargetType="{x:Type telerik:RadTileViewItem}">
 		<Setter Property="BorderBrush" Value="#fff261" />
 		<Setter Property="Background" Value="#b0e4ff " />
 		<Setter Property="BorderThickness" Value="0" />
@@ -71,4 +72,50 @@
 		<Setter Property="TextBlock.FontFamily" Value="Arial" />
 		<Setter Property="Foreground" Value="Black" />
 	</Style>
+
+	<Style TargetType="{x:Type telerik:RadDataPager}">
+		<Setter Property="Margin" Value="0,10,0,0" />
+		<Setter Property="BorderThickness" Value="1,0,1,1" />
+		<Setter Property="FontSize" Value="14" />
+		<Setter Property="DisplayMode" Value="PreviousNextNumeric" />
+		<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
+		<Setter Property="IsTotalItemCountFixed" Value="True" />
+	</Style>
+
+	<Style TargetType="{x:Type telerik:RadNumericUpDown}">
+		<Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
+		<Setter Property="Width" Value="100" />
+		<Setter Property="BorderBrush" Value="LightGray" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="IsInteger" Value="True" />
+		<Setter Property="Minimum" Value="1" />
+	</Style>
+
+	<Style x:Key="CustomTabControl" TargetType="{x:Type mah:MetroAnimatedSingleRowTabControl}">
+		<Setter Property="Margin" Value="5" />
+		<Setter Property="Padding" Value="0,4,0,0" />
+		<Setter Property="mah:TabControlHelper.CloseButtonEnabled" Value="True" />
+		<Setter Property="mah:TabControlHelper.Transition" Value="LeftReplace" />
+		<Setter Property="mah:TabControlHelper.UnderlineMouseOverBrush" Value="#29e7e4" />
+		<Setter Property="mah:TabControlHelper.Underlined" Value="SelectedTabItem" />
+		<Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Hidden" />
+		<Setter Property="ScrollViewer.PanningMode" Value="Both" />
+	</Style>
+
+	<Style
+		x:Key="CustomToggleButtonStyle"
+		BasedOn="{StaticResource MaterialDesignActionToggleButton}"
+		TargetType="{x:Type ToggleButton}">
+
+		<Setter Property="Width" Value="40" />
+		<Setter Property="Height" Value="40" />
+		<Setter Property="Margin" Value="5" />
+		<Setter Property="HorizontalAlignment" Value="Right" />
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="Background" Value="#ff2014" />
+		<Setter Property="ToolTip" Value="Add to Favourite List" />
+		<Setter Property="IsEnabled" Value="True" />
+	</Style>
+
 </ResourceDictionary>

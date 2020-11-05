@@ -524,9 +524,6 @@
     <Compile Include="GUI\HtmlBox.xaml.cs">
       <DependentUpon>HtmlBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\SearchScreen.xaml.cs">
-      <DependentUpon>SearchScreen.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\AddedStepWindow.xaml.cs">
       <DependentUpon>AddedStepWindow.xaml</DependentUpon>
     </Compile>
@@ -586,10 +583,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\HtmlBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\SearchScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

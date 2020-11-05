@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using FoodRecipeApp.ViewModels;
 using MenuItem = FoodRecipeApp.ViewModels.MenuItem;
+using System.Configuration;
 
 namespace FoodRecipeApp.GUI
 {
@@ -40,8 +41,9 @@ namespace FoodRecipeApp.GUI
 
         private void HamburgerMenuControl_OnItemInvoked(object sender, HamburgerMenuItemInvokedEventArgs e)
         {
-            if (e.InvokedItem is MenuItem menuItem && menuItem.IsNavigation)
+			if (e.InvokedItem is MenuItem menuItem && menuItem.IsNavigation)
             {
+                UpdateKey();
                 this._navigationServiceEx.Navigate(menuItem.NavigationDestination);
             }
         }
@@ -74,27 +76,47 @@ namespace FoodRecipeApp.GUI
 
         private void GoBackButton_OnClick(object sender, RoutedEventArgs e)
 		{
-			this._navigationServiceEx.GoBack();
+            UpdateKey();
+            this._navigationServiceEx.GoBack();
         }
 
-        private MetroWindow _accentThemeTestWindow;
+        //private MetroWindow _accentThemeTestWindow;
 
-        private void ChangeAppStyleButtonClick(object sender, RoutedEventArgs e)
-        {
-	        if (_accentThemeTestWindow != null)
-	        {
-		        _accentThemeTestWindow.Activate();
-		        return;
-	        }
+        //private void ChangeAppStyleButtonClick(object sender, RoutedEventArgs e)
+        //{
+	       // if (_accentThemeTestWindow != null)
+	       // {
+		      //  _accentThemeTestWindow.Activate();
+		      //  return;
+	       // }
 
-	        _accentThemeTestWindow = new AccentStyleWindow
-	        {
-		        Owner = this
-	        };
-	        _accentThemeTestWindow.Closed += (o, args) => _accentThemeTestWindow = null;
-	        _accentThemeTestWindow.Left = this.Left + this.ActualWidth / 2.0;
-	        _accentThemeTestWindow.Top = this.Top + this.ActualHeight / 2.0;
-	        _accentThemeTestWindow.Show();
+	       // _accentThemeTestWindow = new AccentStyleWindow
+	       // {
+		      //  Owner = this
+	       // };
+	       // _accentThemeTestWindow.Closed += (o, args) => _accentThemeTestWindow = null;
+	       // _accentThemeTestWindow.Left = this.Left + this.ActualWidth / 2.0;
+	       // _accentThemeTestWindow.Top = this.Top + this.ActualHeight / 2.0;
+	       // _accentThemeTestWindow.Show();
+        //}
+
+        public static void UpdateKey()
+		{
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var viewmodel = new RecipeViewModel();
+
+            string AllRecipesPageSize = viewmodel.AllRecipesCustomPageSize.ToString();
+            string FavouriteRecipesPageSize = viewmodel.FavouriteRecipesCustomPageSize.ToString();
+
+            if (!config.AppSettings.Settings["AllRecipesPageSize"].Value.Equals(AllRecipesPageSize))
+            {
+                config.AppSettings.Settings["AllRecipesPageSize"].Value = AllRecipesPageSize;
+            }
+            if (!config.AppSettings.Settings["FavouriteRecipesPageSize"].Value.Equals(FavouriteRecipesPageSize))
+            {
+                config.AppSettings.Settings["FavouriteRecipesPageSize"].Value = FavouriteRecipesPageSize;
+            }
+            config.Save(ConfigurationSaveMode.Minimal);
         }
-    }
+	}
 }

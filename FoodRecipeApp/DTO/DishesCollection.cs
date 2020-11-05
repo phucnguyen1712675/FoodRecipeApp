@@ -27,18 +27,6 @@ namespace FoodRecipeApp.DTO
 			return dishes;
 		}
 
-		/*public static BindingList<Dish> GetAllDishes()
-		{
-			BindingList<Dish> dishes = new BindingList<Dish>();
-			DataTable data = DishDAO.Instance.getAllDishes();
-			foreach (DataRow row in data.Rows)
-			{
-				Dish dish = new Dish(row);
-				dishes.Add(dish);
-			}
-			return dishes;
-		}*/
-
 		public static DishesCollection GetFilterDishes(string queryFilter)
         {
             DishesCollection dishes = new DishesCollection();

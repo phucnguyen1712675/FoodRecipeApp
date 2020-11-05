@@ -21,23 +21,8 @@ namespace FoodRecipeApp.ViewModels
 {
     public class RecipeViewModel: ViewModelBase, INotifyPropertyChanged
     {
-		private Dispatcher dispatcher = Dispatcher.CurrentDispatcher;
-		///public DelegateCommand AddItems { get; }
-		//public DelegateCommand AddItems { get; }
-		
 		public RecipeViewModel()
 		{
-			/*AddItems = new DelegateCommand(() => Task.Run(() =>
-				Parallel.ForEach(DishesCollection.GetAllDishes(),
-					 (item) => dispatcher.Invoke(() => Recipes.Add(item))))
-			);*/
-
-			/*Items.Add(new Item() { ItemId = 1 });
-			for (int i = 1; i < 10; i++)
-			{
-				Items.Add(new Item() { ItemId = i });
-			}
-			Recipes = DishesCollection.GetAllDishes();*/
 			this.ModifiedItems = new List<Dish>();
 
 			foreach (var item in DishesCollection.GetAllDishes()) this.Recipes.Add(item);
@@ -52,6 +37,8 @@ namespace FoodRecipeApp.ViewModels
 			this.favouriteRecipesPageCountTotal = this.FavouriteRecipes.Count;
 			this.allRecipesCustomPageSize = this.allRecipesPageCountTotal > 5 ? 6 : 3;
 			this.favouriteRecipesCustomPageSize = this.favouriteRecipesPageCountTotal > 6 ? 6 : this.favouriteRecipesPageCountTotal;
+
+			this.SearchRecipes = new BindingList<Dish>(this.Recipes);
 		}
 
 		[SuppressPropertyChangedWarnings]
@@ -88,7 +75,6 @@ namespace FoodRecipeApp.ViewModels
 		}
 
 		public List<Dish> ModifiedItems { get; set; }
-
 
 		public DishesCollection Recipes { get; } = new DishesCollection();
 		public bool AddNewItemToAllRecipesList(Dish newDish)
@@ -141,6 +127,19 @@ namespace FoodRecipeApp.ViewModels
 				result = true;
 				this.FavouriteRecipes.Remove(deletedDish);
 			}
+
+			return result;
+		}
+
+		public BindingList<Dish> SearchRecipes { get; set; } 
+
+		public bool GetNewSearchRecipes()
+		{
+			bool result = false;
+
+			this.SearchRecipes.Clear();
+			//string FilterQuery = ListCheckBoxes.GetFilterQuery();
+			//this.SearchRecipes = DishesCollection.GetFilterDishes(FilterQuery);
 
 			return result;
 		}

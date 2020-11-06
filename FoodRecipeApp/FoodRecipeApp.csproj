@@ -534,6 +534,7 @@
     <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="MyRandom.cs" />
     <Compile Include="Navigation\NavigationServiceEx.cs" />
+    <Compile Include="ObservableCollectionPropertyNotify.cs" />
     <Compile Include="OcPropertyChangedListener.cs" />
     <Compile Include="TileViewCommandsExtension.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />

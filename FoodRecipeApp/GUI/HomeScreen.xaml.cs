@@ -26,16 +26,16 @@ namespace FoodRecipeApp.GUI
 	/// </summary>
 	public partial class HomeScreen : MetroWindow
 	{
+		public static RecipeViewModel ViewModel { get; } = new RecipeViewModel();
+
 		public static HomeScreen AppMainpage;
 		public HomeScreen()
 		{
 			InitializeComponent();
-			AppMainpage = this;
-			var viewModel = new RecipeViewModel();
-			this.DataContext = viewModel;
+			AppMainpage = this;   
 		}
 
-		static HomeScreen()
+        static HomeScreen()
 		{
 			var addFavouriteItemBinding = new CommandBinding(TileViewCommandsExtension.AddNewFavouriteRecipe, OnAddFavouriteItemCommandExecute, OnCanAddFavouriteItemCommandExecute);
 			CommandManager.RegisterClassCommandBinding(typeof(RadTileViewItem), addFavouriteItemBinding);
@@ -61,25 +61,20 @@ namespace FoodRecipeApp.GUI
 			{
 				//Success
 
-				var viewModel = (RecipeViewModel)AppMainpage.DataContext;
 				if (dataItem.IsLove)
 				{
-					var item = viewModel.Recipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
-					viewModel.AddNewItemToFavouriteRecipesList(dataItem);
+					var item = ViewModel.Recipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+					ViewModel.AddNewItemToFavouriteRecipesList(dataItem);
 				}
 				else
 				{
-					var item = viewModel.FavouriteRecipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
-					viewModel.RemoveItemFromFavouriteRecipesList(item);
-					foreach (var tom in viewModel.Recipes.Where(w => w.DishCode == dataItem.DishCode))
+					var item = ViewModel.FavouriteRecipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+					ViewModel.RemoveItemFromFavouriteRecipesList(item);
+					foreach (var tom in ViewModel.Recipes.Where(w => w.DishCode == dataItem.DishCode))
 					{
 						tom.IsLove = dataItem.IsLove;
 					}
 				}
-				/*if (!viewModel.UpdateFavouriteRecipesCustomPageSize())
-				{
-					MessageBox.Show("Error");
-				}*/
 			}
 		}
 
@@ -123,6 +118,7 @@ namespace FoodRecipeApp.GUI
 		private void OpenThis()
 		{
 			this.Show();
+			MessageBox.Show(ViewModel.Recipes.Count.ToString());
 		}
 
 		private void Pager_PageIndexChanging(object sender, PageIndexChangingEventArgs e)
@@ -176,6 +172,12 @@ namespace FoodRecipeApp.GUI
 			addRecipeWindow.Dying += OpenThis;
 			addRecipeWindow.Show();
 			this.Hide();
+
 		}
-	}
+
+        private void AllRecipesPager_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+			
+        }
+    }
 }

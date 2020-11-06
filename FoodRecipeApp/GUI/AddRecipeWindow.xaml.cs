@@ -35,7 +35,7 @@ namespace FoodRecipeApp.GUI
         public AddRecipeWindow()
         {
             InitializeComponent();
-            this.DataContext = new RecipeViewModel();
+            this.DataContext = HomeScreen.ViewModel;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -216,13 +216,19 @@ namespace FoodRecipeApp.GUI
             if (Dish.AddNewDishToData(isLove, dishName, imagePath, descriptionDish, video, steps, loai))
             {
                 MessageBox.Show("Thêm thành công vào database");
-                ClearAll();
+               
                 Dish newDish = new Dish(isLove, dishName, imagePath, descriptionDish, video, steps, loai);
                 newDish.DishCode = Dish.getNewestDishCode();
 
-                var viewmodel = (RecipeViewModel)this.DataContext;
-                viewmodel.AddNewItemToAllRecipesList(newDish);
-                if (newDish.IsLove == true) viewmodel.AddNewItemToFavouriteRecipesList(newDish);
+                var ViewModel = (RecipeViewModel)this.DataContext;
+                ViewModel.AddNewItemToAllRecipesList(newDish);
+                ViewModel.Recipes.Refresh();
+                if (newDish.IsLove == true)
+                {
+                    ViewModel.AddNewItemToFavouriteRecipesList(newDish);
+                    ViewModel.FavouriteRecipes.Refresh();
+                }
+                ClearAll();
             }
             else
             {

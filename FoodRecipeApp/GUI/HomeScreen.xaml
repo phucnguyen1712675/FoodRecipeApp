@@ -1,329 +1,333 @@
 ﻿<mah:MetroWindow
-	x:Class="FoodRecipeApp.GUI.HomeScreen"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-	xmlns:local="clr-namespace:FoodRecipeApp"
-	xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-	xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-	xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
-	Title="FOOD RECIPE APP"
-	Width="1140"
-	Height="540"
-	BorderThickness="1"
-	Closed="MetroWindow_Closed"
-	GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
-	ResizeMode="NoResize"
-	WindowStartupLocation="CenterScreen"
-	WindowState="Maximized"
-	mc:Ignorable="d">
+    x:Class="FoodRecipeApp.GUI.HomeScreen"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FoodRecipeApp"
+    xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
+    Title="FOOD RECIPE APP"
+    Width="1140"
+    Height="540"
+    BorderThickness="1"
+    Closed="MetroWindow_Closed"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
+    GlowBrush="{DynamicResource MahApps.Brushes.Accent}"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    mc:Ignorable="d">
 
-	<mah:MetroWindow.Resources>
+    <mah:MetroWindow.Resources>
 
-		<ResourceDictionary>
+        <ResourceDictionary>
 
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/FoodRecipeApp;component/Resources/RecipeResources.xaml" />
-				<ResourceDictionary Source="/Telerik.Windows.Controls;component/Themes/FontResources.xaml" />
-			</ResourceDictionary.MergedDictionaries>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/FoodRecipeApp;component/Resources/RecipeResources.xaml" />
+                <ResourceDictionary Source="/Telerik.Windows.Controls;component/Themes/FontResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-			<DataTemplate x:Key="ContentTemplate">
+            <!--<DataTemplate x:Key="ItemTemplate">
+			</DataTemplate>-->
 
-				<telerik:RadFluidContentControl
-					x:Name="RadFluidContentControl"
-					telerik:StyleManager.Theme="Office2019"
-					ContentChangeMode="Manual"
-					MouseDoubleClick="RadFluidContentControl_MouseDoubleClick"
-					State="Normal"
-					TransitionDuration="0:0:.5">
+            <DataTemplate x:Key="ContentTemplate">
 
-					<telerik:RadFluidContentControl.Content>
+                <telerik:RadFluidContentControl
+                    x:Name="RadFluidContentControl"
+                    telerik:StyleManager.Theme="Office2019"
+                    ContentChangeMode="Manual"
+                    MouseDoubleClick="RadFluidContentControl_MouseDoubleClick"
+                    State="Normal"
+                    TransitionDuration="0:0:.5">
 
-						<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <telerik:RadFluidContentControl.Content>
 
-							<Grid.RowDefinitions>
-								<RowDefinition Height="8*" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
-							<Grid Grid.Row="0" Grid.RowSpan="2">
-								<Image
-									HorizontalAlignment="Center"
-									Source="{Binding ImagePath}"
-									Stretch="UniformToFill" />
-							</Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="8*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-							<ToggleButton
-								Grid.Row="1"
-								materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Heart}"
-								Command="local:TileViewCommandsExtension.AddNewFavouriteRecipe"
-								Content="{materialDesign:PackIcon Kind=HeartOutline}"
-								IsChecked="{Binding IsLove, Converter={StaticResource LoveImageConverter}}"
-								Style="{StaticResource CustomToggleButtonStyle}" />
+                            <Grid Grid.Row="0" Grid.RowSpan="2">
+                                <Image
+                                    HorizontalAlignment="Center"
+                                    Source="{Binding ImagePath}"
+                                    Stretch="UniformToFill" />
+                            </Grid>
 
-							<Grid Grid.Row="2">
-								<Grid.RowDefinitions>
-									<RowDefinition Height="Auto" />
-									<RowDefinition Height="*" />
-								</Grid.RowDefinitions>
+                            <ToggleButton
+                                Grid.Row="1"
+                                materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Heart}"
+                                Command="local:TileViewCommandsExtension.AddNewFavouriteRecipe"
+                                Content="{materialDesign:PackIcon Kind=HeartOutline}"
+                                IsChecked="{Binding IsLove, Converter={StaticResource LoveImageConverter}}"
+                                Style="{StaticResource CustomToggleButtonStyle}" />
 
-								<Border
-									Grid.Row="0"
-									Height="10"
-									Background="#fff261"
-									Visibility="Hidden" />
+                            <Grid Grid.Row="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
 
-								<Label
-									Grid.Row="1"
-									HorizontalAlignment="Left"
-									VerticalAlignment="Center"
-									Content="{Binding Name}"
-									FontSize="16"
-									Foreground="#005f8f"
-									Style="{StaticResource MahApps.Styles.Label}" />
-							</Grid>
+                                <Border
+                                    Grid.Row="0"
+                                    Height="10"
+                                    Background="#fff261"
+                                    Visibility="Hidden" />
 
-						</Grid>
-					</telerik:RadFluidContentControl.Content>
+                                <Label
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="{Binding Name}"
+                                    FontSize="16"
+                                    Foreground="#005f8f"
+                                    Style="{StaticResource MahApps.Styles.Label}" />
+                            </Grid>
 
-					<telerik:RadFluidContentControl.LargeContent>
-						<ScrollViewer
-							Width="1050"
-							Height="550"
-							Padding="10"
-							HorizontalAlignment="Center"
-							HorizontalScrollBarVisibility="Hidden"
-							VerticalScrollBarVisibility="Visible">
-							<StackPanel Width="980">
+                        </Grid>
+                    </telerik:RadFluidContentControl.Content>
 
-								<!--  ảnh + tên + thể loại  -->
-								<Border
-									Margin="15"
-									Background="AliceBlue"
-									CornerRadius="3">
-									<Border.Effect>
-										<DropShadowEffect
-											BlurRadius="3"
-											Opacity="0.5"
-											ShadowDepth="1" />
-									</Border.Effect>
-									<StackPanel Width="900">
-										<Grid>
-											<Grid.RowDefinitions>
-												<RowDefinition Height="1*" />
-												<RowDefinition Height="7*" />
-											</Grid.RowDefinitions>
-										</Grid>
-										<Border
-											Grid.Row="0"
-											Margin="20,10,20,10"
-											Padding="15"
-											BorderBrush="#FFD80073"
-											BorderThickness="0,0,0,2">
-											<Grid Grid.Row="0">
-												<Grid.ColumnDefinitions>
-													<ColumnDefinition Width="*" />
-													<ColumnDefinition Width="Auto" />
-												</Grid.ColumnDefinitions>
-												<TextBlock
-													x:Name="DishNameTextBlock"
-													Grid.Column="0"
-													FontSize="40"
-													Foreground="#332226"
-													Text="{Binding Name, Converter={StaticResource DishNameConverter}}"
-													TextAlignment="Justify"
-													TextWrapping="Wrap" />
+                    <telerik:RadFluidContentControl.LargeContent>
+                        <ScrollViewer
+                            Width="1050"
+                            Height="550"
+                            Padding="10"
+                            HorizontalAlignment="Center"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Visible">
+                            <StackPanel Width="980">
 
-												<ToggleButton
-													Grid.Row="1"
-													materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Heart}"
-													Command="local:TileViewCommandsExtension.AddNewFavouriteRecipe"
-													Content="{materialDesign:PackIcon Kind=HeartOutline}"
-													IsChecked="{Binding IsLove, Converter={StaticResource LoveImageConverter}}"
-													Style="{StaticResource CustomToggleButtonStyle}" />
-											</Grid>
-										</Border>
+                                <!--  ảnh + tên + thể loại  -->
+                                <Border
+                                    Margin="15"
+                                    Background="AliceBlue"
+                                    CornerRadius="3">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="3"
+                                            Opacity="0.5"
+                                            ShadowDepth="1" />
+                                    </Border.Effect>
+                                    <StackPanel Width="900">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="1*" />
+                                                <RowDefinition Height="7*" />
+                                            </Grid.RowDefinitions>
+                                        </Grid>
+                                        <Border
+                                            Grid.Row="0"
+                                            Margin="20,10,20,10"
+                                            Padding="15"
+                                            BorderBrush="#FFD80073"
+                                            BorderThickness="0,0,0,2">
+                                            <Grid Grid.Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock
+                                                    x:Name="DishNameTextBlock"
+                                                    Grid.Column="0"
+                                                    FontSize="40"
+                                                    Foreground="#332226"
+                                                    Text="{Binding Name, Converter={StaticResource DishNameConverter}}"
+                                                    TextAlignment="Justify"
+                                                    TextWrapping="Wrap" />
 
-										<!--  description  -->
-										<Grid Grid.Row="1" Margin="15">
-											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="1*" />
-												<ColumnDefinition Width="1*" />
-											</Grid.ColumnDefinitions>
-											<Border
-												Grid.Column="0"
-												Padding="5"
-												VerticalAlignment="Center"
-												BorderBrush="LightPink"
-												BorderThickness="1">
-												<Image x:Name="ImagePathImage" Source="{Binding ImagePath}" />
-											</Border>
-											<StackPanel Grid.Column="1" Margin="20,10">
-												<StackPanel Orientation="Horizontal">
-													<Label
-														Content="Thể loại : "
-														FontSize="20"
-														Foreground="#332226" />
-													<Label
-														Content="{Binding Loai, Converter={StaticResource TypesStringAddSpaceConverter}}"
-														FontSize="20"
-														Foreground="#332226" />
-												</StackPanel>
-												<StackPanel Orientation="Vertical">
-													<TextBlock
-														x:Name="DescriptionDishTextBlock"
-														Margin="3"
-														VerticalAlignment="Stretch"
-														AllowDrop="False"
-														FontSize="20"
-														Foreground="#332226"
-														Text="{Binding Desciption}"
-														TextAlignment="Justify"
-														TextWrapping="Wrap" />
-												</StackPanel>
-											</StackPanel>
-										</Grid>
-									</StackPanel>
-								</Border>
+                                                <ToggleButton
+                                                    Grid.Row="1"
+                                                    materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Heart}"
+                                                    Command="local:TileViewCommandsExtension.AddNewFavouriteRecipe"
+                                                    Content="{materialDesign:PackIcon Kind=HeartOutline}"
+                                                    IsChecked="{Binding IsLove, Converter={StaticResource LoveImageConverter}}"
+                                                    Style="{StaticResource CustomToggleButtonStyle}" />
+                                            </Grid>
+                                        </Border>
 
-								<!--  video hướng dẫn  -->
-								<Border
-									Margin="15"
-									Background="AliceBlue"
-									CornerRadius="3">
-									<Border.Effect>
-										<DropShadowEffect
-											BlurRadius="3"
-											Opacity="0.5"
-											ShadowDepth="1" />
-									</Border.Effect>
-									<Grid>
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="7*" />
-											<ColumnDefinition Width="3*" />
-										</Grid.ColumnDefinitions>
-										<TextBlock
-											x:Name="DishVideoTextBlock"
-											Grid.Column="0"
-											Margin="20"
-											FontSize="40"
-											Foreground="#332226"
-											Text="Xem video hướng dẫn"
-											TextAlignment="Justify"
-											TextWrapping="Wrap" />
-										<Button
-											Name="VideoDishButton"
-											Grid.Column="1"
-											Height="60"
-											Margin="20"
-											Click="VideoDishButton_Click"
-											Content="Xem video"
-											FontSize="20"
-											Tag="{Binding Video}" />
-										<Border
-											Margin="20,10,20,10"
-											BorderBrush="#FFD80073"
-											BorderThickness="0,0,0,2" />
-									</Grid>
-								</Border>
+                                        <!--  description  -->
+                                        <Grid Grid.Row="1" Margin="15">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="1*" />
+                                                <ColumnDefinition Width="1*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Border
+                                                Grid.Column="0"
+                                                Padding="5"
+                                                VerticalAlignment="Center"
+                                                BorderBrush="LightPink"
+                                                BorderThickness="1">
+                                                <Image x:Name="ImagePathImage" Source="{Binding ImagePath}" />
+                                            </Border>
+                                            <StackPanel Grid.Column="1" Margin="20,10">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label
+                                                        Content="Thể loại : "
+                                                        FontSize="20"
+                                                        Foreground="#332226" />
+                                                    <Label
+                                                        Content="{Binding Loai, Converter={StaticResource TypesStringAddSpaceConverter}}"
+                                                        FontSize="20"
+                                                        Foreground="#332226" />
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock
+                                                        x:Name="DescriptionDishTextBlock"
+                                                        Margin="3"
+                                                        VerticalAlignment="Stretch"
+                                                        AllowDrop="False"
+                                                        FontSize="20"
+                                                        Foreground="#332226"
+                                                        Text="{Binding Desciption}"
+                                                        TextAlignment="Justify"
+                                                        TextWrapping="Wrap" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
+                                    </StackPanel>
+                                </Border>
 
-								<!--  Xem hướng dẫn cụ thể các bước làm  -->
-								<Border
-									Margin="15"
-									Background="AliceBlue"
-									CornerRadius="3">
-									<Border.Effect>
-										<DropShadowEffect
-											BlurRadius="3"
-											Opacity="0.5"
-											ShadowDepth="1" />
-									</Border.Effect>
-									<Grid>
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="7*" />
-											<ColumnDefinition Width="3*" />
-										</Grid.ColumnDefinitions>
-										<TextBlock
-											x:Name="DishStepsTextBlock"
-											Grid.Column="0"
-											Margin="20"
-											FontSize="40"
-											Foreground="#332226"
-											Text="Các bước làm"
-											TextAlignment="Justify"
-											TextWrapping="Wrap" />
-										<Button
-											Name="DetailSteps"
-											Grid.Column="1"
-											Height="60"
-											Margin="20"
-											Click="DetailSteps_Click"
-											Content="Xem Chi tiết"
-											FontSize="20"
-											Tag="{Binding DishCode}" />
-										<Border
-											Margin="20,10,20,10"
-											BorderBrush="#FFD80073"
-											BorderThickness="0,0,0,2" />
-									</Grid>
-								</Border>
+                                <!--  video hướng dẫn  -->
+                                <Border
+                                    Margin="15"
+                                    Background="AliceBlue"
+                                    CornerRadius="3">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="3"
+                                            Opacity="0.5"
+                                            ShadowDepth="1" />
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="7*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            x:Name="DishVideoTextBlock"
+                                            Grid.Column="0"
+                                            Margin="20"
+                                            FontSize="40"
+                                            Foreground="#332226"
+                                            Text="Xem video hướng dẫn"
+                                            TextAlignment="Justify"
+                                            TextWrapping="Wrap" />
+                                        <Button
+                                            Name="VideoDishButton"
+                                            Grid.Column="1"
+                                            Height="60"
+                                            Margin="20"
+                                            Click="VideoDishButton_Click"
+                                            Content="Xem video"
+                                            FontSize="20"
+                                            Tag="{Binding Video}" />
+                                        <Border
+                                            Margin="20,10,20,10"
+                                            BorderBrush="#FFD80073"
+                                            BorderThickness="0,0,0,2" />
+                                    </Grid>
+                                </Border>
+
+                                <!--  Xem hướng dẫn cụ thể các bước làm  -->
+                                <Border
+                                    Margin="15"
+                                    Background="AliceBlue"
+                                    CornerRadius="3">
+                                    <Border.Effect>
+                                        <DropShadowEffect
+                                            BlurRadius="3"
+                                            Opacity="0.5"
+                                            ShadowDepth="1" />
+                                    </Border.Effect>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="7*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            x:Name="DishStepsTextBlock"
+                                            Grid.Column="0"
+                                            Margin="20"
+                                            FontSize="40"
+                                            Foreground="#332226"
+                                            Text="Các bước làm"
+                                            TextAlignment="Justify"
+                                            TextWrapping="Wrap" />
+                                        <Button
+                                            Name="DetailSteps"
+                                            Grid.Column="1"
+                                            Height="60"
+                                            Margin="20"
+                                            Click="DetailSteps_Click"
+                                            Content="Xem Chi tiết"
+                                            FontSize="20"
+                                            Tag="{Binding DishCode}" />
+                                        <Border
+                                            Margin="20,10,20,10"
+                                            BorderBrush="#FFD80073"
+                                            BorderThickness="0,0,0,2" />
+                                    </Grid>
+                                </Border>
 
 
-							</StackPanel>
-						</ScrollViewer>
-					</telerik:RadFluidContentControl.LargeContent>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </telerik:RadFluidContentControl.LargeContent>
 
-				</telerik:RadFluidContentControl>
-			</DataTemplate>
+                </telerik:RadFluidContentControl>
+            </DataTemplate>
 
-			<telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-			<telerik:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
+            <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <telerik:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
 
-			<Style x:Key="AutoCompleteCustomTextBoxStyle" TargetType="telerik:RadWatermarkTextBox">
-				<Setter Property="AdditionalContent">
-					<Setter.Value>
-						<telerik:RadButton
-							Command="{Binding ClearSelectionCommand}"
-							CommandTarget="{Binding ElementName=foodAutoCompleteBox}"
-							Focusable="False"
-							IsBackgroundVisible="False"
-							Visibility="{Binding ElementName=foodAutoCompleteBox, Path=DataContext.IsClearButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-							<telerik:RadGlyph Glyph="{StaticResource GlyphClose}" />
-						</telerik:RadButton>
-					</Setter.Value>
-				</Setter>
-			</Style>
+            <Style x:Key="AutoCompleteCustomTextBoxStyle" TargetType="telerik:RadWatermarkTextBox">
+                <Setter Property="AdditionalContent">
+                    <Setter.Value>
+                        <telerik:RadButton
+                            Command="{Binding ViewModel.ClearSelectionCommand}"
+                            CommandTarget="{Binding ElementName=foodAutoCompleteBox}"
+                            Focusable="False"
+                            IsBackgroundVisible="False"
+                            Visibility="{Binding ElementName=foodAutoCompleteBox, Path=DataContext.IsClearButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <telerik:RadGlyph Glyph="{StaticResource GlyphClose}" />
+                        </telerik:RadButton>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
-			<DataTemplate x:Key="FoodsSearchAutoComplete">
-				<StackPanel Orientation="Horizontal">
-					<Image
-						Width="40"
-						Height="30"
-						Source="{Binding ImagePath}" />
-					<TextBlock
-						Margin="10,0,0,0"
-						VerticalAlignment="Center"
-						Text="{Binding Name}" />
-				</StackPanel>
-			</DataTemplate>
-		</ResourceDictionary>
+            <DataTemplate x:Key="FoodsSearchAutoComplete">
+                <StackPanel Orientation="Horizontal">
+                    <Image
+                        Width="40"
+                        Height="30"
+                        Source="{Binding ImagePath}" />
+                    <TextBlock
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="{Binding Name}" />
+                </StackPanel>
+            </DataTemplate>
+        </ResourceDictionary>
 
-	</mah:MetroWindow.Resources>
+    </mah:MetroWindow.Resources>
 
-	<mah:MetroWindow.WindowButtonCommands>
-		<mah:WindowButtonCommands
-			Close="Noooo... don't close me!"
-			DarkCloseButtonStyle="{StaticResource CustomDarkCloseButtonStyle}"
-			LightCloseButtonStyle="{StaticResource CustomLightCloseButtonStyle}" />
-	</mah:MetroWindow.WindowButtonCommands>
+    <mah:MetroWindow.WindowButtonCommands>
+        <mah:WindowButtonCommands
+            Close="Noooo... don't close me!"
+            DarkCloseButtonStyle="{StaticResource CustomDarkCloseButtonStyle}"
+            LightCloseButtonStyle="{StaticResource CustomLightCloseButtonStyle}" />
+    </mah:MetroWindow.WindowButtonCommands>
 
-	<mah:MetroWindow.LeftWindowCommands>
-		<controls:WindowCommands ShowSeparators="False">
-			<!--<Button
+    <mah:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands ShowSeparators="False">
+            <!--<Button
 				x:Name="GoBackButton"
 				Width="{Binding ElementName=HamburgerMenuControl, Path=CompactPaneLength}"
 				AutomationProperties.Name="Go back"
@@ -333,35 +337,37 @@
 					FontSize="14"
 					Glyph="&#xE72B;" />
 			</Button>-->
-		</controls:WindowCommands>
-	</mah:MetroWindow.LeftWindowCommands>
+        </controls:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
 
-	<mah:MetroWindow.RightWindowCommands>
-		<mah:WindowCommands>
-			<ToggleButton
-				Content="First Flyout"
-				Cursor="Hand"
-				IsChecked="{Binding ElementName=firstFlyout, Path=IsOpen}" />
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <ToggleButton
+                Content="First Flyout"
+                Cursor="Hand"
+                IsChecked="{Binding ElementName=firstFlyout, Path=IsOpen}" />
 
-			<ToggleButton
-				Content="Setting"
-				Cursor="Hand"
-				IsChecked="{Binding ElementName=Setting, Path=IsOpen}" />
+            <ToggleButton
+                  Content="Setting"
+                  Cursor="Hand"
+                  IsChecked="{Binding ElementName=Setting, Path=IsOpen}" />
 		</mah:WindowCommands>
 	</mah:MetroWindow.RightWindowCommands>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
 
-	<mah:MetroWindow.Flyouts>
-		<mah:FlyoutsControl>
-			<mah:Flyout
-				x:Name="firstFlyout"
-				Width="200"
-				Header="Flyout"
-				Position="Left"
-				Theme="Accent">
-				<!--  Your custom content here  -->
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout
+                x:Name="firstFlyout"
+                Width="200"
+                Header="Flyout"
+                Position="Left"
+                Theme="Accent">
+                <!--  Your custom content here  -->
             </mah:Flyout>
 
-			<mah:Flyout
+            	<mah:Flyout
 				x:Name="Setting"
 				Width="300"
 				Header="Second Flyout"
@@ -381,292 +387,297 @@
                     </Border>
                 </StackPanel>
 			</mah:Flyout>
-		</mah:FlyoutsControl>
-	</mah:MetroWindow.Flyouts>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
 
-	<DockPanel x:Name="LayoutRoot">
+    <DockPanel x:Name="LayoutRoot">
 
-		<Grid>
-			<Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
-				<mah:MetroAnimatedSingleRowTabControl
-					x:Name="MainTabControl"
-					SelectionChanged="MainTabControl_SelectionChanged"
-					Style="{StaticResource CustomTabControl}">
+                <mah:MetroAnimatedSingleRowTabControl
+                    x:Name="MainTabControl"
+                    SelectionChanged="MainTabControl_SelectionChanged"
+                    Style="{StaticResource CustomTabControl}">
 
-					<mah:MetroTabItem x:Name="DiscoverTabItem" Header="Discover">
-						<Grid
-							x:Name="TopGrid"
-							Grid.Row="0"
-							Width="680">
+                    <mah:MetroTabItem x:Name="DiscoverTabItem" Header="Discover">
+                        <Grid
+                            x:Name="TopGrid"
+                            Grid.Row="0"
+                            Width="680">
 
-							<Grid.RowDefinitions>
-								<RowDefinition Height="200" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="60" />
-							</Grid.RowDefinitions>
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition />
-								<ColumnDefinition />
-								<ColumnDefinition />
-							</Grid.ColumnDefinitions>
-							<Image
-								Grid.Row="0"
-								Grid.ColumnSpan="3"
-								Source="/Resources/MainPage/searchBackground.jpg"
-								Stretch="UniformToFill" />
-							<StackPanel Grid.Row="0" Grid.ColumnSpan="3">
-								<TextBlock
-									x:Name="SuggestTextBlock"
-									Height="35.6"
-									Margin="0,48,0,20"
-									HorizontalAlignment="Center"
-									VerticalAlignment="Top"
-									FontFamily="Segoe UI Light"
-									FontSize="24"
-									Foreground="White"
-									Style="{DynamicResource MahApps.Styles.TextBlock}"
-									Text="Discover our Top Food Suggestions"
-									TextWrapping="Wrap" />
-								<telerik:RadAutoCompleteBox
-									x:Name="foodAutoCompleteBox"
-									Width="{Binding ElementName=SuggestTextBlock, Path=ActualWidth}"
-									Height="14"
-									MinHeight="24"
-									Margin="163,0"
-									VerticalAlignment="Center"
-									telerik:StyleManager.Theme="Office2019"
-									AutoCompleteMode="Suggest"
-									DropDownItemTemplate="{StaticResource FoodsSearchAutoComplete}"
-									Foreground="DarkGray"
-									IsDropDownOpen="{Binding IsDropDownOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-									ItemsSource="{Binding Recipes}"
-									NoResultsContent="No Matches"
-									SearchText="{Binding SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-									SelectedItem="{Binding SelectedSearchItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-									SelectionMode="Single"
-									TextBoxStyle="{StaticResource AutoCompleteCustomTextBoxStyle}"
-									TextSearchMode="Contains"
-									TextSearchPath="Name"
-									WatermarkContent="Search all of our recipes" />
-							</StackPanel>
-							<Border
-								Grid.Row="1"
-								Grid.Column="0"
-								Margin="0,5,5,5"
-								Padding="10"
-								Background="White"
-								BorderBrush="#c5a1ff"
-								BorderThickness="1">
-								<TextBlock
-									Height="35.6"
-									Margin="0"
-									HorizontalAlignment="Center"
-									VerticalAlignment="Center"
-									FontFamily="Segoe UI Light"
-									FontSize="24"
-									Foreground="#c5a1ff"
-									Text="What's popular"
-									TextWrapping="Wrap" />
-							</Border>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="60" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Image
+                                Grid.Row="0"
+                                Grid.ColumnSpan="3"
+                                Source="/Resources/MainPage/searchBackground.jpg"
+                                Stretch="UniformToFill" />
+                            <StackPanel Grid.Row="0" Grid.ColumnSpan="3">
+                                <TextBlock
+                                    x:Name="SuggestTextBlock"
+                                    Height="35.6"
+                                    Margin="0,48,0,20"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    FontFamily="Segoe UI Light"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    Style="{DynamicResource MahApps.Styles.TextBlock}"
+                                    Text="Discover our Top Food Suggestions"
+                                    TextWrapping="Wrap" />
+                                <telerik:RadAutoCompleteBox
+                                    x:Name="foodAutoCompleteBox"
+                                    Width="{Binding ElementName=SuggestTextBlock, Path=ActualWidth}"
+                                    Height="14"
+                                    MinHeight="24"
+                                    Margin="163,0"
+                                    VerticalAlignment="Center"
+                                    telerik:StyleManager.Theme="Office2019"
+                                    AutoCompleteMode="Suggest"
+                                    DropDownItemTemplate="{StaticResource FoodsSearchAutoComplete}"
+                                    Foreground="DarkGray"
+                                    IsDropDownOpen="{Binding ViewModel.IsDropDownOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    ItemsSource="{Binding ViewModel.Recipes}"
+                                    NoResultsContent="Không có"
+                                    SearchText="{Binding ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedItem="{Binding ViewModel.SelectedSearchItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectionMode="Single"
+                                    TextBoxStyle="{StaticResource AutoCompleteCustomTextBoxStyle}"
+                                    TextSearchMode="Contains"
+                                    TextSearchPath="Name"
+                                    WatermarkContent="Search all of our recipes" />
+                            </StackPanel>
+                            <Border
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="0,5,5,5"
+                                Padding="10"
+                                Background="White"
+                                BorderBrush="#c5a1ff"
+                                BorderThickness="1">
+                                <TextBlock
+                                    Height="35.6"
+                                    Margin="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Segoe UI Light"
+                                    FontSize="24"
+                                    Foreground="#c5a1ff"
+                                    Text="What's popular"
+                                    TextWrapping="Wrap" />
+                            </Border>
 
-							<Border
-								Grid.Row="1"
-								Grid.Column="1"
-								Margin="5"
-								Padding="10"
-								Background="White"
-								BorderBrush="#c5a1ff"
-								BorderThickness="1">
-								<TextBlock
-									Height="35.6"
-									Margin="0"
-									HorizontalAlignment="Center"
-									VerticalAlignment="Center"
-									FontFamily="Segoe UI Light"
-									FontSize="24"
-									Foreground="#c5a1ff"
-									Text="What to cook?"
-									TextWrapping="Wrap" />
-							</Border>
-							<Border
-								Grid.Row="1"
-								Grid.Column="2"
-								Margin="5,5,0,5"
-								Padding="10"
-								Background="White"
-								BorderBrush="#c5a1ff"
-								BorderThickness="1">
-								<TextBlock
-									Height="35.6"
-									Margin="0"
-									HorizontalAlignment="Center"
-									VerticalAlignment="Center"
-									FontFamily="Segoe UI Light"
-									FontSize="24"
-									Foreground="#c5a1ff"
-									Text="Easy &amp; Healthy"
-									TextWrapping="Wrap" />
-							</Border>
-							<StackPanel
-								Grid.Row="2"
-								Grid.Column="0"
-								Grid.ColumnSpan="3"
-								HorizontalAlignment="Left"
-								Orientation="Horizontal"
-								Visibility="{Binding SelectedSearchItem, Converter={StaticResource NullToVisibilityConverter}}">
-								<Image Source="{Binding SelectedSearchItem.ImagePath}" />
-								<TextBlock
-									Margin="15,0"
-									VerticalAlignment="Center"
-									FontSize="24"
-									Opacity="0.8"
-									Text="{Binding SelectedSearchItem.Name}"
-									TextWrapping="Wrap" />
-								<Path
-									Margin="0,10,0,0"
-									VerticalAlignment="Center"
-									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-									Fill="#c5a1ff">
-									<Path.RenderTransform>
-										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-									</Path.RenderTransform>
-								</Path>
+                            <Border
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="5"
+                                Padding="10"
+                                Background="White"
+                                BorderBrush="#c5a1ff"
+                                BorderThickness="1">
+                                <TextBlock
+                                    Height="35.6"
+                                    Margin="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Segoe UI Light"
+                                    FontSize="24"
+                                    Foreground="#c5a1ff"
+                                    Text="What to cook?"
+                                    TextWrapping="Wrap" />
+                            </Border>
+                            <Border
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="5,5,0,5"
+                                Padding="10"
+                                Background="White"
+                                BorderBrush="#c5a1ff"
+                                BorderThickness="1">
+                                <TextBlock
+                                    Height="35.6"
+                                    Margin="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontFamily="Segoe UI Light"
+                                    FontSize="24"
+                                    Foreground="#c5a1ff"
+                                    Text="Easy &amp; Healthy"
+                                    TextWrapping="Wrap" />
+                            </Border>
+                            <StackPanel
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                HorizontalAlignment="Left"
+                                Orientation="Horizontal"
+                                Visibility="{Binding ViewModel.SelectedSearchItem, Converter={StaticResource NullToVisibilityConverter}}">
+                                <Image Source="{Binding ViewModel.SelectedSearchItem.ImagePath}" />
+                                <TextBlock
+                                    Margin="15,0"
+                                    VerticalAlignment="Center"
+                                    FontSize="24"
+                                    Opacity="0.8"
+                                    Text="{Binding ViewModel.SelectedSearchItem.Name}"
+                                    TextWrapping="Wrap" />
+                                <Path
+                                    Margin="0,10,0,0"
+                                    VerticalAlignment="Center"
+                                    Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+                                    Fill="#c5a1ff">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                                    </Path.RenderTransform>
+                                </Path>
 
-								<Path
-									Margin="0,10,0,0"
-									VerticalAlignment="Center"
-									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-									Fill="#c5a1ff">
-									<Path.RenderTransform>
-										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-									</Path.RenderTransform>
-								</Path>
+                                <Path
+                                    Margin="0,10,0,0"
+                                    VerticalAlignment="Center"
+                                    Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+                                    Fill="#c5a1ff">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                                    </Path.RenderTransform>
+                                </Path>
 
-								<Path
-									Margin="0,10,0,0"
-									VerticalAlignment="Center"
-									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-									Fill="#c5a1ff">
-									<Path.RenderTransform>
-										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-									</Path.RenderTransform>
-								</Path>
+                                <Path
+                                    Margin="0,10,0,0"
+                                    VerticalAlignment="Center"
+                                    Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+                                    Fill="#c5a1ff">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                                    </Path.RenderTransform>
+                                </Path>
 
-								<Path
-									Margin="0,10,0,0"
-									VerticalAlignment="Center"
-									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-									Fill="#c5a1ff">
-									<Path.RenderTransform>
-										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-									</Path.RenderTransform>
-								</Path>
+                                <Path
+                                    Margin="0,10,0,0"
+                                    VerticalAlignment="Center"
+                                    Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+                                    Fill="#c5a1ff">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                                    </Path.RenderTransform>
+                                </Path>
 
-								<Path
-									Margin="0,10,0,0"
-									VerticalAlignment="Center"
-									Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
-									Fill="#c5a1ff">
-									<Path.RenderTransform>
-										<ScaleTransform ScaleX="0.7" ScaleY="0.7" />
-									</Path.RenderTransform>
-								</Path>
-							</StackPanel>
-						</Grid>
-					</mah:MetroTabItem>
+                                <Path
+                                    Margin="0,10,0,0"
+                                    VerticalAlignment="Center"
+                                    Data="M 9,0 L 7,6 L 0,6 L 6,11 L 4,17 L 9,12 L 14,17 L 12,11 L 18,6 L 11,6 L 9,0"
+                                    Fill="#c5a1ff">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleX="0.7" ScaleY="0.7" />
+                                    </Path.RenderTransform>
+                                </Path>
+                            </StackPanel>
+                        </Grid>
+                    </mah:MetroTabItem>
 
-					<mah:MetroTabItem x:Name="AllRecipesTabItem" Header="All Recipes">
+                    <mah:MetroTabItem x:Name="AllRecipesTabItem" Header="All Recipes">
 
-						<Grid Width="Auto" Height="Auto">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="*" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
+                        <Grid Width="Auto" Height="Auto">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-							<telerik:RadTileView
-								x:Name="AllRecipesTileView"
-								Grid.Row="0"
-								ContentTemplate="{StaticResource ContentTemplate}"
-								ItemsSource="{Binding PagedSource, ElementName=AllRecipesPager}"
-								TileStateChanged="radTileView_TileStateChanged" />
+                            <telerik:RadTileView
+                                x:Name="AllRecipesTileView"
+                                Grid.Row="0"
+                                ContentTemplate="{StaticResource ContentTemplate}"
+                                ItemsSource="{Binding PagedSource, ElementName=AllRecipesPager, UpdateSourceTrigger=PropertyChanged}"
+                                TileStateChanged="radTileView_TileStateChanged" />
 
-							<telerik:RadDataPager
-								x:Name="AllRecipesPager"
-								Grid.Row="1"
-								PageIndexChanging="Pager_PageIndexChanging"
-								PageSize="{Binding ElementName=AllRecipesNumericUpDown, Path=Value}"
-								Source="{Binding Recipes}" />
+                            <telerik:RadDataPager
+                                x:Name="AllRecipesPager"
+                                Grid.Row="1"
+                                DataContextChanged="AllRecipesPager_DataContextChanged"
+                                PageIndexChanging="Pager_PageIndexChanging"
+                                PageSize="{Binding ElementName=AllRecipesNumericUpDown, Path=Value}"
+                                Source="{Binding ViewModel.Recipes}" />
 
-							<DockPanel
-								x:Name="AllRecipesPageSizeSettingDockPanel"
-								Grid.Row="2"
-								Margin="0,2,0,0"
-								HorizontalAlignment="Right">
+                            <DockPanel
+                                x:Name="AllRecipesPageSizeSettingDockPanel"
+                                Grid.Row="2"
+                                Margin="0,2,0,0"
+                                HorizontalAlignment="Right">
 
-								<telerik:RadNumericUpDown
-									x:Name="AllRecipesNumericUpDown"
-									DockPanel.Dock="Right"
-									Maximum="{Binding Recipes.Count}"
-									Value="{Binding AllRecipesPageSize, Mode=TwoWay}" />
+                                <telerik:RadNumericUpDown
+                                    x:Name="AllRecipesNumericUpDown"
+                                    DockPanel.Dock="Right"
+                                    Maximum="{Binding ViewModel.Recipes.Count}"
+                                    Value="{Binding ViewModel.AllRecipesPageSize, Mode=TwoWay}" />
 
-								<Label
-									Background="White"
-									Content="Page Size:"
-									DockPanel.Dock="Right"
-									Style="{DynamicResource MahApps.Styles.Label}" />
-							</DockPanel>
-						</Grid>
+                                <Label
+                                    Background="White"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1"
+                                    Content="Page Size:"
+                                    DockPanel.Dock="Right"
+                                    Style="{DynamicResource MahApps.Styles.Label}" />
+                            </DockPanel>
+                        </Grid>
 
-					</mah:MetroTabItem>
+                    </mah:MetroTabItem>
 
-					<mah:MetroTabItem x:Name="FavouriteRecipesTabItem" Header="Your Favourites">
+                    <mah:MetroTabItem x:Name="FavouriteRecipesTabItem" Header="Your Favourites">
 
-						<Grid Width="Auto" Height="Auto">
+                        <Grid Width="Auto" Height="Auto">
 
-							<Grid.RowDefinitions>
-								<RowDefinition Height="*" />
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
 
-							<telerik:RadTileView
-								x:Name="FavouriteRecipesTileView"
-								Grid.Row="0"
-								ContentTemplate="{StaticResource ContentTemplate}"
-								ItemsSource="{Binding PagedSource, ElementName=FavouriteRecipesPager}"
-								TileStateChanged="radTileView_TileStateChanged" />
+                            <telerik:RadTileView
+                                x:Name="FavouriteRecipesTileView"
+                                Grid.Row="0"
+                                ContentTemplate="{StaticResource ContentTemplate}"
+                                ItemsSource="{Binding PagedSource, ElementName=FavouriteRecipesPager, UpdateSourceTrigger=PropertyChanged}"
+                                TileStateChanged="radTileView_TileStateChanged" />
 
-							<telerik:RadDataPager
-								x:Name="FavouriteRecipesPager"
-								Grid.Row="1"
-								PageIndexChanging="Pager_PageIndexChanging"
-								PageSize="{Binding ElementName=FavoriteNumericUpDown, Path=Value}"
-								Source="{Binding FavouriteRecipes}" />
+                            <telerik:RadDataPager
+                                x:Name="FavouriteRecipesPager"
+                                Grid.Row="1"
+                                PageIndexChanging="Pager_PageIndexChanging"
+                                PageSize="{Binding ElementName=FavoriteNumericUpDown, Path=Value}"
+                                Source="{Binding ViewModel.FavouriteRecipes, UpdateSourceTrigger=PropertyChanged}" />
 
-							<DockPanel
-								x:Name="FavouriteRecipesPageSizeSettingDockPanel"
-								Grid.Row="2"
-								Margin="0,2,0,0"
-								HorizontalAlignment="Right"
-								LastChildFill="True">
+                            <DockPanel
+                                x:Name="FavouriteRecipesPageSizeSettingDockPanel"
+                                Grid.Row="2"
+                                Margin="0,2,0,0"
+                                HorizontalAlignment="Right"
+                                LastChildFill="True">
 
-								<telerik:RadNumericUpDown
-									x:Name="FavoriteNumericUpDown"
-									DockPanel.Dock="Right"
-									Maximum="{Binding FavouriteRecipes.Count}"
-									Value="{Binding FavouriteRecipesPageSize, Mode=TwoWay}" />
-								<Label
-									Background="White"
-									Content="Page Size:"
-									DockPanel.Dock="Right"
-									Style="{DynamicResource MahApps.Styles.Label}" />
-							</DockPanel>
-						</Grid>
-					</mah:MetroTabItem>
+                                <telerik:RadNumericUpDown
+                                    x:Name="FavoriteNumericUpDown"
+                                    DockPanel.Dock="Right"
+                                    Maximum="{Binding ViewModel.FavouriteRecipes.Count}"
+                                    Value="{Binding ViewModel.FavouriteRecipesPageSize, Mode=TwoWay}" />
+                                <Label
+                                    Background="White"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1"
+                                    Content="Page Size:"
+                                    DockPanel.Dock="Right"
+                                    Style="{DynamicResource MahApps.Styles.Label}" />
+                            </DockPanel>
+                        </Grid>
+                    </mah:MetroTabItem>
 
-					<!--<mah:MetroTabItem x:Name="SearchTabItem" Header="Search here">
+                    <!--<mah:MetroTabItem x:Name="SearchTabItem" Header="Search here">
 					<Grid Width="Auto" Height="Auto">
 
 						<Grid.RowDefinitions>
@@ -979,5 +990,6 @@
 
 		</Grid>
 	</DockPanel>
+
 
 </mah:MetroWindow>

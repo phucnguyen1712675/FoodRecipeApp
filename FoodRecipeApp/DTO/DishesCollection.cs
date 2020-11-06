@@ -12,8 +12,8 @@ using System.Windows;
 
 namespace FoodRecipeApp.DTO
 {
-	public class DishesCollection : ObservableCollection<Dish>
-	{
+	public class DishesCollection : ObservableCollectionPropertyNotify<Dish>
+    {
 
 		public static DishesCollection GetAllDishes()
 		{

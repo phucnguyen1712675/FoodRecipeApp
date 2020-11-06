@@ -17,10 +17,11 @@ using System.ComponentModel;
 using System.Windows.Threading;
 using PropertyChanged;
 using System.Configuration;
+using System.Windows.Data;
 
 namespace FoodRecipeApp.ViewModels
 {
-    public class RecipeViewModel: ViewModelBase, INotifyPropertyChanged
+    public class RecipeViewModel:  INotifyPropertyChanged
     {
 		public List<Dish> ModifiedItems { get; set; }
 		public DishesCollection Recipes { get; } = new DishesCollection();
@@ -39,11 +40,12 @@ namespace FoodRecipeApp.ViewModels
 		{
 			this.ModifiedItems = new List<Dish>();
 
-			foreach (var item in DishesCollection.GetAllDishes()) this.Recipes.Add(item);
-			this.Recipes.CollectionChanged += this.OnCollectionChanged;
+			foreach (var item in DishesCollection.GetAllDishes()) this.Recipes.Add(item);			
 
 			foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
-			this.FavouriteRecipes.CollectionChanged += this.OnCollectionChanged;
+
+			this.Recipes.CollectionChanged += Recipes_CollectionChanged;
+			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;
 
 			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 
@@ -57,53 +59,53 @@ namespace FoodRecipeApp.ViewModels
 			else
 			{
 				int favItemCount = this.FavouriteRecipes.Count;
-				if (favItemCount < 7)
-				{
-					this.FavouriteRecipesPageSize = favItemCount;
-				}
-				else
-				{
-					this.FavouriteRecipesPageSize = 6;
-				}
+				this.FavouriteRecipesPageSize = favItemCount < 9 ? favItemCount : 8;
 			}			
 
 			this.SearchRecipes = new BindingList<Dish>(this.Recipes);
 		}
 
-		[SuppressPropertyChangedWarnings]
-		void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+#pragma warning disable 67
+		public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 67
+		private void FavouriteRecipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			if (e.NewItems != null)
-			{
-				foreach (Dish newItem in e.NewItems)
-				{
-					ModifiedItems.Add(newItem);
-
-					//Add listener for each item on PropertyChanged event
-					newItem.PropertyChanged += this.OnItemPropertyChanged;
-				}
-			}
-
-			if (e.OldItems != null)
-			{
-				foreach (Dish oldItem in e.OldItems)
-				{
-					ModifiedItems.Add(oldItem);
-
-					oldItem.PropertyChanged -= this.OnItemPropertyChanged;
-				}
-			}
+			//RaisePropertyChanged("FavouriteRecipes");
 		}
 
-		[SuppressPropertyChangedWarnings]
-		void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+		private void Recipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			Dish item = sender as Dish;
-			if (item != null)
-				ModifiedItems.Add(item);
+			//RaisePropertyChanged("Recipes");
+			//CollectionViewSource.GetDefaultView(Recipes).Refresh();
 		}
 
-		public bool AddNewItemToAllRecipesList(Dish newDish)
+        /*[SuppressPropertyChangedWarnings]
+        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (Dish newItem in e.NewItems)
+                {
+                    ModifiedItems.Add(newItem);
+
+                    //Add listener for each item on PropertyChanged event
+                    if (e.Action == NotifyCollectionChangedAction.Add)
+                        newItem.PropertyChanged += this.ListTagInfo_PropertyChanged;
+                    else if (e.Action == NotifyCollectionChangedAction.Remove)
+                        newItem.PropertyChanged -= this.ListTagInfo_PropertyChanged;
+                }
+            }
+        }
+
+        [SuppressPropertyChangedWarnings]
+        void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Dish item = sender as Dish;
+            if (item != null)
+                ModifiedItems.Add(item);
+        }*/
+
+        public bool AddNewItemToAllRecipesList(Dish newDish)
 		{
 			bool result = false;
 
@@ -112,10 +114,8 @@ namespace FoodRecipeApp.ViewModels
 				result = true;
 				this.ModifiedItems.Add(newDish);
 				this.Recipes.Add(newDish);
+				//RaisePropertyChanged("Recipes");
 			}
-
-			//TODO
-
 			return result;
 		}
 

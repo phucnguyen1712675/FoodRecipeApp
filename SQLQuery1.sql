@@ -1900,8 +1900,6 @@ select * from DISH where Dish = @Dish
 end
 go
 
-select Dish , Love, Name from DISH
-
 CREATE PROCEDURE USP_getNewestDish
 As
 begin

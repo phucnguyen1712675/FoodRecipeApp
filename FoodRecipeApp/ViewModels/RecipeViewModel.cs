@@ -110,9 +110,12 @@ namespace FoodRecipeApp.ViewModels
 			if (newDish != null)
 			{
 				result = true;
+				this.ModifiedItems.Add(newDish);
 				this.Recipes.Add(newDish);
 			}
+
 			//TODO
+
 			return result;
 		}
 

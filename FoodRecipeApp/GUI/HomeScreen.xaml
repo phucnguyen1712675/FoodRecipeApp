@@ -30,9 +30,6 @@
 				<ResourceDictionary Source="/Telerik.Windows.Controls;component/Themes/FontResources.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 
-			<!--<DataTemplate x:Key="ItemTemplate">
-			</DataTemplate>-->
-
 			<DataTemplate x:Key="ContentTemplate">
 
 				<telerik:RadFluidContentControl
@@ -347,9 +344,9 @@
 				IsChecked="{Binding ElementName=firstFlyout, Path=IsOpen}" />
 
 			<ToggleButton
-				Content="Second Flyout"
+				Content="Setting"
 				Cursor="Hand"
-				IsChecked="{Binding ElementName=secondFlyout, Path=IsOpen}" />
+				IsChecked="{Binding ElementName=Setting, Path=IsOpen}" />
 		</mah:WindowCommands>
 	</mah:MetroWindow.RightWindowCommands>
 
@@ -362,15 +359,27 @@
 				Position="Left"
 				Theme="Accent">
 				<!--  Your custom content here  -->
-			</mah:Flyout>
+            </mah:Flyout>
 
 			<mah:Flyout
-				x:Name="secondFlyout"
+				x:Name="Setting"
 				Width="300"
 				Header="Second Flyout"
 				Position="Right"
 				Theme="Inverse">
 				<!--  Your custom content here  -->
+                <StackPanel>
+                    <Border BorderBrush="White" BorderThickness="1" Padding="20" Margin="0,10,0,0" MouseDown="Border_MouseDown">
+                        <Grid>
+                            <Label Content="Splash Screen" Foreground="White" FontSize="20"/>
+                        </Grid>
+                    </Border>
+                    <Border BorderBrush="White" BorderThickness="1,0,1,1" Padding="20">
+                        <Grid>
+                            <Label Content="tương lai phát triển" Foreground="White" FontSize="20"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
 			</mah:Flyout>
 		</mah:FlyoutsControl>
 	</mah:MetroWindow.Flyouts>
@@ -963,11 +972,9 @@
 			<ToggleButton
 				x:Name="AddRecipeToggleButton"
 				Panel.ZIndex="1000"
-				materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Plus,
-				                                                                      Size=30}"
+				materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Plus,  Size=30}"
 				Click="AddRecipeToggleButton_Click"
-				Content="{materialDesign:PackIcon Kind=Plus,
-				                                  Size=30}"
+				Content="{materialDesign:PackIcon Kind=Plus,  Size=30}"
 				Style="{StaticResource CustomToggleButtonAddStyle}" />
 
 		</Grid>

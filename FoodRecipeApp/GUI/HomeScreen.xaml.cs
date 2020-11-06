@@ -96,14 +96,20 @@ namespace FoodRecipeApp.GUI
 			switch (item.TileState)
 			{
 				case TileViewItemState.Maximized:
-					fluid.State = FluidContentControlState.Large;
-					break;
+					{
+						fluid.State = FluidContentControlState.Large;
+						this.AddRecipeToggleButton.Visibility = Visibility.Hidden;
+						break;
+					}
 				case TileViewItemState.Minimized:
 					fluid.State = FluidContentControlState.Normal;
 					break;
 				case TileViewItemState.Restored:
-					fluid.State = FluidContentControlState.Normal;
-					break;
+					{
+						fluid.State = FluidContentControlState.Normal;
+						this.AddRecipeToggleButton.Visibility = Visibility.Visible;
+						break;
+					}
 				default:
 					break;
 			}
@@ -177,5 +183,41 @@ namespace FoodRecipeApp.GUI
 			addRecipeWindow.Show();
 			this.Hide();
 		}
-	}
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+			var value = ConfigurationManager.AppSettings["ShowSplashScreen"];
+			var showSplashScreen = bool.Parse(value);
+			if(showSplashScreen == true)
+            {
+				SetShowSplashScreenFalse();
+            }
+            else
+            {
+				SetShowSplashScreenTrue();
+			}
+		}
+
+        private void SetShowSplashScreenFalse()
+        {
+			MessageBoxResult result = MessageBox.Show("Bạn muốn tắt splash screen", "SplashScreen đang on", MessageBoxButton.OKCancel);
+			if(result == MessageBoxResult.OK)
+            {
+				var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+				config.AppSettings.Settings["ShowSplashScreen"].Value = "false";
+				config.Save(ConfigurationSaveMode.Minimal);
+			}
+		}
+
+        private void SetShowSplashScreenTrue()
+        {
+			MessageBoxResult result = MessageBox.Show("Bạn muốn mở lại splash screen", "SplashScreen đang off", MessageBoxButton.OKCancel);
+			if (result == MessageBoxResult.OK)
+			{
+				var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+				config.AppSettings.Settings["ShowSplashScreen"].Value = "true";
+				config.Save(ConfigurationSaveMode.Minimal);
+			}
+		}
+    }
 }

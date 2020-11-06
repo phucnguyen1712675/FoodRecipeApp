@@ -348,9 +348,11 @@
                 IsChecked="{Binding ElementName=firstFlyout, Path=IsOpen}" />
 
             <ToggleButton
-                Content="Second Flyout"
-                Cursor="Hand"
-                IsChecked="{Binding ElementName=secondFlyout, Path=IsOpen}" />
+                  Content="Setting"
+                  Cursor="Hand"
+                  IsChecked="{Binding ElementName=Setting, Path=IsOpen}" />
+		</mah:WindowCommands>
+	</mah:MetroWindow.RightWindowCommands>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
@@ -365,14 +367,26 @@
                 <!--  Your custom content here  -->
             </mah:Flyout>
 
-            <mah:Flyout
-                x:Name="secondFlyout"
-                Width="300"
-                Header="Second Flyout"
-                Position="Right"
-                Theme="Inverse">
-                <!--  Your custom content here  -->
-            </mah:Flyout>
+            	<mah:Flyout
+				x:Name="Setting"
+				Width="300"
+				Header="Second Flyout"
+				Position="Right"
+				Theme="Inverse">
+				<!--  Your custom content here  -->
+                <StackPanel>
+                    <Border BorderBrush="White" BorderThickness="1" Padding="20" Margin="0,10,0,0" MouseDown="Border_MouseDown">
+                        <Grid>
+                            <Label Content="Splash Screen" Foreground="White" FontSize="20"/>
+                        </Grid>
+                    </Border>
+                    <Border BorderBrush="White" BorderThickness="1,0,1,1" Padding="20">
+                        <Grid>
+                            <Label Content="tương lai phát triển" Foreground="White" FontSize="20"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+			</mah:Flyout>
         </mah:FlyoutsControl>
     </mah:MetroWindow.Flyouts>
 
@@ -963,20 +977,19 @@
 						</DockPanel>
 					</Grid>
 				</mah:MetroTabItem>-->
-                </mah:MetroAnimatedSingleRowTabControl>
+				</mah:MetroAnimatedSingleRowTabControl>
 
-            </Grid>
-            <ToggleButton
-                x:Name="AddRecipeToggleButton"
-                Panel.ZIndex="1000"
-                materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Plus,
-                                                                                      Size=30}"
-                Click="AddRecipeToggleButton_Click"
-                Content="{materialDesign:PackIcon Kind=Plus,
-                                                  Size=30}"
-                Style="{StaticResource CustomToggleButtonAddStyle}" />
+			</Grid>
+			<ToggleButton
+				x:Name="AddRecipeToggleButton"
+				Panel.ZIndex="1000"
+				materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Plus,  Size=30}"
+				Click="AddRecipeToggleButton_Click"
+				Content="{materialDesign:PackIcon Kind=Plus,  Size=30}"
+				Style="{StaticResource CustomToggleButtonAddStyle}" />
 
-        </Grid>
-    </DockPanel>
+		</Grid>
+	</DockPanel>
+
 
 </mah:MetroWindow>

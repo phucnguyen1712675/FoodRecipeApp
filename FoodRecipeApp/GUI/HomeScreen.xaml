@@ -351,8 +351,6 @@
                   Content="Setting"
                   Cursor="Hand"
                   IsChecked="{Binding ElementName=Setting, Path=IsOpen}" />
-		</mah:WindowCommands>
-	</mah:MetroWindow.RightWindowCommands>
         </mah:WindowCommands>
     </mah:MetroWindow.RightWindowCommands>
 
@@ -375,12 +373,12 @@
 				Theme="Inverse">
 				<!--  Your custom content here  -->
                 <StackPanel>
-                    <Border BorderBrush="White" BorderThickness="1" Padding="20" Margin="0,10,0,0" MouseDown="Border_MouseDown">
+                    <Border BorderBrush="White" BorderThickness="0,0,0,1" Padding="20" Margin="0,10,0,0" MouseDown="Border_MouseDown">
                         <Grid>
                             <Label Content="Splash Screen" Foreground="White" FontSize="20"/>
                         </Grid>
                     </Border>
-                    <Border BorderBrush="White" BorderThickness="1,0,1,1" Padding="20">
+                    <Border BorderBrush="White" BorderThickness="0,0,0,0" Padding="20">
                         <Grid>
                             <Label Content="tương lai phát triển" Foreground="White" FontSize="20"/>
                         </Grid>
@@ -977,10 +975,10 @@
 						</DockPanel>
 					</Grid>
 				</mah:MetroTabItem>-->
-				</mah:MetroAnimatedSingleRowTabControl>
+                </mah:MetroAnimatedSingleRowTabControl>
 
-			</Grid>
-			<ToggleButton
+            </Grid>
+            <ToggleButton
 				x:Name="AddRecipeToggleButton"
 				Panel.ZIndex="1000"
 				materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=Plus,  Size=30}"
@@ -988,8 +986,6 @@
 				Content="{materialDesign:PackIcon Kind=Plus,  Size=30}"
 				Style="{StaticResource CustomToggleButtonAddStyle}" />
 
-		</Grid>
-	</DockPanel>
-
-
+        </Grid>
+    </DockPanel>
 </mah:MetroWindow>

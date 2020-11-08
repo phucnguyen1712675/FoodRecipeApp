@@ -1829,7 +1829,7 @@ AS
 BEGIN
   SET NOCOUNT ON;  
   select * from DISH
-where not exists ((select Item from dbo.SplitInts(@List,','))
+  where not exists ((select Item from dbo.SplitInts(@List,','))
 								except (select Item from dbo.SplitInts(Loai,',')))
 END
 GO
@@ -1906,3 +1906,11 @@ begin
 select max(Dish) as Dish from DISH
 end
 go
+
+/*
+select * from DISH
+  where not exists ((select Item from dbo.SplitInts(N'bò',','))
+								except (select Item from dbo.SplitInts(Loai,',')))
+ intersect 
+ select * from DISH where (dbo.ufn_removeMark(Name) like N'%thit%' and (dbo.ufn_removeMark(Name) like N'%xao%'  or dbo.ufn_removeMark(Name) like N'%kho%')) OR (Name like N'%thịt%' and Name like N'%xào%' or Name like N'%kho%')
+ */

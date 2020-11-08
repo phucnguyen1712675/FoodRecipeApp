@@ -74,5 +74,10 @@ namespace FoodRecipeApp.DAO
         {
             return DataProvider.Instance.ExecuteQuery("EXEC  USP_getDishByName @Name = N'" + dishName + "'");
         }
+
+        internal DataTable AdvanceSearch(string str)
+        {
+            return DataProvider.Instance.ExecuteQuery(str);
+        }
     }
 }

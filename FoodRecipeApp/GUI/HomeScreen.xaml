@@ -3,16 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:converters="clr-namespace:FoodRecipeApp.Converter"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:FoodRecipeApp"
     xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
-    xmlns:viewModels="clr-namespace:FoodRecipeApp.ViewModels"
     Title="FOOD RECIPE APP"
-    Width="1140"
-    Height="540"
     BorderThickness="1"
     Closed="MetroWindow_Closed"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -31,8 +29,7 @@
                 <ResourceDictionary Source="/Telerik.Windows.Controls;component/Themes/FontResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!--<DataTemplate x:Key="ItemTemplate">
-			</DataTemplate>-->
+            
 
             <DataTemplate x:Key="ContentTemplate">
 
@@ -284,9 +281,6 @@
                 </telerik:RadFluidContentControl>
             </DataTemplate>
 
-            <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-            <telerik:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
-
             <Style x:Key="AutoCompleteCustomTextBoxStyle" TargetType="telerik:RadWatermarkTextBox">
                 <Setter Property="AdditionalContent">
                     <Setter.Value>
@@ -295,11 +289,17 @@
                             CommandTarget="{Binding ElementName=foodAutoCompleteBox}"
                             Focusable="False"
                             IsBackgroundVisible="False"
-                            Visibility="{Binding ElementName=foodAutoCompleteBox, Path=DataContext.IsClearButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            Visibility="{Binding Path=ViewModel.IsClearButtonVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                             <telerik:RadGlyph Glyph="{StaticResource GlyphClose}" />
                         </telerik:RadButton>
                     </Setter.Value>
                 </Setter>
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Margin" Value="3,3,0,0" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="BorderBrush" Value="Transparent" />
+                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
 
             <DataTemplate x:Key="FoodsSearchAutoComplete">
@@ -311,9 +311,11 @@
                     <TextBlock
                         Margin="10,0,0,0"
                         VerticalAlignment="Center"
+                        Foreground="{Binding Converter={StaticResource LoveToColorConverter}}"
                         Text="{Binding Name}" />
                 </StackPanel>
             </DataTemplate>
+
         </ResourceDictionary>
 
     </mah:MetroWindow.Resources>
@@ -358,11 +360,19 @@
         <mah:FlyoutsControl>
             <mah:Flyout
                 x:Name="firstFlyout"
-                Width="200"
+                Width="300"
                 Header="Flyout"
                 Position="Left"
                 Theme="Accent">
                 <!--  Your custom content here  -->
+                <telerik:RadDataFilter
+                    Name="radDataFilter"
+                    Grid.Row="0"
+                    Margin="1"
+                    telerik:StyleManager.Theme="Office2019"
+                    DockPanel.Dock="Top"
+                    Source="{Binding ViewModel.Recipes}" />
+
             </mah:Flyout>
 
             <mah:Flyout
@@ -377,6 +387,20 @@
     </mah:MetroWindow.Flyouts>
 
     <DockPanel x:Name="LayoutRoot">
+
+        <StatusBar
+            x:Name="StatusBar"
+            Height="40"
+            Background="{DynamicResource MahApps.Brushes.Accent}"
+            DockPanel.Dock="Bottom"
+            FontSize="16"
+            Style="{StaticResource MahApps.Styles.StatusBar}">
+
+            <StatusBarItem>FOOD RECIPE APP</StatusBarItem>
+            <Separator Style="{StaticResource MahApps.Styles.Separator.StatusBar}" />
+            <StatusBarItem>Selected Tab:</StatusBarItem>
+            <StatusBarItem Content="{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}" />
+        </StatusBar>
 
         <Grid>
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -414,8 +438,8 @@
                                     Margin="0,48,0,20"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    FontFamily="Segoe UI Light"
-                                    FontSize="24"
+                                    FontFamily="Segoe UI"
+                                    FontSize="22"
                                     Foreground="White"
                                     Style="{DynamicResource MahApps.Styles.TextBlock}"
                                     Text="Discover our Top Food Suggestions"
@@ -423,24 +447,14 @@
                                 <telerik:RadAutoCompleteBox
                                     x:Name="foodAutoCompleteBox"
                                     Width="{Binding ElementName=SuggestTextBlock, Path=ActualWidth}"
-                                    Height="14"
-                                    MinHeight="24"
-                                    Margin="163,0"
-                                    VerticalAlignment="Center"
-                                    telerik:StyleManager.Theme="Office2019"
-                                    AutoCompleteMode="Suggest"
                                     DropDownItemTemplate="{StaticResource FoodsSearchAutoComplete}"
-                                    Foreground="DarkGray"
+                                    FilteringBehavior="{StaticResource CustomFilteringBehavior}"
+                                    HighlightBehavior="{StaticResource MyHighlightBehavior}"
                                     IsDropDownOpen="{Binding ViewModel.IsDropDownOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     ItemsSource="{Binding ViewModel.Recipes}"
-                                    NoResultsContent="Không có"
                                     SearchText="{Binding ViewModel.SearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     SelectedItem="{Binding ViewModel.SelectedSearchItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    SelectionMode="Single"
-                                    TextBoxStyle="{StaticResource AutoCompleteCustomTextBoxStyle}"
-                                    TextSearchMode="Contains"
-                                    TextSearchPath="Name"
-                                    WatermarkContent="Search all of our recipes" />
+                                    TextBoxStyle="{StaticResource AutoCompleteCustomTextBoxStyle}" />
                             </StackPanel>
                             <Border
                                 Grid.Row="1"
@@ -581,13 +595,13 @@
                                 x:Name="AllRecipesTileView"
                                 Grid.Row="0"
                                 ContentTemplate="{StaticResource ContentTemplate}"
+                                ItemTemplate="{StaticResource ItemTemplate}"
                                 ItemsSource="{Binding PagedSource, ElementName=AllRecipesPager, UpdateSourceTrigger=PropertyChanged}"
                                 TileStateChanged="radTileView_TileStateChanged" />
 
                             <telerik:RadDataPager
                                 x:Name="AllRecipesPager"
                                 Grid.Row="1"
-                                DataContextChanged="AllRecipesPager_DataContextChanged"
                                 PageIndexChanging="Pager_PageIndexChanging"
                                 PageSize="{Binding ElementName=AllRecipesNumericUpDown, Path=Value}"
                                 Source="{Binding ViewModel.Recipes}" />
@@ -630,6 +644,7 @@
                                 x:Name="FavouriteRecipesTileView"
                                 Grid.Row="0"
                                 ContentTemplate="{StaticResource ContentTemplate}"
+                                ItemTemplate="{StaticResource ItemTemplate}"
                                 ItemsSource="{Binding PagedSource, ElementName=FavouriteRecipesPager, UpdateSourceTrigger=PropertyChanged}"
                                 TileStateChanged="radTileView_TileStateChanged" />
 
@@ -664,305 +679,40 @@
                     </mah:MetroTabItem>
 
                     <!--<mah:MetroTabItem x:Name="SearchTabItem" Header="Search here">
-					<Grid Width="Auto" Height="Auto">
+                        <Grid>
+                            <telerik:RadTileView
+                                x:Name="SearchRecipesTileView"
+                                Grid.Row="0"
+                                ContentTemplate="{StaticResource ContentTemplate}"
+                                ItemsSource="{Binding PagedSource, ElementName=SearchRecipesPager}"
+                                TileStateChanged="radTileView_TileStateChanged" />
 
-						<Grid.RowDefinitions>
-							<RowDefinition Height="*" />
-							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
-						</Grid.RowDefinitions>
+                            <telerik:RadDataPager
+                                x:Name="SearchRecipesPager"
+                                Grid.Row="1"
+                                PageIndexChanging="Pager_PageIndexChanging"
+                                PageSize="{Binding SearchRecipesCustomPageSize}"
+                                Source="{Binding SearchRecipes}" />
 
-						<Grid
-							Grid.Column="0"
-							Margin="3,0,1,0"
-							TextBlock.FontFamily="Arial">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="2*" />
-								<RowDefinition Height="1*" />
-								<RowDefinition Height="2*" />
-								<RowDefinition Height="1*" />
-								<RowDefinition Height="7*" />
-								<RowDefinition Height="1*" />
-								<RowDefinition Height="7*" />
-							</Grid.RowDefinitions>
-							
-						  Row 0
-						
-							<Grid Grid.Row="0">
+                            <DockPanel
+                                x:Name="SearchRecipesPageSizeSettingDockPanel"
+                                Grid.Row="2"
+                                Margin="0,2,0,0"
+                                HorizontalAlignment="Right"
+                                LastChildFill="True">
 
-								<TextBlock
-									x:Name="FilterTextBlock"
-									HorizontalAlignment="Center"
-									VerticalAlignment="Center"
-									FontSize="20"
-									Text="Bộ lọc tìm kiếm"
-									TextBlock.FontWeight="Bold" />
-								<Button
-									Margin="0"
-									HorizontalAlignment="Left"
-									VerticalAlignment="center"
-									Background="{x:Null}"
-									BorderBrush="{x:Null}"
-									BorderThickness="0"
-									Click="Unchecked_Click"
-									Foreground="{x:Null}">
-									<Image Opacity="1" Source="/Resources/reset.png" />
-								</Button>
-							</Grid>
-							
-						  Row 1
-						
-							<Label
-								Grid.Row="1"
-								VerticalAlignment="Center"
-								Background="LightGreen"
-								Content="Loại món"
-								TextBlock.FontWeight="Bold" />
-
-							
-						  Row 2
-						
-							<Grid Grid.Row="2">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="1*" />
-									<ColumnDefinition Width="1*" />
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="1*" />
-								</Grid.RowDefinitions>
-								<CheckBox
-									Name="checkBox1"
-									Grid.Row="0"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Chay"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox2"
-									Grid.Row="0"
-									Grid.Column="1"
-									Content="Mặn"
-									Style="{StaticResource CheckBoxStyle}" />
-
-							</Grid>
-							
-						  Row 3
-						
-							<Label
-								Grid.Row="3"
-								VerticalAlignment="Center"
-								Background="LightGreen"
-								Content="Nguyên liệu chính"
-								TextBlock.FontWeight="Bold" />
-							
-						  Row 4
-						
-							<Grid Grid.Row="4">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="1*" />
-									<ColumnDefinition Width="1*" />
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="1*" />
-									<RowDefinition Height="1*" />
-									<RowDefinition Height="1*" />
-									<RowDefinition Height="1*" />
-								</Grid.RowDefinitions>
-								<CheckBox
-									Name="checkBox3"
-									Grid.Row="0"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Heo"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox4"
-									Grid.Row="0"
-									Grid.Column="1"
-									HorizontalAlignment="Stretch"
-									Content="Gà"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox5"
-									Grid.Row="1"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Bò"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox6"
-									Grid.Row="1"
-									Grid.Column="1"
-									HorizontalAlignment="Stretch"
-									Content="Dê"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox7"
-									Grid.Row="2"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Hải sản"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox8"
-									Grid.Row="2"
-									Grid.Column="1"
-									HorizontalAlignment="Stretch"
-									Content="Khác"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox9"
-									Grid.Row="3"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Đồ ngọt"
-									Style="{StaticResource CheckBoxStyle}" />
-
-							</Grid>
-							
-						  Row 5
-						
-							<Label
-								Grid.Row="5"
-								VerticalAlignment="Center"
-								Background="LightGreen"
-								Content="Cách chế biến"
-								TextBlock.FontWeight="Bold" />
-							
-						  Row 6
-						
-							<Grid Grid.Row="6">
-								<Grid.ColumnDefinitions>
-									<ColumnDefinition Width="1*" />
-									<ColumnDefinition Width="1*" />
-								</Grid.ColumnDefinitions>
-								<Grid.RowDefinitions>
-									<RowDefinition Height="1*" />
-									<RowDefinition Height="1*" />
-									<RowDefinition Height="1*" />
-									<RowDefinition Height="1*" />
-								</Grid.RowDefinitions>
-								<CheckBox
-									Name="checkBox11"
-									Grid.Row="0"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Chiên"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox12"
-									Grid.Row="0"
-									Grid.Column="1"
-									HorizontalAlignment="Stretch"
-									Content="Xào"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox13"
-									Grid.Row="1"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Nấu"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox14"
-									Grid.Row="1"
-									Grid.Column="1"
-									HorizontalAlignment="Stretch"
-									Content="Kho"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox15"
-									Grid.Row="2"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Nướng"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox16"
-									Grid.Row="2"
-									Grid.Column="1"
-									HorizontalAlignment="Stretch"
-									Content="Hấp"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox17"
-									Grid.Row="3"
-									Grid.Column="0"
-									HorizontalAlignment="Stretch"
-									Content="Lên men"
-									Style="{StaticResource CheckBoxStyle}" />
-								<CheckBox
-									Name="checkBox18"
-									Grid.Row="3"
-									Grid.Column="1"
-									HorizontalAlignment="Stretch"
-									Content="Khác"
-									Style="{StaticResource CheckBoxStyle}" />
-							</Grid>
-						</Grid>
-
-						<Grid Grid.Row="0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="21*"/>
-								<ColumnDefinition Width="1*"/>
-							</Grid.ColumnDefinitions>
-							<TextBox HorizontalAlignment="Stretch"
-                             VerticalAlignment="Stretch"
-                            FontSize="25"
-                                 BorderThickness="0"
-                                     mah:TextBoxHelper.Watermark="Nhập tên món ăn"
-                                     mah:TextBoxHelper.ClearTextButton="True"
-                                      TextWrapping="Wrap"
-                                     Background="{x:Null}"
-                                     Margin="5"  CaretBrush="{x:Null}" Foreground="Black" BorderBrush="{x:Null}" >
-							</TextBox>
-							<Button Grid.Column="1"
-                            VerticalAlignment="center"
-                            Click="Search_Click"
-                            Background="{x:Null}" Foreground="{x:Null}"
-
-                            BorderBrush="{x:Null}" Margin="1,1,1,1"
-                            BorderThickness="0">
-								<Image
-                                Source="/Resources/recipe-book.ico"
-                                Opacity="1">
-								</Image>
-							</Button>
-						</Grid>
-
-						<telerik:RadTileView
-							x:Name="SearchRecipesTileView"
-							Grid.Row="0"
-							ContentTemplate="{StaticResource ContentTemplate}"
-							ItemsSource="{Binding PagedSource, ElementName=SearchRecipesPager}"
-							TileStateChanged="radTileView_TileStateChanged" />
-
-						<telerik:RadDataPager
-							x:Name="SearchRecipesPager"
-							Grid.Row="1"
-							PageIndexChanging="Pager_PageIndexChanging"
-							PageSize="{Binding SearchRecipesCustomPageSize}"
-							Source="{Binding SearchRecipes}" />
-
-						<DockPanel
-							x:Name="SearchRecipesPageSizeSettingDockPanel"
-							Grid.Row="2"
-							Margin="0,2,0,0"
-							HorizontalAlignment="Right"
-							LastChildFill="True">
-
-							<telerik:RadNumericUpDown
-								DockPanel.Dock="Right"
-								Maximum="{Binding SearchRecipesPageCountTotal}"
-								Value="{Binding SearchRecipesCustomPageSize, Mode=TwoWay}" />
-							<Label
-								Background="White"
-								Content="Page Size:"
-								DockPanel.Dock="Right"
-								Style="{DynamicResource MaterialDesignLabel}" />
-						</DockPanel>
-					</Grid>
-				</mah:MetroTabItem>-->
+                                <telerik:RadNumericUpDown
+                                    DockPanel.Dock="Right"
+                                    Maximum="{Binding SearchRecipesPageCountTotal}"
+                                    Value="{Binding SearchRecipesCustomPageSize, Mode=TwoWay}" />
+                                <Label
+                                    Background="White"
+                                    Content="Page Size:"
+                                    DockPanel.Dock="Right"
+                                    Style="{DynamicResource MaterialDesignLabel}" />
+                            </DockPanel>
+                        </Grid>
+                    </mah:MetroTabItem>-->
                 </mah:MetroAnimatedSingleRowTabControl>
 
             </Grid>
@@ -977,6 +727,8 @@
                 Style="{StaticResource CustomToggleButtonAddStyle}" />
 
         </Grid>
+
+
     </DockPanel>
 
 </mah:MetroWindow>

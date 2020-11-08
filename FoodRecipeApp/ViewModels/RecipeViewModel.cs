@@ -70,13 +70,10 @@ namespace FoodRecipeApp.ViewModels
 					this.FavouriteRecipes.Add(item);
 				}
 			}
-            foreach (var item in SearchedRecipes)
+            /*foreach (var item in SearchedRecipes)
             {
                 
-            }
-			//foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
-
-
+            }*/
 			/*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
 			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
 
@@ -96,14 +93,6 @@ namespace FoodRecipeApp.ViewModels
 			}			
 		}
 
-		/*private void FavouriteRecipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-		{
-		}
-
-		private void Recipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-		{
-		}*/
-
         public bool AddNewItemToAllRecipesList(Dish newDish)
 		{
 			bool result = false;
@@ -111,7 +100,6 @@ namespace FoodRecipeApp.ViewModels
 			if (newDish != null)
 			{
 				result = true;
-				this.ModifiedItems.Add(newDish);
 				this.Recipes.Add(newDish);
 				//RaisePropertyChanged("Recipes");
 			}

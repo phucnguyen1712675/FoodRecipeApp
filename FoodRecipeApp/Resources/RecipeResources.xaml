@@ -149,26 +149,5 @@
         <Setter Property="TextSearchMode" Value="Contains" />
         <Setter Property="TextSearchPath" Value="Name" />
         <Setter Property="WatermarkContent" Value="Enter the recipe name..." />
-        <!--<Setter Property="NoResultsContentTemplate">
-            <Setter.Value>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <Grid
-                            Width="16"
-                            Height="16"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center">
-                            <Ellipse Stroke="#ff2014" StrokeThickness="1" />
-                            <Path
-                                Margin="7,3"
-                                Data="M0,8 L2,8 2,10 0,10 z M0,0 L2,0 2,7 0,7 z"
-                                Fill="#ff2014"
-                                Stretch="Fill" />
-                        </Grid>
-                        <TextBlock Margin="3,0" Text="{Binding}" />
-                    </StackPanel>
-                </DataTemplate>
-            </Setter.Value>
-        </Setter>-->
     </Style>
 </ResourceDictionary>

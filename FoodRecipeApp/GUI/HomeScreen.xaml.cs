@@ -124,7 +124,6 @@ namespace FoodRecipeApp.GUI
 		private void OpenThis()
 		{
 			this.Show();
-			MessageBox.Show(ViewModel.Recipes.Count.ToString());
 		}
 
 		private void Pager_PageIndexChanging(object sender, PageIndexChangingEventArgs e)
@@ -219,7 +218,7 @@ namespace FoodRecipeApp.GUI
 
         private void AllRecipesPager_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-			
-        }
+			this.foodAutoCompleteBox.Populate(this.foodAutoCompleteBox.SearchText);
+		}
     }
 }

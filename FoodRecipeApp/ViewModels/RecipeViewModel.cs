@@ -111,11 +111,11 @@ namespace FoodRecipeApp.ViewModels
 			if (newDish != null)
 			{
 				result = true;
+				this.ModifiedItems.Add(newDish);
 				this.Recipes.Add(newDish);
 				//RaisePropertyChanged("Recipes");
 			}
-			//TODO
-			return result;	
+			return result;
 		}
 
 		public bool RemoveItemToAllRecipesList(Dish deletedDish)

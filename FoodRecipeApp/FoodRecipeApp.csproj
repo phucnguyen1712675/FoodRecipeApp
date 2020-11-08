@@ -492,6 +492,8 @@
     <Compile Include="Converter\IsLoveImageConverter.cs" />
     <Compile Include="Converter\CountConverter.cs" />
     <Compile Include="Converter\ImageConverter.cs" />
+    <Compile Include="Converter\ItemsToCollectionViewConverter.cs" />
+    <Compile Include="Converter\LoveToColorConverter.cs" />
     <Compile Include="Converter\MediaDishConverter.cs" />
     <Compile Include="Converter\RatioConverter.cs" />
     <Compile Include="Converter\StepLabelConverterAddRecipe.cs" />
@@ -515,6 +517,7 @@
     <Compile Include="DTO\Step.cs" />
     <Compile Include="DTO\StepCollection.cs" />
     <Compile Include="DTO\StepDataSource.cs" />
+    <Compile Include="FilteringHelperClasses\MyHighlightBehavior.cs" />
     <Compile Include="GUI\AddRecipe.xaml.cs">
       <DependentUpon>AddRecipe.xaml</DependentUpon>
     </Compile>
@@ -532,10 +535,10 @@
     </Compile>
     <Compile Include="Mvvm\BindableBase.cs" />
     <Compile Include="Mvvm\DelegateCommand.cs" />
+    <Compile Include="FilteringHelperClasses\MyCustomFilteringBehavior.cs" />
     <Compile Include="MyRandom.cs" />
     <Compile Include="Navigation\NavigationServiceEx.cs" />
     <Compile Include="ObservableCollectionPropertyNotify.cs" />
-    <Compile Include="OcPropertyChangedListener.cs" />
     <Compile Include="TileViewCommandsExtension.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />

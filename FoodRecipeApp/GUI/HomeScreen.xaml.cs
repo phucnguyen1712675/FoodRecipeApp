@@ -218,7 +218,7 @@ namespace FoodRecipeApp.GUI
 
 		private void AllRecipesPager_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-			
-        }
+			this.foodAutoCompleteBox.Populate(this.foodAutoCompleteBox.SearchText);
+		}
     }
 }

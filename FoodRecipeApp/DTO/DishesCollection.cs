@@ -14,52 +14,61 @@ namespace FoodRecipeApp.DTO
 {
 	public class DishesCollection : ObservableCollectionPropertyNotify<Dish>
     {
-
 		public static DishesCollection GetAllDishes()
 		{
 			DishesCollection dishes = new DishesCollection();
 			DataTable data = DishDAO.Instance.getAllDishes();
-			foreach (DataRow row in data.Rows)
-			{
-				Dish dish = new Dish(row);
-				dishes.Add(dish);
-			}
-			return dishes;
+
+            foreach (var dish in from DataRow row in data.Rows
+                                 let dish = new Dish(row)
+                                 select dish)
+            {
+                dishes.Add(dish);
+            }
+
+            return dishes;
 		}
 
 		public static DishesCollection GetFilterDishes(string queryFilter)
         {
             DishesCollection dishes = new DishesCollection();
             DataTable data = DishDAO.Instance.getFilterDishes(queryFilter);
-            //MessageBox.Show(data.Rows.Count.ToString());
-            foreach (DataRow row in data.Rows)
+
+            foreach (var dish in from DataRow row in data.Rows
+                                 let dish = new Dish(row)
+                                 select dish)
             {
-                Dish dish = new Dish(row);
                 dishes.Add(dish);
             }
+
             return dishes;
         }
         public static DishesCollection GetDishByName(string queryFilter)
         {
             DishesCollection dishes = new DishesCollection();
             DataTable data = DishDAO.Instance.getDishByName(queryFilter);
-            //MessageBox.Show(data.Rows.Count.ToString());
-            foreach (DataRow row in data.Rows)
+
+            foreach (var dish in from DataRow row in data.Rows
+                                 let dish = new Dish(row)
+                                 select dish)
             {
-                Dish dish = new Dish(row);
                 dishes.Add(dish);
             }
+
             return dishes;
         }
         public static DishesCollection GetFavouriteDishes()
 		{
             DishesCollection dishes = new DishesCollection();
             DataTable data = DishDAO.Instance.getFavouriteDishes();
-            foreach (DataRow row in data.Rows)
+
+            foreach (var dish in from DataRow row in data.Rows
+                                 let dish = new Dish(row)
+                                 select dish)
             {
-                Dish dish = new Dish(row);
                 dishes.Add(dish);
             }
+
             return dishes;
         }
 	}

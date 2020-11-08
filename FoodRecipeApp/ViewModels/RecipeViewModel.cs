@@ -18,34 +18,67 @@ using System.Windows.Threading;
 using PropertyChanged;
 using System.Configuration;
 using System.Windows.Data;
+using System.Runtime.CompilerServices;
 
 namespace FoodRecipeApp.ViewModels
 {
-    public class RecipeViewModel:  INotifyPropertyChanged
+    public class RecipeViewModel : INotifyPropertyChanged
     {
-		public List<Dish> ModifiedItems { get; set; }
 		public DishesCollection Recipes { get; } = new DishesCollection();
 		public DishesCollection FavouriteRecipes { get; } = new DishesCollection();
-		public BindingList<Dish> SearchRecipes { get; set; }
+		public DishesCollection SearchedRecipes { get; } = new DishesCollection();
 		public string QuoteToShow => QuotesDataSource.Instance.GetRandomQuote();
 		public ICommand ClearSelectionCommand { get; set; }
 		public bool IsClearButtonVisible => !string.IsNullOrEmpty(SearchText);
 		public bool IsDropDownOpen { get; set; }
 		public Dish SelectedSearchItem { get; set; }
-		public string SearchText { get; set; }
 		public int AllRecipesPageSize { get; set; }
 		public int FavouriteRecipesPageSize { get; set; }
 
+		private string searchText;
+		public string SearchText
+		{
+			get => this.searchText;
+			set
+			{
+				if (searchText != value)
+				{
+					this.searchText = value;
+					OnPropertyChanged("IsClearButtonVisible");
+					OnPropertyChanged("SearchText");
+				}
+			}
+		}
+
+		#pragma warning disable 67
+		public event PropertyChangedEventHandler PropertyChanged;
+		#pragma warning restore 67
+
+		protected void OnPropertyChanged([CallerMemberName] string name = null)
+		{
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+		}
+
 		public RecipeViewModel()
 		{
-			this.ModifiedItems = new List<Dish>();
+			foreach (var item in DishesCollection.GetAllDishes())
+            {
+				this.Recipes.Add(item);
+				this.SearchedRecipes.Add(item);
+				if(item.IsLove)
+                {
+					this.FavouriteRecipes.Add(item);
+				}
+			}
+            foreach (var item in SearchedRecipes)
+            {
+                
+            }
+			//foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
 
-			foreach (var item in DishesCollection.GetAllDishes()) this.Recipes.Add(item);			
 
-			foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
-
-			this.Recipes.CollectionChanged += Recipes_CollectionChanged;
-			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;
+			/*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
+			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
 
 			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 
@@ -61,49 +94,15 @@ namespace FoodRecipeApp.ViewModels
 				int favItemCount = this.FavouriteRecipes.Count;
 				this.FavouriteRecipesPageSize = favItemCount < 9 ? favItemCount : 8;
 			}			
-
-			this.SearchRecipes = new BindingList<Dish>(this.Recipes);
 		}
 
-#pragma warning disable 67
-		public event PropertyChangedEventHandler PropertyChanged;
-#pragma warning restore 67
-		private void FavouriteRecipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		/*private void FavouriteRecipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			//RaisePropertyChanged("FavouriteRecipes");
 		}
 
 		private void Recipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{
-			//RaisePropertyChanged("Recipes");
-			//CollectionViewSource.GetDefaultView(Recipes).Refresh();
-		}
-
-        /*[SuppressPropertyChangedWarnings]
-        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null)
-            {
-                foreach (Dish newItem in e.NewItems)
-                {
-                    ModifiedItems.Add(newItem);
-
-                    //Add listener for each item on PropertyChanged event
-                    if (e.Action == NotifyCollectionChangedAction.Add)
-                        newItem.PropertyChanged += this.ListTagInfo_PropertyChanged;
-                    else if (e.Action == NotifyCollectionChangedAction.Remove)
-                        newItem.PropertyChanged -= this.ListTagInfo_PropertyChanged;
-                }
-            }
-        }
-
-        [SuppressPropertyChangedWarnings]
-        void OnItemPropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            Dish item = sender as Dish;
-            if (item != null)
-                ModifiedItems.Add(item);
-        }*/
+		}*/
 
         public bool AddNewItemToAllRecipesList(Dish newDish)
 		{
@@ -170,140 +169,11 @@ namespace FoodRecipeApp.ViewModels
 		{
 			bool result = false;
 
-			this.SearchRecipes.Clear();
+			this.SearchedRecipes.Clear();
 			//string FilterQuery = ListCheckBoxes.GetFilterQuery();
 			//this.SearchRecipes = DishesCollection.GetFilterDishes(FilterQuery);
 
 			return result;
 		}
-
-
-
-
-		//private bool isDropDownOpen;
-		//{
-		//	get => this.isDropDownOpen;
-		//	set
-		//	{
-		//		if (this.isDropDownOpen != value)
-		//		{
-		//			this.isDropDownOpen = value;
-		//			RaisePropertyChanged("IsDropDownOpen");
-		//		}
-		//	}
-		//}
-
-		//private Dish selectedSearchItem;
-		//{
-		//	get => this.selectedSearchItem;
-		//	set
-		//	{
-		//		if (this.selectedSearchItem != value)
-		//		{
-		//			this.selectedSearchItem = value;
-		//			RaisePropertyChanged("SelectedSearchItem");
-		//		}
-		//	}
-		//}
-
-		//private string searchText;
-		//{
-		//	get => this.searchText;
-		//	set
-		//	{
-		//		if (searchText != value)
-		//		{
-		//			this.searchText = value;
-		//			this.OnPropertyChanged("IsClearButtonVisible");
-		//			RaisePropertyChanged("SearchText");
-		//		}
-		//	}
-		//}
-
-		//private int allRecipesCustomPageSize;
-		//{
-		//	get => this.allRecipesCustomPageSize;
-		//	set
-		//	{
-		//		if (this.allRecipesCustomPageSize != value)
-		//		{
-		//			this.allRecipesCustomPageSize = value;
-		//			RaisePropertyChanged("AllRecipesCustomPageSize");
-		//		}
-		//	}
-		//}
-
-		//private int favouriteRecipesCustomPageSize;
-		//{
-		//	get => this.favouriteRecipesCustomPageSize;
-		//	set
-		//	{
-		//		if (this.favouriteRecipesCustomPageSize != value)
-		//		{
-		//			this.favouriteRecipesCustomPageSize = value;
-		//			RaisePropertyChanged("FavouriteRecipesCustomPageSize");
-		//		}
-		//	}
-		//}
-
-		//private int allRecipesPageCountTotal;
-		//{
-		//	get => this.allRecipesPageCountTotal;
-		//	set
-		//	{
-		//		if (this.allRecipesPageCountTotal != value)
-		//		{
-		//			this.allRecipesPageCountTotal = value;
-		//			RaisePropertyChanged("AllRecipesPageCountTotal");
-		//		}
-		//	}
-		//}
-
-		//private int favouriteRecipesPageCountTotal;
-		//{
-		//	get => this.FavouriteRecipes.Count;
-		//	set
-		//	{
-		//		if (this.favouriteRecipesPageCountTotal != value)
-		//		{
-		//			this.favouriteRecipesPageCountTotal = value;
-		//			RaisePropertyChanged("FavouriteRecipesPageCountTotal");
-		//		}
-		//	}
-		//}
-
-		/*private ICommand mUpdater;
-		public ICommand UpdateCommand
-		{
-			get
-			{
-				if (mUpdater == null)
-					mUpdater = new Updater();
-				return mUpdater;
-			}
-			set
-			{
-				mUpdater = value;
-			}
-		}
-
-		private class Updater : ICommand
-		{
-			#region ICommand Members  
-
-			public bool CanExecute(object parameter)
-			{
-				return true;
-			}
-
-			public event EventHandler CanExecuteChanged;
-
-			public void Execute(object parameter)
-			{
-
-			}
-
-			#endregion
-		}*/
 	}
 }

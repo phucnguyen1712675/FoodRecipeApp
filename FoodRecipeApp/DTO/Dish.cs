@@ -41,7 +41,8 @@ namespace FoodRecipeApp.DTO
             StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
-        public Dish(bool isLove, string name, string imagePath, string description, string video, List<Step> steps, string loai){
+        public Dish(bool isLove, string name, string imagePath, string description, string video, List<Step> steps, string loai)
+        {
             IsLove = isLove;
             ImagePath = (imagePath);
             Desciption = description;
@@ -86,7 +87,7 @@ namespace FoodRecipeApp.DTO
         public static string Display(string url, double width, double height)
         {
             string newUrl = simpleURL(url);
-            string page =
+            var page =
                 "<html>" +
                 "<head><meta http-equiv='X-UA-Compatible' content='IE=11'/>" +
                 "<body>" + "\r\n" +

@@ -11,7 +11,6 @@ namespace FoodRecipeApp.FilteringHelperClasses
 {
     public class MyCustomFilteringBehavior : FilteringBehavior
     {
-
         public static object GetPropValue(object src, string propName) => src.GetType().GetProperty(propName).GetValue(src, null);
 
         private string ModifyItem(object originalItem, string textSearchPath)
@@ -34,17 +33,19 @@ namespace FoodRecipeApp.FilteringHelperClasses
             var modifiedItems = new Dictionary<object, string>();
             if (textSearchPath != null && textSearchPath != string.Empty)
             {
-                foreach (object originalItem in items)
+                foreach (var (originalItem, modifiedItem) in from object originalItem in items
+                                                             let modifiedItem = this.ModifyItem(originalItem, textSearchPath)
+                                                             select (originalItem, modifiedItem))
                 {
-                    var modifiedItem = this.ModifyItem(originalItem, textSearchPath);
                     modifiedItems.Add(originalItem, modifiedItem);
                 }
             }
             else
             {
-                foreach (object originalItem in items)
+                foreach (var (originalItem, modifiedItem) in from object originalItem in items
+                                                             let modifiedItem = this.RemoveDiacritics(originalItem.ToString().ToUpper())
+                                                             select (originalItem, modifiedItem))
                 {
-                    var modifiedItem = this.RemoveDiacritics(originalItem.ToString().ToUpper());
                     modifiedItems.Add(originalItem, modifiedItem);
                 }
             }
@@ -54,19 +55,19 @@ namespace FoodRecipeApp.FilteringHelperClasses
 
             // return all Original matching items
             var originalMatchingItems = new List<object>();
-            foreach (string matchItem in matchingItems)
+            foreach (var dictionaryItem in from string matchItem in matchingItems
+                                           let dictionaryItem = modifiedItems.FirstOrDefault(p => p.Value == matchItem)
+                                           select dictionaryItem)
             {
-                var dictionaryItem = modifiedItems.FirstOrDefault(p => p.Value == matchItem);
                 modifiedItems.Remove(dictionaryItem.Key);
                 originalMatchingItems.Add(dictionaryItem.Key);
             }
 
-            if (string.IsNullOrEmpty(searchText) || !originalMatchingItems.Any())
-            {
-                return ((IEnumerable<object>)items).Where(x => !escapedItems.Contains(x));
-            }
-
             return originalMatchingItems;
+
+            //return string.IsNullOrEmpty(searchText) || !originalMatchingItems.Any()
+            //    ? ((IEnumerable<object>)items).Where(x => !escapedItems.Contains(x))
+            //    : originalMatchingItems;
         }
     }
 }

@@ -49,6 +49,10 @@ namespace FoodRecipeApp.ViewModels
 				}
 			}
 		}
+		public Dish SelectedItem { get; set; }
+
+		public const int ColumnsCount = 4;
+		public const int RowsCount = 2;
 
 		#pragma warning disable 67
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -64,33 +68,25 @@ namespace FoodRecipeApp.ViewModels
 			foreach (var item in DishesCollection.GetAllDishes())
             {
 				this.Recipes.Add(item);
-				this.SearchedRecipes.Add(item);
+				//this.SearchedRecipes.Add(item);
 				if(item.IsLove)
                 {
 					this.FavouriteRecipes.Add(item);
 				}
 			}
-            /*foreach (var item in SearchedRecipes)
-            {
-                
-            }*/
+
 			/*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
 			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
 
 			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 
 			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			this.AllRecipesPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
-			int favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
-			if (favPageSize != 0)
-			{
-				this.FavouriteRecipesPageSize = favPageSize;
-			}
-			else
-			{
-				int favItemCount = this.FavouriteRecipes.Count;
-				this.FavouriteRecipesPageSize = favItemCount < 9 ? favItemCount : 8;
-			}			
+			var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
+			var favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
+			var defaultPageSize = ColumnsCount * RowsCount;
+
+			this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
+			this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
 		}
 
         public bool AddNewItemToAllRecipesList(Dish newDish)
@@ -163,5 +159,11 @@ namespace FoodRecipeApp.ViewModels
 
 			return result;
 		}
+	}
+	public enum ContentState
+	{
+		SmallContent = 1,
+		NormalContent = 0,
+		LargeContent = 2
 	}
 }

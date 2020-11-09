@@ -1,30 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using FoodRecipeApp.ViewModels;
 using System.Configuration;
 using Telerik.Windows.Controls;
 using FoodRecipeApp.DTO;
 using FoodRecipeApp.DAO;
+using System;
+using System.Diagnostics;
 
 namespace FoodRecipeApp.GUI
 {
-	/// <summary>
-	/// Interaction logic for HomeScreen.xaml
-	/// </summary>
-	public partial class HomeScreen : MetroWindow
+    /// <summary>
+    /// Interaction logic for HomeScreen.xaml
+    /// </summary>
+    public partial class HomeScreen : MetroWindow
 	{
 		public static RecipeViewModel ViewModel { get; } = new RecipeViewModel();
 
@@ -32,7 +25,7 @@ namespace FoodRecipeApp.GUI
 		public HomeScreen()
 		{
 			InitializeComponent();
-			AppMainpage = this;   
+			AppMainpage = this;
 		}
 
         static HomeScreen()
@@ -67,7 +60,7 @@ namespace FoodRecipeApp.GUI
 					ViewModel.AddNewItemToFavouriteRecipesList(dataItem);
 				}
 				else
-				{
+				{	
 					var item = ViewModel.FavouriteRecipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
 					ViewModel.RemoveItemFromFavouriteRecipesList(item);
 					foreach (var tom in ViewModel.Recipes.Where(w => w.DishCode == dataItem.DishCode))
@@ -80,7 +73,7 @@ namespace FoodRecipeApp.GUI
 
 		private void radTileView_TileStateChanged(object sender, Telerik.Windows.RadRoutedEventArgs e)
 		{
-			RadTileViewItem item = e.OriginalSource as RadTileViewItem;
+			var item = e.OriginalSource as RadTileViewItem;
 
 			if (item == null) return;
 
@@ -88,23 +81,19 @@ namespace FoodRecipeApp.GUI
 
 			if (fluid == null) return;
 
-			switch (item.TileState)
-			{
+            switch (item.TileState)
+            {
 				case TileViewItemState.Maximized:
-					{
-						fluid.State = FluidContentControlState.Large;
-						this.AddRecipeToggleButton.Visibility = Visibility.Hidden;
-						break;
-					}
+					fluid.State = FluidContentControlState.Large;
+					this.AddRecipeToggleButton.Visibility = Visibility.Hidden;
+					break;
 				case TileViewItemState.Minimized:
 					fluid.State = FluidContentControlState.Normal;
 					break;
 				case TileViewItemState.Restored:
-					{
-						fluid.State = FluidContentControlState.Normal;
-						this.AddRecipeToggleButton.Visibility = Visibility.Visible;
-						break;
-					}
+					fluid.State = FluidContentControlState.Normal;
+					this.AddRecipeToggleButton.Visibility = Visibility.Visible;
+					break;
 				default:
 					break;
 			}
@@ -126,11 +115,6 @@ namespace FoodRecipeApp.GUI
 			this.Show();
 		}
 
-		private void Pager_PageIndexChanging(object sender, PageIndexChangingEventArgs e)
-		{
-			//Do nothing
-		}
-
 		private void VideoDishButton_Click(object sender, RoutedEventArgs e)
 		{
 			Button temp = (Button)sender;
@@ -141,34 +125,10 @@ namespace FoodRecipeApp.GUI
 
 		private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (e.Source is MetroAnimatedSingleRowTabControl)
+			/*if (e.Source is MetroAnimatedSingleRowTabControl)
 			{
-				//do work when tab is changed
-				//UpdateKey();	
-			}
-		}
-
-		private void RadFluidContentControl_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-		{
-
-		}
-
-		private void MetroWindow_Closed(object sender, EventArgs e)
-		{
-			string AllRecipesPageSize = AllRecipesNumericUpDown.Value.ToString();
-			string FavouriteRecipesPageSize = FavoriteNumericUpDown.Value.ToString();
-
-			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-
-			if (!config.AppSettings.Settings["AllRecipesPageSize"].Value.Equals(AllRecipesPageSize))
-			{
-				config.AppSettings.Settings["AllRecipesPageSize"].Value = AllRecipesPageSize;
-			}
-			if (!config.AppSettings.Settings["FavouriteRecipesPageSize"].Value.Equals(FavouriteRecipesPageSize))
-			{
-				config.AppSettings.Settings["FavouriteRecipesPageSize"].Value = FavouriteRecipesPageSize;
-			}
-			config.Save(ConfigurationSaveMode.Minimal);
+				
+			}*/
 		}
 
 		private void AddRecipeToggleButton_Click(object sender, RoutedEventArgs e)
@@ -177,48 +137,74 @@ namespace FoodRecipeApp.GUI
 			addRecipeWindow.Dying += OpenThis;
 			addRecipeWindow.Show();
 			this.Hide();
-
 		}
 
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        private void showSplashScreenToggleSwitch_Toggled(object sender, RoutedEventArgs e)
         {
-			var value = ConfigurationManager.AppSettings["ShowSplashScreen"];
-			var showSplashScreen = bool.Parse(value);
-			if(showSplashScreen == true)
-            {
-				SetShowSplashScreenFalse();
-            }
-            else
-            {
-				SetShowSplashScreenTrue();
-			}
-		}
+			ToggleSwitch toggleSwitch = sender as ToggleSwitch;
 
-        private void SetShowSplashScreenFalse()
-        {
-			MessageBoxResult result = MessageBox.Show("Bạn muốn tắt splash screen", "SplashScreen đang on", MessageBoxButton.OKCancel);
-			if(result == MessageBoxResult.OK)
-            {
-				var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-				config.AppSettings.Settings["ShowSplashScreen"].Value = "false";
-				config.Save(ConfigurationSaveMode.Minimal);
-			}
-		}
-
-        private void SetShowSplashScreenTrue()
-        {
-			MessageBoxResult result = MessageBox.Show("Bạn muốn mở lại splash screen", "SplashScreen đang off", MessageBoxButton.OKCancel);
-			if (result == MessageBoxResult.OK)
+			if (toggleSwitch != null)
 			{
 				var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-				config.AppSettings.Settings["ShowSplashScreen"].Value = "true";
+				config.AppSettings.Settings["ShowSplashScreen"].Value = toggleSwitch.IsOn.ToString();
 				config.Save(ConfigurationSaveMode.Minimal);
 			}
 		}
 
-		private void AllRecipesPager_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
-			this.foodAutoCompleteBox.Populate(this.foodAutoCompleteBox.SearchText);
+			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			this.showSplashScreenToggleSwitch.IsOn = bool.Parse(config.AppSettings.Settings["ShowSplashScreen"].Value);
+        }
+
+        private void AllRecipesNumericUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+			var AllRecipesPageSize = AllRecipesNumericUpDown.Value;
+
+			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			config.AppSettings.Settings["AllRecipesPageSize"].Value = AllRecipesPageSize.ToString();
+			config.Save(ConfigurationSaveMode.Minimal);
+		}
+
+        private void FavoriteNumericUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+			var FavouriteRecipesPageSize = FavoriteNumericUpDown.Value;
+
+			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			config.AppSettings.Settings["FavouriteRecipesPageSize"].Value = FavouriteRecipesPageSize.ToString();
+			config.Save(ConfigurationSaveMode.Minimal);
+		}
+
+        private void foodAutoCompleteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+			var itemp = ViewModel.SelectedSearchItem;
+			if (itemp == null) return;
+			Dispatcher.BeginInvoke((Action)(() => MainTabControl.SelectedIndex = 1));
+			Dispatcher.BeginInvoke((Action)(() => AllRecipesPager.PageIndex = (itemp.DishCode - 1) / ViewModel.AllRecipesPageSize));
+
+			Debug.WriteLine((itemp.DishCode - 1).ToString());
+			//().ParentOfType<RadTileViewItem>().TileState = TileViewItemState.Maximized;
+			this.AllRecipesTileView.MaximizedItem = this.AllRecipesTileView.Items[(itemp.DishCode - 1) % ViewModel.AllRecipesPageSize];
+
+			RadTileViewItem maximizedItem = this.AllRecipesTileView.ItemContainerGenerator.ContainerFromItem(this.AllRecipesTileView.MaximizedItem) as RadTileViewItem;
+            if (maximizedItem == null)
+            {
+                MessageBox.Show("You have to maximize an item first.");
+                return;
+            }
+            RadFluidContentControl fluidContentControl = maximizedItem.FindChildByType<RadFluidContentControl>();
+        }
+
+		private void RadFluidContentControl_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+			var image = sender as FrameworkElement;
+			if (image == null) return;
+
+			var container = image.ParentOfType<RadTileViewItem>();
+			if (container != null)
+			{
+				container.TileState = container.TileState != TileViewItemState.Maximized ? TileViewItemState.Maximized : TileViewItemState.Restored;
+			}
 		}
     }
 }

@@ -21,11 +21,9 @@
     <filtering:MyCustomFilteringBehavior x:Key="CustomFilteringBehavior" />
     <filtering:MyHighlightBehavior x:Key="MyHighlightBehavior" />
 
-    <DataTemplate x:Key="ItemTemplate" />
-
     <Style x:Key="TileItemHeaderStyle" TargetType="{x:Type tileview:TileViewItemHeader}">
-        <Setter Property="Foreground" Value="#2f0572" />
-        <Setter Property="Background" Value="White" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="#c5a1ff" />
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="FontSize" Value="16" />
         <Setter Property="FontFamily" Value="Segoe UI Light" />
@@ -54,28 +52,26 @@
         <Setter Property="IsItemsAnimationEnabled" Value="True" />
         <Setter Property="MinimizedColumnWidth" Value="240" />
         <Setter Property="MinimizedRowHeight" Value="180" />
-        <Setter Property="MaxColumns" Value="3" />
+        <Setter Property="MaxColumns" Value="4" />
         <Setter Property="RowHeight" Value="300" />
         <Setter Property="ColumnWidth" Value="250" />
-        <Setter Property="ColumnsCount" Value="4" />
         <Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
-        <Setter Property="SelectedItem" Value="{Binding SelectedItem, Mode=TwoWay}" />
+        <Setter Property="SelectionMode" Value="Single" />
+        <Setter Property="IsVirtualizing" Value="True" />
     </Style>
 
     <Style TargetType="{x:Type telerik:RadTileViewItem}">
-        <Setter Property="BorderBrush" Value="#fff261" />
-        <Setter Property="Background" Value="#b0e4ff " />
-        <Setter Property="BorderThickness" Value="0" />
+        
         <Setter Property="HeaderStyle" Value="{StaticResource TileItemHeaderStyle}" />
         <Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
     </Style>
 
-    <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
+    <!--<Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
         <Setter Property="HorizontalAlignment" Value="Stretch" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="TextBlock.FontFamily" Value="Arial" />
         <Setter Property="Foreground" Value="Black" />
-    </Style>
+    </Style>-->
 
     <Style TargetType="{x:Type telerik:RadDataPager}">
         <Setter Property="Margin" Value="0,10,0,0" />
@@ -149,5 +145,30 @@
         <Setter Property="TextSearchMode" Value="Contains" />
         <Setter Property="TextSearchPath" Value="Name" />
         <Setter Property="WatermarkContent" Value="Enter the recipe name..." />
+        <Setter Property="NoResultsContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Grid
+                            Width="16"
+                            Height="16"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center">
+                            <Ellipse Stroke="#ff2014" StrokeThickness="1" />
+                            <Path
+                                Margin="7,3"
+                                Data="M0,8 L2,8 2,10 0,10 z M0,0 L2,0 2,7 0,7 z"
+                                Fill="#ff2014"
+                                Stretch="Fill" />
+                        </Grid>
+                        <TextBlock Margin="5,0" Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style BasedOn="{StaticResource MahApps.Styles.Label}" TargetType="{x:Type Label}">
+        <Setter Property="FontSize" Value="14" />
     </Style>
 </ResourceDictionary>

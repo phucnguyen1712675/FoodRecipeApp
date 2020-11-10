@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Configuration;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -25,6 +26,26 @@ namespace FoodRecipeApp.DTO
         public string ImagePath { get; set; }
         public List<Step> Steps { get; set; }
         public StepCollection StepsCollection { get; set; }
+
+        private int position;
+
+        public int Position
+        {
+            get { return position; }
+            set
+            {
+                if (this.position != value)
+                {
+                    this.position = value;
+                    this.OnPropertyChanged("Position");
+                }
+            }
+        }
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
 
         public Dish(DataRow row)
         {
@@ -55,23 +76,23 @@ namespace FoodRecipeApp.DTO
             StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
-        #pragma warning disable 67
+#pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
-        #pragma warning restore 67
+#pragma warning restore 67
 
 
-        public static bool AddNewDishToData (bool isLove,string name,  string imagePath ,string description, string video, List<Step> steps, string loai)
+        public static bool AddNewDishToData(bool isLove, string name, string imagePath, string description, string video, List<Step> steps, string loai)
         {
             if (imagePath == "" || description == "" || video == "" || steps == null || loai == "") return false;
 
-            Dish newDish = new Dish(isLove,  name,  imagePath,  description,  video, steps,  loai);
+            Dish newDish = new Dish(isLove, name, imagePath, description, video, steps, loai);
             newDish.ImagePath = Images.trimFilePathImage(newDish.ImagePath);
             DishDAO.Instance.addNewDish(newDish);
             return true;
         }
         public static Regex YoutubeURIRegex = new Regex(@"[\?&]v=(?<v>[^&]+)");
 
-        public static string simpleURL (string url)
+        public static string simpleURL(string url)
         {
             Match m = YoutubeURIRegex.Match(url);
             string id = m.Groups["v"].Value;
@@ -97,11 +118,11 @@ namespace FoodRecipeApp.DTO
         }
 
         public static int getNewestDishCode()
-		{
+        {
             DataTable data = DishDAO.Instance.getNewestDishCode();
             int dishCode = (int)(data.Rows[0]["Dish"]);
             return dishCode;
-		}
+        }
 
         //SEARCH TEXTBOX + FILTER
         public static string CreateQuery(string str, string Name)
@@ -135,7 +156,7 @@ namespace FoodRecipeApp.DTO
             return str;
         }
 
-        public static string CreateQueryLinQ (string str, string Name)
+        public static string CreateQueryLinQ(string str, string Name)
         {
             str = str.Replace("(", " ( ").Replace(")", " ) ");
             str = Dish.TrimSpacesBetweenString(str).ToLower();
@@ -159,9 +180,9 @@ namespace FoodRecipeApp.DTO
 
             // )and_  )or_ 
             str = str.Replace(")&& ", ")&& " + Name + ".Contains(\"");
-            str = str.Replace(")|| ", ")|| "+ Name + ".Contains(\"");
+            str = str.Replace(")|| ", ")|| " + Name + ".Contains(\"");
 
-            if (str[str.Length -1] != ')') str = str + "\")";
+            if (str[str.Length - 1] != ')') str = str + "\")";
             return str;
         }
 
@@ -202,14 +223,15 @@ namespace FoodRecipeApp.DTO
             else return false;
         }
 
-        public static List<Dish> AdvanceSearch(string strTextBox , string strFilter)
+        public static List<Dish> AdvanceSearch(string strTextBox, string strFilter)
         {
             //run khi event textchange || mousedown in checkbox groub
             string result1 = null;
             string result2 = null;
             string result = null;
-            if (strTextBox != "") {
-               
+            if (strTextBox != "")
+            {
+
                 string str1 = Dish.CreateQuery(strTextBox, "Name");
                 string str2 = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Name)");
 
@@ -217,7 +239,7 @@ namespace FoodRecipeApp.DTO
                 result = result1;
             }
 
-            if(strFilter != "")
+            if (strFilter != "")
             {
                 result2 = "select * from DISH where not exists((select Item from dbo.SplitInts(N'" + strFilter + "',',')) except(select Item from dbo.SplitInts(Loai, ',')))";
                 if (result != null) result = result + " intersect";
@@ -225,7 +247,8 @@ namespace FoodRecipeApp.DTO
             }
 
             List<Dish> resultDishes = new List<Dish>();
-            if (checkQuery(result)) {
+            if (checkQuery(result))
+            {
                 DataTable resultTable = DishDAO.Instance.AdvanceSearch(result);
                 foreach (DataRow row in resultTable.Rows)
                 {

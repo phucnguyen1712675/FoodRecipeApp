@@ -1,6 +1,6 @@
 ﻿<UserControl
-	x:Class="FoodRecipeApp.GUI.HtmlBox"
-	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-	<WebBrowser x:Name="browser" />
+    x:Class="FoodRecipeApp.GUI.HtmlBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <WebBrowser x:Name="browser" />
 </UserControl>

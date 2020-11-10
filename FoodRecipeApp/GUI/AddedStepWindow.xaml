@@ -117,9 +117,9 @@
 													Stroke="#FF0998f8"
 													StrokeThickness="1" />
 												<DataTemplate x:Key="customImageItemTemplate">
-													<StackPanel Width="190" Height="170">
-														<Image Source="{Binding Converter={StaticResource ImageConverter}}" />
-													</StackPanel>
+													<DockPanel Width="190" Height="170" >
+                                                        <Image Source="{Binding Converter={StaticResource ImageConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+													</DockPanel>
 												</DataTemplate>
 											</Grid.Resources>
 

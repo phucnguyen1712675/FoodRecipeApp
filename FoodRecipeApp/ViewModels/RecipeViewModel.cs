@@ -93,7 +93,44 @@ namespace FoodRecipeApp.ViewModels
 			{
 				int favItemCount = this.FavouriteRecipes.Count;
 				this.FavouriteRecipesPageSize = favItemCount < 9 ? favItemCount : 8;
-			}			
+			}
+		}
+
+		public RecipeViewModel (List<Dish> objects)
+        {
+			foreach (var item in objects)
+			{
+				this.Recipes.Add(item);
+				this.SearchedRecipes.Add(item);
+				if (item.IsLove)
+				{
+					this.FavouriteRecipes.Add(item);
+				}
+			}
+			foreach (var item in SearchedRecipes)
+			{
+
+			}
+			//foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
+
+
+			/*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
+			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
+
+			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
+
+			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			this.AllRecipesPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
+			int favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
+			if (favPageSize != 0)
+			{
+				this.FavouriteRecipesPageSize = favPageSize;
+			}
+			else
+			{
+				int favItemCount = this.FavouriteRecipes.Count;
+				this.FavouriteRecipesPageSize = favItemCount < 9 ? favItemCount : 8;
+			}
 		}
 
 		/*private void FavouriteRecipes_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -111,9 +148,7 @@ namespace FoodRecipeApp.ViewModels
 			if (newDish != null)
 			{
 				result = true;
-				this.ModifiedItems.Add(newDish);
 				this.Recipes.Add(newDish);
-				//RaisePropertyChanged("Recipes");
 			}
 			return result;
 		}

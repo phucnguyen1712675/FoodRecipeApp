@@ -195,7 +195,6 @@ namespace FoodRecipeApp.GUI
         {
             var image = sender as FrameworkElement;
             if (image == null) return;
-
             var container = image.ParentOfType<RadTileViewItem>();
             if (container != null)
             {

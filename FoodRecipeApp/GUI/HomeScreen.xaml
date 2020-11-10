@@ -30,10 +30,6 @@
                 <ResourceDictionary Source="/Telerik.Windows.Controls;component/Themes/FontResources.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!--<telerik:ContainerBindingCollection x:Key="ContainerBindingCollection">
-                <telerik:ContainerBinding Binding="{Binding ViewModel.ContentState, Mode=TwoWay, Converter={StaticResource tileStateConverter}}" PropertyName="TileState" />
-            </telerik:ContainerBindingCollection>-->
-
             <DataTemplate x:Key="ItemTemplate" />
 
             <DataTemplate x:Key="ContentTemplate">
@@ -447,6 +443,7 @@
         </StatusBar>
 
         <Grid>
+            
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
                 <mah:MetroAnimatedSingleRowTabControl

@@ -21,7 +21,8 @@ namespace FoodRecipeApp.GUI
     public partial class HomeScreen : MetroWindow
     {
         //TODO
-        public static RecipeViewModel ViewModel { get; set; } = new RecipeViewModel();
+        public static RecipeViewModel ViewModel { get; } = new RecipeViewModel();
+
 
         public static HomeScreen AppMainpage;
         public HomeScreen()
@@ -224,6 +225,24 @@ namespace FoodRecipeApp.GUI
             SearchDishNameTextBox.Text = "";
         }
 
+        private void SplitButton_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = this.SplitButton.SelectedItem as OrderedMethod;
+
+            switch (selectedItem.Method)
+            {
+                case "None":
+                    ViewModel.SetDefaultPosition();
+                    break;
+                case "Ascending Ordered By Name":
+                    ViewModel.SetAscendingPositionAccordingToName();
+                    break;
+                case "Descending Ordered By Name":
+                    ViewModel.SetDescendingPositionAccordingToName();
+                    break;
+                default:
+                    break;
+            }
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ViewModel.getAll();

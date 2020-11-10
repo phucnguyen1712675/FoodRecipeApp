@@ -1,23 +1,10 @@
 ﻿using FoodRecipeApp.DTO;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using Telerik.Windows.Controls;
-using System.ComponentModel.DataAnnotations;
-using System.Reflection;
-using FoodRecipeApp.GUI;
 using System.Windows.Input;
-using Telerik.Windows.Controls.Slider;
-using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows.Threading;
-using PropertyChanged;
 using System.Configuration;
-using System.Windows.Data;
 using System.Runtime.CompilerServices;
 
 namespace FoodRecipeApp.ViewModels
@@ -54,6 +41,8 @@ namespace FoodRecipeApp.ViewModels
         public const int ColumnsCount = 4;
         public const int RowsCount = 2;
 
+        public ObservableCollection<OrderedMethod> OrderedList { get; set; }
+
 #pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 67
@@ -86,7 +75,16 @@ namespace FoodRecipeApp.ViewModels
             var defaultPageSize = ColumnsCount * RowsCount;
             this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
             this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
-        }
+       
+            OrderedList = new ObservableCollection<OrderedMethod>
+            {
+                new OrderedMethod("None"),
+                new OrderedMethod("Ascending Ordered By Name"),
+                new OrderedMethod("Descending Ordered By Name"),
+                new OrderedMethod("Descending Ordered By Created Date"),
+                new OrderedMethod("Descending Ordered By Updated Date")
+            };       
+       }
 
         public void  SearchPaging(List<Dish> objects)
         {
@@ -101,7 +99,8 @@ namespace FoodRecipeApp.ViewModels
                     this.FavouriteRecipes.Add(item);
                 }
             }
-        }
+         }
+
 
         public void getAll()
         {
@@ -138,7 +137,6 @@ namespace FoodRecipeApp.ViewModels
                 result = true;
                 this.Recipes.Remove(deletedDish);
             }
-
             return result;
         }
 
@@ -186,11 +184,50 @@ namespace FoodRecipeApp.ViewModels
 
             return result;
         }
+
+        public void SetDefaultPosition()
+        {
+            var count = 0;
+            this.Recipes.SetDefaultPosition();
+
+            foreach (var recipe in this.Recipes)
+            {
+                recipe.Position = count++;
+            }
+        }
+
+        public void SetAscendingPositionAccordingToName()
+        {
+            var count = 0;
+            this.Recipes.SetAscendingPositionAccordingToName();
+
+            foreach (var recipe in this.Recipes)
+            {
+                recipe.Position = count++;
+            }
+        }
+
+        public void SetDescendingPositionAccordingToName()
+        {
+            var count = 0;
+            this.Recipes.SetDescendingPositionAccordingToName();
+
+            foreach (var recipe in this.Recipes)
+            {
+                recipe.Position = count++;
+            }
+        }
+
     }
-    public enum ContentState
+
+    public class OrderedMethod
     {
-        SmallContent = 1,
-        NormalContent = 0,
-        LargeContent = 2
+        public string Method { get; set; }
+
+        public OrderedMethod(string method)
+        {
+            this.Method = method;
+        }
+
     }
 }

@@ -65,15 +65,15 @@ namespace FoodRecipeApp.ViewModels
 
 		public RecipeViewModel()
 		{
-			foreach (var item in DishesCollection.GetAllDishes())
-            {
+			  foreach (var item in DishesCollection.GetAllDishes())
+        {
 				this.Recipes.Add(item);
 				//this.SearchedRecipes.Add(item);
 				if(item.IsLove)
-                {
-					this.FavouriteRecipes.Add(item);
-				}
-			}
+          {
+					  this.FavouriteRecipes.Add(item);
+				  }
+			  }
 
 			/*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
 			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
@@ -81,13 +81,40 @@ namespace FoodRecipeApp.ViewModels
 			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 
 			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-			var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
+      var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
 			var favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
 			var defaultPageSize = ColumnsCount * RowsCount;
-
-			this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
+      this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
 			this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
 		}
+
+		public RecipeViewModel (List<Dish> objects)
+        {
+			foreach (var item in objects)
+			{
+				this.Recipes.Add(item);
+				this.SearchedRecipes.Add(item);
+				if (item.IsLove)
+				{
+					this.FavouriteRecipes.Add(item);
+				}
+			}
+			//foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
+
+
+			/*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
+			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
+
+			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
+
+			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+      var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
+			var favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
+			var defaultPageSize = ColumnsCount * RowsCount;
+      this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
+			this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
+		}
+
 
         public bool AddNewItemToAllRecipesList(Dish newDish)
 		{
@@ -97,7 +124,6 @@ namespace FoodRecipeApp.ViewModels
 			{
 				result = true;
 				this.Recipes.Add(newDish);
-				//RaisePropertyChanged("Recipes");
 			}
 			return result;
 		}

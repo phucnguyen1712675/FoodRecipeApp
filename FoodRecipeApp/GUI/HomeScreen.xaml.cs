@@ -19,7 +19,8 @@ namespace FoodRecipeApp.GUI
     /// </summary>
     public partial class HomeScreen : MetroWindow
 	{
-		public static RecipeViewModel ViewModel { get; } = new RecipeViewModel();
+		//TODO
+		public static RecipeViewModel ViewModel { get; set; } = new RecipeViewModel();
 
 		public static HomeScreen AppMainpage;
 		public HomeScreen()
@@ -125,11 +126,12 @@ namespace FoodRecipeApp.GUI
 
 		private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			/*if (e.Source is MetroAnimatedSingleRowTabControl)
-			{
-				
-			}*/
-		}
+    	if (DiscoverTabItem.IsSelected) SearchBar.Visibility = Visibility.Hidden;
+			else { 
+					SearchBar.Visibility = Visibility.Visible;
+					SearchDishNameTextBox.Text = foodAutoCompleteBox.SearchText;
+		  }
+    }
 
 		private void AddRecipeToggleButton_Click(object sender, RoutedEventArgs e)
 		{
@@ -206,5 +208,28 @@ namespace FoodRecipeApp.GUI
 				container.TileState = container.TileState != TileViewItemState.Maximized ? TileViewItemState.Maximized : TileViewItemState.Restored;
 			}
 		}
+
+         private void SearchDishNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+			      if (SearchDishNameTextBox.Text.Length == 0)
+            {
+              HintSearchDishNameTextBlock.Visibility = Visibility.Visible;
+              XSearchDishNameImage.Visibility = Visibility.Hidden;
+              ViewModel = new RecipeViewModel();
+            }
+            else
+            {
+              HintSearchDishNameTextBlock.Visibility = Visibility.Hidden;
+              XSearchDishNameImage.Visibility = Visibility.Visible;
+              //TODO search recipes
+              ViewModel = new RecipeViewModel(Dish.AdvanceSearch(SearchDishNameTextBox.Text, ""));
+              this.DataContext = ViewModel;
+            }
+		    }
+        
+        private void XSearchDishNameImage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+			    SearchDishNameTextBox.Text = "";
+        }
     }
 }

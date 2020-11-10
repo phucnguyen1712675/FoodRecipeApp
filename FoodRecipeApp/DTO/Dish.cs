@@ -106,6 +106,10 @@ namespace FoodRecipeApp.DTO
         //SEARCH TEXTBOX + FILTER
         public static string CreateQuery(string str, string Name)
         {
+            str = str.Replace("(", " ( ").Replace(")", " ) ");
+            str = Dish.TrimSpacesBetweenString(str).ToLower();
+            str = str.Replace("or (", "or(").Replace("and (", "and(").Replace(") and", ")and").Replace(") or", ")or").Replace(") )", "))").Replace("( (", "((");
+
             if (str[0] != '(') str = Name + " like N'%" + str;
 
             //(_
@@ -120,8 +124,44 @@ namespace FoodRecipeApp.DTO
 
             //_and( _or(
             str = str.Replace(" and(", "%' and(");
-            str = str.Replace(" or(", "% ' or(");
+            str = str.Replace(" or(", "%' or(");
 
+            // )and_  )or_ 
+            str = str.Replace(")and ", ")and " + Name + " like N'%");
+            str = str.Replace(")or ", ")or " + Name + " like N'%");
+
+            if (str[str.Length - 1] != ')') str = str + "%'";
+
+            return str;
+        }
+
+        public static string CreateQueryLinQ (string str, string Name)
+        {
+            str = str.Replace("(", " ( ").Replace(")", " ) ");
+            str = Dish.TrimSpacesBetweenString(str).ToLower();
+            str = str.Replace("or (", "||(").Replace("and (", "&&(").Replace(") and", ")&&").Replace(") or", ")||").Replace(") )", "))").Replace("( (", "((").Replace(" and ", " && ").Replace(" or ", " || ");
+
+            if (str[0] != '(') str = Name + ".Contains(\"" + str;
+
+            //(_
+            str = str.Replace("( ", "(" + Name + ".Contains(\"");
+
+            //_)
+            str = str.Replace(" )", "\") )");
+
+            // (_or_) (_and_)
+            str = str.Replace(" || ", "\")" + " || " + Name + ".Contains(\"");
+            str = str.Replace(" && ", "\")" + " && " + Name + ".Contains(\"");
+
+            //_and( _or(
+            str = str.Replace(" &&(", "\") &&(");
+            str = str.Replace(" ||(", "\") ||(");
+
+            // )and_  )or_ 
+            str = str.Replace(")&& ", ")&& " + Name + ".Contains(\"");
+            str = str.Replace(")|| ", ")|| "+ Name + ".Contains(\"");
+
+            if (str[str.Length -1] != ')') str = str + "\")";
             return str;
         }
 
@@ -141,6 +181,27 @@ namespace FoodRecipeApp.DTO
 
         }
 
+        public static bool checkQuery(string queryStr)
+        {
+            int result = 0;
+            for (int i = 0; i < queryStr.Length; i++)
+            {
+                if (queryStr[i] == '\"') result++;
+            }
+            if (result % 2 == 0)
+            {
+                result = 0;
+                for (int i = 0; i < queryStr.Length; i++)
+                {
+                    if (queryStr[i] == '(') result++;
+                    if (queryStr[i] == ')') result--;
+                }
+                return result == 0 ? true : false;
+
+            }
+            else return false;
+        }
+
         public static List<Dish> AdvanceSearch(string strTextBox , string strFilter)
         {
             //run khi event textchange || mousedown in checkbox groub
@@ -148,11 +209,7 @@ namespace FoodRecipeApp.DTO
             string result2 = null;
             string result = null;
             if (strTextBox != "") {
-                strTextBox = strTextBox.Replace("(", " ( ").Replace(")", " ) ");
-                strTextBox = Dish.TrimSpacesBetweenString(strTextBox).ToLower();
-
-                strTextBox = strTextBox.Replace("or (", "or(").Replace("and (", "and(").Replace(") and", ")and").Replace(") or", ")or").Replace(") )", "))").Replace("( (", "((");
-
+               
                 string str1 = Dish.CreateQuery(strTextBox, "Name");
                 string str2 = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Name)");
 
@@ -168,11 +225,12 @@ namespace FoodRecipeApp.DTO
             }
 
             List<Dish> resultDishes = new List<Dish>();
-
-            DataTable resultTable = DishDAO.Instance.AdvanceSearch(result);
-            foreach(DataRow row in resultTable.Rows)
-            {
-                resultDishes.Add(new Dish(row));
+            if (checkQuery(result)) {
+                DataTable resultTable = DishDAO.Instance.AdvanceSearch(result);
+                foreach (DataRow row in resultTable.Rows)
+                {
+                    resultDishes.Add(new Dish(row));
+                }
             }
             return resultDishes;
         }

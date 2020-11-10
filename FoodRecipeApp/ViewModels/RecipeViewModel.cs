@@ -24,172 +24,173 @@ namespace FoodRecipeApp.ViewModels
 {
     public class RecipeViewModel : INotifyPropertyChanged
     {
-		public DishesCollection Recipes { get; } = new DishesCollection();
-		public DishesCollection FavouriteRecipes { get; } = new DishesCollection();
-		public DishesCollection SearchedRecipes { get; } = new DishesCollection();
-		public string QuoteToShow => QuotesDataSource.Instance.GetRandomQuote();
-		public ICommand ClearSelectionCommand { get; set; }
-		public bool IsClearButtonVisible => !string.IsNullOrEmpty(SearchText);
-		public bool IsDropDownOpen { get; set; }
-		public Dish SelectedSearchItem { get; set; }
-		public int AllRecipesPageSize { get; set; }
-		public int FavouriteRecipesPageSize { get; set; }
+        public DishesCollection Recipes { get; } = new DishesCollection();
+        public DishesCollection FavouriteRecipes { get; } = new DishesCollection();
+        public DishesCollection SearchedRecipes { get; } = new DishesCollection();
+        public string QuoteToShow => QuotesDataSource.Instance.GetRandomQuote();
+        public ICommand ClearSelectionCommand { get; set; }
+        public bool IsClearButtonVisible => !string.IsNullOrEmpty(SearchText);
+        public bool IsDropDownOpen { get; set; }
+        public Dish SelectedSearchItem { get; set; }
+        public int AllRecipesPageSize { get; set; }
+        public int FavouriteRecipesPageSize { get; set; }
 
-		private string searchText;
-		public string SearchText
-		{
-			get => this.searchText;
-			set
-			{
-				if (searchText != value)
-				{
-					this.searchText = value;
-					OnPropertyChanged("IsClearButtonVisible");
-					OnPropertyChanged("SearchText");
-				}
-			}
-		}
-		public Dish SelectedItem { get; set; }
-
-		public const int ColumnsCount = 4;
-		public const int RowsCount = 2;
-
-		#pragma warning disable 67
-		public event PropertyChangedEventHandler PropertyChanged;
-		#pragma warning restore 67
-
-		protected void OnPropertyChanged([CallerMemberName] string name = null)
-		{
-			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-		}
-
-		public RecipeViewModel()
-		{
-			  foreach (var item in DishesCollection.GetAllDishes())
+        private string searchText;
+        public string SearchText
         {
-				this.Recipes.Add(item);
-				//this.SearchedRecipes.Add(item);
-				if(item.IsLove)
-          {
-					  this.FavouriteRecipes.Add(item);
-				  }
-			  }
+            get => this.searchText;
+            set
+            {
+                if (searchText != value)
+                {
+                    this.searchText = value;
+                    OnPropertyChanged("IsClearButtonVisible");
+                    OnPropertyChanged("SearchText");
+                }
+            }
+        }
+        public Dish SelectedItem { get; set; }
 
-			/*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
+        public const int ColumnsCount = 4;
+        public const int RowsCount = 2;
+
+#pragma warning disable 67
+        public event PropertyChangedEventHandler PropertyChanged;
+#pragma warning restore 67
+
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public RecipeViewModel()
+        {
+            foreach (var item in DishesCollection.GetAllDishes())
+            {
+                this.Recipes.Add(item);
+                //this.SearchedRecipes.Add(item);
+                if(item.IsLove)
+                {
+                    this.FavouriteRecipes.Add(item);
+                }
+            }
+
+            /*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
 			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
 
-			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
+            this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 
-			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-      var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
-			var favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
-			var defaultPageSize = ColumnsCount * RowsCount;
-      this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
-			this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
-		}
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
+            var favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
+            var defaultPageSize = ColumnsCount * RowsCount;
+            this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
+            this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
+        }
 
-		public RecipeViewModel (List<Dish> objects)
+        public void  SearchPaging(List<Dish> objects)
         {
-			foreach (var item in objects)
-			{
-				this.Recipes.Add(item);
-				this.SearchedRecipes.Add(item);
-				if (item.IsLove)
-				{
-					this.FavouriteRecipes.Add(item);
-				}
-			}
-			//foreach (var item in DishesCollection.GetFavouriteDishes()) this.FavouriteRecipes.Add(item);
+            this.Recipes.Clear();
+            this.FavouriteRecipes.Clear();
+            foreach (var item in objects)
+            {
+                this.Recipes.Add(item);
+                this.SearchedRecipes.Add(item);
+                if (item.IsLove)
+                {
+                    this.FavouriteRecipes.Add(item);
+                }
+            }
+        }
 
-
-			/*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
-			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
-
-			this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
-
-			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-      var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
-			var favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
-			var defaultPageSize = ColumnsCount * RowsCount;
-      this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
-			this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
-		}
+        public void getAll()
+        {
+            foreach (var item in DishesCollection.GetAllDishes())
+            {
+                this.Recipes.Add(item);
+                //this.SearchedRecipes.Add(item);
+                if (item.IsLove)
+                {
+                    this.FavouriteRecipes.Add(item);
+                }
+            }
+        }
 
 
         public bool AddNewItemToAllRecipesList(Dish newDish)
-		{
-			bool result = false;
+        {
+            bool result = false;
 
-			if (newDish != null)
-			{
-				result = true;
-				this.Recipes.Add(newDish);
-			}
-			return result;
-		}
+            if (newDish != null)
+            {
+                result = true;
+                this.Recipes.Add(newDish);
+            }
+            return result;
+        }
 
-		public bool RemoveItemToAllRecipesList(Dish deletedDish)
-		{
-			bool result = false;
+        public bool RemoveItemToAllRecipesList(Dish deletedDish)
+        {
+            bool result = false;
 
-			if (deletedDish != null)
-			{
-				result = true;
-				this.Recipes.Remove(deletedDish);
-			}
+            if (deletedDish != null)
+            {
+                result = true;
+                this.Recipes.Remove(deletedDish);
+            }
 
-			return result;
-		}
+            return result;
+        }
 
 
-		public bool AddNewItemToFavouriteRecipesList(Dish newDish)
-		{
-			bool result = false;
+        public bool AddNewItemToFavouriteRecipesList(Dish newDish)
+        {
+            bool result = false;
 
-			if (newDish != null)
-			{
-				result = true;
-				this.FavouriteRecipes.Add(newDish);
-			}
+            if (newDish != null)
+            {
+                result = true;
+                this.FavouriteRecipes.Add(newDish);
+            }
 
-			return result;	
-		}
+            return result;
+        }
 
-		public bool RemoveItemFromFavouriteRecipesList(Dish deletedDish)
-		{
-			bool result = false;
+        public bool RemoveItemFromFavouriteRecipesList(Dish deletedDish)
+        {
+            bool result = false;
 
-			if (deletedDish != null)
-			{
-				result = true;
-				this.FavouriteRecipes.Remove(deletedDish);
-			}
+            if (deletedDish != null)
+            {
+                result = true;
+                this.FavouriteRecipes.Remove(deletedDish);
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		private void OnClearSelectionCommandExecuted(object obj)
-		{
-			this.SearchText = string.Empty;
-			this.SelectedSearchItem = null;
-			this.IsDropDownOpen = false;
-		}
+        private void OnClearSelectionCommandExecuted(object obj)
+        {
+            this.SearchText = string.Empty;
+            this.SelectedSearchItem = null;
+            this.IsDropDownOpen = false;
+        }
 
-		public bool GetNewSearchRecipes()
-		{
-			bool result = false;
+        public bool GetNewSearchRecipes()
+        {
+            bool result = false;
 
-			this.SearchedRecipes.Clear();
-			//string FilterQuery = ListCheckBoxes.GetFilterQuery();
-			//this.SearchRecipes = DishesCollection.GetFilterDishes(FilterQuery);
+            this.SearchedRecipes.Clear();
+            //string FilterQuery = ListCheckBoxes.GetFilterQuery();
+            //this.SearchRecipes = DishesCollection.GetFilterDishes(FilterQuery);
 
-			return result;
-		}
-	}
-	public enum ContentState
-	{
-		SmallContent = 1,
-		NormalContent = 0,
-		LargeContent = 2
-	}
+            return result;
+        }
+    }
+    public enum ContentState
+    {
+        SmallContent = 1,
+        NormalContent = 0,
+        LargeContent = 2
+    }
 }

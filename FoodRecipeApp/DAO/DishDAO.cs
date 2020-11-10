@@ -79,5 +79,10 @@ namespace FoodRecipeApp.DAO
         {
             return DataProvider.Instance.ExecuteQuery(str);
         }
+
+        internal DataTable getDishByDishCode(string Dish)
+        {
+            return DataProvider.Instance.ExecuteQuery("EXEC USP_GetDishByDishCode @Dish ", new object[] { Dish });
+        }
     }
 }

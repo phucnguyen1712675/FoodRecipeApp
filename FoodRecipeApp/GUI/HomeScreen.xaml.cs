@@ -243,6 +243,8 @@ namespace FoodRecipeApp.GUI
                 default:
                     break;
             }
+        }
+
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ViewModel.getAll();

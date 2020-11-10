@@ -275,7 +275,12 @@
                                             BorderThickness="0,0,0,2" />
                                     </Grid>
                                 </Border>
-
+                                <Label Content="{Binding DateCreate}"
+                                       Margin="15,30,15,30"
+                                       FontFamily="Segeo UI Light"
+                                       HorizontalContentAlignment="Right">
+                                    
+                                </Label>
 
                             </StackPanel>
                         </ScrollViewer>

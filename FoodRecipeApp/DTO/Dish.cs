@@ -1,6 +1,7 @@
 ﻿using FoodRecipeApp.DAO;
 using FoodRecipeApp.ViewModels;
 using SharpDX;
+using SharpDX.Direct3D10;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FoodRecipeApp.DTO
 {
@@ -26,6 +28,7 @@ namespace FoodRecipeApp.DTO
         public List<Step> Steps { get; set; }
         public StepCollection StepsCollection { get; set; }
 
+        public DateTime DateCreate { get; set; }
         public Dish(DataRow row)
         {
             DishCode = (int)row["Dish"];
@@ -37,7 +40,7 @@ namespace FoodRecipeApp.DTO
             Loai = row["Loai"].ToString();
             ImagePath = Images.getFilePath(row);
             Steps = Step.getAllStepsInDish(DishCode);
-
+            DateCreate = DateTime.ParseExact(row["RecordedDate"].ToString(),"M/d/yyyy h:mm:ss tt",System.Globalization.CultureInfo.InvariantCulture);
             StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
@@ -51,11 +54,9 @@ namespace FoodRecipeApp.DTO
             Loai = loai;
             Name = name;
             DishCode = 0;
-
             StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
-
-        #pragma warning disable 67
+#pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
         #pragma warning restore 67
 

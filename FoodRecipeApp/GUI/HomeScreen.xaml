@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     xmlns:viewmodel="clr-namespace:FoodRecipeApp.ViewModels"
+    Closing="MetroWindow_Closing"
     Title="FOOD RECIPE APP"
     BorderThickness="1"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -96,11 +97,11 @@
 
                         </Grid>
                     </telerik:RadFluidContentControl.Content>
-
+                    
                     <telerik:RadFluidContentControl.LargeContent>
                         <ScrollViewer
-                            Width="1050"
-                            Height="550"
+	                        Width="auto"
+                            Height="auto"
                             Padding="10"
                             HorizontalAlignment="Center"
                             HorizontalScrollBarVisibility="Hidden"
@@ -278,7 +279,12 @@
                                             BorderThickness="0,0,0,2" />
                                     </Grid>
                                 </Border>
-
+                                <Label Content="{Binding DateCreate}"
+                                       Margin="15,30,15,30"
+                                       FontFamily="Segeo UI Light"
+                                       HorizontalContentAlignment="Right">
+                                    
+                                </Label>
 
                             </StackPanel>
                         </ScrollViewer>
@@ -499,28 +505,20 @@
                             Text="Enter the recipe name ... " />
                     </StackPanel>
                     <TextBox
-                        x:Name="SearchDishNameTextBox"
-                        Width="400"
-                        Height="30"
-                        Padding="30,0"
-                        HorizontalAlignment="Center"
-                        Background="{x:Null}"
-                        BorderBrush="{x:Null}"
-                        CaretBrush="{x:Null}"
-                        FontFamily="segeo ui light"
-                        FontSize="15"
-                        Foreground="#2e2d2e"
-                        SelectionBrush="{x:Null}"
-                        TextChanged="SearchDishNameTextBox_TextChanged" />
-                    <Image
-                        x:Name="XSearchDishNameImage"
-                        Width="15"
-                        Height="15"
-                        Margin="0,0,5,0"
-                        HorizontalAlignment="Right"
-                        MouseDown="XSearchDishNameImage_MouseDown"
-                        Source="/Resources/x.ico"
-                        Visibility="Hidden" />
+                            Text="{Binding ElementName=foodAutoCompleteBox, Path=SearchText, Mode=TwoWay}"
+                            Padding="30,0"
+							x:Name="SearchDishNameTextBox"
+							Width="400"
+							Height="30"
+							HorizontalAlignment="Center"
+							FontSize="15"
+                            FontFamily="segeo ui light"
+							Foreground="#2e2d2e"
+							TextChanged="SearchDishNameTextBox_TextChanged" Background="{x:Null}" BorderBrush="{x:Null}" CaretBrush="{x:Null}" SelectionBrush="{x:Null}"/>
+                    
+                  <Image x:Name="XSearchDishNameImage" 
+                       MouseDown="XSearchDishNameImage_MouseDown"
+                       Source="/Resources/x.ico" Width="15" Height="15" HorizontalAlignment="Right" Margin="0,0,5,0" Visibility="Hidden" />
                 </Grid>
             </Border>
 
@@ -654,7 +652,7 @@
                             </Grid.RowDefinitions>
 
                             <telerik:RadTileView
-                                x:Name="AllRecipesTileView"
+                                 x:Name="AllRecipesTileView"
                                 Grid.Row="0"
                                 ColumnsCount="{x:Static viewmodel:RecipeViewModel.ColumnsCount}"
                                 ContentTemplate="{StaticResource ContentTemplate}"

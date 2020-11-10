@@ -1,17 +1,20 @@
 ﻿using FoodRecipeApp.DAO;
 using FoodRecipeApp.ViewModels;
 using SharpDX;
+using SharpDX.Direct3D10;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FoodRecipeApp.DTO
 {
@@ -47,6 +50,8 @@ namespace FoodRecipeApp.DTO
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
+        public DateTime DateCreate { get; set; }
+        
         public Dish(DataRow row)
         {
             DishCode = (int)row["Dish"];
@@ -58,7 +63,7 @@ namespace FoodRecipeApp.DTO
             Loai = row["Loai"].ToString();
             ImagePath = Images.getFilePath(row);
             Steps = Step.getAllStepsInDish(DishCode);
-
+            DateCreate = DateTime.ParseExact(row["RecordedDate"].ToString(),"M/d/yyyy h:mm:ss tt",System.Globalization.CultureInfo.InvariantCulture);
             StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
@@ -72,7 +77,6 @@ namespace FoodRecipeApp.DTO
             Loai = loai;
             Name = name;
             DishCode = 0;
-
             StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
@@ -186,6 +190,28 @@ namespace FoodRecipeApp.DTO
             return str;
         }
 
+        public static string RemoveDiacritics(string s)
+        {
+
+            string normalizedString = null;
+            StringBuilder stringBuilder = new StringBuilder();
+            normalizedString = s.ToLower().Normalize(NormalizationForm.FormD);
+            int i = 0;
+            char c = '\0';
+
+            for (i = 0; i <= normalizedString.Length - 1; i++)
+            {
+                c = normalizedString[i];
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+
+            stringBuilder = stringBuilder.Replace("đ", "d");
+            return stringBuilder.ToString();
+        }
+
         public static string TrimSpacesBetweenString(string s)
         {
             var mystring = s.Split(new string[] { " " }, StringSplitOptions.None);
@@ -223,19 +249,25 @@ namespace FoodRecipeApp.DTO
             else return false;
         }
 
-        public static List<Dish> AdvanceSearch(string strTextBox, string strFilter)
+        public static List<Dish> searchByDishCode(int dishCode)
+        {
+            List<Dish> dish = new List<Dish>();
+            DataTable data = DishDAO.Instance.getDishByDishCode(dishCode.ToString());
+            dish.Add(new Dish(data.Rows[0]));
+            return dish;
+        }
+
+        public static List<Dish> AdvanceSearch(string strTextBox , string strFilter)
         {
             //run khi event textchange || mousedown in checkbox groub
             string result1 = null;
             string result2 = null;
             string result = null;
-            if (strTextBox != "")
-            {
-
-                string str1 = Dish.CreateQuery(strTextBox, "Name");
-                string str2 = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Name)");
-
-                result1 = "select * from DISH where ( " + str1 + ") OR (" + str2 + ")";
+            if (strTextBox != "") {
+                strTextBox = Dish.RemoveDiacritics(strTextBox);
+                string ConditionstrName = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Name)");
+                string ConditionstrLoai = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Loai)");
+                result1 = "select * from DISH where ( " + ConditionstrName + " ) or ( "+ ConditionstrLoai + " )";
                 result = result1;
             }
 

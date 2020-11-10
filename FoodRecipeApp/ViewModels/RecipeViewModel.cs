@@ -58,11 +58,15 @@ namespace FoodRecipeApp.ViewModels
             {
                 this.Recipes.Add(item);
                 //this.SearchedRecipes.Add(item);
-                if (item.IsLove)
+                if(item.IsLove)
                 {
                     this.FavouriteRecipes.Add(item);
                 }
             }
+
+            /*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
+			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
+
             this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -71,7 +75,7 @@ namespace FoodRecipeApp.ViewModels
             var defaultPageSize = ColumnsCount * RowsCount;
             this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
             this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
-
+       
             OrderedList = new ObservableCollection<OrderedMethod>
             {
                 new OrderedMethod("None"),
@@ -79,11 +83,13 @@ namespace FoodRecipeApp.ViewModels
                 new OrderedMethod("Descending Ordered By Name"),
                 new OrderedMethod("Descending Ordered By Created Date"),
                 new OrderedMethod("Descending Ordered By Updated Date")
-            };
-        }
+            };       
+       }
 
-        public RecipeViewModel(List<Dish> objects)
+        public void  SearchPaging(List<Dish> objects)
         {
+            this.Recipes.Clear();
+            this.FavouriteRecipes.Clear();
             foreach (var item in objects)
             {
                 this.Recipes.Add(item);
@@ -93,14 +99,20 @@ namespace FoodRecipeApp.ViewModels
                     this.FavouriteRecipes.Add(item);
                 }
             }
-            this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
+         }
 
-            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
-            var favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
-            var defaultPageSize = ColumnsCount * RowsCount;
-            this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
-            this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
+
+        public void getAll()
+        {
+            foreach (var item in DishesCollection.GetAllDishes())
+            {
+                this.Recipes.Add(item);
+                //this.SearchedRecipes.Add(item);
+                if (item.IsLove)
+                {
+                    this.FavouriteRecipes.Add(item);
+                }
+            }
         }
 
 
@@ -125,7 +137,6 @@ namespace FoodRecipeApp.ViewModels
                 result = true;
                 this.Recipes.Remove(deletedDish);
             }
-
             return result;
         }
 
@@ -217,5 +228,6 @@ namespace FoodRecipeApp.ViewModels
         {
             this.Method = method;
         }
+
     }
 }

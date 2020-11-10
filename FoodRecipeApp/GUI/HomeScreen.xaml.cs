@@ -126,6 +126,7 @@ namespace FoodRecipeApp.GUI
 
 		private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
+
     	if (DiscoverTabItem.IsSelected) SearchBar.Visibility = Visibility.Hidden;
 			else { 
 					SearchBar.Visibility = Visibility.Visible;
@@ -183,8 +184,6 @@ namespace FoodRecipeApp.GUI
 			if (itemp == null) return;
 			Dispatcher.BeginInvoke((Action)(() => MainTabControl.SelectedIndex = 1));
 			Dispatcher.BeginInvoke((Action)(() => AllRecipesPager.PageIndex = (itemp.DishCode - 1) / ViewModel.AllRecipesPageSize));
-
-			Debug.WriteLine((itemp.DishCode - 1).ToString());
 			//().ParentOfType<RadTileViewItem>().TileState = TileViewItemState.Maximized;
 			this.AllRecipesTileView.MaximizedItem = this.AllRecipesTileView.Items[(itemp.DishCode - 1) % ViewModel.AllRecipesPageSize];
 

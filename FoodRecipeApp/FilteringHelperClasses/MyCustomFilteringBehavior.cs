@@ -1,12 +1,8 @@
 ﻿using FoodRecipeApp.DTO;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Text;
-using Z.Expressions;
 using Telerik.Windows.Controls;
 using System.Linq.Dynamic;
-using System.Windows;
 
 namespace FoodRecipeApp.FilteringHelperClasses
 {
@@ -17,13 +13,13 @@ namespace FoodRecipeApp.FilteringHelperClasses
         private string ModifyItem(object originalItem, string textSearchPath)
         {
             var oldValueForProperty = GetPropValue(originalItem, textSearchPath).ToString();
-            var newValueForProperty = this.RemoveDiacritics(oldValueForProperty).ToLower();
+            var newValueForProperty = Dish.RemoveDiacritics(oldValueForProperty).ToLower();
             return newValueForProperty;
         }
 
-        public string RemoveDiacritics(string text) => string.Concat(text.Normalize(NormalizationForm.FormD)
+/*        public string RemoveDiacritics(string text) => string.Concat(text.Normalize(NormalizationForm.FormD)
                                                                         .Where(ch => CharUnicodeInfo.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark))
-                                                                        .Normalize(NormalizationForm.FormC);
+                                                                        .Normalize(NormalizationForm.FormC);*/
         // giữ cho chắc :v cấm delete nha
         /*        public override IEnumerable<object> FindMatchingItems(string searchText, System.Collections.IList items, IEnumerable<object> escapedItems, string textSearchPath, TextSearchMode textSearchMode)
                 {
@@ -78,7 +74,7 @@ namespace FoodRecipeApp.FilteringHelperClasses
 
             var resultItems = new List<object>();
 
-            searchText = RemoveDiacritics(searchText);
+            searchText = Dish.RemoveDiacritics(searchText);
             string queryStr = Dish.CreateQueryLinQ(searchText, "item");
 
             // Create key-value pair for each item in the itemsSource (you can cache this collection if it is not changed dynamically
@@ -96,7 +92,7 @@ namespace FoodRecipeApp.FilteringHelperClasses
             else
             {
                 foreach (var (originalItem, modifiedItem) in from object originalItem in items
-                                                             let modifiedItem = this.RemoveDiacritics(originalItem.ToString().ToUpper())
+                                                             let modifiedItem = Dish.RemoveDiacritics(originalItem.ToString().ToUpper())
                                                              select (originalItem, modifiedItem))
                 {
                     modifiedItems.Add(originalItem, modifiedItem);

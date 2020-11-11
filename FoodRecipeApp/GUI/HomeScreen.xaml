@@ -11,6 +11,7 @@
     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
     xmlns:tileView="clr-namespace:Telerik.Windows.Controls.TileView;assembly=Telerik.Windows.Controls.Navigation"
     xmlns:viewmodel="clr-namespace:FoodRecipeApp.ViewModels"
+    Closing="MetroWindow_Closing"
     Title="FOOD RECIPE APP"
     BorderThickness="1"
     DataContext="{Binding RelativeSource={RelativeSource Self}}"
@@ -93,11 +94,11 @@
 
                         </Grid>
                     </telerik:RadFluidContentControl.Content>
-
+                    
                     <telerik:RadFluidContentControl.LargeContent>
                         <ScrollViewer
-                            Width="1050"
-                            Height="550"
+	                        Width="auto"
+                            Height="auto"
                             Padding="10"
                             HorizontalAlignment="Center"
                             HorizontalScrollBarVisibility="Hidden"
@@ -469,6 +470,7 @@
 							Text="Enter the recipe name ... " />
                     </StackPanel>
                     <TextBox
+                            Text="{Binding ElementName=foodAutoCompleteBox, Path=SearchText, Mode=TwoWay}"
                             Padding="30,0"
 							x:Name="SearchDishNameTextBox"
 							Width="400"
@@ -613,7 +615,7 @@
                             </Grid.RowDefinitions>
 
                             <telerik:RadTileView
-                                x:Name="AllRecipesTileView"
+                                 x:Name="AllRecipesTileView"
                                 Grid.Row="0"
                                 ColumnsCount="{x:Static viewmodel:RecipeViewModel.ColumnsCount}"
                                 ContentTemplate="{StaticResource ContentTemplate}"

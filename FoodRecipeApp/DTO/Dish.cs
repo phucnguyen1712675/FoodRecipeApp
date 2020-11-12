@@ -43,6 +43,8 @@ namespace FoodRecipeApp.DTO
             ImagePath = Images.getFilePath(row);
             Steps = Step.getAllStepsInDish(DishCode);
             DateCreate = DateTime.ParseExact(row["RecordedDate"].ToString(), "M/d/yyyy h:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture);
+            DateCreate = DateTime.ParseExact(DateCreate.ToString("MM/dd/yyyy"), "M/d/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+            StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
         public Dish(bool isLove, string name, string imagePath, string description, string video, List<Step> steps, string loai)

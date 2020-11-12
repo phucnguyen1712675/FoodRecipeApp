@@ -513,16 +513,11 @@
     <Compile Include="DTO\CheckedList.cs" />
     <Compile Include="DTO\Dish.cs" />
     <Compile Include="DTO\DishesCollection.cs" />
-    <Compile Include="DTO\ImagePair.cs" />
     <Compile Include="DTO\Images.cs" />
-    <Compile Include="DTO\ImagesPerStepCollection.cs" />
-    <Compile Include="DTO\ImagesPerStepDataSource.cs" />
     <Compile Include="DTO\Quote.cs" />
     <Compile Include="DTO\QuotesCollection.cs" />
     <Compile Include="DTO\QuotesDataSource.cs" />
     <Compile Include="DTO\Step.cs" />
-    <Compile Include="DTO\StepCollection.cs" />
-    <Compile Include="DTO\StepDataSource.cs" />
     <Compile Include="FilteringHelperClasses\MyHighlightBehavior.cs" />
     <Compile Include="GUI\AddRecipe.xaml.cs">
       <DependentUpon>AddRecipe.xaml</DependentUpon>

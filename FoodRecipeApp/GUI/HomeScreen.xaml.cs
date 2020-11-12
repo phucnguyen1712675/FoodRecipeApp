@@ -23,7 +23,6 @@ namespace FoodRecipeApp.GUI
         //TODO
         public static RecipeViewModel ViewModel { get; } = new RecipeViewModel();
 
-
         public static HomeScreen AppMainpage;
         public HomeScreen()
         {
@@ -66,11 +65,14 @@ namespace FoodRecipeApp.GUI
                 {
                     var item = ViewModel.FavouriteRecipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
                     ViewModel.RemoveItemFromFavouriteRecipesList(item);
+
                     foreach (var tom in ViewModel.Recipes.Where(w => w.DishCode == dataItem.DishCode))
                     {
                         tom.IsLove = dataItem.IsLove;
                     }
                 }
+
+               // ViewModel.updateCreateDateToNow(dataItem);
             }
         }
 
@@ -128,14 +130,20 @@ namespace FoodRecipeApp.GUI
 
         private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.Source is MetroAnimatedSingleRowTabControl) {
-                if (DiscoverTabItem.IsSelected) SearchBar.Visibility = Visibility.Hidden;
+            if (e.Source is MetroAnimatedSingleRowTabControl)
+            {
+                if (DiscoverTabItem.IsSelected)
+                {
+                    SearchBar.Visibility = Visibility.Hidden;
+                    FilterButton.HorizontalAlignment = HorizontalAlignment.Right;
+                }
                 else
                 {
                     SearchBar.Visibility = Visibility.Visible;
+
                 }
             }
-                
+
         }
 
         private void AddRecipeToggleButton_Click(object sender, RoutedEventArgs e)
@@ -189,7 +197,7 @@ namespace FoodRecipeApp.GUI
             int dishCode = itemp.DishCode;
             Dispatcher.BeginInvoke((Action)(() => MainTabControl.SelectedIndex = 1));
             ViewModel.SearchPaging(Dish.searchByDishCode(dishCode));
-           //this.AllRecipesTileView.SelectedItem = this.AllRecipesTileView.Items[0];
+            //this.AllRecipesTileView.SelectedItem = this.AllRecipesTileView.Items[0];
         }
 
         private void RadFluidContentControl_MouseDown(object sender, MouseButtonEventArgs e)
@@ -205,7 +213,7 @@ namespace FoodRecipeApp.GUI
 
         private void SearchDishNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (SearchDishNameTextBox.Text.Length == 0)
+            if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
             {
                 HintSearchDishNameTextBlock.Visibility = Visibility.Visible;
                 XSearchDishNameImage.Visibility = Visibility.Hidden;
@@ -248,6 +256,26 @@ namespace FoodRecipeApp.GUI
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ViewModel.getAll();
+        }
+
+        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = e.Source as ListBoxItem;
+
+            if (lbi != null)
+            {
+                
+            }
+        }
+
+        private void ListBoxItem_Unselected(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = e.Source as ListBoxItem;
+
+            if (lbi != null)
+            {
+
+            }
         }
     }
 }

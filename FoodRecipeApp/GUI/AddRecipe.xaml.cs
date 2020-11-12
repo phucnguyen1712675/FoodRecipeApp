@@ -1,43 +1,23 @@
 ﻿using FoodRecipeApp.DTO;
 using FoodRecipeApp.ViewModels;
-using SharpDX;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Telerik.Windows.Controls;
-using Telerik.Windows.Controls.DataVisualization.Map.BingRest;
 using CheckBox = System.Windows.Controls.CheckBox;
-using Control = System.Windows.Controls.Control;
-using Image = System.Windows.Controls.Image;
-using ListView = System.Windows.Controls.ListView;
 using MessageBox = System.Windows.Forms.MessageBox;
-using RichTextBox = System.Windows.Controls.RichTextBox;
-using TextBox = System.Windows.Controls.TextBox;
-using WebBrowser = System.Windows.Controls.WebBrowser;
 
 namespace FoodRecipeApp.GUI
 {
-	/// <summary>
-	/// Interaction logic for AddRecipe.xaml
-	/// </summary>
-	public partial class AddRecipe : Page
+    /// <summary>
+    /// Interaction logic for AddRecipe.xaml
+    /// </summary>
+    public partial class AddRecipe : Page
 	{
         public List<Step> steps = new List<Step>();
 

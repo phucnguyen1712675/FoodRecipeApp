@@ -28,30 +28,9 @@ namespace FoodRecipeApp.DTO
         public string Loai { get; set; }
         public string ImagePath { get; set; }
         public List<Step> Steps { get; set; }
-        public StepCollection StepsCollection { get; set; }
-
-        private int position;
-
-        public int Position
-        {
-            get { return position; }
-            set
-            {
-                if (this.position != value)
-                {
-                    this.position = value;
-                    this.OnPropertyChanged("Position");
-                }
-            }
-        }
-
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         public DateTime DateCreate { get; set; }
-        
+        public int Position { get; set; }
+
         public Dish(DataRow row)
         {
             DishCode = (int)row["Dish"];
@@ -78,7 +57,6 @@ namespace FoodRecipeApp.DTO
             Loai = loai;
             Name = name;
             DishCode = 0;
-            StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
 #pragma warning disable 67
@@ -258,17 +236,18 @@ namespace FoodRecipeApp.DTO
             return dish;
         }
 
-        public static List<Dish> AdvanceSearch(string strTextBox , string strFilter)
+        public static List<Dish> AdvanceSearch(string strTextBox, string strFilter)
         {
             //run khi event textchange || mousedown in checkbox groub
             string result1 = null;
             string result2 = null;
             string result = null;
-            if (strTextBox != "") {
+            if (strTextBox != "")
+            {
                 strTextBox = Dish.RemoveDiacritics(strTextBox);
                 string ConditionstrName = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Name)");
                 string ConditionstrLoai = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Loai)");
-                result1 = "select * from DISH where ( " + ConditionstrName + " ) or ( "+ ConditionstrLoai + " )";
+                result1 = "select * from DISH where ( " + ConditionstrName + " ) or ( " + ConditionstrLoai + " )";
                 result = result1;
             }
 

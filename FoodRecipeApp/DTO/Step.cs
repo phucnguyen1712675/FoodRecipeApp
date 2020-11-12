@@ -19,9 +19,6 @@ namespace FoodRecipeApp.DTO
 
        public ObservableCollection<string> ImagesCollection { get; set; }
 
-        public ImagesPerStepCollection ImageList { get; set; }
-
-
         public Step(int stepNumber, string description, List<string> filePaths)
         {
             StepNumber = stepNumber;
@@ -29,13 +26,6 @@ namespace FoodRecipeApp.DTO
             ListImage = filePaths;
 
            ImagesCollection = Images.GetImages(ListImage);
-        }
-
-        public Step(int stepNumber, string description, ImagesPerStepCollection imageList)
-        {
-            StepNumber = stepNumber;
-            Description = description;
-            ImageList = imageList;
         }
 
         public static Step CreateStep (int stepNumber, string description, List<string> filePaths)

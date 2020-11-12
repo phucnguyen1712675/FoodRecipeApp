@@ -6,6 +6,8 @@ using System.Windows.Input;
 using System.ComponentModel;
 using System.Configuration;
 using System.Runtime.CompilerServices;
+using System.Linq.Dynamic;
+using System.Linq;
 
 namespace FoodRecipeApp.ViewModels
 {
@@ -13,7 +15,6 @@ namespace FoodRecipeApp.ViewModels
     {
         public DishesCollection Recipes { get; } = new DishesCollection();
         public DishesCollection FavouriteRecipes { get; } = new DishesCollection();
-        public DishesCollection SearchedRecipes { get; } = new DishesCollection();
         public string QuoteToShow => QuotesDataSource.Instance.GetRandomQuote();
         public ICommand ClearSelectionCommand { get; set; }
         public bool IsClearButtonVisible => !string.IsNullOrEmpty(SearchText);
@@ -42,6 +43,9 @@ namespace FoodRecipeApp.ViewModels
         public const int RowsCount = 2;
 
         public ObservableCollection<OrderedMethod> OrderedList { get; set; }
+        public ObservableCollection<string> TypeOfRecipesCollection { get; set; } 
+        public ObservableCollection<string> IngredientCollection { get; set; }
+        public ObservableCollection<string> CookingMethodCollection { get; set; }
 
 #pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
@@ -57,15 +61,11 @@ namespace FoodRecipeApp.ViewModels
             foreach (var item in DishesCollection.GetAllDishes())
             {
                 this.Recipes.Add(item);
-                //this.SearchedRecipes.Add(item);
-                if(item.IsLove)
+                if (item.IsLove)
                 {
                     this.FavouriteRecipes.Add(item);
                 }
             }
-
-            /*this.Recipes.CollectionChanged += Recipes_CollectionChanged;
-			this.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;*/
 
             this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 
@@ -75,39 +75,52 @@ namespace FoodRecipeApp.ViewModels
             var defaultPageSize = ColumnsCount * RowsCount;
             this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
             this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
-       
+
             OrderedList = new ObservableCollection<OrderedMethod>
             {
-                new OrderedMethod("None"),
+                new OrderedMethod("Default"),
                 new OrderedMethod("Ascending Ordered By Name"),
                 new OrderedMethod("Descending Ordered By Name"),
                 new OrderedMethod("Descending Ordered By Created Date"),
                 new OrderedMethod("Descending Ordered By Updated Date")
-            };       
-       }
+            };
 
-        public void  SearchPaging(List<Dish> objects)
+            this.TypeOfRecipesCollection = new ObservableCollection<string>()
+            {
+                "Mặn",
+                "Chay"
+            };
+            this.IngredientCollection = new ObservableCollection<string>()
+            {
+                "Heo",
+                "Gà",
+                "Bò",
+                "Dê",
+                "Hải sản",
+                "Đồ ngọt",
+                "Khác"
+            };
+            this.CookingMethodCollection = new ObservableCollection<string>()
+            {
+                "Chiên",
+                "Nướng",
+                "Lên men",
+                "Xào",
+                "Kho",
+                "Hấp",
+                "Khác"
+            };
+
+            //this.TypeOfRecipesCollection = this.TypeOfRecipesCollection.OrderBy(c => c);
+        }
+
+        public void SearchPaging(List<Dish> objects)
         {
             this.Recipes.Clear();
             this.FavouriteRecipes.Clear();
             foreach (var item in objects)
             {
                 this.Recipes.Add(item);
-                this.SearchedRecipes.Add(item);
-                if (item.IsLove)
-                {
-                    this.FavouriteRecipes.Add(item);
-                }
-            }
-         }
-
-
-        public void getAll()
-        {
-            foreach (var item in DishesCollection.GetAllDishes())
-            {
-                this.Recipes.Add(item);
-                //this.SearchedRecipes.Add(item);
                 if (item.IsLove)
                 {
                     this.FavouriteRecipes.Add(item);
@@ -115,6 +128,17 @@ namespace FoodRecipeApp.ViewModels
             }
         }
 
+        public void getAll()
+        {
+            foreach (var item in DishesCollection.GetAllDishes())
+            {
+                this.Recipes.Add(item);
+                if (item.IsLove)
+                {
+                    this.FavouriteRecipes.Add(item);
+                }
+            }
+        }
 
         public bool AddNewItemToAllRecipesList(Dish newDish)
         {
@@ -127,19 +151,6 @@ namespace FoodRecipeApp.ViewModels
             }
             return result;
         }
-
-        public bool RemoveItemToAllRecipesList(Dish deletedDish)
-        {
-            bool result = false;
-
-            if (deletedDish != null)
-            {
-                result = true;
-                this.Recipes.Remove(deletedDish);
-            }
-            return result;
-        }
-
 
         public bool AddNewItemToFavouriteRecipesList(Dish newDish)
         {
@@ -172,17 +183,6 @@ namespace FoodRecipeApp.ViewModels
             this.SearchText = string.Empty;
             this.SelectedSearchItem = null;
             this.IsDropDownOpen = false;
-        }
-
-        public bool GetNewSearchRecipes()
-        {
-            bool result = false;
-
-            this.SearchedRecipes.Clear();
-            //string FilterQuery = ListCheckBoxes.GetFilterQuery();
-            //this.SearchRecipes = DishesCollection.GetFilterDishes(FilterQuery);
-
-            return result;
         }
 
         public void SetDefaultPosition()

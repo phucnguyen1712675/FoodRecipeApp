@@ -20,7 +20,6 @@ namespace FoodRecipeApp.ViewModels
     {
         public DishesCollection Recipes { get; } = new DishesCollection();
         public DishesCollection FavouriteRecipes { get; } = new DishesCollection();
-        public DishesCollection SearchedRecipes { get; } = new DishesCollection();
         public string QuoteToShow => QuotesDataSource.Instance.GetRandomQuote();
         public ICommand ClearSelectionCommand { get; set; }
         public bool IsClearButtonVisible => !string.IsNullOrEmpty(SearchText);
@@ -51,6 +50,9 @@ namespace FoodRecipeApp.ViewModels
         public const int RowsCount = 2;
 
         public ObservableCollection<OrderedMethod> OrderedList { get; set; }
+        public ObservableCollection<string> TypeOfRecipesCollection { get; set; } 
+        public ObservableCollection<string> IngredientCollection { get; set; }
+        public ObservableCollection<string> CookingMethodCollection { get; set; }
 
 #pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
@@ -71,10 +73,8 @@ namespace FoodRecipeApp.ViewModels
                     this.FavouriteRecipes.Add(item);
                 }
             }
-            //trang
-            allRecipeBeforeSearch = DishesCollection.GetAllDishes();
-            //allRecipeBeforeSearch.ForEach(item => { item.Name = Dish.RemoveDiacritics(item.Name); item.Loai = Dish.RemoveDiacritics(item.Loai);}) ;
 
+            allRecipeBeforeSearch = DishesCollection.GetAllDishes();
             this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
 
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -96,9 +96,37 @@ namespace FoodRecipeApp.ViewModels
 
             setSort(OrderedList[SetSortIndex].Method, this.Recipes);
             setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
+             
+            this.TypeOfRecipesCollection = new ObservableCollection<string>()
+            {
+                "Mặn",
+                "Chay"
+            };
+            this.IngredientCollection = new ObservableCollection<string>()
+            {
+                "Heo",
+                "Gà",
+                "Bò",
+                "Dê",
+                "Hải sản",
+                "Đồ ngọt",
+                "Khác"
+            };
+            this.CookingMethodCollection = new ObservableCollection<string>()
+            {
+                "Chiên",
+                "Nướng",
+                "Lên men",
+                "Xào",
+                "Kho",
+                "Hấp",
+                "Khác"
+            };
+            //this.TypeOfRecipesCollection = this.TypeOfRecipesCollection.OrderBy(c => c);
         }
 
-        /*        public void  SearchPaging(List<Dish> objects)
+        #region search
+ /*        public void  SearchPaging(List<Dish> objects)
                 {
                     this.Recipes.Clear();
                     this.FavouriteRecipes.Clear();
@@ -114,7 +142,6 @@ namespace FoodRecipeApp.ViewModels
                     setSort(OrderedList[SetSortIndex].Method, this.Recipes);
                     setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
                 }*/
-        #region search
 
         public void SearchPaging(List<Dish> result)
         {
@@ -123,7 +150,6 @@ namespace FoodRecipeApp.ViewModels
             foreach (var item in result)
             {
                 this.Recipes.Add(item);
-                this.SearchedRecipes.Add(item);
                 if (item.IsLove)
                 {
                     this.FavouriteRecipes.Add(item);
@@ -194,7 +220,6 @@ namespace FoodRecipeApp.ViewModels
             }
             return result;
         }
-
 
         public bool AddNewItemToFavouriteRecipesList(Dish newDish)
         {

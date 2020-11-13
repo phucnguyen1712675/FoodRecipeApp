@@ -23,7 +23,6 @@ namespace FoodRecipeApp.GUI
         //TODO
         public static RecipeViewModel ViewModel { get; } = new RecipeViewModel();
 
-
         public static HomeScreen AppMainpage;
         public HomeScreen()
         {
@@ -73,6 +72,8 @@ namespace FoodRecipeApp.GUI
                     tom.IsLove = dataItem.IsLove;
                     tom.DateCreate = UpdateDate;
                 }
+
+               // ViewModel.updateCreateDateToNow(dataItem);
             }
         }
 
@@ -130,14 +131,20 @@ namespace FoodRecipeApp.GUI
 
         private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.Source is MetroAnimatedSingleRowTabControl) {
-                if (DiscoverTabItem.IsSelected) SearchBar.Visibility = Visibility.Hidden;
+            if (e.Source is MetroAnimatedSingleRowTabControl)
+            {
+                if (DiscoverTabItem.IsSelected)
+                {
+                    SearchBar.Visibility = Visibility.Hidden;
+                    FilterButton.HorizontalAlignment = HorizontalAlignment.Right;
+                }
                 else
                 {
                     SearchBar.Visibility = Visibility.Visible;
+
                 }
             }
-                
+
         }
 
         private void AddRecipeToggleButton_Click(object sender, RoutedEventArgs e)
@@ -241,6 +248,26 @@ namespace FoodRecipeApp.GUI
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             ViewModel.SearchPaging(ViewModel.getAll());
+        }
+
+        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = e.Source as ListBoxItem;
+
+            if (lbi != null)
+            {
+                
+            }
+        }
+
+        private void ListBoxItem_Unselected(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem lbi = e.Source as ListBoxItem;
+
+            if (lbi != null)
+            {
+
+            }
         }
     }
 }

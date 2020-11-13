@@ -17,9 +17,9 @@ namespace FoodRecipeApp.FilteringHelperClasses
             return newValueForProperty;
         }
 
-/*        public string RemoveDiacritics(string text) => string.Concat(text.Normalize(NormalizationForm.FormD)
-                                                                        .Where(ch => CharUnicodeInfo.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark))
-                                                                        .Normalize(NormalizationForm.FormC);*/
+        /*        public string RemoveDiacritics(string text) => string.Concat(text.Normalize(NormalizationForm.FormD)
+                                                                                .Where(ch => CharUnicodeInfo.GetUnicodeCategory(ch) != UnicodeCategory.NonSpacingMark))
+                                                                                .Normalize(NormalizationForm.FormC);*/
         // giữ cho chắc :v cấm delete nha
         /*        public override IEnumerable<object> FindMatchingItems(string searchText, System.Collections.IList items, IEnumerable<object> escapedItems, string textSearchPath, TextSearchMode textSearchMode)
                 {
@@ -67,7 +67,7 @@ namespace FoodRecipeApp.FilteringHelperClasses
         */
         public override IEnumerable<object> FindMatchingItems(string searchText, System.Collections.IList items, IEnumerable<object> escapedItems, string textSearchPath, TextSearchMode textSearchMode)
         {
-             if (string.IsNullOrEmpty(searchText.TrimStart()))
+            if (string.IsNullOrEmpty(searchText.TrimStart()))
             {
                 return ((IEnumerable<object>)items).Where(x => !escapedItems.Contains(x));
             }
@@ -100,18 +100,17 @@ namespace FoodRecipeApp.FilteringHelperClasses
             }
 
             List<string> matchItems = new List<string>();
-            if(Dish.checkQuery(queryStr))
+            if (Dish.checkQuery(queryStr))
                 matchItems = modifiedItems.Values.ToList().WhereDynamic(item => queryStr).ToList();
 
             foreach (string matchItem in matchItems)
-             {
-                 var dictionaryItem = modifiedItems.FirstOrDefault(p => p.Value == matchItem);
-                 modifiedItems.Remove(dictionaryItem.Key);
-                 resultItems.Add(dictionaryItem.Key);
-             }
-            
+            {
+                var dictionaryItem = modifiedItems.FirstOrDefault(p => p.Value == matchItem);
+                modifiedItems.Remove(dictionaryItem.Key);
+                resultItems.Add(dictionaryItem.Key);
+            }
+
             return resultItems;
         }
-
     }
 }

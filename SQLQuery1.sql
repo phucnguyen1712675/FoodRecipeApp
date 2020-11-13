@@ -90,13 +90,13 @@ Thành phần
 	- Đậu xanh : 100gr
 	- Đường trắng : 150 gr',
 	N'https://www.youtube.com/watch?v=KFl6kp4Y6hE',
-	N'Chè, ngọt, chay',
+	N'Chè, Ngọt, Chay',
 	N'\\Image\\1\\recipe18386-636126403006525310.jpg',
 	'2019-11-11  00:00:00'
 ),
 ( --2
 N'Canh củ xen hầm táo đỏ',
-	N'Củ sen hay còn gọi là liên ngẫu, theo đông y có vị ngọt, tính mát, có tác dụng lợi tiểu, an thần,... Chính vì giá trị dinh dưỡng cao nên củ sen được chế biến thành rất nhiều món ăn. Khi được nấu cùng táo đỏ, nấm hương càng làm món ăn bổ dưỡng hơn. Đặc biệt, món ăn này rất phù hợp cho người ăn chay.
+	N'Củ sen hay còn gọi là liên ngẫu, theo đông y có vị Ngọt, tính mát, có tác dụng lợi tiểu, an thần,... Chính vì giá trị dinh dưỡng cao nên củ sen được chế biến thành rất nhiều món ăn. Khi được nấu cùng táo đỏ, nấm hương càng làm món ăn bổ dưỡng hơn. Đặc biệt, món ăn này rất phù hợp cho người ăn chay.
 Thành phần
 	- Củ sen : 400 Gr
 	- Hạt sen : 100 Gr
@@ -107,7 +107,7 @@ Thành phần
 	- Muối : 1/2 Muỗng cà phê
 	- Hạt nêm : 1 Muỗng cà phê',
 	N'https://www.youtube.com/watch?v=nWsXBe5_fjg',
-	N'mặn, chay',
+	N'Mặn, Chay',
 	N'\\Image\\2\\Recipe182-635363758513389687.jpg',
 	'2020-01-11  00:00:00'
 ),
@@ -123,7 +123,7 @@ Thành phần
 	- Sốt cà chua : 1 Muỗng canh
 	- Muối : 1/2 Muỗng cà phê',
 	N'https://www.youtube.com/watch?v=nvTlubT2vmE',
-	N'mặn, chiên, cơm',
+	N'Mặn, Chiên, Cơm',
 	N'\\Image\\3\\recipe11094-636020985974231510.jpg',
 	'2020-01-12  00:00:00'
 ),( --4
@@ -139,7 +139,7 @@ Thành phần
 	- Đậu hũ chiên : 1 Miếng
 	- Nấm đông cô : 5 Cái',
 	N'https://www.youtube.com/watch?v=12-n7KaMLjE',
-	N'Lẩu, mặn, cay, hải sản',
+	N'Lẩu, Mặn, Cay, Hải sản',
 	N'\\Image\\4\\recipe-cover-r25727.jpg',
 	'2020-01-12  00:00:00'
 ),( --5
@@ -153,7 +153,7 @@ Thành phần
 	- Tiêu xay  : 1 muỗng cà phê
 	- Đường : 1/2 muỗng canh',
 	N'https://www.youtube.com/watch?v=Bs9pTN6F9eU&feature=youtu.be',
-	N'mặn, trứng, heo',
+	N'Mặn, Trứng, Heo',
 	N'\\Image\\5\\ae6ccde4-e2a8-42c0-8ecf-9526ef26b82b.jpg',
 	'2020-01-15  00:00:00'
 
@@ -167,13 +167,13 @@ Thành phần
 	- Tiêu : 1 muỗng cà phê
 	- Mật ong : 2 muỗng canh',
 	N'https://www.youtube.com/watch?v=cMgQ5HfSGgc&feature=youtu.be',
-	N'mặn, gà, nướng',
+	N'Mặn, Gà, Nướng',
 	N'\\Image\\6\\69d38891-be04-4461-8acb-3a4e5c3244a8.jpg',
 	'2020-01-16  00:00:00'
 ),
 ( --7
 N'Lẩu cá linh bông điền điền',
-	N'Lẩu cá linh bông điên điển với hương vị đúng điệu của miền Tây sông nước sẽ là một trong những món ngon cuối tuần cho gia đình bạn. Chỉ mất vài phút chuẩn bị và chế biến theo công thức của Cooky, bạn sẽ có một nồi lẩu thơm nức mũi, hương vị ngọt ngào, đậm đà để mời cả nhà cùng thưởng thức nhé!
+	N'Lẩu cá linh bông điên điển với hương vị đúng điệu của miền Tây sông nước sẽ là một trong những món ngon cuối tuần cho gia đình bạn. Chỉ mất vài phút chuẩn bị và chế biến theo công thức của Cooky, bạn sẽ có một nồi lẩu thơm nức mũi, hương vị Ngọt ngào, đậm đà để mời cả nhà cùng thưởng thức nhé!
 Thành phần 
 	- Cá linh : 500gr
 	- Bông điên điển : 300gr
@@ -182,7 +182,7 @@ Thành phần
 	- Rau ngò gai : 20gr
 	- Nước cốt me : 30ml',
 	N'https://www.youtube.com/watch?v=ZvIxQ6zu0EE&feature=youtu.be',
-	N'lẩu, mặn, hải sản',
+	N'Lẩu, Mặn, Hải sản',
 	N'\\Image\\7\\62600c4f-6d27-429f-bbf6-685e44e83441.jpg',
 	'2020-01-16  00:00:00'
 ),( --8
@@ -194,7 +194,7 @@ Thành phần
 	- Muối : 1 muỗng cà phê
 	- Bột mì : 30gr',
 	N'https://www.youtube.com/watch?v=EANhMhsZ-A4&feature=youtu.be',
-	N'ngọt, chay, chiên',
+	N'Ngọt, Chay, Chiên',
 	N'\\Image\\8\\3fb0ae40-bbad-4eb7-8484-e97f6764c6d3.jpg',
 	'2020-01-17  00:00:00'
 ),( --9
@@ -207,7 +207,7 @@ Thành phần
 	- Tỏi lát : 20gr
 	- Ớt sừng : 20gr',
 	N'https://www.youtube.com/watch?v=K_J9_yHXPGQ&feature=youtu.be',
-	N'chay, lên men',
+	N'Chay, Lên men',
 	N'\\Image\\9\\40efaa4f-fc88-4327-85c3-89c7722ac279.jpg',
 	'2020-01-17  00:00:00'
 ),(--10
@@ -219,7 +219,7 @@ Thành phần
 	- Cà phê hoà tan : 2 Muỗng canh
 	- Nước sôi : 50 ml',
 	N'https://www.youtube.com/watch?v=duJMErdoOXU&feature=youtu.be',
-	N'ngọt, chay',
+	N'Ngọt, Chay',
 	N'\\Image\\10\\recipe52666-cook-step3-637207612645558113.jpg',
 	'2020-01-17  00:00:00'
 ),(--11
@@ -232,7 +232,7 @@ Thành phần
 	- Hành boa rô : 20 Gr
 	- Hạt nêm Maggi : 1 Muỗng canh',
 	N'https://www.youtube.com/watch?v=0A06x-KtPRg&feature=youtu.be',
-	N'mặn, chay, xào',
+	N'Mặn, Chay, Xào',
 	N'\\Image\\11\\recipe48273-cook-step5-636975756004892956.jpg',
 	'2020-01-17  00:00:00'
 ),(--12
@@ -244,7 +244,7 @@ Thành phần
 	- Bắp non : 50 Gr
 	- Tỏi băm : 10 Gr',
 	N'https://www.youtube.com/watch?v=x8S482hfOfI&feature=youtu.be',
-	N'mặn, xào, bò',
+	N'Mặn, Xào, Bò',
 	N'\\Image\\12\\recipe50343-cook-step5-637061211654378235.jpg',
 	'2020-01-18  00:00:00'
 ),(--13
@@ -257,7 +257,7 @@ Thành phần
 	- Cà rốt : 100 Gr
 	- Hạt nêm : 1 Muỗng canh',
 	N'https://www.youtube.com/watch?v=x8S482hfOfI&feature=youtu.be',
-	N'mặn, hầm, heo',
+	N'Mặn, Hầm, Heo',
 	N'\\Image\\13\\recipe50341-cook-step4-637075998898748530.jpg',
 	'2020-01-18  00:00:00'
 ),(--14
@@ -270,7 +270,7 @@ Thành phần
 	- Trứng cút : 20 Quả
 	- Bơ : 50 Gr',
 	N'https://www.youtube.com/watch?v=frQi2dv9wn0&feature=youtu.be',
-	N'mặn, chiên, heo, snack',
+	N'Mặn, Chiên, Heo, Snack',
 	N'\\Image\\14\\recipe19443-prepare-step5-636266371717770790.jpg',
 	'2020-01-18  00:00:00'
 ),(--15
@@ -282,7 +282,7 @@ Thành phần
 	- Phô mai : 50 Gr
 	- Dầu ăn : 1 Chén',
 	N'https://www.youtube.com/watch?v=eRfjWIhKARI&feature=youtu.be',
-	N'ngọt, chiên, chay',
+	N'Ngọt, Chiên, Chay',
 	N'\\Image\\15\\recipe15965-prepare-step5-635821475775109157.jpg',
 	'2020-01-18  00:00:00'
 ),(--16
@@ -295,7 +295,7 @@ Thành phần
 	- Tiêu : 1 Muỗng cà phê
 	- Muối : 1/2 Muỗng cà phê',
 	N'https://www.youtube.com/watch?v=RC9rjP6uZVs&feature=youtu.be',
-	N'mặn, nướng, hải sản',
+	N'Mặn, Nướng, Hải sản',
 	N'\\Image\\16\\recipe52512-cook-step4-637196063038775196.jpg',
 	'2020-01-18  00:00:00'
 ),(--17
@@ -308,7 +308,7 @@ Thành phần
 	- Hành lá : 50 Gr
 	- hộp bơ thực vật : 1 Hộp',
 	N'https://www.youtube.com/watch?v=WzIUteiwbGY&feature=youtu.be',
-	N'mặn, nướng, heo, trứng',
+	N'Mặn, Nướng, Heo, Trứng',
 	N'\\Image\\17\\cooky-recipe-637215497149075617.jpg',
 	'2020-01-18  00:00:00'
 ),(--18
@@ -321,7 +321,7 @@ Thành phần
 	- Nước mắm : 1.50 Muỗng canh
 	- Đường trắng : 1/2 Muỗng canh',
 	N'https://www.youtube.com/watch?v=_fkbfcn24nM&feature=youtu.be',
-	N'mặn, kho, heo, trứng',
+	N'Mặn, Kho, Heo, Trứng',
 	N'\\Image\\18\\recipe51998-cook-step3-637147671158673032.jpg',
 	'2020-02-14  00:00:00'
 ),(--19
@@ -335,7 +335,7 @@ Thành phần
 	- Hành tây : 50 Gr
 	- Tương ớt Hàn Quốc : 2 Muỗng canh',
 	N'https://www.youtube.com/watch?v=4-Lie43c2Ig&feature=youtu.be',
-	N'mặn, xào, hải sản',
+	N'Mặn, Xào, Hải sản',
 	N'\\Image\\19\\recipe52668-cook-step5-637221427442396421.jpg',
 	'2020-02-14  00:00:00'
 ),(--20
@@ -348,7 +348,7 @@ Thành phần
 	- Tôm tươi : 200 Gr
 	- Trứng cút : 10 Quả',
 	N'https://www.youtube.com/watch?v=Uknq2Vjxvq0&feature=youtu.be',
-	N'mặn, hầm, heo, trứng, hải sản',
+	N'Mặn, Hầm, Heo, Trứng, Hải sản',
 	N'\\Image\\20\\recipe50103-cook-step5-637129919680310953.jpg',
 	'2020-02-14  00:00:00'
 )

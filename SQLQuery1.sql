@@ -1758,10 +1758,6 @@ UPDATE dbo.IMAGE set FilePath = dbo.fsetImage(Dish,StepNumber) + FilePath
 go
 
 go
-update dbo.DISH set Loai = REPLACE (Loai, ' ', '' ) from dbo.DISH
-go
-
-go
 update dbo.DISH set Love = 1 where Dish = 8 or Dish = 7 or Dish = 9 or Dish = 12 or Dish = 15 or Dish = 3 or Dish = 4 or Dish =1
 go
 ------------PROCEDURE ---------------------
@@ -1948,6 +1944,7 @@ begin
  select * from DISH where Dish = @Dish
  end
  go
+
 /*
 select * from DISH
   where not exists ((select Item from dbo.SplitInts(N'bò',','))

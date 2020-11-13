@@ -49,10 +49,26 @@ namespace FoodRecipeApp.ViewModels
         public const int ColumnsCount = 4;
         public const int RowsCount = 2;
 
-        public ObservableCollection<OrderedMethod> OrderedList { get; set; }
-        public ObservableCollection<string> TypeOfRecipesCollection { get; set; } 
-        public ObservableCollection<string> IngredientCollection { get; set; }
-        public ObservableCollection<string> CookingMethodCollection { get; set; }
+        public ObservableCollection<OrderedMethod> OrderedList { get; } = new ObservableCollection<OrderedMethod>()
+            {
+                new OrderedMethod("Default"),
+                new OrderedMethod("Ascending Ordered By Name"),
+                new OrderedMethod("Descending Ordered By Name"),
+                new OrderedMethod("Ascending Ordered By Date"),
+                new OrderedMethod("Descending Ordered By Date")
+            };
+
+        public Dictionary<string, List<string>> TypeAndIngredientCollection { get; set; }
+        public List<string> CookingMethodCollection { get; } = new List<string>()
+            {
+                "Chiên",
+                "Nướng",
+                "Lên men",
+                "Xào",
+                "Kho",
+                "Hấp",
+                "Khác"
+            };
 
 #pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
@@ -76,53 +92,20 @@ namespace FoodRecipeApp.ViewModels
 
             allRecipeBeforeSearch = DishesCollection.GetAllDishes();
             this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
-
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
             var favPageSize = int.Parse(config.AppSettings.Settings["FavouriteRecipesPageSize"].Value);
             var defaultPageSize = ColumnsCount * RowsCount;
             this.AllRecipesPageSize = allPageSize != 0 ? allPageSize : (this.Recipes.Count >= defaultPageSize ? defaultPageSize : this.Recipes.Count);
             this.FavouriteRecipesPageSize = favPageSize != 0 ? favPageSize : (this.FavouriteRecipes.Count >= defaultPageSize ? defaultPageSize : this.FavouriteRecipes.Count);
+            this.TypeAndIngredientCollection = new Dictionary<string, List<string>>();
+            this.TypeAndIngredientCollection.Add("Tất cả", new List<string>() { });
+            this.TypeAndIngredientCollection.Add("Mặn", new List<string>() { "Heo", "Gà", "Bò", "Dê", "Hải sản", "Khác" });
+            this.TypeAndIngredientCollection.Add("Chay", new List<string>() { });
+            this.TypeAndIngredientCollection["Tất cả"] = this.TypeAndIngredientCollection["Mặn"].Concat(this.TypeAndIngredientCollection["Chay"]).ToList();
             this.SetSortIndex = int.Parse(config.AppSettings.Settings["SetSort"].Value);
-
-            OrderedList = new ObservableCollection<OrderedMethod>
-            {
-                new OrderedMethod("Default"),
-                new OrderedMethod("Ascending Ordered By Name"),
-                new OrderedMethod("Descending Ordered By Name"),
-                new OrderedMethod("Ascending Ordered By Date"),
-                new OrderedMethod("Descending Ordered By Date")
-            };
-
             setSort(OrderedList[SetSortIndex].Method, this.Recipes);
             setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
-             
-            this.TypeOfRecipesCollection = new ObservableCollection<string>()
-            {
-                "Mặn",
-                "Chay"
-            };
-            this.IngredientCollection = new ObservableCollection<string>()
-            {
-                "Heo",
-                "Gà",
-                "Bò",
-                "Dê",
-                "Hải sản",
-                "Đồ ngọt",
-                "Khác"
-            };
-            this.CookingMethodCollection = new ObservableCollection<string>()
-            {
-                "Chiên",
-                "Nướng",
-                "Lên men",
-                "Xào",
-                "Kho",
-                "Hấp",
-                "Khác"
-            };
-            //this.TypeOfRecipesCollection = this.TypeOfRecipesCollection.OrderBy(c => c);
         }
 
         #region search
@@ -262,6 +245,12 @@ namespace FoodRecipeApp.ViewModels
             dishes.SetSort(method);
             allRecipeBeforeSearch.SetSort(method);
         }
+
+        public void FilterRecipesCollection(string ThingToFilter)
+        {
+            this.Recipes.Filtering(ThingToFilter);
+            this.FavouriteRecipes.Filtering(ThingToFilter);
+        }
     }
 
     public class OrderedMethod
@@ -272,6 +261,5 @@ namespace FoodRecipeApp.ViewModels
         {
             this.Method = method;
         }
-
     }
 }

@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 
 namespace FoodRecipeApp.DTO
 {
-    public class Dish : INotifyPropertyChanged
+    public class Dish : INotifyPropertyChanged, ICloneable
     {
         public int DishCode { get; set; }
         public bool IsLove { get; set; }
@@ -267,5 +267,9 @@ namespace FoodRecipeApp.DTO
             return resultDishes;
         }*/
 
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

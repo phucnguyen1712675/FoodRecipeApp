@@ -16,8 +16,6 @@ namespace FoodRecipeApp.DTO
             { "Descending Ordered By Date", new Func<DishesCollection,List<Dish>>(SetDescendingPositionAccordingToDate)}
         };
 
-
-
 		public static DishesCollection GetAllDishes()
 		{
 			DishesCollection dishes = new DishesCollection();
@@ -31,9 +29,9 @@ namespace FoodRecipeApp.DTO
             }
 
             return dishes;
-		}
+        }
 
-		public static DishesCollection GetFilterDishes(string queryFilter)
+        public static DishesCollection GetFilterDishes(string queryFilter)
         {
             DishesCollection dishes = new DishesCollection();
             DataTable data = DishDAO.Instance.getFilterDishes(queryFilter);
@@ -98,6 +96,32 @@ namespace FoodRecipeApp.DTO
         public static List<Dish> SetDescendingPositionAccordingToDate(DishesCollection dishes)
         {
             return dishes.OrderByDescending(c => Convert.ToDateTime(c.DateCreate)).ToList();
+        }
+
+        public void Filtering(string ThingToFilter)
+        {
+            var clonedList = this.Select(objEntity => (Dish)objEntity.Clone()).ToList();
+            ObservableCollection<Dish> clonedCollection = new ObservableCollection<Dish>(clonedList);
+
+            this.Clear();
+
+            var filterList = from item in clonedCollection
+                             let loai = item.Loai.ToLower()
+                             where loai.Contains(ThingToFilter.ToLower())
+                             select item;
+
+            foreach (var item in filterList)
+            {
+                this.Add(item);
+            }
+
+            /*if (!this.Any())
+            {
+                foreach (var item in clonedCollection)
+                {
+                    this.Add(item);
+                }
+            }*/
         }
     }
 }

@@ -54,22 +54,23 @@ namespace FoodRecipeApp.GUI
 
             if (DishDAO.Instance.updateFavouriteRecipe(dataItem.DishCode.ToString()) == 1)
             {
+                string UpdateDate = Dish.getUpdateDateByDishCode(dataItem.DishCode);
                 //Success
-
                 if (dataItem.IsLove)
                 {
                     var item = ViewModel.Recipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
+                    dataItem.DateCreate = UpdateDate;
                     ViewModel.AddNewItemToFavouriteRecipesList(dataItem);
                 }
                 else
                 {
                     var item = ViewModel.FavouriteRecipes.FirstOrDefault(i => i.DishCode == dataItem.DishCode);
                     ViewModel.RemoveItemFromFavouriteRecipesList(item);
-
-                    foreach (var tom in ViewModel.Recipes.Where(w => w.DishCode == dataItem.DishCode))
-                    {
-                        tom.IsLove = dataItem.IsLove;
-                    }
+                }
+                foreach (var tom in ViewModel.Recipes.Where(w => w.DishCode == dataItem.DishCode))
+                {
+                    tom.IsLove = dataItem.IsLove;
+                    tom.DateCreate = UpdateDate;
                 }
 
                 // ViewModel.updateCreateDateToNow(dataItem);
@@ -253,8 +254,7 @@ namespace FoodRecipeApp.GUI
             if (itemp == null) return;
             int dishCode = itemp.DishCode;
             Dispatcher.BeginInvoke((Action)(() => MainTabControl.SelectedIndex = 1));
-            ViewModel.SearchPaging(Dish.searchByDishCode(dishCode));
-            //this.AllRecipesTileView.SelectedItem = this.AllRecipesTileView.Items[0];
+            ViewModel.SearchPaging(ViewModel.SearchPagingByDishCode(dishCode));
         }
 
         private void RadFluidContentControl_MouseDown(object sender, MouseButtonEventArgs e)
@@ -274,14 +274,15 @@ namespace FoodRecipeApp.GUI
             {
                 HintSearchDishNameTextBlock.Visibility = Visibility.Visible;
                 XSearchDishNameImage.Visibility = Visibility.Hidden;
-                ViewModel.getAll();
+                ViewModel.SearchPaging(ViewModel.getAll());
             }
             else
             {
                 HintSearchDishNameTextBlock.Visibility = Visibility.Hidden;
                 XSearchDishNameImage.Visibility = Visibility.Visible;
-                //TODO search recipes by Name and types
-                ViewModel.SearchPaging(Dish.AdvanceSearch(SearchDishNameTextBox.Text, ""));
+                //TODO search recipes by Name and types and by sort
+                //ViewModel.SearchPaging(Dish.AdvanceSearch(SearchDishNameTextBox.Text, ""));
+                ViewModel.SearchPaging(ViewModel.SearchPagingByTextBox(SearchDishNameTextBox.Text));
             }
         }
 
@@ -293,26 +294,17 @@ namespace FoodRecipeApp.GUI
         private void SplitButton_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedItem = this.SplitButton.SelectedItem as OrderedMethod;
+            ViewModel.setSort(selectedItem.Method, ViewModel.Recipes);
+            ViewModel.setSort(selectedItem.Method, ViewModel.FavouriteRecipes);
 
-            switch (selectedItem.Method)
-            {
-                case "None":
-                    ViewModel.SetDefaultPosition();
-                    break;
-                case "Ascending Ordered By Name":
-                    ViewModel.SetAscendingPositionAccordingToName();
-                    break;
-                case "Descending Ordered By Name":
-                    ViewModel.SetDescendingPositionAccordingToName();
-                    break;
-                default:
-                    break;
-            }
+            var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            config.AppSettings.Settings["SetSort"].Value = SplitButton.SelectedIndex.ToString();
+            config.Save(ConfigurationSaveMode.Minimal);
         }
 
         private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            ViewModel.getAll();
+            ViewModel.SearchPaging(ViewModel.getAll());
         }
 
         private int LastFilterItemNum = 0;

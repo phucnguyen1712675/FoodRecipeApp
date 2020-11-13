@@ -1940,6 +1940,14 @@ begin
  order by RecordedDate desc
  end
  go
+
+ create procedure USP_getUpdateDateByDishCode 
+ @Dish int
+ as
+ begin
+ select * from DISH where Dish = @Dish
+ end
+ go
 /*
 select * from DISH
   where not exists ((select Item from dbo.SplitInts(N'bò',','))
@@ -1949,3 +1957,4 @@ select * from DISH
  
   Name like N'%thịt%' and (Name like N'%xào%' or Name like N'%kho%')
  */
+

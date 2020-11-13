@@ -530,7 +530,7 @@
                                     Margin="30,5"
                                     Padding="10"
                                     HorizontalAlignment="Stretch"
-                                    Content="Nấu"
+                                    Content="Hấp"
                                     FontSize="20"
                                     Foreground="#332226" />
                                 <CheckBox
@@ -570,14 +570,6 @@
                                     Foreground="#332226" />
                                 <CheckBox
                                     Name="checkBox16"
-                                    Margin="30,5"
-                                    Padding="10"
-                                    HorizontalAlignment="Stretch"
-                                    Content="Hấp"
-                                    FontSize="20"
-                                    Foreground="#332226" />
-                                <CheckBox
-                                    Name="checkBox17"
                                     Margin="30,5"
                                     Padding="10"
                                     HorizontalAlignment="Stretch"

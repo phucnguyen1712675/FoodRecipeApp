@@ -59,10 +59,6 @@ namespace FoodRecipeApp.DAO
       
         public DataTable getFilterDishes(string filterQuery)
         {
-            
-            //string test = "EXEC USP_getDishByTypes @List = N'" + filterQuery + "'";
-            //MessageBox.Show(test);
-            //return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'Mặn,chay'");
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'" + filterQuery + "'");
         }
    
@@ -70,6 +66,12 @@ namespace FoodRecipeApp.DAO
 		{
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getNewestDish");
 		}
+
+        internal DataTable getUpdateDateByDishCode(string Dish)
+        {
+            return DataProvider.Instance.ExecuteQuery("EXEC USP_getUpdateDateByDishCode @Dish ", new object[] { Dish });
+        }
+
         public DataTable getDishByName(string dishName)
         {
             return DataProvider.Instance.ExecuteQuery("EXEC  USP_getDishByName @Name = N'" + dishName + "'");

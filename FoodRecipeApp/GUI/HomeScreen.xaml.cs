@@ -276,15 +276,19 @@ namespace FoodRecipeApp.GUI
             {
                 HintSearchDishNameTextBlock.Visibility = Visibility.Visible;
                 XSearchDishNameImage.Visibility = Visibility.Hidden;
-                ViewModel.SearchPaging(ViewModel.getAll());
+                ViewModel.SearchPaging(getFilterAllRecipes());
             }
             else
             {
                 HintSearchDishNameTextBlock.Visibility = Visibility.Hidden;
                 XSearchDishNameImage.Visibility = Visibility.Visible;
-                //TODO search recipes by Name and types and by sort
-                //ViewModel.SearchPaging(Dish.AdvanceSearch(SearchDishNameTextBox.Text, ""));
-                ViewModel.SearchPaging(ViewModel.SearchPagingByTextBox(SearchDishNameTextBox.Text));
+                List<Dish> filterRecipes = getFilterAllRecipes();
+                if (filterRecipes.Count == ViewModel.allRecipeBeforeSearch.Count) //todo Phuc
+                    ViewModel.SearchPaging(ViewModel.SearchPagingByTextBoxOnly(SearchDishNameTextBox.Text));
+                else
+                {
+                    ViewModel.SearchPaging(ViewModel.SearchPagingByTextBoxWithFilters(SearchDishNameTextBox.Text, filterRecipes));
+                }
             }
         }
 
@@ -316,8 +320,11 @@ namespace FoodRecipeApp.GUI
 
             if (FilterList.Count < LastFilterItemNum)
             {
-                ViewModel.getAll();
+                if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
+                    ViewModel.SearchPaging(ViewModel.getAll());
+                else ViewModel.SearchPaging(ViewModel.SearchPagingByTextBoxOnly(SearchDishNameTextBox.Text));
             }
+
             LastFilterItemNum = FilterList.Count;
 
             if (!FilterList.Any()) return;
@@ -331,15 +338,31 @@ namespace FoodRecipeApp.GUI
         private void ChoiceChipListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var Filter = (sender as ListBox).SelectedItem.ToString();
-            var index = (sender as ListBox).SelectedIndex;
+            if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
+                ViewModel.SearchPaging(getFilterAllRecipes());
+            else
+                ViewModel.SearchPagingByTextBoxWithFilters(SearchDishNameTextBox.Text, getFilterAllRecipes());
 
             this.IngredientListBox.ItemsSource = ViewModel.TypeAndIngredientCollection[Filter];
+        }
 
-            ViewModel.getAll();
-            if (index != 0)
-            {
-                ViewModel.FilterRecipesCollection(Filter);
-            }
+        public List<Dish> getFilterAllRecipes ()
+        {
+            DishesCollection result = DishesCollection.cloneFromListDishes((ViewModel.allRecipeBeforeSearch.Select(objEntity => (Dish)objEntity.Clone())).ToList());
+
+            List<string> filters = new List<string>();
+
+            if(TypeOfRecipesListBox.SelectedIndex != 0)
+                filters.Add(TypeOfRecipesListBox.SelectedItem.ToString());
+            foreach (var item in IngredientListBox.SelectedItems)
+                filters.Add(item.ToString());
+            foreach (var item in CookingMethodListBox.SelectedItems)
+                filters.Add(item.ToString());
+            
+            foreach (var item in filters)
+                result.Filtering(item);
+
+            return result.ToList();
         }
     }
 }

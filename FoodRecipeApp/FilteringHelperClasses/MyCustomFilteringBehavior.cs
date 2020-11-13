@@ -67,7 +67,7 @@ namespace FoodRecipeApp.FilteringHelperClasses
         */
         public override IEnumerable<object> FindMatchingItems(string searchText, System.Collections.IList items, IEnumerable<object> escapedItems, string textSearchPath, TextSearchMode textSearchMode)
         {
-            if (string.IsNullOrEmpty(searchText.TrimStart()))
+            if (string.IsNullOrEmpty(searchText) || string.IsNullOrEmpty(searchText.Trim()))
             {
                 return ((IEnumerable<object>)items).Where(x => !escapedItems.Contains(x));
             }

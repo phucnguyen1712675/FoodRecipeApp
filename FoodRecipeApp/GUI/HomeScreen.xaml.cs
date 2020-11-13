@@ -135,7 +135,7 @@ namespace FoodRecipeApp.GUI
             {
                 if (DiscoverTabItem.IsSelected)
                 {
-                    SearchBar.Visibility = Visibility.Hidden;
+                    SearchBar.Visibility = Visibility.Collapsed;
                     FilterButton.HorizontalAlignment = HorizontalAlignment.Right;
                 }
                 else
@@ -191,6 +191,7 @@ namespace FoodRecipeApp.GUI
             config.Save(ConfigurationSaveMode.Minimal);
         }
 
+//search
         private void foodAutoCompleteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var itemp = ViewModel.SelectedSearchItem;
@@ -211,6 +212,7 @@ namespace FoodRecipeApp.GUI
             }
         }
 
+        //search
         private void SearchDishNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))

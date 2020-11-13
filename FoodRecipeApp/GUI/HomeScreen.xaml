@@ -581,11 +581,13 @@
 
         <Grid>
             <StackPanel
+                Panel.ZIndex="1000"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Orientation="Horizontal">
-
-                <ToggleButton
+                
+                    <ToggleButton
+                        Padding="10,5,10,5"
                     Name="FilterButton"
                     Margin="0,10,5,0"
                     Background="{StaticResource MahApps.Brushes.Accent}"
@@ -593,16 +595,15 @@
                     Foreground="White"
                     IsChecked="{Binding ElementName=FiltersFlyout, Path=IsOpen, Mode=TwoWay}"
                     Style="{StaticResource MahApps.Styles.ToggleButton.WindowCommands}">
-                    <iconPacks:PackIconModern
+                        <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
                         Kind="Filter" />
-                </ToggleButton>
+                    </ToggleButton>
 
                 <Border
                     Name="SearchBar"
-                    Panel.ZIndex="1000"
-                    Visibility="Visible">
+                    Visibility="Collapsed">
 
                     <Border.Effect>
                         <DropShadowEffect
@@ -630,10 +631,6 @@
                                     Height="20"
                                     Foreground="White"
                                     Kind="Magnify" />
-                                <!--<Image
-                                    Width="20"
-                                    Height="20"
-                                    Source="/Resources/search.ico" />-->
                             </Border>
                             <TextBlock
                                 Name="HintSearchDishNameTextBlock"

@@ -1831,8 +1831,6 @@ CREATE PROC USP_addNewDish
  END
  GO
 
-exec USP_addNewDish @IsLove = 1, @Name =N'TEST' , @Video = N'https://www.youtube.com/watch?v=KFl6kp4Y6hE', @Description =N'TEST '  , @FilePath =N'\\Image\\1\\recipe18386-636126403006525310.jpg' , @Loai =N'Chè, ngọt, chay'
-
 go
 CREATE FUNCTION dbo.SplitInts
 (
@@ -1951,4 +1949,3 @@ select * from DISH
  
   Name like N'%thịt%' and (Name like N'%xào%' or Name like N'%kho%')
  */
-

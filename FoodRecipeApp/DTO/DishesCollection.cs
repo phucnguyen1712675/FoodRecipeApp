@@ -13,12 +13,12 @@ using System.Windows;
 
 namespace FoodRecipeApp.DTO
 {
-	public class DishesCollection : ObservableCollectionPropertyNotify<Dish>
+    public class DishesCollection : ObservableCollectionPropertyNotify<Dish>
     {
-		public static DishesCollection GetAllDishes()
-		{
-			DishesCollection dishes = new DishesCollection();
-			DataTable data = DishDAO.Instance.getAllDishes();
+        public static DishesCollection GetAllDishes()
+        {
+            DishesCollection dishes = new DishesCollection();
+            DataTable data = DishDAO.Instance.getAllDishes();
 
             foreach (var dish in from DataRow row in data.Rows
                                  let dish = new Dish(row)
@@ -28,9 +28,9 @@ namespace FoodRecipeApp.DTO
             }
 
             return dishes;
-		}
+        }
 
-		public static DishesCollection GetFilterDishes(string queryFilter)
+        public static DishesCollection GetFilterDishes(string queryFilter)
         {
             DishesCollection dishes = new DishesCollection();
             DataTable data = DishDAO.Instance.getFilterDishes(queryFilter);
@@ -87,6 +87,32 @@ namespace FoodRecipeApp.DTO
             {
                 this.Add(item);
             }
+        }
+
+        public void Filtering(string ThingToFilter)
+        {
+            var clonedList = this.Select(objEntity => (Dish)objEntity.Clone()).ToList();
+            ObservableCollection<Dish> clonedCollection = new ObservableCollection<Dish>(clonedList);
+
+            this.Clear();
+
+            var filterList = from item in clonedCollection
+                             let loai = item.Loai.ToLower()
+                             where loai.Contains(ThingToFilter.ToLower())
+                             select item;
+
+            foreach (var item in filterList)
+            {
+                this.Add(item);
+            }
+
+            /*if (!this.Any())
+            {
+                foreach (var item in clonedCollection)
+                {
+                    this.Add(item);
+                }
+            }*/
         }
     }
 }

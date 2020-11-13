@@ -32,8 +32,8 @@
             </ResourceDictionary.MergedDictionaries>
 
             <Style
-                x:Key="FilterListBoxStyle"
-                BasedOn="{StaticResource MaterialDesignFilterChipPrimaryListBox}"
+                x:Key="FilterChipListBoxStyle"
+                BasedOn="{StaticResource MaterialDesignFilterChipPrimaryOutlineListBox}"
                 TargetType="{x:Type ListBox}">
 
                 <Setter Property="Margin" Value="3" />
@@ -52,11 +52,31 @@
                         </DataTemplate>
                     </Setter.Value>
                 </Setter>
+                <EventSetter Event="SelectionChanged" Handler="FilterChipListBox_SelectionChanged" />
             </Style>
 
-            <Style BasedOn="{StaticResource MaterialDesignListBoxItem}" TargetType="{x:Type ListBoxItem}">
-                <EventSetter Event="Selected" Handler="ListBoxItem_Selected" />
-                <EventSetter Event="Unselected" Handler="ListBoxItem_Unselected" />
+            <Style
+                x:Key="ChoiceChipListBoxStyle"
+                BasedOn="{StaticResource MaterialDesignChoiceChipPrimaryOutlineListBox}"
+                TargetType="{x:Type ListBox}">
+
+                <Setter Property="Margin" Value="3" />
+                <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="ItemTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
+                <EventSetter Event="SelectionChanged" Handler="ChoiceChipListBox_SelectionChanged" />
             </Style>
 
             <Style TargetType="{x:Type telerik:RadTileViewItem}">
@@ -519,8 +539,8 @@
 
                     <ListBox
                         x:Name="TypeOfRecipesListBox"
-                        ItemsSource="{Binding ViewModel.TypeOfRecipesCollection}"
-                        Style="{StaticResource FilterListBoxStyle}" />
+                        ItemsSource="{Binding ViewModel.TypeAndIngredientCollection.Keys}"
+                        Style="{StaticResource ChoiceChipListBoxStyle}" />
 
                     <!--  Nguyên liệu  -->
                     <Label
@@ -529,10 +549,7 @@
                         FontSize="18"
                         Style="{StaticResource MahApps.Styles.Label}" />
 
-                    <ListBox
-                        x:Name="IngredientListBox"
-                        ItemsSource="{Binding ViewModel.IngredientCollection}"
-                        Style="{StaticResource FilterListBoxStyle}" />
+                    <ListBox x:Name="IngredientListBox" Style="{StaticResource FilterChipListBoxStyle}" />
 
                     <!--  Phương pháp  -->
                     <Label
@@ -544,7 +561,7 @@
                     <ListBox
                         x:Name="CookingMethodListBox"
                         ItemsSource="{Binding ViewModel.CookingMethodCollection}"
-                        Style="{StaticResource FilterListBoxStyle}" />
+                        Style="{StaticResource FilterChipListBoxStyle}" />
 
                 </StackPanel>
 
@@ -812,8 +829,19 @@
                                 Grid.Row="1"
                                 PageSize="{Binding ElementName=AllRecipesNumericUpDown, Path=Value}"
                                 Source="{Binding ViewModel.Recipes, UpdateSourceTrigger=PropertyChanged}" />
-                        </Grid>
 
+                            <Label
+                                x:Name="EmptyAllRecipesLabel"
+                                Margin="5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="Danh sách rỗng"
+                                FontSize="18"
+                                Foreground="Gray"
+                                Style="{StaticResource MahApps.Styles.Label}"
+                                Visibility="Collapsed" />
+
+                        </Grid>
                     </mah:MetroTabItem>
 
                     <mah:MetroTabItem x:Name="FavouriteRecipesTabItem" Header="Your Favourites">
@@ -842,43 +870,21 @@
                                 Grid.Row="1"
                                 PageSize="{Binding ElementName=FavoriteNumericUpDown, Path=Value}"
                                 Source="{Binding ViewModel.FavouriteRecipes, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <Label
+                                x:Name="EmptyFavRecipesLabel"
+                                Margin="5"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Content="Danh sách rỗng"
+                                FontSize="18"
+                                Foreground="Gray"
+                                Style="{StaticResource MahApps.Styles.Label}"
+                                Visibility="Collapsed" />
+
                         </Grid>
                     </mah:MetroTabItem>
 
-                    <!--<mah:MetroTabItem x:Name="SearchTabItem" Header="Search here">
-                        <Grid>
-                            <telerik:RadTileView
-                                x:Name="SearchRecipesTileView"
-                                Grid.Row="0"
-                                ContentTemplate="{StaticResource ContentTemplate}"
-                                ItemsSource="{Binding PagedSource, ElementName=SearchRecipesPager}"
-                                TileStateChanged="radTileView_TileStateChanged" />
-
-                            <telerik:RadDataPager
-                                x:Name="SearchRecipesPager"
-                                Grid.Row="1"
-                                PageSize="{Binding SearchRecipesCustomPageSize}"
-                                Source="{Binding SearchRecipes}" />
-
-                            <DockPanel
-                                x:Name="SearchRecipesPageSizeSettingDockPanel"
-                                Grid.Row="2"
-                                Margin="0,2,0,0"
-                                HorizontalAlignment="Right"
-                                LastChildFill="True">
-
-                                <telerik:RadNumericUpDown
-                                    DockPanel.Dock="Right"
-                                    Maximum="{Binding SearchRecipesPageCountTotal}"
-                                    Value="{Binding SearchRecipesCustomPageSize, Mode=TwoWay}" />
-                                <Label
-                                    Background="White"
-                                    Content="Page Size:"
-                                    DockPanel.Dock="Right"
-                                    Style="{DynamicResource MaterialDesignLabel}" />
-                            </DockPanel>
-                        </Grid>
-                    </mah:MetroTabItem>-->
                 </mah:MetroAnimatedSingleRowTabControl>
 
             </Grid>

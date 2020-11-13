@@ -101,11 +101,14 @@ namespace FoodRecipeApp.FilteringHelperClasses
 
             List<string> matchItems = new List<string>();
             if (Dish.checkQuery(queryStr))
-                matchItems = modifiedItems.Values.ToList().WhereDynamic(item => queryStr).ToList();
-
-            foreach (string matchItem in matchItems)
             {
-                var dictionaryItem = modifiedItems.FirstOrDefault(p => p.Value == matchItem);
+                matchItems = modifiedItems.Values.ToList().WhereDynamic(item => queryStr).ToList();
+            }
+                
+            foreach (var dictionaryItem in from string matchItem in matchItems
+                                           let dictionaryItem = modifiedItems.FirstOrDefault(p => p.Value == matchItem)
+                                           select dictionaryItem)
+            {
                 modifiedItems.Remove(dictionaryItem.Key);
                 resultItems.Add(dictionaryItem.Key);
             }

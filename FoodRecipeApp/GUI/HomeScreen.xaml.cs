@@ -10,8 +10,8 @@ using Telerik.Windows.Controls;
 using FoodRecipeApp.DTO;
 using FoodRecipeApp.DAO;
 using System;
-using System.Diagnostics;
 using System.Linq.Dynamic;
+using System.Collections.Specialized;
 
 namespace FoodRecipeApp.GUI
 {
@@ -73,7 +73,7 @@ namespace FoodRecipeApp.GUI
                     tom.DateCreate = UpdateDate;
                 }
 
-               // ViewModel.updateCreateDateToNow(dataItem);
+                // ViewModel.updateCreateDateToNow(dataItem);
             }
         }
 
@@ -141,7 +141,6 @@ namespace FoodRecipeApp.GUI
                 else
                 {
                     SearchBar.Visibility = Visibility.Visible;
-
                 }
             }
 
@@ -171,6 +170,64 @@ namespace FoodRecipeApp.GUI
         {
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             this.showSplashScreenToggleSwitch.IsOn = bool.Parse(config.AppSettings.Settings["ShowSplashScreen"].Value);
+
+            this.TypeOfRecipesListBox.SelectedItem = this.TypeOfRecipesListBox.Items[0];
+            ViewModel.Recipes.CollectionChanged += Recipes_CollectionChanged;
+            ViewModel.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;
+        }
+
+        private void FavouriteRecipes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            bool isEmpty = !ViewModel.FavouriteRecipes.Any();
+
+            if (isEmpty)
+            {
+                FavouriteRecipesTileView.Visibility = Visibility.Collapsed;
+                FavouriteRecipesPager.Visibility = Visibility.Collapsed;
+                EmptyFavRecipesLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                if (FavouriteRecipesTileView.Visibility == Visibility.Collapsed)
+                {
+                    FavouriteRecipesTileView.Visibility = Visibility.Visible;
+                }
+                if (FavouriteRecipesPager.Visibility == Visibility.Collapsed)
+                {
+                    FavouriteRecipesPager.Visibility = Visibility.Visible;
+                }
+                if (EmptyFavRecipesLabel.Visibility == Visibility.Visible)
+                {
+                    EmptyFavRecipesLabel.Visibility = Visibility.Collapsed;
+                }
+            }
+        }
+
+        private void Recipes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            bool isEmpty = !ViewModel.Recipes.Any();
+
+            if (isEmpty)
+            {
+                AllRecipesTileView.Visibility = Visibility.Collapsed;
+                AllRecipesPager.Visibility = Visibility.Collapsed;
+                EmptyAllRecipesLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                if (AllRecipesTileView.Visibility == Visibility.Collapsed)
+                {
+                    AllRecipesTileView.Visibility = Visibility.Visible;
+                }
+                if (AllRecipesPager.Visibility == Visibility.Collapsed)
+                {
+                    AllRecipesPager.Visibility = Visibility.Visible;
+                }
+                if (EmptyAllRecipesLabel.Visibility == Visibility.Visible)
+                {
+                    EmptyAllRecipesLabel.Visibility = Visibility.Collapsed;
+                }
+            }
         }
 
         private void AllRecipesNumericUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -252,23 +309,36 @@ namespace FoodRecipeApp.GUI
             ViewModel.SearchPaging(ViewModel.getAll());
         }
 
-        private void ListBoxItem_Selected(object sender, RoutedEventArgs e)
+        private int LastFilterItemNum = 0;
+        private void FilterChipListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBoxItem lbi = e.Source as ListBoxItem;
+            var FilterList = (sender as ListBox).SelectedItems;
 
-            if (lbi != null)
+            if (FilterList.Count < LastFilterItemNum)
             {
-                
+                ViewModel.getAll();
+            }
+            LastFilterItemNum = FilterList.Count;
+
+            if (!FilterList.Any()) return;
+
+            foreach (var item in FilterList)
+            {
+                ViewModel.FilterRecipesCollection(item.ToString());
             }
         }
 
-        private void ListBoxItem_Unselected(object sender, RoutedEventArgs e)
+        private void ChoiceChipListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ListBoxItem lbi = e.Source as ListBoxItem;
+            var Filter = (sender as ListBox).SelectedItem.ToString();
+            var index = (sender as ListBox).SelectedIndex;
 
-            if (lbi != null)
+            this.IngredientListBox.ItemsSource = ViewModel.TypeAndIngredientCollection[Filter];
+
+            ViewModel.getAll();
+            if (index != 0)
             {
-
+                ViewModel.FilterRecipesCollection(Filter);
             }
         }
     }

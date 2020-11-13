@@ -1,20 +1,12 @@
 ﻿using FoodRecipeApp.DAO;
-using FoodRecipeApp.ViewModels;
-using SharpDX;
-using SharpDX.Direct3D10;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Configuration;
 using System.Data;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace FoodRecipeApp.DTO
 {
@@ -27,31 +19,15 @@ namespace FoodRecipeApp.DTO
         public string Video { get; set; }
         public string Loai { get; set; }
         public string ImagePath { get; set; }
+        public string DateCreate { get; set; }
         public List<Step> Steps { get; set; }
         public StepCollection StepsCollection { get; set; }
-
-        private int position;
-
-        public int Position
-        {
-            get { return position; }
-            set
-            {
-                if (this.position != value)
-                {
-                    this.position = value;
-                    this.OnPropertyChanged("Position");
-                }
-            }
-        }
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
 
-        public DateTime DateCreate { get; set; }
-        
         public Dish(DataRow row)
         {
             DishCode = (int)row["Dish"];
@@ -63,7 +39,7 @@ namespace FoodRecipeApp.DTO
             Loai = row["Loai"].ToString();
             ImagePath = Images.getFilePath(row);
             Steps = Step.getAllStepsInDish(DishCode);
-            DateCreate = DateTime.ParseExact(row["RecordedDate"].ToString(),"M/d/yyyy h:mm:ss tt",System.Globalization.CultureInfo.InvariantCulture);
+            DateCreate = DateTime.ParseExact(row["RecordedDate"].ToString(),"M/d/yyyy h:mm:ss tt",System.Globalization.CultureInfo.InvariantCulture).ToString("MM/dd/yyyy");
             StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
@@ -80,10 +56,17 @@ namespace FoodRecipeApp.DTO
             StepsCollection = StepDataSource.GetStepsCollection(DishCode);
         }
 
+        public static string getUpdateDateByDishCode(int dishCode)
+        {
+            DataRow row = DishDAO.Instance.getUpdateDateByDishCode(dishCode.ToString()).Rows[0];
+            string DateUpdate = DateTime.ParseExact(row["RecordedDate"].ToString(), "M/d/yyyy h:mm:ss tt", System.Globalization.CultureInfo.InvariantCulture).ToString("MM/dd/yyyy");
+
+            return DateUpdate;
+        }
+
 #pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 67
-
 
         public static bool AddNewDishToData(bool isLove, string name, string imagePath, string description, string video, List<Step> steps, string loai)
         {
@@ -129,7 +112,7 @@ namespace FoodRecipeApp.DTO
         }
 
         //SEARCH TEXTBOX + FILTER
-        public static string CreateQuery(string str, string Name)
+        /*public static string CreateQuery(string str, string Name)
         {
             str = str.Replace("(", " ( ").Replace(")", " ) ");
             str = Dish.TrimSpacesBetweenString(str).ToLower();
@@ -158,7 +141,7 @@ namespace FoodRecipeApp.DTO
             if (str[str.Length - 1] != ')') str = str + "%'";
 
             return str;
-        }
+        }*/
 
         public static string CreateQueryLinQ(string str, string Name)
         {
@@ -249,15 +232,15 @@ namespace FoodRecipeApp.DTO
             else return false;
         }
 
-        public static List<Dish> searchByDishCode(int dishCode)
+/*        public static List<Dish> searchByDishCode(int dishCode)
         {
             List<Dish> dish = new List<Dish>();
             DataTable data = DishDAO.Instance.getDishByDishCode(dishCode.ToString());
             dish.Add(new Dish(data.Rows[0]));
             return dish;
-        }
+        }*/
 
-        public static List<Dish> AdvanceSearch(string strTextBox , string strFilter)
+        /*public static List<Dish> AdvanceSearch(string strTextBox , string strFilter)
         {
             //run khi event textchange || mousedown in checkbox groub
             string result1 = null;
@@ -288,7 +271,7 @@ namespace FoodRecipeApp.DTO
                 }
             }
             return resultDishes;
-        }
+        }*/
 
     }
 }

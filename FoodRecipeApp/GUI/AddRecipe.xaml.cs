@@ -67,7 +67,6 @@ namespace FoodRecipeApp.GUI
             ListCheckBox.Add(checkBox14);
             ListCheckBox.Add(checkBox15);
             ListCheckBox.Add(checkBox16);
-            ListCheckBox.Add(checkBox17);
 
             string loai = null;
             foreach (CheckBox checkBox in ListCheckBox)

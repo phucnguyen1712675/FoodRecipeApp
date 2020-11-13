@@ -109,7 +109,7 @@ namespace FoodRecipeApp.FilteringHelperClasses
                  modifiedItems.Remove(dictionaryItem.Key);
                  resultItems.Add(dictionaryItem.Key);
              }
-
+            
             return resultItems;
         }
 

@@ -30,10 +30,10 @@ namespace FoodRecipeApp.GUI
 
         private void ChildWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            youtubeLink = Dish.Display(youtubeLink, DishMedia.Width - 20, DishMedia.Height - 20);
+            youtubeLink = Dish.Display(youtubeLink, DishMedia.Width-20, DishMedia.Height-20);
             DishMedia.NavigateToString(youtubeLink);
         }
-
+            
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             DishMedia.Dispose();

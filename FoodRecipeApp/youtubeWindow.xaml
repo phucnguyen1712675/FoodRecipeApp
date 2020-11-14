@@ -3,6 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:FoodRecipeApp.GUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="youtubeWindow"
     Width="931.959"

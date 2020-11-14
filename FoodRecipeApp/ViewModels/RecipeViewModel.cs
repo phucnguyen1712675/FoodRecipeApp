@@ -81,16 +81,8 @@ namespace FoodRecipeApp.ViewModels
 
         public RecipeViewModel()
         {
-            foreach (var item in DishesCollection.GetAllDishes())
-            {
-                this.Recipes.Add(item);
-                if(item.IsLove)
-                {
-                    this.FavouriteRecipes.Add(item);
-                }
-            }
-
             allRecipeBeforeSearch = DishesCollection.GetAllDishes();
+            SearchPaging(getAll());
             this.ClearSelectionCommand = new DelegateCommand(this.OnClearSelectionCommandExecuted);
             var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             var allPageSize = int.Parse(config.AppSettings.Settings["AllRecipesPageSize"].Value);
@@ -101,30 +93,31 @@ namespace FoodRecipeApp.ViewModels
             this.TypeAndIngredientCollection = new Dictionary<string, List<string>>();
             this.TypeAndIngredientCollection.Add("Tất cả", new List<string>() { });
             this.TypeAndIngredientCollection.Add("Mặn", new List<string>() { "Heo", "Gà", "Bò", "Dê", "Hải sản", "Khác" });
-            this.TypeAndIngredientCollection.Add("Chay", new List<string>() { });
+            this.TypeAndIngredientCollection.Add("Chay", new List<string>() { "Khác" });
             this.TypeAndIngredientCollection["Tất cả"] = this.TypeAndIngredientCollection["Mặn"].Concat(this.TypeAndIngredientCollection["Chay"]).ToList();
+            this.TypeAndIngredientCollection["Tất cả"].RemoveLast();
             this.SetSortIndex = int.Parse(config.AppSettings.Settings["SetSort"].Value);
             setSort(OrderedList[SetSortIndex].Method, this.Recipes);
             setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
         }
 
         #region search
- /*        public void  SearchPaging(List<Dish> objects)
-                {
-                    this.Recipes.Clear();
-                    this.FavouriteRecipes.Clear();
-                    foreach (var item in objects)
-                    {
-                        this.Recipes.Add(item);
-                        this.SearchedRecipes.Add(item);
-                        if (item.IsLove)
-                        {
-                            this.FavouriteRecipes.Add(item);
-                        }
-                    }
-                    setSort(OrderedList[SetSortIndex].Method, this.Recipes);
-                    setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
-                }*/
+        /*        public void  SearchPaging(List<Dish> objects)
+                       {
+                           this.Recipes.Clear();
+                           this.FavouriteRecipes.Clear();
+                           foreach (var item in objects)
+                           {
+                               this.Recipes.Add(item);
+                               this.SearchedRecipes.Add(item);
+                               if (item.IsLove)
+                               {
+                                   this.FavouriteRecipes.Add(item);
+                               }
+                           }
+                           setSort(OrderedList[SetSortIndex].Method, this.Recipes);
+                           setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
+                       }*/
 
         public void SearchPaging(List<Dish> result)
         {
@@ -146,7 +139,7 @@ namespace FoodRecipeApp.ViewModels
             string NameQuery = Dish.CreateQueryLinQ(str, "item");
             //TODO
             Dictionary<string, Dish> tempNames = new Dictionary<string, Dish>();
-            foreach(var dish in allRecipeBeforeSearch)
+            foreach (var dish in allRecipeBeforeSearch)
             {
                 tempNames.Add(Dish.RemoveDiacritics(dish.Name) + " " + dish.DishCode.ToString(), dish);
             }
@@ -155,7 +148,7 @@ namespace FoodRecipeApp.ViewModels
 
             List<Dish> resultDishes = new List<Dish>();
 
-            foreach(string name in resultNames)
+            foreach (string name in resultNames)
             {
                 resultDishes.Add(tempNames[name]);
             }
@@ -212,7 +205,7 @@ namespace FoodRecipeApp.ViewModels
                 result = true;
                 this.FavouriteRecipes.Add(newDish);
             }
-           setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
+            setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
             return result;
         }
 
@@ -226,7 +219,7 @@ namespace FoodRecipeApp.ViewModels
                 {
                     this.FavouriteRecipes.Remove(deletedDish);
                 }
-                catch(Exception e)
+                catch (Exception)
                 {
                 }
             }
@@ -240,7 +233,7 @@ namespace FoodRecipeApp.ViewModels
             this.IsDropDownOpen = false;
         }
 
-        public void setSort (string method , DishesCollection dishes)
+        public void setSort(string method, DishesCollection dishes)
         {
             dishes.SetSort(method);
             allRecipeBeforeSearch.SetSort(method);

@@ -11,11 +11,11 @@
 
     <converters:IsLoveImageConverter x:Key="LoveImageConverter" />
     <converters:TypesStringAddSpaceConverter x:Key="TypesStringAddSpaceConverter" />
-    <converters:DishNameConverter x:Key="DishNameConverter" />
     <converters:MediaDishConverter x:Key="MediaDishconverter" />
     <converters:RatioConverter x:Key="RatioConverter" />
     <converters:CountConverter x:Key="countConverter" />
     <converters:LoveToColorConverter x:Key="LoveToColorConverter" />
+    <converters:NumericToVisibilityConverter x:Key="NumToVisisbilityConverter" />
     <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <telerik:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
     <filtering:MyCustomFilteringBehavior x:Key="CustomFilteringBehavior" />
@@ -58,6 +58,7 @@
         <Setter Property="telerik:StyleManager.Theme" Value="Office2019" />
         <Setter Property="SelectionMode" Value="Single" />
         <Setter Property="IsVirtualizing" Value="True" />
+        <Setter Property="IsSynchronizedWithCurrentItem" Value="True" />
     </Style>
 
     <Style TargetType="{x:Type telerik:RadDataPager}">

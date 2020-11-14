@@ -4,17 +4,17 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace FoodRecipeApp.Converter
 {
-    public class DishNameConverter : IValueConverter
+    public class NumericToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string result = (string)value;
-            result = "Món " + result;
-            return result;
+            int count = (int)value;
+            return count != 0 ? Visibility.Collapsed : Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

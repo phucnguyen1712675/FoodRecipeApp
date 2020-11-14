@@ -11,7 +11,7 @@ using FoodRecipeApp.DTO;
 using FoodRecipeApp.DAO;
 using System;
 using System.Linq.Dynamic;
-using System.Collections.Specialized;
+using System.Windows.Media;
 
 namespace FoodRecipeApp.GUI
 {
@@ -36,10 +36,7 @@ namespace FoodRecipeApp.GUI
             CommandManager.RegisterClassCommandBinding(typeof(RadTileViewItem), addFavouriteItemBinding);
         }
 
-        private static void OnCanAddFavouriteItemCommandExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
+        private static void OnCanAddFavouriteItemCommandExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
 
         private static void OnAddFavouriteItemCommandExecute(object sender, ExecutedRoutedEventArgs e)
         {
@@ -54,7 +51,7 @@ namespace FoodRecipeApp.GUI
 
             if (DishDAO.Instance.updateFavouriteRecipe(dataItem.DishCode.ToString()) == 1)
             {
-                string UpdateDate = Dish.getUpdateDateByDishCode(dataItem.DishCode);
+                var UpdateDate = Dish.getUpdateDateByDishCode(dataItem.DishCode);
                 //Success
                 if (dataItem.IsLove)
                 {
@@ -72,8 +69,6 @@ namespace FoodRecipeApp.GUI
                     tom.IsLove = dataItem.IsLove;
                     tom.DateCreate = UpdateDate;
                 }
-
-                // ViewModel.updateCreateDateToNow(dataItem);
             }
         }
 
@@ -116,18 +111,15 @@ namespace FoodRecipeApp.GUI
             this.Hide();
         }
 
-        private void OpenThis()
-        {
-            this.Show();
-        }
+        private void OpenThis() => this.Show();
 
-        private void VideoDishButton_Click(object sender, RoutedEventArgs e)
-        {
-            Button temp = (Button)sender;
-            string Video = temp.Tag.ToString();
-            youtubeWindow youtubeWindow = new youtubeWindow(Video);
-            youtubeWindow.Show();
-        }
+        /* private void VideoDishButton_Click(object sender, RoutedEventArgs e)
+         {
+             Button temp = (Button)sender;
+             string Video = temp.Tag.ToString();
+             youtubeWindow youtubeWindow = new youtubeWindow(Video);
+             youtubeWindow.Show();
+         }*/
 
         private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -143,7 +135,6 @@ namespace FoodRecipeApp.GUI
                     SearchBar.Visibility = Visibility.Visible;
                 }
             }
-
         }
 
         private void AddRecipeToggleButton_Click(object sender, RoutedEventArgs e)
@@ -172,62 +163,6 @@ namespace FoodRecipeApp.GUI
             this.showSplashScreenToggleSwitch.IsOn = bool.Parse(config.AppSettings.Settings["ShowSplashScreen"].Value);
 
             this.TypeOfRecipesListBox.SelectedItem = this.TypeOfRecipesListBox.Items[0];
-            ViewModel.Recipes.CollectionChanged += Recipes_CollectionChanged;
-            ViewModel.FavouriteRecipes.CollectionChanged += FavouriteRecipes_CollectionChanged;
-        }
-
-        private void FavouriteRecipes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            bool isEmpty = !ViewModel.FavouriteRecipes.Any();
-
-            if (isEmpty)
-            {
-                FavouriteRecipesTileView.Visibility = Visibility.Collapsed;
-                FavouriteRecipesPager.Visibility = Visibility.Collapsed;
-                EmptyFavRecipesLabel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                if (FavouriteRecipesTileView.Visibility == Visibility.Collapsed)
-                {
-                    FavouriteRecipesTileView.Visibility = Visibility.Visible;
-                }
-                if (FavouriteRecipesPager.Visibility == Visibility.Collapsed)
-                {
-                    FavouriteRecipesPager.Visibility = Visibility.Visible;
-                }
-                if (EmptyFavRecipesLabel.Visibility == Visibility.Visible)
-                {
-                    EmptyFavRecipesLabel.Visibility = Visibility.Collapsed;
-                }
-            }
-        }
-
-        private void Recipes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            bool isEmpty = !ViewModel.Recipes.Any();
-
-            if (isEmpty)
-            {
-                AllRecipesTileView.Visibility = Visibility.Collapsed;
-                AllRecipesPager.Visibility = Visibility.Collapsed;
-                EmptyAllRecipesLabel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                if (AllRecipesTileView.Visibility == Visibility.Collapsed)
-                {
-                    AllRecipesTileView.Visibility = Visibility.Visible;
-                }
-                if (AllRecipesPager.Visibility == Visibility.Collapsed)
-                {
-                    AllRecipesPager.Visibility = Visibility.Visible;
-                }
-                if (EmptyAllRecipesLabel.Visibility == Visibility.Visible)
-                {
-                    EmptyAllRecipesLabel.Visibility = Visibility.Collapsed;
-                }
-            }
         }
 
         private void AllRecipesNumericUpDown_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double?> e)
@@ -286,10 +221,7 @@ namespace FoodRecipeApp.GUI
             }
         }
 
-        private void XSearchDishNameImage_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            SearchDishNameTextBox.Text = "";
-        }
+        private void XSearchDishNameImage_MouseDown(object sender, MouseButtonEventArgs e) => SearchDishNameTextBox.Text = "";
 
         private void SplitButton_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -302,21 +234,47 @@ namespace FoodRecipeApp.GUI
             config.Save(ConfigurationSaveMode.Minimal);
         }
 
-        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            ViewModel.SearchPaging(ViewModel.getAll());
-        }
+        private void MetroWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e) => ViewModel.SearchPaging(ViewModel.getAll());
 
         private int LastFilterItemNum = 0;
         private void FilterChipListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var FilterList = (sender as ListBox).SelectedItems;
+            int FilterCount = FilterList.Count;
 
-            if (FilterList.Count < LastFilterItemNum)
+            if (FilterCount == 1)
             {
-                ViewModel.getAll();
+                var FilterItem = (sender as ListBox).SelectedItem;
+                for (int i = 0; i < this.TypeOfRecipesListBox.Items.Count; i++)
+                {
+                    var item = this.TypeOfRecipesListBox.Items[i];
+                    if (!ViewModel.TypeAndIngredientCollection[item.ToString()].Contains(FilterItem))
+                    {
+                        ListBoxItem selectedListBoxItem = this.TypeOfRecipesListBox.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
+                        selectedListBoxItem.IsEnabled = false;
+                    }
+                }
             }
-            LastFilterItemNum = FilterList.Count;
+
+            if (FilterCount < LastFilterItemNum)
+            {
+                ViewModel.SearchPaging(ViewModel.getAll());
+
+                if (FilterCount == 0)
+                {
+                    foreach (var lbitem in this.TypeOfRecipesListBox.Items)
+                    {
+                        ListBoxItem lbi = this.TypeOfRecipesListBox.ItemContainerGenerator.ContainerFromItem(lbitem) as ListBoxItem;
+                        if (!lbi.IsEnabled)
+                        {
+                            lbi.IsEnabled = true;
+                        }
+                    }
+                    LastFilterItemNum = FilterCount;
+                    return;
+                }
+            }
+            LastFilterItemNum = FilterCount;
 
             if (!FilterList.Any()) return;
 
@@ -333,10 +291,59 @@ namespace FoodRecipeApp.GUI
 
             this.IngredientListBox.ItemsSource = ViewModel.TypeAndIngredientCollection[Filter];
 
-            ViewModel.getAll();
+            ViewModel.SearchPaging(ViewModel.getAll());
+
             if (index != 0)
             {
                 ViewModel.FilterRecipesCollection(Filter);
+            }
+        }
+
+        private childItem FindVisualChild<childItem>(DependencyObject obj)
+    where childItem : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+                if (child != null && child is childItem)
+                {
+                    return (childItem)child;
+                }
+                else
+                {
+                    childItem childOfChild = FindVisualChild<childItem>(child);
+                    if (childOfChild != null)
+                        return childOfChild;
+                }
+            }
+            return null;
+        }
+
+        //private string LastTabItem = "";
+        private void LargeContentTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TabItem selectedTab = e.AddedItems[0] as TabItem;  // Gets selected tab
+            //var TabControl = sender as TabControl;
+            //string VideoPath = selectedTab.Tag.ToString();
+            
+            if (selectedTab.Name == "ToShowYoutubeVideoTabItem")
+            {
+                /*// Getting the currently selected ListBoxItem
+                // Note that the ListBox must have
+                // IsSynchronizedWithCurrentItem set to True for this to work
+                //RadTileViewItem myRadTileViewItem = (RadTileViewItem)(this.AllRecipesTileView.ItemContainerGenerator.ContainerFromItem(this.AllRecipesTileView.Items.CurrentItem));
+
+                // Getting the ContentPresenter of myListBoxItem
+                ContentPresenter myContentPresenter = FindVisualChild<ContentPresenter>(selectedTab);
+
+                // Finding textBlock from the DataTemplate that is set on that ContentPresenter
+                DataTemplate myDataTemplate = myContentPresenter.ContentTemplate;
+                WebBrowser myWebBrowser = (WebBrowser)myDataTemplate.FindName("VideoWebBrowser", myContentPresenter);
+
+                if (myWebBrowser == null) return;
+                var youtubeLink = myWebBrowser.Tag.ToString();
+                youtubeLink = Dish.Display(youtubeLink, myWebBrowser.Width - 20, myWebBrowser.Height - 20);
+                myWebBrowser.NavigateToString(youtubeLink);*/
             }
         }
     }

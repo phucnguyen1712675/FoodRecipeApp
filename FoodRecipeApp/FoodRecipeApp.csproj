@@ -494,13 +494,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converter\DishNameConverter.cs" />
     <Compile Include="Converter\IsLoveImageConverter.cs" />
     <Compile Include="Converter\CountConverter.cs" />
     <Compile Include="Converter\ImageConverter.cs" />
     <Compile Include="Converter\ItemsToCollectionViewConverter.cs" />
     <Compile Include="Converter\LoveToColorConverter.cs" />
     <Compile Include="Converter\MediaDishConverter.cs" />
+    <Compile Include="Converter\NumericToVisibilityConverter.cs" />
     <Compile Include="Converter\RatioConverter.cs" />
     <Compile Include="Converter\StepLabelConverterAddRecipe.cs" />
     <Compile Include="Converter\TypesStringAddSpaceConverter.cs" />

@@ -1758,10 +1758,6 @@ UPDATE dbo.IMAGE set FilePath = dbo.fsetImage(Dish,StepNumber) + FilePath
 go
 
 go
-update dbo.DISH set Loai = REPLACE (Loai, ' ', '' ) from dbo.DISH
-go
-
-go
 update dbo.DISH set Love = 1 where Dish = 8 or Dish = 7 or Dish = 9 or Dish = 12 or Dish = 15 or Dish = 3 or Dish = 4 or Dish =1
 go
 ------------PROCEDURE ---------------------
@@ -1957,4 +1953,3 @@ select * from DISH
  
   Name like N'%thịt%' and (Name like N'%xào%' or Name like N'%kho%')
  */
-

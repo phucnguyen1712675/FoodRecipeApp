@@ -15,7 +15,7 @@ namespace FoodRecipeApp.Converter
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string result = (string)value;
-            result = Dish.Display(result, 650, 400);
+            result = Dish.Display(result, 1100, 600);
             return result;
         }
 

@@ -181,10 +181,7 @@ namespace FoodRecipeApp.GUI
             youtubeWindow.Show();
         }
 
-        private void CancelDishButton_Click(object sender, RoutedEventArgs e)
-        {
-            ClearAll();
-        }
+        private void CancelDishButton_Click(object sender, RoutedEventArgs e) => ClearAll();
 
         private void AddDishButton_Click(object sender, RoutedEventArgs e)
         {

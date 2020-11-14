@@ -16,6 +16,8 @@
     <converters:CountConverter x:Key="countConverter" />
     <converters:LoveToColorConverter x:Key="LoveToColorConverter" />
     <converters:NumericToVisibilityConverter x:Key="NumToVisisbilityConverter" />
+    <converters:StepLabelConverterAddRecipe x:Key="LableStepConverter" />
+    <converters:ImageConverter x:Key="ImageConverter" />
     <telerik:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     <telerik:NullToVisibilityConverter x:Key="NullToVisibilityConverter" />
     <filtering:MyCustomFilteringBehavior x:Key="CustomFilteringBehavior" />

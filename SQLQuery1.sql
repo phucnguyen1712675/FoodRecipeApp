@@ -1954,4 +1954,3 @@ select * from DISH
  
   Name like N'%thịt%' and (Name like N'%xào%' or Name like N'%kho%')
  */
-

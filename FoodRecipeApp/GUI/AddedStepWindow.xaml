@@ -147,7 +147,8 @@
 						</Border>
 					</DataTemplate>
 				</WrapPanel.Resources>
-				<ItemsControl x:Name="itemsControl" />
+				<ItemsControl x:Name="itemsControl"
+                              />
 			</WrapPanel>
 		</ScrollViewer>
 	</Canvas>

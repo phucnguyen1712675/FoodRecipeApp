@@ -79,20 +79,26 @@ namespace FoodRecipeApp.DTO
             return newUrl;
         }
 
-        public static int updateIsLoveDish(int DishCode)
-        {
-            return DishDAO.Instance.updateFavouriteRecipe(DishCode.ToString());
-        }
+        public static int updateIsLoveDish(int DishCode) => DishDAO.Instance.updateFavouriteRecipe(DishCode.ToString());
 
         public static string Display(string url, double width, double height)
         {
             string newUrl = simpleURL(url);
-            var page =
+            /*var page =
                 "<html>" +
                 "<head><meta http-equiv='X-UA-Compatible' content='IE=11'/>" +
                 "<body>" + "\r\n" +
-                "<iframe src=\"" + newUrl + "\" width=\"" + width + "\" height=\"" + height + "\" frameborder=\"0\" allowfullscreen></iframe>" +
-                "</body></html>";
+                "<iframe src=\"" + newUrl + "?rel=0&autoplay=1\"" + 
+                "\" width=\"" + width + "\" height=\"" + height + 
+                "\" frameborder=\"0\" allowfullscreen></iframe>" +
+                "</body></html>";*/
+            var page =
+                "<html>" +
+                "<head><meta http-equiv='X-UA-Compatible' content='IE=11'/>" +
+                "<body style = \"margin:0px;padding:0px;overflow:hidden\">" + "\r\n" +
+                "<iframe src = \"" + newUrl +"\"" + 
+                " frameborder = \"0\" style = \"overflow:hidden;overflow-x:hidden;overflow-y:hidden;height:100%;width:100%;position:absolute;top:0px;left:0px;right:0px;bottom:0px\" height = \"100%\" width = \"100%\"></ iframe >" + "\r\n" +
+                "</body ></html>";
             return page;
         }
 
@@ -102,38 +108,6 @@ namespace FoodRecipeApp.DTO
             int dishCode = (int)(data.Rows[0]["Dish"]);
             return dishCode;
         }
-
-        //SEARCH TEXTBOX + FILTER
-        /*public static string CreateQuery(string str, string Name)
-        {
-            str = str.Replace("(", " ( ").Replace(")", " ) ");
-            str = Dish.TrimSpacesBetweenString(str).ToLower();
-            str = str.Replace("or (", "or(").Replace("and (", "and(").Replace(") and", ")and").Replace(") or", ")or").Replace(") )", "))").Replace("( (", "((");
-
-            if (str[0] != '(') str = Name + " like N'%" + str;
-
-            //(_
-            str = str.Replace("( ", "(" + Name + " like N'%");
-
-            //_)
-            str = str.Replace(" )", "%' )");
-
-            // (_or_) (_and_)
-            str = str.Replace(" or ", "%'" + " or " + Name + " like N'%");
-            str = str.Replace(" and ", "%'" + " and " + Name + " like N'%");
-
-            //_and( _or(
-            str = str.Replace(" and(", "%' and(");
-            str = str.Replace(" or(", "%' or(");
-
-            // )and_  )or_ 
-            str = str.Replace(")and ", ")and " + Name + " like N'%");
-            str = str.Replace(")or ", ")or " + Name + " like N'%");
-
-            if (str[str.Length - 1] != ')') str = str + "%'";
-
-            return str;
-        }*/
 
         public static string CreateQueryLinQ(string str, string Name)
         {
@@ -223,49 +197,6 @@ namespace FoodRecipeApp.DTO
             }
             else return false;
         }
-
-/*        public static List<Dish> searchByDishCode(int dishCode)
-        {
-            List<Dish> dish = new List<Dish>();
-            DataTable data = DishDAO.Instance.getDishByDishCode(dishCode.ToString());
-            dish.Add(new Dish(data.Rows[0]));
-            return dish;
-        }*/
-
-
-        /*public static List<Dish> AdvanceSearch(string strTextBox , string strFilter)
-        {
-            //run khi event textchange || mousedown in checkbox groub
-            string result1 = null;
-            string result2 = null;
-            string result = null;
-            if (strTextBox != "")
-            {
-                strTextBox = Dish.RemoveDiacritics(strTextBox);
-                string ConditionstrName = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Name)");
-                string ConditionstrLoai = Dish.CreateQuery(strTextBox, "dbo.ufn_removeMark(Loai)");
-                result1 = "select * from DISH where ( " + ConditionstrName + " ) or ( " + ConditionstrLoai + " )";
-                result = result1;
-            }
-
-            if (strFilter != "")
-            {
-                result2 = "select * from DISH where not exists((select Item from dbo.SplitInts(N'" + strFilter + "',',')) except(select Item from dbo.SplitInts(Loai, ',')))";
-                if (result != null) result = result + " intersect";
-                result = result + result2;
-            }
-
-            List<Dish> resultDishes = new List<Dish>();
-            if (checkQuery(result))
-            {
-                DataTable resultTable = DishDAO.Instance.AdvanceSearch(result);
-                foreach (DataRow row in resultTable.Rows)
-                {
-                    resultDishes.Add(new Dish(row));
-                }
-            }
-            return resultDishes;
-        }*/
 
         public object Clone()
         {

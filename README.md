@@ -29,6 +29,7 @@
 - AddRecipe (100% = 2đ) : Thêm công thức nấu ăn vào hệ thông
 
 ### Các đặc điểm đặc sắc ( +1.5 đ)
+ - Có thanh status bar lúc khởi chạy
  - Có thêm chức nặng lọc theo thể loại món, kết hợp lọc với search và sort
  - có thêm thanh search bên ngoài có khả năng autoFillText các món thỏa yêu cầu filter
  - Có học sử dụng các package hỗ trợ thêm tạo giao diện

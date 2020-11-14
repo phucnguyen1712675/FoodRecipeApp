@@ -246,7 +246,7 @@
                                 </StackPanel>
                             </TabItem>
 
-                            <TabItem Header="{materialDesign:PackIcon Kind=Youtube, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                            <TabItem Header="{materialDesign:PackIcon Kind=Youtube, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}" >
 
                                 <Grid>
 
@@ -278,7 +278,7 @@
                             </TabItem>
 
                             <!--// trang-->
-                            <TabItem Header="{materialDesign:PackIcon Kind=Details, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}" FontFamily="Segeo UI light">
+                            <TabItem Header="{materialDesign:PackIcon Kind=Details, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}" >
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto" />
@@ -332,15 +332,16 @@
 											                        Content="{Binding Path=StepNumber, Converter={StaticResource LableStepConverter}}"
 											                        FontSize="20"
 											                        FontWeight="Medium"
+                                                                    FontFamily="Segeo UI light"
 											                        Foreground="#332226" />
                                                                     <StackPanel Grid.Row="1" Orientation="Vertical">
                                                                         <TextBlock
 												                            x:Name="DescriptionStepTextBlock"
-												                            Margin="3"
+												                            Margin="10,5"
 												                            VerticalAlignment="Stretch"
 												                            AllowDrop="False"
-												                            FontSize="20"
-												                            FontWeight="Regular"
+												                            FontSize="17"
+                                                                            FontFamily="Segeo UI light"
 												                            Foreground="#332226"
 												                            Text="{Binding Path=Description}"
 												                            TextAlignment="Justify"

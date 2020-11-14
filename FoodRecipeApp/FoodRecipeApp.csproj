@@ -509,8 +509,6 @@
     <Compile Include="DAO\ImageDAO.cs" />
     <Compile Include="DAO\QuoteDAO.cs" />
     <Compile Include="DAO\StepDAO.cs" />
-    <Compile Include="DTO\DateItem.cs" />
-    <Compile Include="DTO\CheckedList.cs" />
     <Compile Include="DTO\Dish.cs" />
     <Compile Include="DTO\DishesCollection.cs" />
     <Compile Include="DTO\Images.cs" />
@@ -519,9 +517,6 @@
     <Compile Include="DTO\QuotesDataSource.cs" />
     <Compile Include="DTO\Step.cs" />
     <Compile Include="FilteringHelperClasses\MyHighlightBehavior.cs" />
-    <Compile Include="GUI\AddRecipe.xaml.cs">
-      <DependentUpon>AddRecipe.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\AddRecipeWindow.xaml.cs">
       <DependentUpon>AddRecipeWindow.xaml</DependentUpon>
     </Compile>
@@ -534,22 +529,11 @@
     <Compile Include="GUI\youtubeWindow.xaml.cs">
       <DependentUpon>youtubeWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mvvm\BindableBase.cs" />
-    <Compile Include="Mvvm\DelegateCommand.cs" />
     <Compile Include="FilteringHelperClasses\MyCustomFilteringBehavior.cs" />
     <Compile Include="MyRandom.cs" />
-    <Compile Include="Navigation\NavigationServiceEx.cs" />
     <Compile Include="ObservableCollectionPropertyNotify.cs" />
     <Compile Include="TileViewCommandsExtension.cs" />
-    <Compile Include="ViewModels\MenuItem.cs" />
     <Compile Include="ViewModels\RecipeViewModel.cs" />
-    <Compile Include="ViewModels\ShellViewModel.cs" />
-    <Compile Include="GUI\AboutPage.xaml.cs">
-      <DependentUpon>AboutPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
     <Page Include="AccentStyleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -567,10 +551,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Custom Accents\Light.Accent2.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\AddRecipe.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -604,14 +584,6 @@
       <DependentUpon>SplashScreen.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="GUI\AboutPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="GUI\AddedStepWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -663,19 +635,11 @@
     <Resource Include="Resources\HomeScreen_Background.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ConnectString.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\MainPage\searchBackground.jpg" />
     <Resource Include="Resources\MainPage\searchBackground1.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\MainPage\searchBackground2.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\AboutPage\phuc.jpg" />
-    <Resource Include="Resources\AboutPage\tin.jpg" />
-    <Resource Include="Resources\AboutPage\trang.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\x.ico" />

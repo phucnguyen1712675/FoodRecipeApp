@@ -1827,42 +1827,6 @@ CREATE PROC USP_addNewDish
  END
  GO
 
-go
-CREATE FUNCTION dbo.SplitInts
-(
-   @List      NVARCHAR(MAX),
-   @Delimiter NVARCHAR(255)
-)
-RETURNS TABLE
-AS
-  RETURN ( SELECT Item  FROM
-      ( SELECT Item = x.i.value(N'(./text())[1]', 'nvarchar(max)')
-        FROM ( SELECT [XML] = CONVERT(XML, '<i>'
-        + REPLACE(@List, @Delimiter, '</i><i>') + '</i>').query('.')
-          ) AS a CROSS APPLY [XML].nodes('i') AS x(i) ) AS y
-      WHERE Item IS NOT NULL
-  );
-GO
-
-CREATE PROCEDURE USP_getDishByTypes
-  @List NVARCHAR(MAX)
-AS
-BEGIN
-  SET NOCOUNT ON;  
-  select * from DISH
-  where not exists ((select Item from dbo.SplitInts(@List,','))
-								except (select Item from dbo.SplitInts(Loai,',')))
-END
-GO
-
-CREATE PROC USP_getFavouriteDishes
-AS 
-BEGIN
-	SELECT * FROM DBO.DISH
-	WHERE LOVE = 1;
-END
-GO
-
 CREATE PROC USP_updateFavouriteDishes
 @DishCode INT
 AS 
@@ -1872,46 +1836,6 @@ BEGIN
 	where Dish = @DishCode
 END
 GO
-
-CREATE FUNCTION [dbo].[ufn_removeMark] (@text nvarchar(max))
-RETURNS nvarchar(max)
-AS
-BEGIN
-	SET @text = LOWER(@text)
-	DECLARE @textLen int = LEN(@text)
-	IF @textLen > 0
-	BEGIN
-		DECLARE @index int = 1
-		DECLARE @lPos int
-		DECLARE @SIGN_CHARS nvarchar(100) = N'ăâđêôơưàảãạáằẳẵặắầẩẫậấèẻẽẹéềểễệếìỉĩịíòỏõọóồổỗộốờởỡợớùủũụúừửữựứỳỷỹỵýđð'
-		DECLARE @UNSIGN_CHARS varchar(100) = 'aadeoouaaaaaaaaaaaaaaaeeeeeeeeeeiiiiiooooooooooooooouuuuuuuuuuyyyyydd'
-
-		WHILE @index <= @textLen
-		BEGIN
-			SET @lPos = CHARINDEX(SUBSTRING(@text,@index,1),@SIGN_CHARS)
-			IF @lPos > 0
-			BEGIN
-				SET @text = STUFF(@text,@index,1,SUBSTRING(@UNSIGN_CHARS,@lPos,1))
-			END
-			SET @index = @index + 1
-		END
-	END
-	RETURN @text
-END
-go
-
-
-CREATE PROCEDURE USP_getDishByName
-  @Name NVARCHAR(MAX)
-AS
-BEGIN
-  SET NOCOUNT ON;  
-  select * from DISH
-where dbo.ufn_removeMark(Name) LIKE '%'+ @Name +'%' OR Name LIKE '%'+ @Name +'%'
-END
-GO
-
--- exec USP_getDishByName @Name = 'Che'
 
 create procedure USP_GetDishByDishCode
 @Dish int
@@ -1945,12 +1869,3 @@ begin
  end
  go
 
-/*
-select * from DISH
-  where not exists ((select Item from dbo.SplitInts(N'bò',','))
-								except (select Item from dbo.SplitInts(Loai,',')))
- intersect 
- select * from DISH where (dbo.ufn_removeMark(Name) like N'%thit%' and (dbo.ufn_removeMark(Name) like N'%xao%'  or dbo.ufn_removeMark(Name) like N'%kho%')) OR (Name like N'%thịt%' and Name like N'%xào%' or Name like N'%kho%')
- 
-  Name like N'%thịt%' and (Name like N'%xào%' or Name like N'%kho%')
- */

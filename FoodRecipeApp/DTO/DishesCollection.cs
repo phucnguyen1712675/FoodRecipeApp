@@ -39,35 +39,6 @@ namespace FoodRecipeApp.DTO
             return collectionDishes;
         }
 
-        public static DishesCollection GetFilterDishes(string queryFilter)
-        {
-            DishesCollection dishes = new DishesCollection();
-            DataTable data = DishDAO.Instance.getFilterDishes(queryFilter);
-
-            foreach (var dish in from DataRow row in data.Rows
-                                 let dish = new Dish(row)
-                                 select dish)
-            {
-                dishes.Add(dish);
-            }
-
-            return dishes;
-        }
-        public static DishesCollection GetDishByName(string queryFilter)
-        {
-            DishesCollection dishes = new DishesCollection();
-            DataTable data = DishDAO.Instance.getDishByName(queryFilter);
-
-            foreach (var dish in from DataRow row in data.Rows
-                                 let dish = new Dish(row)
-                                 select dish)
-            {
-                dishes.Add(dish);
-            }
-
-            return dishes;
-        }
-
         public void SetSort (string method)
         {
             if (sortMethod.ContainsKey(method))

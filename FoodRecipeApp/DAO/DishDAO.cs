@@ -31,11 +31,6 @@ namespace FoodRecipeApp.DAO
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getAllDishes");
         }
 
-        public DataTable getFavouriteDishes()
-        {
-            return DataProvider.Instance.ExecuteQuery("EXEC USP_getFavouriteDishes");
-        }
-
         public int updateFavouriteRecipe(string DishCode)
 		{
             return DataProvider.Instance.ExecuteNonQuery("EXEC USP_updateFavouriteDishes @DishCode ", new object[] { DishCode });
@@ -56,11 +51,6 @@ namespace FoodRecipeApp.DAO
 
             Step.AddNewStepsToData(newDish.Steps, dishCode);
         }
-      
-        public DataTable getFilterDishes(string filterQuery)
-        {
-            return DataProvider.Instance.ExecuteQuery("EXEC USP_getDishByTypes @List = N'" + filterQuery + "'");
-        }
    
         public DataTable getNewestDishCode()
 		{
@@ -70,21 +60,6 @@ namespace FoodRecipeApp.DAO
         internal DataTable getUpdateDateByDishCode(string Dish)
         {
             return DataProvider.Instance.ExecuteQuery("EXEC USP_getUpdateDateByDishCode @Dish ", new object[] { Dish });
-        }
-
-        public DataTable getDishByName(string dishName)
-        {
-            return DataProvider.Instance.ExecuteQuery("EXEC  USP_getDishByName @Name = N'" + dishName + "'");
-        }
-
-        internal DataTable AdvanceSearch(string str)
-        {
-            return DataProvider.Instance.ExecuteQuery(str);
-        }
-
-        internal DataTable getDishByDishCode(string Dish)
-        {
-            return DataProvider.Instance.ExecuteQuery("EXEC USP_GetDishByDishCode @Dish ", new object[] { Dish });
         }
     }
 }

@@ -235,7 +235,7 @@
                                                     Margin="3"
                                                     VerticalAlignment="Stretch"
                                                     AllowDrop="False"
-                                                    FontSize="20"
+                                                    FontSize="17"
                                                     Foreground="#332226"
                                                     Text="{Binding Desciption}"
                                                     TextAlignment="Justify"
@@ -277,8 +277,8 @@
                                 </Grid>
                             </TabItem>
 
-                            // trang
-                            <TabItem Header="{materialDesign:PackIcon Kind=Details, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                            <!--// trang-->
+                            <TabItem Header="{materialDesign:PackIcon Kind=Details, Size=24}" Style="{StaticResource MaterialDesignNavigationRailTabItem}" FontFamily="Segeo UI light">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto" />
@@ -299,48 +299,33 @@
                                         Margin="20,10,20,10"
                                         BorderBrush="#FFD80073"
                                         BorderThickness="0,0,0,2" />
-
-                                    <!--<Button
-                                        Name="DetailSteps"
-                                        Grid.Column="1"
-                                        Height="60"
-                                        Margin="20"
-                                        Click="DetailSteps_Click"
-                                        Content="Xem Chi tiết"
-                                        FontSize="20"
-                                        Tag="{Binding DishCode}" />-->
-
-                                    <Border
-                                        Margin="20,10,20,10"
-                                        BorderBrush="#FFD80073"
-                                        BorderThickness="0,0,0,2" />
-
-                                    <WrapPanel Grid.Row="1">
-                                        <WrapPanel.Resources>
-                                            <DataTemplate x:Name="datatemp" DataType="{x:Type local1:Step}">
-                                                <Border
-							                        Width="800"
+                                    
+                                    <ScrollViewer Grid.Row="1">
+                                        <WrapPanel >
+                                            <WrapPanel.Resources>
+                                                <DataTemplate x:Name="datatemp" DataType="{x:Type local1:Step}">
+                                                    <Border
 							                        Margin="20"
 							                        Background="White"
 							                        CornerRadius="3">
-                                                    <Border.Effect>
-                                                        <DropShadowEffect
+                                                        <Border.Effect>
+                                                            <DropShadowEffect
 									                        BlurRadius="5"
 									                        Opacity="0.5"
 									                        ShadowDepth="1" />
-                                                    </Border.Effect>
-                                                    <StackPanel Name="AddStepStackPanel">
-                                                        <Grid Width="750">
-                                                            <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition Width="1*" />
-                                                                <ColumnDefinition Width="1*" />
-                                                            </Grid.ColumnDefinitions>
-                                                            <Grid Grid.Column="0" Margin="15,10,15,10">
-                                                                <Grid.RowDefinitions>
-                                                                    <RowDefinition Height="1*" />
-                                                                    <RowDefinition Height="5*" />
-                                                                </Grid.RowDefinitions>
-                                                                <Label
+                                                        </Border.Effect>
+                                                        <StackPanel Name="AddStepStackPanel"  Width="auto">
+                                                            <Grid>
+                                                                <Grid.ColumnDefinitions>
+                                                                    <ColumnDefinition Width="1*" />
+                                                                    <ColumnDefinition Width="1*" />
+                                                                </Grid.ColumnDefinitions>
+                                                                <Grid Grid.Column="0" Margin="15,10,15,10">
+                                                                    <Grid.RowDefinitions>
+                                                                        <RowDefinition Height="1*" />
+                                                                        <RowDefinition Height="5*" />
+                                                                    </Grid.RowDefinitions>
+                                                                    <Label
 											                        Name="StepNumberLabel"
 											                        Grid.Row="0"
 											                        Margin="0,0,0,20"
@@ -348,8 +333,8 @@
 											                        FontSize="20"
 											                        FontWeight="Medium"
 											                        Foreground="#332226" />
-                                                                <StackPanel Grid.Row="1" Orientation="Vertical">
-                                                                    <TextBlock
+                                                                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                                                                        <TextBlock
 												                            x:Name="DescriptionStepTextBlock"
 												                            Margin="3"
 												                            VerticalAlignment="Stretch"
@@ -360,58 +345,57 @@
 												                            Text="{Binding Path=Description}"
 												                            TextAlignment="Justify"
 												                            TextWrapping="Wrap" />
-                                                                </StackPanel>
-                                                            </Grid>
+                                                                    </StackPanel>
+                                                                </Grid>
 
-                                                            <Border
+                                                                <Border
 										                        Grid.Column="1"
 										                        Margin="10,10,10,10"
 										                        BorderBrush="LightPink"
 										                        BorderThickness="1">
-                                                                <Grid
-											                        Width="300"
-											                        Height="200"
+                                                                    <Grid
 											                        HorizontalAlignment="Center"
 											                        VerticalAlignment="Center">
-                                                                    <Grid.Resources>
-                                                                        <Path
-													                        x:Key="path"
-													                        Data="M30,347 L307.5,347"
-													                        Stretch="Fill"
-													                        Stroke="#FF0998f8"
-													                        StrokeThickness="1" />
-                                                                        <DataTemplate x:Key="customImageItemTemplate">
-                                                                            <DockPanel Width="190" Height="170" >
-                                                                                <Image Source="{Binding Converter={StaticResource ImageConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                                                                            </DockPanel>
-                                                                        </DataTemplate>
-                                                                    </Grid.Resources>
+                                                                        <Grid.Resources>
+                                                                            <Path
+                                                                                x:Key="path"
+                                                                                Data="M30,347 L307.5,347"
+                                                                                Stretch="Fill"
+                                                                                Stroke="#FF0998f8"
+                                                                                StrokeThickness="1" />
+                                                                            <DataTemplate x:Key="customImageItemTemplate">
+                                                                                <DockPanel Width="190" Height="170" >
+                                                                                    <Image Source="{Binding Converter={StaticResource ImageConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                                                                </DockPanel>
+                                                                            </DataTemplate>
+                                                                        </Grid.Resources>
 
-                                                                    <telerik:RadCarousel
-												                            x:Name="MyCarousel"
-												                            Width="290"
-												                            Height="190"
-												                            Padding="5"
-												                            HorizontalAlignment="Stretch"
-												                            VerticalAlignment="Stretch"
-												                            ItemTemplate="{StaticResource customImageItemTemplate}"
-												                            ItemsSource="{Binding ListImage}"
-												                            VirtualizingStackPanel.IsVirtualizing="False">
-                                                                        <telerik:RadCarousel.ItemsPanel>
-                                                                            <ItemsPanelTemplate>
-                                                                                <telerik:RadCarouselPanel Path="{StaticResource path}" />
-                                                                            </ItemsPanelTemplate>
-                                                                        </telerik:RadCarousel.ItemsPanel>
-                                                                    </telerik:RadCarousel>
-                                                                </Grid>
-                                                            </Border>
-                                                        </Grid>
-                                                    </StackPanel>
-                                                </Border>
-                                            </DataTemplate>
-                                        </WrapPanel.Resources>
-                                        <ItemsControl x:Name="itemsControl" ItemsSource="{Binding Steps}"/>
-                                    </WrapPanel>
+                                                                        <telerik:RadCarousel
+                                                                              x:Name="MyCarousel"
+                                                                              Width="auto"
+                                                                              Height="250"
+                                                                              Padding="5"
+                                                                              HorizontalAlignment="Stretch"
+                                                                              VerticalAlignment="Stretch"
+                                                                              ItemTemplate="{StaticResource customImageItemTemplate}"
+                                                                              ItemsSource="{Binding ListImage}"
+                                                                              VirtualizingStackPanel.IsVirtualizing="False">
+                                                                            <telerik:RadCarousel.ItemsPanel>
+                                                                                <ItemsPanelTemplate>
+                                                                                    <telerik:RadCarouselPanel Path="{StaticResource path}" />
+                                                                                </ItemsPanelTemplate>
+                                                                            </telerik:RadCarousel.ItemsPanel>
+                                                                        </telerik:RadCarousel>
+                                                                    </Grid>
+                                                                </Border>
+                                                            </Grid>
+                                                        </StackPanel>
+                                                    </Border>
+                                                </DataTemplate>
+                                            </WrapPanel.Resources>
+                                            <ItemsControl x:Name="itemsControl" ItemsSource="{Binding Steps}"/>
+                                        </WrapPanel>
+                                    </ScrollViewer>
                                 </Grid>
                             </TabItem>
                         </TabControl>

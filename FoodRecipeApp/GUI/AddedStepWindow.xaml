@@ -53,7 +53,6 @@
 
 				<WrapPanel.Resources>
 					<DataTemplate x:Name="datatemp" DataType="{x:Type local1:Step}">
-
 						<Border
 							Width="{Binding Source={x:Static SystemParameters.PrimaryScreenWidth}, Converter={converters:RatioConverter}, ConverterParameter='0.85'}"
 							Margin="20"
@@ -147,9 +146,9 @@
 						</Border>
 					</DataTemplate>
 				</WrapPanel.Resources>
-				<ItemsControl x:Name="itemsControl"
-                              />
+				<ItemsControl x:Name="itemsControl"/>
 			</WrapPanel>
+            
 		</ScrollViewer>
 	</Canvas>
 </Window>

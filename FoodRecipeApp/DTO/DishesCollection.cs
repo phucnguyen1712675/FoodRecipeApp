@@ -32,6 +32,13 @@ namespace FoodRecipeApp.DTO
             return dishes;
         }
 
+        public static DishesCollection cloneFromListDishes(List<Dish> dises)
+        {
+            DishesCollection collectionDishes = new DishesCollection();
+            foreach (var dish in dises) collectionDishes.Add(dish);
+            return collectionDishes;
+        }
+
         public static DishesCollection GetFilterDishes(string queryFilter)
         {
             DishesCollection dishes = new DishesCollection();
@@ -116,13 +123,6 @@ namespace FoodRecipeApp.DTO
                 this.Add(item);
             }
 
-            /*if (!this.Any())
-            {
-                foreach (var item in clonedCollection)
-                {
-                    this.Add(item);
-                }
-            }*/
         }
     }
 }

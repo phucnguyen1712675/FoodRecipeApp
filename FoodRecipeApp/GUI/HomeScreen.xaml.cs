@@ -127,7 +127,7 @@ namespace FoodRecipeApp.GUI
             {
                 if (DiscoverTabItem.IsSelected)
                 {
-                    SearchBar.Visibility = Visibility.Hidden;
+                    SearchBar.Visibility = Visibility.Collapsed;
                     FilterButton.HorizontalAlignment = HorizontalAlignment.Right;
                 }
                 else
@@ -183,6 +183,7 @@ namespace FoodRecipeApp.GUI
             config.Save(ConfigurationSaveMode.Minimal);
         }
 
+//search
         private void foodAutoCompleteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var itemp = ViewModel.SelectedSearchItem;
@@ -203,21 +204,26 @@ namespace FoodRecipeApp.GUI
             }
         }
 
+        //search
         private void SearchDishNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
             {
                 HintSearchDishNameTextBlock.Visibility = Visibility.Visible;
                 XSearchDishNameImage.Visibility = Visibility.Hidden;
-                ViewModel.SearchPaging(ViewModel.getAll());
+                ViewModel.SearchPaging(getFilterAllRecipes());
             }
             else
             {
                 HintSearchDishNameTextBlock.Visibility = Visibility.Hidden;
                 XSearchDishNameImage.Visibility = Visibility.Visible;
-                //TODO search recipes by Name and types and by sort
-                //ViewModel.SearchPaging(Dish.AdvanceSearch(SearchDishNameTextBox.Text, ""));
-                ViewModel.SearchPaging(ViewModel.SearchPagingByTextBox(SearchDishNameTextBox.Text));
+                List<Dish> filterRecipes = getFilterAllRecipes();
+                if (filterRecipes.Count == ViewModel.allRecipeBeforeSearch.Count) //todo Phuc
+                    ViewModel.SearchPaging(ViewModel.SearchPagingByTextBoxOnly(SearchDishNameTextBox.Text));
+                else
+                {
+                    ViewModel.SearchPaging(ViewModel.SearchPagingByTextBoxWithFilters(SearchDishNameTextBox.Text, filterRecipes));
+                }
             }
         }
 
@@ -258,7 +264,9 @@ namespace FoodRecipeApp.GUI
 
             if (FilterCount < LastFilterItemNum)
             {
-                ViewModel.SearchPaging(ViewModel.getAll());
+                if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
+                    ViewModel.SearchPaging(ViewModel.getAll());
+                else ViewModel.SearchPaging(ViewModel.SearchPagingByTextBoxOnly(SearchDishNameTextBox.Text));
 
                 if (FilterCount == 0)
                 {
@@ -287,64 +295,31 @@ namespace FoodRecipeApp.GUI
         private void ChoiceChipListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var Filter = (sender as ListBox).SelectedItem.ToString();
-            var index = (sender as ListBox).SelectedIndex;
+            if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
+                ViewModel.SearchPaging(getFilterAllRecipes());
+            else
+                ViewModel.SearchPagingByTextBoxWithFilters(SearchDishNameTextBox.Text, getFilterAllRecipes());
 
             this.IngredientListBox.ItemsSource = ViewModel.TypeAndIngredientCollection[Filter];
-
-            ViewModel.SearchPaging(ViewModel.getAll());
-
-            if (index != 0)
-            {
-                ViewModel.FilterRecipesCollection(Filter);
-            }
         }
 
-        private childItem FindVisualChild<childItem>(DependencyObject obj)
-    where childItem : DependencyObject
+        public List<Dish> getFilterAllRecipes ()
         {
-            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
-            {
-                DependencyObject child = VisualTreeHelper.GetChild(obj, i);
-                if (child != null && child is childItem)
-                {
-                    return (childItem)child;
-                }
-                else
-                {
-                    childItem childOfChild = FindVisualChild<childItem>(child);
-                    if (childOfChild != null)
-                        return childOfChild;
-                }
-            }
-            return null;
-        }
+            DishesCollection result = DishesCollection.cloneFromListDishes((ViewModel.allRecipeBeforeSearch.Select(objEntity => (Dish)objEntity.Clone())).ToList());
 
-        //private string LastTabItem = "";
-        private void LargeContentTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            TabItem selectedTab = e.AddedItems[0] as TabItem;  // Gets selected tab
-            //var TabControl = sender as TabControl;
-            //string VideoPath = selectedTab.Tag.ToString();
+            List<string> filters = new List<string>();
+
+            if(TypeOfRecipesListBox.SelectedIndex != 0)
+                filters.Add(TypeOfRecipesListBox.SelectedItem.ToString());
+            foreach (var item in IngredientListBox.SelectedItems)
+                filters.Add(item.ToString());
+            foreach (var item in CookingMethodListBox.SelectedItems)
+                filters.Add(item.ToString());
             
-            if (selectedTab.Name == "ToShowYoutubeVideoTabItem")
-            {
-                /*// Getting the currently selected ListBoxItem
-                // Note that the ListBox must have
-                // IsSynchronizedWithCurrentItem set to True for this to work
-                //RadTileViewItem myRadTileViewItem = (RadTileViewItem)(this.AllRecipesTileView.ItemContainerGenerator.ContainerFromItem(this.AllRecipesTileView.Items.CurrentItem));
+            foreach (var item in filters)
+                result.Filtering(item);
 
-                // Getting the ContentPresenter of myListBoxItem
-                ContentPresenter myContentPresenter = FindVisualChild<ContentPresenter>(selectedTab);
-
-                // Finding textBlock from the DataTemplate that is set on that ContentPresenter
-                DataTemplate myDataTemplate = myContentPresenter.ContentTemplate;
-                WebBrowser myWebBrowser = (WebBrowser)myDataTemplate.FindName("VideoWebBrowser", myContentPresenter);
-
-                if (myWebBrowser == null) return;
-                var youtubeLink = myWebBrowser.Tag.ToString();
-                youtubeLink = Dish.Display(youtubeLink, myWebBrowser.Width - 20, myWebBrowser.Height - 20);
-                myWebBrowser.NavigateToString(youtubeLink);*/
-            }
+            return result.ToList();
         }
     }
 }

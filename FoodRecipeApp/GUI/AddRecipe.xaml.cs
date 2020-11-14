@@ -58,7 +58,7 @@ namespace FoodRecipeApp.GUI
                     }
                     else
                     {
-                        loai = loai + "," + checkBox.Content;
+                        loai = loai + ", " + checkBox.Content;
                     }
             }
             return loai;

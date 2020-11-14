@@ -73,7 +73,7 @@ namespace FoodRecipeApp.ViewModels
 #pragma warning disable 67
         public event PropertyChangedEventHandler PropertyChanged;
 #pragma warning restore 67
-        public DishesCollection allRecipeBeforeSearch { get; set; }
+        public DishesCollection allRecipeBeforeSearch { get;}
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
@@ -102,22 +102,6 @@ namespace FoodRecipeApp.ViewModels
         }
 
         #region search
-        /*        public void  SearchPaging(List<Dish> objects)
-                       {
-                           this.Recipes.Clear();
-                           this.FavouriteRecipes.Clear();
-                           foreach (var item in objects)
-                           {
-                               this.Recipes.Add(item);
-                               this.SearchedRecipes.Add(item);
-                               if (item.IsLove)
-                               {
-                                   this.FavouriteRecipes.Add(item);
-                               }
-                           }
-                           setSort(OrderedList[SetSortIndex].Method, this.Recipes);
-                           setSort(OrderedList[SetSortIndex].Method, this.FavouriteRecipes);
-                       }*/
 
         public void SearchPaging(List<Dish> result)
         {
@@ -133,18 +117,22 @@ namespace FoodRecipeApp.ViewModels
             }
         }
 
-        public List<Dish> SearchPagingByTextBox(string str)
+        public List<Dish> SearchPagingByTextBox(string str, List<Dish> source)
         {
             str = Dish.RemoveDiacritics(str);
             string NameQuery = Dish.CreateQueryLinQ(str, "item");
             //TODO
             Dictionary<string, Dish> tempNames = new Dictionary<string, Dish>();
-            foreach (var dish in allRecipeBeforeSearch)
+            
+            foreach(var dish in source)
             {
                 tempNames.Add(Dish.RemoveDiacritics(dish.Name) + " " + dish.DishCode.ToString(), dish);
             }
 
-            List<string> resultNames = tempNames.Keys.ToList().WhereDynamic(item => NameQuery).ToList();
+            List<string> resultNames = new List<string>();
+
+            if(Dish.checkQuery(NameQuery))
+               resultNames = tempNames.Keys.ToList().WhereDynamic(item => NameQuery).ToList();
 
             List<Dish> resultDishes = new List<Dish>();
 
@@ -154,6 +142,16 @@ namespace FoodRecipeApp.ViewModels
             }
 
             return resultDishes;
+        }
+
+        public List<Dish> SearchPagingByTextBoxOnly(string str)
+        {
+            return SearchPagingByTextBox(str, allRecipeBeforeSearch.ToList());
+        }
+
+        public List<Dish> SearchPagingByTextBoxWithFilters(string str, List<Dish> filterRecipes)
+        {
+            return SearchPagingByTextBox(str, filterRecipes);
         }
 
         public List<Dish> SearchPagingByDishCode(int DishCode)

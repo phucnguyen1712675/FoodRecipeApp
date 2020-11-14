@@ -84,14 +84,6 @@ namespace FoodRecipeApp.DTO
         public static string Display(string url, double width, double height)
         {
             string newUrl = simpleURL(url);
-            /*var page =
-                "<html>" +
-                "<head><meta http-equiv='X-UA-Compatible' content='IE=11'/>" +
-                "<body>" + "\r\n" +
-                "<iframe src=\"" + newUrl + "?rel=0&autoplay=1\"" + 
-                "\" width=\"" + width + "\" height=\"" + height + 
-                "\" frameborder=\"0\" allowfullscreen></iframe>" +
-                "</body></html>";*/
             var page =
                 "<html>" +
                 "<head><meta http-equiv='X-UA-Compatible' content='IE=11'/>" +

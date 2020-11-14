@@ -27,7 +27,7 @@
     <Canvas TextBlock.FontFamily="Segoe UI Light">
         <Label
             Margin="20,10,0,30"
-            Content="Các bước làm"
+            Content="Thêm món"
             FontSize="25"
             FontWeight="Bold"
             Foreground="#332226" />

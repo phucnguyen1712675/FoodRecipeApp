@@ -155,6 +155,7 @@
                                     FontSize="10"
                                     Foreground="#696969" />
                             </Grid>
+
                         </Grid>
                     </telerik:RadFluidContentControl.Content>
 
@@ -202,6 +203,7 @@
 
                                         </Grid>
                                     </Border>
+
                                     <!--  description  -->
                                     <Grid Grid.Row="1" Margin="15">
                                         <Grid.ColumnDefinitions>
@@ -292,6 +294,12 @@
                                         Text="Các bước làm"
                                         TextAlignment="Justify"
                                         TextWrapping="Wrap" />
+
+                                    <Border
+                                        Margin="20,10,20,10"
+                                        BorderBrush="#FFD80073"
+                                        BorderThickness="0,0,0,2" />
+
                                     <!--<Button
                                         Name="DetailSteps"
                                         Grid.Column="1"
@@ -301,6 +309,7 @@
                                         Content="Xem Chi tiết"
                                         FontSize="20"
                                         Tag="{Binding DishCode}" />-->
+
                                     <Border
                                         Margin="20,10,20,10"
                                         BorderBrush="#FFD80073"
@@ -403,7 +412,6 @@
                                         </WrapPanel.Resources>
                                         <ItemsControl x:Name="itemsControl" ItemsSource="{Binding Steps}"/>
                                     </WrapPanel>
-                                    
                                 </Grid>
                             </TabItem>
                         </TabControl>
@@ -655,33 +663,32 @@
                         Kind="Settings" />
                 </ToggleButton>
             </StatusBarItem>
+
         </StatusBar>
 
         <Grid>
             <StackPanel
-                Panel.ZIndex="1000"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
+                Panel.ZIndex="1000"
                 Orientation="Horizontal">
-                
-                    <ToggleButton
-                        Padding="10,5,10,5"
+
+                <ToggleButton
                     Name="FilterButton"
                     Margin="0,10,5,0"
+                    Padding="10,5,10,5"
                     Background="{StaticResource MahApps.Brushes.Accent}"
                     Cursor="Hand"
                     Foreground="White"
                     IsChecked="{Binding ElementName=FiltersFlyout, Path=IsOpen, Mode=TwoWay}"
                     Style="{StaticResource MahApps.Styles.ToggleButton.WindowCommands}">
-                        <iconPacks:PackIconModern
+                    <iconPacks:PackIconModern
                         Width="20"
                         Height="20"
                         Kind="Filter" />
-                    </ToggleButton>
+                </ToggleButton>
 
-                <Border
-                    Name="SearchBar"
-                    Visibility="Collapsed">
+                <Border Name="SearchBar" Visibility="Collapsed">
 
                     <Border.Effect>
                         <DropShadowEffect

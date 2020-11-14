@@ -113,14 +113,6 @@ namespace FoodRecipeApp.GUI
 
         private void OpenThis() => this.Show();
 
-        /* private void VideoDishButton_Click(object sender, RoutedEventArgs e)
-         {
-             Button temp = (Button)sender;
-             string Video = temp.Tag.ToString();
-             youtubeWindow youtubeWindow = new youtubeWindow(Video);
-             youtubeWindow.Show();
-         }*/
-
         private void MainTabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.Source is MetroAnimatedSingleRowTabControl)
@@ -183,7 +175,7 @@ namespace FoodRecipeApp.GUI
             config.Save(ConfigurationSaveMode.Minimal);
         }
 
-//search
+        //search
         private void foodAutoCompleteBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var itemp = ViewModel.SelectedSearchItem;
@@ -251,9 +243,11 @@ namespace FoodRecipeApp.GUI
             if (FilterCount == 1)
             {
                 var FilterItem = (sender as ListBox).SelectedItem;
+
                 for (int i = 0; i < this.TypeOfRecipesListBox.Items.Count; i++)
                 {
                     var item = this.TypeOfRecipesListBox.Items[i];
+
                     if (!ViewModel.TypeAndIngredientCollection[item.ToString()].Contains(FilterItem))
                     {
                         ListBoxItem selectedListBoxItem = this.TypeOfRecipesListBox.ItemContainerGenerator.ContainerFromItem(item) as ListBoxItem;
@@ -265,9 +259,13 @@ namespace FoodRecipeApp.GUI
             if (FilterCount < LastFilterItemNum)
             {
                 if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
+                {
                     ViewModel.SearchPaging(ViewModel.getAll());
-                else ViewModel.SearchPaging(ViewModel.SearchPagingByTextBoxOnly(SearchDishNameTextBox.Text));
-
+                }
+                else
+                {
+                    ViewModel.SearchPaging(ViewModel.SearchPagingByTextBoxOnly(SearchDishNameTextBox.Text));
+                }
                 if (FilterCount == 0)
                 {
                     foreach (var lbitem in this.TypeOfRecipesListBox.Items)
@@ -295,30 +293,40 @@ namespace FoodRecipeApp.GUI
         private void ChoiceChipListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var Filter = (sender as ListBox).SelectedItem.ToString();
-            if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
-                ViewModel.SearchPaging(getFilterAllRecipes());
-            else
-                ViewModel.SearchPagingByTextBoxWithFilters(SearchDishNameTextBox.Text, getFilterAllRecipes());
 
+            if (string.IsNullOrEmpty(SearchDishNameTextBox.Text.TrimStart()))
+            {
+                ViewModel.SearchPaging(getFilterAllRecipes());
+            }
+            else
+            {
+                ViewModel.SearchPagingByTextBoxWithFilters(SearchDishNameTextBox.Text, getFilterAllRecipes());
+            }
             this.IngredientListBox.ItemsSource = ViewModel.TypeAndIngredientCollection[Filter];
         }
 
-        public List<Dish> getFilterAllRecipes ()
+        public List<Dish> getFilterAllRecipes()
         {
             DishesCollection result = DishesCollection.cloneFromListDishes((ViewModel.allRecipeBeforeSearch.Select(objEntity => (Dish)objEntity.Clone())).ToList());
 
             List<string> filters = new List<string>();
 
-            if(TypeOfRecipesListBox.SelectedIndex != 0)
+            if (TypeOfRecipesListBox.SelectedIndex != 0)
+            {
                 filters.Add(TypeOfRecipesListBox.SelectedItem.ToString());
+            }
             foreach (var item in IngredientListBox.SelectedItems)
+            {
                 filters.Add(item.ToString());
+            }
             foreach (var item in CookingMethodListBox.SelectedItems)
+            {
                 filters.Add(item.ToString());
-            
+            }
             foreach (var item in filters)
+            {
                 result.Filtering(item);
-
+            }
             return result.ToList();
         }
     }

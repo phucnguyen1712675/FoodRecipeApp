@@ -39,5 +39,7 @@
 
 ### Link youtube demo
 
+### Setup project
+
 ### ghi chú quyền
 - Thầy có thể sử dùng video demo , nhưng sourceCode thì nhóm em sẽ không public ra ạ
